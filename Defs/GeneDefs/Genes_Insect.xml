@@ -12,7 +12,7 @@
 		<label>insectoid</label>
 		<description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her — every scent, every thread of mana. She was born of the hives.</description>
 		<iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
-		<displayCategory>Physical</displayCategory>
+		<displayCategory>Violence</displayCategory>
 		<displayOrderInCategory>1000</displayOrderInCategory>
 		<biostatMet>1</biostatMet>
 		<statOffsets>

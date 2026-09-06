@@ -165,7 +165,7 @@
 				<capacities><li>Cut</li></capacities>
 				<power>7</power>
 				<cooldownTime>2</cooldownTime>
-				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 			</li>
 			<li>
 				<label>head</label>
@@ -224,7 +224,7 @@
 				<capacities><li>Cut</li></capacities>
 				<power>12</power>
 				<cooldownTime>2.6</cooldownTime>
-				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 			</li>
 			<li>
 				<label>head</label>
@@ -404,7 +404,7 @@
 				<capacities><li>Cut</li></capacities>
 				<power>30</power>
 				<cooldownTime>2.6</cooldownTime>
-				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 			</li>
 			<li>
 				<label>head</label>
