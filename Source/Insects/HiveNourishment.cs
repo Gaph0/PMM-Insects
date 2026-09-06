@@ -33,14 +33,20 @@ namespace PMM_Insects
 
         private static ThingDef hiveDef;
 
+        // Countdown to the next top-up. CompTickRare fires every 250 ticks, and 600
+        // is not a multiple of 250, so a "TicksGame % interval == 0" gate would almost
+        // never fire. Count down in rare-tick steps instead.
+        private int ticksUntilNext;
+
         public override void CompTickRare()
         {
             base.CompTickRare();
-            // CompTickRare runs every 250 ticks; gate down to the configured interval.
-            if (Find.TickManager.TicksGame % Props.intervalTicks != 0)
+            ticksUntilNext -= 250; // CompTickRare interval
+            if (ticksUntilNext > 0)
             {
                 return;
             }
+            ticksUntilNext = Props.intervalTicks;
             if (!(parent is Pawn pawn) || pawn.Dead || !pawn.Spawned || pawn.Map == null)
             {
                 return;
