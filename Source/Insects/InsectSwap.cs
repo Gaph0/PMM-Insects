@@ -61,12 +61,13 @@ namespace PMM_Insects
             {
                 return;
             }
-            // VFE Insectoids and similar insectoid mods pass the VANILLA Insect faction
-            // to their hive spawns but force a tiny fixedBiologicalAge (e.g. 0.2 years)
-            // suited to a bug, not a woman. Swapping those into a humanlike race makes
-            // PawnGenerator roll a baby that can't stand -> "Generated downed pawn" x120
-            // and the hive NREs every tick. Vanilla insect spawns never fix the age, so
-            // any fixed age is a modded spawn we must leave alone.
+            // Some insectoid spawners pass the VANILLA Insect faction to their pawns
+            // (so the faction guard alone doesn't catch them) but force a tiny
+            // fixedBiologicalAge (e.g. 0.2 years) suited to a bug, not a woman. Swapping
+            // those into a humanlike race makes PawnGenerator roll a baby that can't
+            // stand -> "Generated downed pawn" x120 and the spawner NREs every tick.
+            // Vanilla insect spawns never fix the age, so any fixed age is a modded
+            // spawn we must leave alone.
             if (request.FixedBiologicalAge.HasValue)
             {
                 return;
