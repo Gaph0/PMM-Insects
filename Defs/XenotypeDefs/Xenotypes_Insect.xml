@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The six insect momo xenotypes. Every one carries ProjectMomo_Momo +
+		PMM_Gene_Insect (chitin, feelers) and is inheritable, all-female and excluded
+		from the factionless spawner (factionlessGenerationWeight 0 — they only enter
+		the world through the generation swap). The bulk of each species' stats lives
+		on its cloned race (Races_InsectMomo.xml); the genes here add the MGE
+		flavour on top. Gene defNames verified against Core/Biotech 1.6.
+	-->
+
+	<!-- Devil Bug (megascarab): tireless, scent-hungry, fast-crawling -->
+	<XenotypeDef>
+		<defName>PMM_InsectDevilBug</defName>
+		<label>devil bug</label>
+		<description>An insect momo of swarms and dark, damp places. Her feelers quiver at the scent of a man from rooms away, and once she has the smell of him she never tires and never stops — hunger and lust are the only thoughts she has room for.</description>
+		<descriptionShort>A simple, tireless insect momo who hunts men by scent.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_DevilBug</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>MoveSpeed_Quick</li>
+			<li>AptitudeRemarkable_Animals</li>
+		</genes>
+	</XenotypeDef>
+
+	<!-- Giant Ant (spelopede): diligent worker, digging claws, great strength -->
+	<XenotypeDef>
+		<defName>PMM_InsectGiantAnt</defName>
+		<label>giant ant</label>
+		<description>A worker caste momo of the deep nests. Honest and diligent, she digs through solid rock and carries loads larger than herself without complaint — though the pheromones in her sweat grow heavier the harder she works.</description>
+		<descriptionShort>A diligent, strong insect momo born to dig and haul.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_GiantAnt</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>MeleeDamage_Strong</li>
+			<li>AptitudeRemarkable_Mining</li>
+		</genes>
+	</XenotypeDef>
+
+	<!-- Soldier Beetle (megaspider): heavy armour, ripper blades, hidden wings -->
+	<XenotypeDef>
+		<defName>PMM_InsectSoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, her claws are ripper-blades, and hidden beneath the carapace on her back are wings for short bursts of flight. Calm, obedient and nearly expressionless — until she chooses a man to escort.</description>
+		<descriptionShort>An armoured, obedient insect momo with ripper claws and hidden wings.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_SoldierBeetle</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>Robust</li>
+			<li>PMM_Gene_Flight</li>
+			<li>MeleeDamage_Strong</li>
+		</genes>
+	</XenotypeDef>
+
+	<!-- Greenworm (larva, Odyssey): soft, gentle, slow, acid secretion -->
+	<XenotypeDef>
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectGreenworm</defName>
+		<label>greenworm</label>
+		<description>A soft-bodied, gentle momo who loves nothing more than eating. Her antennae secrete a strange-smelling substance that saps the strength of anything that threatens her — and she spits the same sludge in fright.</description>
+		<descriptionShort>A soft, gentle insect momo who spits acidic sludge.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_Greenworm</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>MoveSpeed_Slow</li>
+		</genes>
+	</XenotypeDef>
+
+	<!-- Vamp Mosquito (locust, Odyssey): buzzing wings, venomous bite, blood-drinking -->
+	<XenotypeDef>
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectVampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>The vampire of the insect world. Cunning and mean, she stalks her prey on buzzing wings and strikes when their guard drops. Her bite carries a venom that makes the wound hot and throbbing — and only her touch soothes it. She drinks blood most greedily in her lover's arms.</description>
+		<descriptionShort>A winged, blood-drinking insect momo with a venomous bite.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_VampMosquito</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>PMM_Gene_Flight</li>
+			<li>Hemogenic</li>
+			<li>Beauty_Beautiful</li>
+		</genes>
+	</XenotypeDef>
+
+	<!-- Abaddon (hive queen, Odyssey): the devouring queen, never sleeps, egg-spew -->
+	<XenotypeDef>
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</defName>
+		<label>abaddon</label>
+		<description>Daughter of the bug mamono lord who nearly devoured the world in antiquity. Quiet and spacey rather than ferocious, but her appetite — and her fertility — are without limit. Her pheromones command the swarm, her wingbeats shake the heavens, and once she devotes herself to a man it is for life.</description>
+		<descriptionShort>A sleepless queen momo of limitless appetite and fertility.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_Abaddon</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMomo_Momo</li>
+			<li>PMM_Gene_Insect</li>
+			<li>Robust</li>
+			<li>MeleeDamage_Strong</li>
+			<li>PMM_Gene_Flight</li>
+		</genes>
+	</XenotypeDef>
+
+</Defs>

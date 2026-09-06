@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Project Momo Insects</name>
+	<author>Gapho</author>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<packageId>PMM.Insects</packageId>
+	<description>
+Turns the six insectoids of the Rim into insect momos for Project Momo.
+
+Megascarabs, spelopedes and megaspiders - and, with the Odyssey expansion, larvae, locusts and hive queens - now take the shape of monster girls: devil bugs, giant ants, soldier beetles, greenworms, vamp mosquitoes and abaddons. Every spawn source is affected: infestations and hives, ancient dangers, deep drilling, wild encounters and trader livestock alike.
+
+The bug girls keep the exact stats of the insects they replace - the same chitin armor, health, speed, cold-blooded comfort ranges and toxin immunity, and the same mandibles and claws. Hive queens never sleep and still spew eggs, and the larvae that hatch from them are greenworm daughters.
+
+Requires the Biotech expansion, Harmony and Project Momo. The Odyssey expansion is optional: with it larvae, locusts and hive queens are also transformed; without it only the three base-game insectoids are affected.
+	</description>
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+		<li>
+			<packageId>Ludeon.RimWorld.Biotech</packageId>
+			<displayName>Biotech</displayName>
+		</li>
+		<li>
+			<packageId>PMM.Core</packageId>
+			<displayName>Project Momo</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3786764047</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+		<li>PMM.Core</li>
+	</loadAfter>
+</ModMetaData>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Insect-faction pawnkinds: the swap's targets for pawns generated AS the Insect
+		faction (infestations, hives, lairs, egg sacs, raids). Each keeps the vanilla
+		insect kind's combatPower exactly, so infestation point budgets are unchanged.
+		Wildness 0: these are faction NPCs, not wild animals — a 0.99-wildness
+		humanlike hive queen would just go feral. defaultFactionDef Insect mirrors
+		InsectKindBase; canArriveManhunter false (humanlikes cannot manhunt anyway).
+		moveSpeedFactorByTerrainTag gives the 2x bonus on insect sludge from
+		InsectKindBase. All women, naked and unarmed, xenotype pinned per kind.
+	-->
+	<PawnKindDef Name="PMM_InsectKindBase" Abstract="True">
+		<maxGenerationAge>60</maxGenerationAge>
+		<fixedGender>Female</fixedGender>
+		<chemicalAddictionChance>0</chemicalAddictionChance>
+		<defaultFactionDef>Insect</defaultFactionDef>
+		<canArriveManhunter>false</canArriveManhunter>
+		<apparelIgnorePollution>true</apparelIgnorePollution>
+		<initialWillRange>0~4</initialWillRange>
+		<initialResistanceRange>4~17</initialResistanceRange>
+		<moveSpeedFactorByTerrainTag>
+			<li>
+				<key>Insect</key>
+				<value>2.0</value>
+			</li>
+		</moveSpeedFactorByTerrainTag>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectDevilBug</defName>
+		<label>devil bug</label>
+		<race>PMM_Race_DevilBug</race>
+		<combatPower>40</combatPower>
+		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectDevilBug>100</PMM_InsectDevilBug></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectGiantAnt</defName>
+		<label>giant ant</label>
+		<race>PMM_Race_GiantAnt</race>
+		<combatPower>75</combatPower>
+		<ecoSystemWeight>0.35</ecoSystemWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectGiantAnt>100</PMM_InsectGiantAnt></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectSoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<race>PMM_Race_SoldierBeetle</race>
+		<combatPower>150</combatPower>
+		<ecoSystemWeight>0.50</ecoSystemWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectSoldierBeetle>100</PMM_InsectSoldierBeetle></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectGreenworm</defName>
+		<label>greenworm</label>
+		<race>PMM_Race_Greenworm</race>
+		<combatPower>25</combatPower>
+		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<abilities>
+			<li>SludgeSpew</li>
+		</abilities>
+		<xenotypeSet><xenotypeChances><PMM_InsectGreenworm>100</PMM_InsectGreenworm></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectVampMosquito</defName>
+		<label>vamp mosquito</label>
+		<race>PMM_Race_VampMosquito</race>
+		<combatPower>55</combatPower>
+		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectVampMosquito>100</PMM_InsectVampMosquito></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</defName>
+		<label>abaddon</label>
+		<race>PMM_Race_Abaddon</race>
+		<combatPower>500</combatPower>
+		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<appearsRandomlyInCombatGroups>false</appearsRandomlyInCombatGroups>
+		<canBeScattered>false</canBeScattered>
+		<isBoss>true</isBoss>
+		<abilities>
+			<li>EggSpew</li>
+		</abilities>
+		<xenotypeSet><xenotypeChances><PMM_InsectAbaddon>100</PMM_InsectAbaddon></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+</Defs>

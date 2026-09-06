@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Insect-momo races: humanlike clones of Human (BodyDef Human, Humanlike render
+		tree, human life stages and think trees) with the corresponding insect's stats
+		overlaid 1:1 — chitin armor, health scale, body size, speed, cold-blooded
+		comfort range, toxin/vacuum immunity and the bug's melee tools. Human blood,
+		meat, leather and recipes stay: these are women, not bugs, and the Insect
+		faction's own hostility makes hive/raid ones enemies regardless of race.
+		VacuumResistance is Odyssey-gated exactly as on BaseInsect.
+	-->
+
+	<!-- ===================== Devil Bug (was: Megascarab, Core) ===================== -->
+	<ThingDef ParentName="BasePawn" Name="PMM_InsectMomoBase" Abstract="True">
+		<race>
+			<thinkTreeMain>Humanlike</thinkTreeMain>
+			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+			<intelligence>Humanlike</intelligence>
+			<makesFootprints>true</makesFootprints>
+			<bloodDef>Filth_Blood</bloodDef>
+			<bloodSmearDef>Filth_BloodSmear</bloodSmearDef>
+			<leatherDef>Leather_Human</leatherDef>
+			<nameCategory>HumanStandard</nameCategory>
+			<body>Human</body>
+			<renderTree>Humanlike</renderTree>
+			<foodType>OmnivoreHuman</foodType>
+			<gestationPeriodDays>18</gestationPeriodDays>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<soundCallIntervalRange>2000~5000</soundCallIntervalRange>
+			<lifeStageAges>
+				<li>
+					<def>HumanlikeBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>HumanlikeChild</def>
+					<minAge>3</minAge>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+					<def>HumanlikePreTeenager</def>
+					<minAge>9</minAge>
+				</li>
+				<li>
+					<def>HumanlikeTeenager</def>
+					<minAge>13</minAge>
+				</li>
+				<li>
+					<def>HumanlikeAdult</def>
+					<minAge>18</minAge>
+				</li>
+			</lifeStageAges>
+			<soundMeleeDodge>Pawn_MeleeDodge</soundMeleeDodge>
+			<specialShadowData>
+				<volume>(0.3, 0.8, 0.4)</volume>
+				<offset>(0,0,-0.3)</offset>
+			</specialShadowData>
+			<hediffGiverSets>
+				<li>OrganicStandard</li>
+				<li>Human</li>
+			</hediffGiverSets>
+		</race>
+		<recipes Inherit="True" />
+	</ThingDef>
+
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName>PMM_Race_DevilBug</defName>
+		<label>devil bug</label>
+		<description>An insect momo born of the megascarab. Her feelers never stop twitching, scenting the sweat and mana of men, and she scuttles after what she smells with tireless, simple-minded hunger.</description>
+		<statBases>
+			<MoveSpeed>3.75</MoveSpeed>
+			<ArmorRating_Sharp>0.72</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>100</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>0.2</baseBodySize>
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<lifeExpectancy>10</lifeExpectancy>
+		</race>
+	</ThingDef>
+
+	<!-- ===================== Giant Ant (was: Spelopede, Core) ===================== -->
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName>PMM_Race_GiantAnt</defName>
+		<label>giant ant</label>
+		<description>An insect momo born of the spelopede. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
+		<statBases>
+			<MoveSpeed>3.65</MoveSpeed>
+			<ArmorRating_Sharp>0.18</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>200</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>digging claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>0.8</baseBodySize>
+			<baseHealthScale>1.7</baseHealthScale>
+			<baseHungerRate>0.25</baseHungerRate>
+			<lifeExpectancy>6</lifeExpectancy>
+		</race>
+	</ThingDef>
+
+	<!-- ===================== Soldier Beetle (was: Megaspider, Core) ===================== -->
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName>PMM_Race_SoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>An insect momo born of the megaspider. Her exoskeleton is armour from birth, her claws ripper-blades; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
+		<statBases>
+			<MoveSpeed>3.60</MoveSpeed>
+			<ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>500</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>ripper claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>12</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>1.2</baseBodySize>
+			<baseHealthScale>2.5</baseHealthScale>
+			<baseHungerRate>0.35</baseHungerRate>
+			<lifeExpectancy>6</lifeExpectancy>
+		</race>
+	</ThingDef>
+
+	<!-- ===================== Greenworm (was: Larva, Odyssey) ===================== -->
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Greenworm</defName>
+		<label>greenworm</label>
+		<description>An insect momo born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion — and spits the same sludge at anything that startles her.</description>
+		<statBases>
+			<MoveSpeed>2.0</MoveSpeed>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>35</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>0.2</baseBodySize>
+			<baseHealthScale>0.25</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<lifeExpectancy>4</lifeExpectancy>
+		</race>
+		<comps>
+			<li Class="CompProperties_SpreadSludge">
+				<mtbTicks>15000</mtbTicks>
+				<abilityDef>SludgeSpew</abilityDef>
+				<tryAvoidSludge>true</tryAvoidSludge>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ===================== Vamp Mosquito (was: Locust, Odyssey) ===================== -->
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_VampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>An insect momo born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right — then her bite leaves a hot, itching mark that only she can soothe.</description>
+		<statBases>
+			<MoveSpeed>3.0</MoveSpeed>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>120</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.7</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<lifeExpectancy>10</lifeExpectancy>
+		</race>
+	</ThingDef>
+
+	<!-- ===================== Abaddon (was: HiveQueen, Odyssey) ===================== -->
+	<ThingDef ParentName="PMM_InsectMomoBase">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Abaddon</defName>
+		<label>abaddon</label>
+		<description>An insect momo born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters — her pheromones command the swarm and stir every man who smells them.</description>
+		<statBases>
+			<MoveSpeed>3.4</MoveSpeed>
+			<ArmorRating_Sharp>0.22</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>2000</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>28</FilthRate>
+			<LeatherAmount>75</LeatherAmount>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>queen's claw</label>
+				<capacities><li>Cut</li></capacities>
+				<power>30</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>14</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<baseBodySize>4.5</baseBodySize>
+			<baseHealthScale>9.8</baseHealthScale>
+			<needsRest>false</needsRest>
+			<lifeExpectancy>75</lifeExpectancy>
+		</race>
+		<comps>
+			<li Class="CompProperties_SpreadSludge">
+				<mtbTicks>15000</mtbTicks>
+				<abilityDef>EggSpew</abilityDef>
+			</li>
+			<li Class="CompProperties_LetterOnRevealed">
+				<label>Hive queen</label>
+				<text>You've discovered the center of the nest. It's guarded by a massive insect queen!</text>
+				<letterDef>ThreatBig</letterDef>
+			</li>
+		</comps>
+		<butcherProducts>
+			<InsectJelly>150</InsectJelly>
+		</butcherProducts>
+	</ThingDef>
+
+</Defs>
