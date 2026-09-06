@@ -5,10 +5,12 @@
 		Insect-momo races: humanlike clones of Human (BodyDef Human, Humanlike render
 		tree, human life stages and think trees) with the corresponding insect's stats
 		overlaid 1:1 — chitin armor, health scale, body size, speed, cold-blooded
-		comfort range, toxin/vacuum immunity and the bug's melee tools. Human blood,
-		meat, leather and recipes stay: these are women, not bugs, and the Insect
-		faction's own hostility makes hive/raid ones enemies regardless of race.
-		VacuumResistance is Odyssey-gated exactly as on BaseInsect.
+		comfort range, toxin/vacuum immunity and the bug's melee tools. Butchered
+		they yield insect flesh exactly like the bugs they replace (fleshType
+		Insectoid, useMeatFrom Megaspider = insect meat, no leather) and bleed
+		insect ichor. The Insect faction's own hostility makes hive/raid ones
+		enemies regardless of race. VacuumResistance is Odyssey-gated exactly as
+		on BaseInsect.
 	-->
 
 	<!-- ===================== Devil Bug (was: Megascarab, Core) ===================== -->
@@ -18,9 +20,12 @@
 			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
 			<intelligence>Humanlike</intelligence>
 			<makesFootprints>true</makesFootprints>
-			<bloodDef>Filth_Blood</bloodDef>
-			<bloodSmearDef>Filth_BloodSmear</bloodSmearDef>
-			<leatherDef>Leather_Human</leatherDef>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<bloodSmearDef>Filth_BloodSmearInsect</bloodSmearDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
 			<nameCategory>HumanStandard</nameCategory>
 			<body>Human</body>
 			<renderTree>Humanlike</renderTree>
@@ -78,7 +83,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>1</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
@@ -138,7 +142,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>1</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
@@ -198,7 +201,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>1</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
@@ -256,7 +258,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>1</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
@@ -321,7 +322,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>1</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
@@ -381,7 +381,6 @@
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
 			<FilthRate>28</FilthRate>
-			<LeatherAmount>75</LeatherAmount>
 		</statBases>
 		<tools>
 			<li>
