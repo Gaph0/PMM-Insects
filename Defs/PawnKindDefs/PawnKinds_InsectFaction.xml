@@ -20,6 +20,17 @@
 		<apparelIgnorePollution>true</apparelIgnorePollution>
 		<initialWillRange>0~4</initialWillRange>
 		<initialResistanceRange>4~17</initialResistanceRange>
+		<!-- The vanilla Insect faction defines no backstory categories, so give every
+		     insect momo the single shared hive story (PMM_InsectSpawn category). Without
+		     this the generator logs "no backstoryCategories in either" and picks random
+		     backstories. -->
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_InsectSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<moveSpeedFactorByTerrainTag>
 			<li>
 				<key>Insect</key>

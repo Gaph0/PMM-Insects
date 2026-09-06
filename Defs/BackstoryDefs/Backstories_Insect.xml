@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Every insect momo shares one life story. The PMM_InsectSpawn category holds
+		exactly one childhood and one adulthood, and the insect pawn kinds filter
+		backstory generation to this category only, so the generator has nothing else
+		to pick (silences "no backstoryCategories in either" / "No shuffled
+		Childhood/Adulthood found ... Choosing random" — the vanilla Insect faction
+		defines no backstory categories, and neither did these kinds).
+	-->
+	<BackstoryDef>
+		<defName>PMM_InsectChild</defName>
+		<title>hive larva</title>
+		<titleShort>larva</titleShort>
+		<description>{PAWN_nameDef} hatched deep in the hive tunnels and spent {PAWN_possessive} early days scuttling between egg sacs, drinking in the dark and the pheromone-song of the swarm.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_InsectSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_InsectAdult</defName>
+		<title>swarm daughter</title>
+		<titleShort>swarm</titleShort>
+		<description>{PAWN_nameDef} grew into a daughter of the swarm, digging and hunting and guarding the queen's burrow, and dreaming of the man she would one day drag back to it.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_InsectSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>3</Melee>
+			<Mining>2</Mining>
+		</skillGains>
+	</BackstoryDef>
+
+</Defs>

@@ -16,6 +16,13 @@
 		<apparelIgnorePollution>true</apparelIgnorePollution>
 		<initialWillRange>0~4</initialWillRange>
 		<initialResistanceRange>4~17</initialResistanceRange>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_InsectSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_InsectWildBase">
