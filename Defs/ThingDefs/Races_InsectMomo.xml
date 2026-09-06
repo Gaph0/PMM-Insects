@@ -71,6 +71,14 @@
 			</hediffGiverSets>
 		</race>
 		<recipes Inherit="True" />
+		<comps>
+			<!-- A daughter of the swarm is fed by the hive: standing near a nest (a Hive)
+			     tops up her hunger and mana. See HiveNourishment.cs. -->
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef ParentName="PMM_InsectMomoBase">
@@ -127,6 +135,7 @@
 			<baseBodySize>0.2</baseBodySize>
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
+			<lifeExpectancy>10</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -185,6 +194,7 @@
 			<baseBodySize>0.8</baseBodySize>
 			<baseHealthScale>1.7</baseHealthScale>
 			<baseHungerRate>0.25</baseHungerRate>
+			<lifeExpectancy>6</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -243,6 +253,7 @@
 			<baseBodySize>1.2</baseBodySize>
 			<baseHealthScale>2.5</baseHealthScale>
 			<baseHungerRate>0.35</baseHungerRate>
+			<lifeExpectancy>6</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -299,6 +310,7 @@
 			<baseBodySize>0.2</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
+			<lifeExpectancy>4</lifeExpectancy>
 		</race>
 		<comps>
 			<li Class="CompProperties_SpreadSludge">
@@ -362,6 +374,7 @@
 			<baseBodySize>0.6</baseBodySize>
 			<baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
+			<lifeExpectancy>10</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -420,6 +433,7 @@
 			<baseBodySize>4.5</baseBodySize>
 			<baseHealthScale>9.8</baseHealthScale>
 			<needsRest>false</needsRest>
+			<lifeExpectancy>75</lifeExpectancy>
 		</race>
 		<comps>
 			<li Class="CompProperties_SpreadSludge">
