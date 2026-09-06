@@ -28,7 +28,6 @@ namespace PMM_Insects
     {
         private static string SwapKindName(string defName, Faction faction)
         {
-            bool insectFaction = faction?.def?.defName == "Insect";
             string species;
             switch (defName)
             {
@@ -40,6 +39,7 @@ namespace PMM_Insects
                 case "HiveQueen": species = "Abaddon"; break;
                 default: return null;
             }
+            bool insectFaction = faction?.def?.defName == "Insect";
             return (insectFaction ? "PMM_Insect" : "PMM_Wild") + species;
         }
 
@@ -50,7 +50,18 @@ namespace PMM_Insects
             {
                 return;
             }
-            string swapName = SwapKindName(kind.defName, request.Faction);
+            // Only swap genuine insect spawns. The Insect faction is obvious; a null
+            // faction covers wild spawns. ANY other faction (a slime-faction hive comp,
+            // a trader's livestock faction, etc.) is another mod borrowing the vanilla
+            // insect kind — swapping that produced a hostile insect-faction NPC with a
+            // mismatched request (fixedBiologicalAge, gear, etc.) and PawnGenerator
+            // failed with "Generated downed pawn" 120 times and NRE'd. Leave it alone.
+            Faction faction = request.Faction;
+            if (faction != null && faction.def?.defName != "Insect")
+            {
+                return;
+            }
+            string swapName = SwapKindName(kind.defName, faction);
             if (swapName == null)
             {
                 return;
