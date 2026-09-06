@@ -6,20 +6,23 @@ namespace PMM_Insects
 {
     /// <summary>
     /// The generation swap. A prefix on PawnGenerator.GeneratePawn that replaces
-    /// the six vanilla insect pawnkinds with the matching insect-momo pawnkind.
-    /// Every spawn source funnels through PawnGenerator — infestations and hives
-    /// (CompSpawnerPawn), Odyssey insect lairs and egg sacs, wild biome spawns,
-    /// ancient dangers, deep drilling, quests and trader livestock — so one patch
-    /// covers all of them. The swap is contextual:
+    /// the six vanilla insect pawnkinds with the matching insect-momo pawnkind —
+    /// a TOTAL replacement, no vanilla bugs spawn anywhere. Every spawn source
+    /// funnels through PawnGenerator — infestations and hives (CompSpawnerPawn),
+    /// Odyssey insect lairs and egg sacs, insectoid-mod spawners, wild biome
+    /// spawns, ancient dangers, deep drilling, quests and trader livestock — so
+    /// one patch covers all of them. The swap is contextual:
     ///
-    ///   request.Faction == Insect  ->  PMM_Insect&lt;Species&gt;  (stays in the Insect
-    ///                                  faction: hostile hive/raid NPC)
-    ///   otherwise                  ->  PMM_Wild&lt;Species&gt;     (wild woman, tameable
-    ///                                  via the IsWildMan patches)
+    ///   request.Faction == null  ->  PMM_Wild&lt;Species&gt;     (wild woman, tameable
+    ///                                 via the IsWildMan patches)
+    ///   any faction              ->  PMM_Insect&lt;Species&gt;   (hostile hive/raid momo;
+    ///                                 joins her spawner's lord whether the faction is
+    ///                                 the vanilla Insect faction or an insectoid mod's)
     ///
-    /// Everything else in the request is left untouched, so faction, position and
-    /// lord assignment flow through exactly as they did for the bug. Odyssey kinds
-    /// (Larva/Locust/HiveQueen) may not exist when Odyssey is absent — the
+    /// Vanilla CompSpawnerPawn fixes the pawn's biological age to the bug's adult
+    /// minAge (0.2-0.4y); the swap clears that and forces Adult so the humanlike
+    /// pawn generates as a grown woman instead of a baby who can't stand. Odyssey
+    /// kinds (Larva/Locust/HiveQueen) may not exist when Odyssey is absent — the
     /// GetNamedSilentFail guard makes the swap a no-op then.
     /// </summary>
     [HarmonyPatch(typeof(PawnGenerator), nameof(PawnGenerator.GeneratePawn),
@@ -39,8 +42,11 @@ namespace PMM_Insects
                 case "HiveQueen": species = "Abaddon"; break;
                 default: return null;
             }
-            bool insectFaction = faction?.def?.defName == "Insect";
-            return (insectFaction ? "PMM_Insect" : "PMM_Wild") + species;
+            // Factionless (wild biome spawns, some trader livestock) -> tameable wild
+            // woman. ANY faction (vanilla Insect hives AND insectoid-mod hives whose
+            // faction defName isn't literally "Insect") -> the hostile hive/raid momo,
+            // who joins her spawner's lord regardless of which faction it is.
+            return (faction == null ? "PMM_Wild" : "PMM_Insect") + species;
         }
 
         public static void Prefix(ref PawnGenerationRequest request)
@@ -50,28 +56,16 @@ namespace PMM_Insects
             {
                 return;
             }
-            // Only swap genuine insect spawns. The Insect faction is obvious; a null
-            // faction covers wild spawns. ANY other faction (a slime-faction hive comp,
-            // a trader's livestock faction, etc.) is another mod borrowing the vanilla
-            // insect kind — swapping that produced a hostile insect-faction NPC with a
-            // mismatched request (fixedBiologicalAge, gear, etc.) and PawnGenerator
-            // failed with "Generated downed pawn" 120 times and NRE'd. Leave it alone.
+            // Total replacement: EVERY vanilla insect pawnkind becomes the matching
+            // insect momo, wherever it spawns from — hives, infestations, insectoid
+            // mods' spawners, wild spawns, ancient dangers, traders. No coexisting
+            // vanilla bugs.
+            //
+            // Vanilla CompSpawnerPawn sets fixedBiologicalAge to the bug's adult
+            // minAge (0.2-0.4 years). On a humanlike race that rolls a baby who can't
+            // stand -> "Generated downed pawn" x120 -> the spawner NREs. Clear the
+            // fixed age and force Adult so the swap always generates a grown woman.
             Faction faction = request.Faction;
-            if (faction != null && faction.def?.defName != "Insect")
-            {
-                return;
-            }
-            // Some insectoid spawners pass the VANILLA Insect faction to their pawns
-            // (so the faction guard alone doesn't catch them) but force a tiny
-            // fixedBiologicalAge (e.g. 0.2 years) suited to a bug, not a woman. Swapping
-            // those into a humanlike race makes PawnGenerator roll a baby that can't
-            // stand -> "Generated downed pawn" x120 and the spawner NREs every tick.
-            // Vanilla insect spawns never fix the age, so any fixed age is a modded
-            // spawn we must leave alone.
-            if (request.FixedBiologicalAge.HasValue)
-            {
-                return;
-            }
             string swapName = SwapKindName(kind.defName, faction);
             if (swapName == null)
             {
@@ -108,7 +102,9 @@ namespace PMM_Insects
                 forcedTraits: request.ForcedTraits,
                 prohibitedTraits: request.ProhibitedTraits,
                 minChanceToRedressWorldPawn: request.MinChanceToRedressWorldPawn,
-                fixedBiologicalAge: request.FixedBiologicalAge,
+                // Clear the bug's fixed adult minAge (0.2-0.4y): on a humanlike race
+                // that is a baby. Let her generate at a normal adult age instead.
+                fixedBiologicalAge: null,
                 fixedChronologicalAge: request.FixedChronologicalAge,
                 fixedGender: request.FixedGender,
                 fixedLastName: request.FixedLastName,
@@ -125,7 +121,7 @@ namespace PMM_Insects
                 forcedCustomXenotype: request.ForcedCustomXenotype,
                 allowedXenotypes: request.AllowedXenotypes,
                 forceBaselinerChance: request.ForceBaselinerChance,
-                developmentalStages: request.AllowedDevelopmentalStages,
+                developmentalStages: DevelopmentalStage.Adult,
                 forceNoGear: request.ForceNoGear);
         }
     }
