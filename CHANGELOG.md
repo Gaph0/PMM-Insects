@@ -22,6 +22,7 @@
 
 ## Internal
 
+- 2026-09-20: Added `reports/` to `.gitignore`. It holds generated validation output.
 - 2026-09-20: Changed the README to match the code.
 - 2026-09-20: Removed the unused legacy race base left over from the race clone era.
 - 2026-09-19: Changed the six race clones to Human-based races with Big & Small race trackers.
