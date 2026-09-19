@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Insect-momo races on the Big & Small pattern (Route A, Phase 5).
+
+		Each species is two defs:
+		1. A ThingDef on ParentName="Human" carrying BigAndSmall.RaceExtension ->
+		   its race-tracker hediff. Stats that must live race-level (baseBodySize,
+		   baseHealthScale, baseHungerRate, insect flesh/blood/meat, melee tools)
+		   stay on the ThingDef, overlaid 1:1 from the bug it replaces - same as
+		   the old BasePawn clones.
+		2. A race-tracker HediffDef (ParentName="BS_DefaultRaceTracker") holding
+		   the pawn-level statBases as a stat stage, plus the RaceExtension for
+		   B&S race handling (romance tags, size scaling).
+
+		What Route A buys over the old BasePawn clones:
+		- B&S's scaler reads baseBodySize and renders bug girls at their real size
+		  (0.2 devil bug scuttling at your feet, 2.0 Abaddon overhead) with working
+		  camera/melee handling - vanilla humanlikes always drew at 1x.
+		- Race features become composable PawnExtensions/tracker stages instead of
+		  a monolithic race clone, so genes and xenotypes layer cleanly on top.
+		- The chitin render tag (PMM_ChitinGraphics) is wired into core's color
+		  channels, ready for exoskeleton art later.
+
+		This file is the ONLY source of race defs - the old BasePawn clone file
+		(Races_InsectMomo.xml) was deleted 2026-09-20; its six defNames live here.
+
+		lifeExpectancy: never add it to a species here. Human base gives 80 for
+		free, and that is the number we want. The bugs' own lifeExpectancy (4-75y)
+		sits far below HumanlikeAdult's minAge of 18, so PawnGenerator's age curve
+		could not roll a valid adult age -> "Tried 300 times to generate age".
+		Momo are functionally ageless anyway (core's Momo gene stops fertility
+		decline and old-age ailments). This is the ONE stat not copied 1:1 from
+		the bugs - not even the queen's 75. Re-adding it breaks age generation.
+	-->
+
+	<!-- ===================== Devil Bug (was: Megascarab, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_DevilBug</defName>
+		<label>devil bug</label>
+		<description>An insect momo born of the megascarab. Her feelers never stop twitching, scenting the sweat and mana of men, and she scuttles after what she smells with tireless, simple-minded hunger.</description>
+		<statBases>
+			<MoveSpeed>3.75</MoveSpeed>
+			<!-- Armor moved OUT of statBases: it lives on the race tracker as a
+			     hediff stat stage now, so ALL pawn-level toughness sits in one
+			     hidden hediff (user ruling 2026-09-19). It no longer doubles with
+			     gear or reads as a race quirk on the info card. -->
+			<!-- Visual/mechanical size for B&S. The scaler does NOT read baseBodySize
+			     for the render size of humanlikes - it reads the SM_BodySizeMultiplier
+			     STAT (this is how B&S's own Centaur declares 1.15x). Without this the
+			     devil bug rendered at 1.0 no matter what baseBodySize said.
+			     Set to match baseBodySize 0.6: a short woman, not doll-sized. -->
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>100</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<!-- Race-level insect identity, copied 1:1 from the old BasePawn clone:
+			     insect flesh and ichor, bug meat when butchered, and the bug's size
+			     package. B&S reads baseBodySize for render scaling; large races get
+			     renderCacheOff automatically in the scaler.
+			     baseBodySize raised 0.2 -> 0.6 (user ruling 2026-09-19): 0.2 was the
+			     megascarab's literal size and rendered her doll-small. 0.6 is a short
+			     woman. Health scale and hunger stay at the bug's values. -->
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Chitin over a tiny frame: PMM_Insects.HealthScalePatch (Harmony)
+			     multiplies HealthScale for PMM_Race_* defs x2.5. Vanilla HealthScale
+			     drives every body part's max HP, limbs AND organs:
+			     0.4 base x 2.5 = 1.0 effective, so her 8-HP arm becomes ~20 HP.
+			     Punches bruise instead of amputating. Race-level, no gene stacking.
+			     (The factor lives in HealthScalePatch.cs - RaceProperties has no
+			     such field, and inventing one throws XML errors at load.) -->
+		</race>
+		<!-- A daughter of the swarm is fed by the hive: standing near a nest (a Hive)
+		     tops up her hunger and mana. See HiveNourishment.cs. -->
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_DevilBug</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Devil Bug race tracker. Auto-applies on spawn via RaceExtension.
+	     Armor lives here as a stat stage, not on race statBases: one hediff
+	     carries every pawn-level toughness knob (a statBases copy too would
+	     STACK - she showed 1.44 sharp in-game that way). Stays visible in
+	     the Health tab like every B&S race tracker - RaceTracker hardcodes
+	     Visible = true, and we follow the framework.
+	     No renderNodeProperties yet - exoskeleton art comes later through
+	     PMM_ChitinGraphics. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_DevilBug</defName>
+		<label>devil bug</label>
+		<description>A devil bug momo of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<!-- The bug's armor, moved here from race statBases. -->
+				<statOffsets>
+					<ArmorRating_Sharp>0.72</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<!-- Hard shell, squishy inside: internal damage is divided by 3
+				     (damage / idd in B&S's pipeline, so 3 = internal organs take a
+				     third). Blades glance off chitin or punch through without quickly
+				     pulping anything vital. She still bleeds, still goes down - she
+				     just stops dying outright. B&S's naga uses 0.4 for a FRAILE race;
+				     we want the opposite. -->
+				<internalDamageDivisor>3</internalDamageDivisor>
+				<!-- Romance as a bug girl, not an animal. -->
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+
+	<!-- ===================== Giant Ant (was: Spelopede, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_GiantAnt</defName>
+		<label>giant ant</label>
+		<description>An insect momo born of the spelopede. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
+		<statBases>
+			<MoveSpeed>3.65</MoveSpeed>
+			<SM_BodySizeMultiplier>0.8</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>200</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>digging claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<baseBodySize>0.8</baseBodySize>
+			<baseHealthScale>1.7</baseHealthScale>
+			<baseHungerRate>0.25</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_GiantAnt</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_GiantAnt</defName>
+		<label>giant ant</label>
+		<description>A giant ant momo of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.18</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+	<!-- ===================== Soldier Beetle (was: Megaspider, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_SoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>An insect momo born of the megaspider. Her exoskeleton is armour from birth, her claws ripper-blades; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
+		<statBases>
+			<MoveSpeed>3.60</MoveSpeed>
+			<SM_BodySizeMultiplier>1.2</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>500</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>ripper claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>12</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<baseBodySize>1.2</baseBodySize>
+			<baseHealthScale>2.5</baseHealthScale>
+			<baseHungerRate>0.35</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_SoldierBeetle</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_SoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>A soldier beetle momo of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+	<!-- ===================== Greenworm (was: Larva, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Greenworm</defName>
+		<label>greenworm</label>
+		<description>An insect momo born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion — and spits the same sludge at anything that startles her.</description>
+		<statBases>
+			<MoveSpeed>2.0</MoveSpeed>
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>35</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Same ruling as Devil Bug: 0.2 literal bug size renders doll-small;
+			     0.6 is a short woman. HealthScalePatch x2.5 covers her 0.25
+			     baseHealthScale, same as the devil bug's 0.4. -->
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.25</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="CompProperties_SpreadSludge">
+				<mtbTicks>15000</mtbTicks>
+				<abilityDef>SludgeSpew</abilityDef>
+				<tryAvoidSludge>true</tryAvoidSludge>
+			</li>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Greenworm</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Greenworm</defName>
+		<label>greenworm</label>
+		<description>A greenworm momo of the swarm.</description>
+		<!-- No armor stage: the larva has none. Soft-bodied, exactly as the bug. -->
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+	<!-- ===================== Vamp Mosquito (was: Locust, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_VampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>An insect momo born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right — then her bite leaves a hot, itching mark that only she can soothe.</description>
+		<statBases>
+			<MoveSpeed>3.0</MoveSpeed>
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>120</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.7</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_VampMosquito</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_VampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>A vamp mosquito momo of the swarm.</description>
+		<!-- No armor stage: the locust has none. Fragile flyer, exactly as the bug. -->
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+	<!-- ===================== Abaddon (was: HiveQueen, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Abaddon</defName>
+		<label>abaddon</label>
+		<description>An insect momo born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters — her pheromones command the swarm and stir every man who smells them.</description>
+		<statBases>
+			<MoveSpeed>3.4</MoveSpeed>
+			<!-- Queen size ruling (2026-09-20): 2.0x, down from the bug's literal
+			     4.5 - the full queen scale crowded out every fight. Still towers
+			     over colonists. B&S auto-applies renderCacheOff past 1.49. -->
+			<SM_BodySizeMultiplier>2.0</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>2000</MarketValue>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>28</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>queen's claw</label>
+				<capacities><li>Cut</li></capacities>
+				<power>30</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>14</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- baseBodySize matches SM_BodySizeMultiplier (2.0, was 4.5).
+			     baseHealthScale stays 9.8: she is still the queen. -->
+			<baseBodySize>2.0</baseBodySize>
+			<baseHealthScale>9.8</baseHealthScale>
+			<needsRest>false</needsRest>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="CompProperties_SpreadSludge">
+				<mtbTicks>15000</mtbTicks>
+				<abilityDef>EggSpew</abilityDef>
+			</li>
+			<li Class="CompProperties_LetterOnRevealed">
+				<label>Hive queen</label>
+				<text>You've discovered the center of the nest. It's guarded by a massive insect queen!</text>
+				<letterDef>ThreatBig</letterDef>
+			</li>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<butcherProducts>
+			<InsectJelly>150</InsectJelly>
+		</butcherProducts>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Abaddon</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Abaddon</defName>
+		<label>abaddon</label>
+		<description>An abaddon momo of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.22</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<romanceTags>
+					<Insect>1.0</Insect>
+					<Humanlike>0.65</Humanlike>
+				</romanceTags>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+</Defs>

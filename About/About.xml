@@ -13,7 +13,7 @@ Megascarabs, spelopedes and megaspiders - and, with the Odyssey expansion, larva
 
 The bug girls keep the exact stats of the insects they replace - the same chitin armor, health, speed, cold-blooded comfort ranges and toxin immunity, and the same mandibles and claws. Hive queens never sleep and still spew eggs, and the larvae that hatch from them are greenworm daughters.
 
-Requires the Biotech expansion, Harmony and Project Momo. The Odyssey expansion is optional: with it larvae, locusts and hive queens are also transformed; without it only the three base-game insectoids are affected.
+Requires the Biotech expansion, Harmony, Big and Small - Framework, and Project Momo. The Odyssey expansion is optional: with it larvae, locusts and hive queens are also transformed; without it only the three base-game insectoids are affected.
 	</description>
 	<modDependencies>
 		<li>
@@ -31,10 +31,16 @@ Requires the Biotech expansion, Harmony and Project Momo. The Odyssey expansion 
 			<displayName>Project Momo</displayName>
 			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3786764047</steamWorkshopUrl>
 		</li>
+		<li>
+			<packageId>RedMattis.BetterPrerequisites</packageId>
+			<displayName>Big and Small - Framework</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2925432336</steamWorkshopUrl>
+		</li>
 	</modDependencies>
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Ludeon.RimWorld.Biotech</li>
 		<li>PMM.Core</li>
+		<li>RedMattis.BetterPrerequisites</li>
 	</loadAfter>
 </ModMetaData>

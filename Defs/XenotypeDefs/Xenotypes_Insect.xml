@@ -6,7 +6,7 @@
 		PMM_Gene_Insect (chitin, feelers) and is inheritable, all-female and excluded
 		from the factionless spawner (factionlessGenerationWeight 0 — they only enter
 		the world through the generation swap). The bulk of each species' stats lives
-		on its cloned race (Races_InsectMomo.xml); the genes here add the MGE
+		on its race def (Races_InsectMomo_BS.xml); the genes here add the MGE
 		flavour on top. Gene defNames verified against Core/Biotech 1.6.
 	-->
 

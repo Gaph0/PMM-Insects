@@ -6,8 +6,8 @@ namespace PMM_Insects
     /// <summary>
     /// A daughter of the swarm is fed by the hive. While she stands near a nest
     /// (a Hive building), her hunger and mana are topped up — the same way the
-    /// hive sustains its insects. Attached to every insect-momo race via the
-    /// shared PMM_InsectMomoBase abstract ThingDef.
+    /// hive sustains its insects. Attached to each insect-momo race def in
+    /// Races_InsectMomo_BS.xml.
     ///
     /// Ticks rarely (every 600 ticks / 10 game-seconds) and cheaply: it only
     /// queries the map's hive list when the pawn is alive, spawned, and not

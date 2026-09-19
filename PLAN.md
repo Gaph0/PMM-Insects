@@ -122,7 +122,41 @@ bugs stay hostile NPCs; downed ones go through normal capture/recruit.
   accepted loss.
 - Boot with zero red errors, with and without Odyssey (MayRequire gating).
 
-## 7. Out of scope (later phases)
+## 7. Big & Small conversion — Route A (all six species DONE 2026-09-19)
+
+Route A chosen over Sapient Animals: convert each species to a humanlike B&S
+race (`ParentName="Human"` + `BigAndSmall.RaceExtension` + race-tracker hediff
+`ParentName="BS_DefaultRaceTracker"`).
+
+All six species live in `Defs/ThingDefs/Races_InsectMomo_BS.xml`. The pattern,
+proven on the Devil Bug pilot and then applied to the rest:
+
+- ThingDef on `Human` base. Race-level data 1:1 from the bug: `baseBodySize`,
+  `baseHealthScale`, `baseHungerRate`, insect flesh/ichor/meat, melee tools,
+  species comps (sludge/egg spew, queen's letter, jelly butcher yield).
+  New: `BigAndSmall.RaceExtension` -> the species tracker.
+- `SM_BodySizeMultiplier` in statBases matches `baseBodySize` — this is the
+  stat B&S's scaler actually reads for humanlike render size (`baseBodySize`
+  alone only feeds vanilla mechanics; a 0.6 devil bug rendered 1.0 until this
+  was added). Abaddon at 4.5 gets `renderCacheOff` from the scaler for free.
+- Armor lives ONLY on the tracker as a stat stage — a copy in race statBases
+  stacks (devil bug showed 1.44 sharp in-game before the dedup).
+- Durability layers: `internalDamageDivisor 3` on Devil Bug's tracker (hard
+  shell, squishy inside), `HealthScalePatch.cs` x2.5 for the two fragile
+  species (Devil Bug 0.4, Greenworm 0.25 — the rest need no help), and the
+  shared core hediff `PMM_Hediff_PartToughness` for B&S-added parts (wings).
+- Trackers stay visible in the Health tab — `RaceTracker` hardcodes
+  `Visible = true`; we follow the framework (an attempted Visible postfix was
+  reverted).
+- `Races_InsectMomo.xml` (the old `BasePawn` clone file) is gone — deleted
+  2026-09-20. `Races_InsectMomo_BS.xml` is now the single source of race defs.
+
+Test gate: each species renders at its size (devil bug/greenworm/mosquito
+short, soldier beetle tall-ish, Abaddon towering), armor matches the bug's
+numbers exactly once (no doubling), hive nourishment works, and the wild-man
+recipe still functions on Human-based races.
+
+## 8. Out of scope (later phases)
 
 Custom pawn art (antennae/carapace overlays — phase 1 uses human rendering +
 gene icons via mktex.py), RulePack namers, a proper hive faction with
