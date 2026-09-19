@@ -36,7 +36,9 @@
 			     HumanlikeAdult minAge (18), so PawnGenerator's age curve could not roll a
 			     valid adult age -> "Tried 300 times to generate age". Momos are
 			     functionally ageless anyway (core's Momo gene stops fertility decline and
-			     old-age ailments), so a human 80 is the right base. -->
+		     old-age ailments), so a human 80 is the right base. lifeExpectancy is the
+		     ONE stat not copied 1:1 from the bugs — never re-add it to a child def,
+		     not even the queen's 75. -->
 			<lifeExpectancy>80</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -135,7 +137,6 @@
 			<baseBodySize>0.2</baseBodySize>
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
-			<lifeExpectancy>10</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -194,7 +195,6 @@
 			<baseBodySize>0.8</baseBodySize>
 			<baseHealthScale>1.7</baseHealthScale>
 			<baseHungerRate>0.25</baseHungerRate>
-			<lifeExpectancy>6</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -253,7 +253,6 @@
 			<baseBodySize>1.2</baseBodySize>
 			<baseHealthScale>2.5</baseHealthScale>
 			<baseHungerRate>0.35</baseHungerRate>
-			<lifeExpectancy>6</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -310,7 +309,6 @@
 			<baseBodySize>0.2</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
-			<lifeExpectancy>4</lifeExpectancy>
 		</race>
 		<comps>
 			<li Class="CompProperties_SpreadSludge">
@@ -374,7 +372,6 @@
 			<baseBodySize>0.6</baseBodySize>
 			<baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
-			<lifeExpectancy>10</lifeExpectancy>
 		</race>
 	</ThingDef>
 
@@ -433,7 +430,6 @@
 			<baseBodySize>4.5</baseBodySize>
 			<baseHealthScale>9.8</baseHealthScale>
 			<needsRest>false</needsRest>
-			<lifeExpectancy>75</lifeExpectancy>
 		</race>
 		<comps>
 			<li Class="CompProperties_SpreadSludge">
