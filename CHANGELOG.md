@@ -2,6 +2,39 @@
 
 ## Player-facing
 
+- 2026-09-21: Added the large frame gene to the soldier beetle. She counts as a riding animal in caravans, and any caravan she joins moves 20% faster.
+- 2026-09-20: Changed a brood hatched from your own queen to stay a normal pawn of your faction, instead of wandering off with the hive.
+- 2026-09-20: Changed the queen's egg spew to hatch a swarmling from Vanilla Factions Expanded - Insectoids 2, instead of a common insect larva. It grows into an adult insect.
+- 2026-09-20: Changed insect momos to be fed by any hive, so the hives from Vanilla Factions Expanded - Insectoids 2 feed them too.
+- 2026-09-20: Changed insect momo corpses to group under one heading in the butcher menu and the item filters.
+- 2026-09-20: Added insect flesh to the insect momos. Eating insect meat now disturbs them, as human meat disturbs a human.
+- 2026-09-20: Changed butchering an insect momo to give chitin instead of human leather.
+- 2026-09-20: Added an insect jelly hunger bar to the fighting momos. Only insect jelly refills it.
+- 2026-09-20: Added insect genes to each insect momo, so every caste has her own strengths and weaknesses.
+- 2026-09-20: Added full immunity to poison gas, polluted ground and toxic fallout to every insect momo.
+- 2026-09-20: Changed the insector tribes to settle only on polluted ground.
+- 2026-09-20: Removed the feral insect faction's bases from the world map.
+- 2026-09-20: Added Vanilla Races Expanded - Insector and Vanilla Factions Expanded - Insectoids 2 as required mods.
+- 2026-09-20: Added a new icon and village shape for the insector swarm.
+- 2026-09-20: Fixed the two insector tribes having no leader.
+- 2026-09-20: Added two insector tribes, one neutral and one always hostile.
+- 2026-09-20: Added insector villages, built from insect hive walls and hives.
+- 2026-09-20: Removed the insect momo spawn swap. Vanilla insects spawn normally again.
+- 2026-09-20: Removed wild insect momos.
+- 2026-09-20: Fixed a woman corrupted into an insect momo keeping a human body. She now becomes that species, so she gets its size, temperature tolerance and abilities.
+- 2026-09-20: Added a letter for hive momo kidnappings that warns the man is lost for good once she escapes.
+- 2026-09-20: Changed hive insect momos so the man they carry off the map is lost for good, with no ransom and no rescue.
+- 2026-09-20: Changed hive insect momos to always carry off the man they knock out, instead of sometimes joining your colony.
+- 2026-09-20: Changed the insect momos' chitin skin to five tones, so each momo has her own colour.
+- 2026-09-20: Changed the chitin skin of all insect momos to a muted olive grey.
+- 2026-09-20: Changed the vamp mosquito and soldier beetle to grow smaller wings than the abaddon.
+- 2026-09-20: Changed the soldier beetle to weak flight. She still flies, but she no longer speeds a caravan up or carries a passenger.
+- 2026-09-20: Fixed the soldier beetle, vamp mosquito and abaddon showing no wings. Each of them now grows real wings.
+- 2026-09-20: Changed the vamp mosquito to weak flight. She still flies, but she no longer speeds a caravan up or carries a passenger.
+- 2026-09-20: Changed the greenworm's adult story so she stays a wingless worm, matching how she looks in game.
+- 2026-09-20: Changed the devil bug, vamp mosquito and greenworm life stories to start in the insect hive, like the other three.
+- 2026-09-20: Added a life story for each insect momo, so each species now has her own childhood and adult story.
+- 2026-09-20: Changed hive nourishment so hunger and mana refill slowly near a nest, instead of filling at once.
 - 2026-09-19: Added Big and Small - Framework as a required mod.
 - 2026-09-19: Changed all six insect momos to the Big & Small body system. Each one now draws at her real size: the devil bug scuttles at your feet, the abaddon stands over you.
 - 2026-09-19: Fixed devil bug and greenworm limbs breaking too easily.
@@ -22,6 +55,23 @@
 
 ## Internal
 
+- 2026-09-20: Changed the brood to VFEI2_Swarmling, VFEI2's own juvenile kind, which cocoons into a random adult insectoid. PMM_EggSac is back on Core's own CompSpawnPawnOnDestroyed with CompSpawnLarva, so the hatch is vanilla behaviour, and a temporary Source/Insects/EggSacHatch.cs was deleted again.
+- 2026-09-20: Added PMM_Ability_EggSpew, PMM_Proj_EggSac and PMM_EggSac (Odyssey-gated clones of Odyssey's egg spew chain, retargeted at VFEI2_Swarmling), and pointed the abaddon race comp and the queen pawn kind at the new ability.
+- 2026-09-20: Added the finding that Core's CompSpawnPawnOnDestroyed cannot hatch a humanlike pawn: it asks for fixedBiologicalAge 0 while refusing downed pawns, and a newborn humanlike is always downed, so it returns null and PawnGenerator throws.
+- 2026-09-20: Changed nothing in code for the brood's faction: Projectile_SpawnsThing gives the sac the launcher's faction, and CompSpawnPawnOnDestroyed passes it on to the pawn.
+- 2026-09-20: Changed CompHiveNourishment to resolve a list of hive-like defs once (thingClass is Hive, plus the ArtificialHive class family) instead of caching ThingDef.Named("Hive").
+- 2026-09-20: Added egg sac, egg sac projectile and egg spew icon textures to Tools/mktex.py.
+- 2026-09-20: Changed the momo corpse grouping to the shared version in the core mod.
+- 2026-09-20: Changed the insectoid gene to carry the insect pheromone effect itself, so the momos no longer need Vanilla Races Expanded's pheromone gene.
+- 2026-09-20: Added the four work groups vanilla tribes carry.
+- 2026-09-20: Added a settlement placement patch for the two insector tribes.
+- 2026-09-20: Added a patch that stops the vanilla insect faction from settling.
+- 2026-09-20: Changed the insect momo pawn kinds to belong to the two new tribe factions.
+- 2026-09-20: Removed the pawn generation swap, the wild pawn kinds and their think trees.
+- 2026-09-20: Changed a comment to use the slime mod's new pawnkind name.
+- 2026-09-20: Changed the hive momo kidnap to run in this mod, with its own letter and outcome.
+- 2026-09-20: Added a Harmony patch for the hive momo bond outcome.
+- 2026-09-20: Changed the pawn kind backstory filters from the shared hive category to one category per species.
 - 2026-09-20: Added `reports/` to `.gitignore`. It holds generated validation output.
 - 2026-09-20: Changed the README to match the code.
 - 2026-09-20: Removed the unused legacy race base left over from the race clone era.

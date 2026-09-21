@@ -64,6 +64,44 @@ def bug_icon(size, body_col, belly_col):
     disc(cx, 24 * s, 9 * s, body_col)
     return px
 
+def egg_sac(size, sac_col, glow_col):
+    """A squat sac under a soft glow: a wide low body, a pale sheen and dark speckles.
+    Same pixel helpers as bug_icon (kept local so each generator stands alone)."""
+    px = bytearray(size * size * 4)
+
+    def blend(x, y, r, g, b, a):
+        a = max(0, min(255, int(a)))
+        if 0 <= x < size and 0 <= y < size and a > 0:
+            i = (y * size + x) * 4
+            na = a + px[i + 3] * (255 - a) // 255
+            if na == 0:
+                return
+            for c, v in ((0, r), (1, g), (2, b)):
+                px[i + c] = max(0, min(255, (v * a + px[i + c] * px[i + 3] * (255 - a) // 255) // na))
+            px[i + 3] = na
+
+    def disc(cx, cy, rad, col, soft=1.5):
+        r, g, b, a = col
+        for y in range(int(cy - rad - 2), int(cy + rad + 3)):
+            for x in range(int(cx - rad - 2), int(cx + rad + 3)):
+                d = math.hypot(x - cx + .5, y - cy + .5)
+                if d <= rad:
+                    blend(x, y, r, g, b, a)
+                elif d <= rad + soft:
+                    blend(x, y, r, g, b, int(a * (rad + soft - d) / soft))
+
+    s = size / 64.0
+    cx = size / 2
+    glow = (glow_col[0], glow_col[1], glow_col[2], 45)
+    sheen = (min(255, sac_col[0] + 40), min(255, sac_col[1] + 45), min(255, sac_col[2] + 30), 210)
+    disc(cx, 36 * s, 23 * s, glow, soft=9)          # bioluminescent halo
+    disc(cx, 36 * s, 19 * s, sac_col)               # the sac itself
+    disc(cx, 30 * s, 11 * s, sheen)                 # wet sheen on top
+    for k in range(14):                             # speckles around the base
+        a = k / 14.0 * math.tau
+        disc(cx + math.cos(a) * 13 * s, 38 * s + math.sin(a) * 10 * s, 1.6 * s, (30, 45, 25, 170))
+    return px
+
 SPECIES = {
     # name: (body colour, belly colour)
     "PMM_DevilBug":     ((90, 70, 40, 255), (150, 120, 70, 255)),   # brown carapace
@@ -83,3 +121,12 @@ for name, (body, belly) in SPECIES.items():
 write_png(os.path.join(ROOT, "Textures", "UI", "Icons", "Genes", "Gene_Insect.png"),
           128, 128, bug_icon(128, (70, 90, 50, 255), (120, 150, 80, 255)))
 print("wrote Gene_Insect")
+
+# Phase 5, the brood: the sac the abaddon throws, its projectile, and the ability gizmo.
+SAC, GLOW = (120, 150, 90, 255), (150, 200, 120, 255)
+for path, size in (("Things/Building/PMM_EggSac", 64),
+                   ("Things/Projectile/PMM_EggSac", 32),
+                   ("UI/Icons/Abilities/PMM_EggSpew", 128)):
+    write_png(os.path.join(ROOT, "Textures", *path.split("/")) + ".png",
+              size, size, egg_sac(size, SAC, GLOW))
+    print("wrote", path)
