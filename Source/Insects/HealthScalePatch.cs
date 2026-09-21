@@ -20,8 +20,8 @@ namespace PMM_Insects
     ///
     /// Note: the race tracker stays VISIBLE in the Health tab, same as every
     /// B&S race - RaceTracker deliberately hardcodes Visible = true, and
-    /// fighting the framework on that is more trouble than a readable
-    /// "devil bug" row is worth.
+    /// fighting the framework on that is more trouble than a pointless readable
+    /// hediff row is worth.
     /// </summary>
     [HarmonyPatch(typeof(Pawn), nameof(Pawn.HealthScale), MethodType.Getter)]
     public static class HealthScalePatch

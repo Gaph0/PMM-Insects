@@ -5,9 +5,22 @@
 		The six insect momo xenotypes. Every one carries ProjectMomo_Momo +
 		PMM_Gene_Insect (chitin, feelers) and is inheritable, all-female and excluded
 		from the factionless spawner (factionlessGenerationWeight 0 — they only enter
-		the world through the generation swap). The bulk of each species' stats lives
+		the world in the two insector tribes). The bulk of each species' stats lives
 		on its race def (Races_InsectMomo_BS.xml); the genes here add the MGE
 		flavour on top. Gene defNames verified against Core/Biotech 1.6.
+
+		Each xenotype also declares its race with Big & Small's XenotypeExtension
+		(setRace). That is the only link between a species' genes and its race def,
+		and it matters because the race def holds the real physiology: temperature
+		range, body size, melee tools and race abilities such as the abaddon's
+		egg-spew. Big & Small applies the field when a pawn is GENERATED; PMM core
+		re-applies it when a woman is transformed into one of these xenotypes at
+		runtime, so a corrupted woman becomes the species properly instead of
+		wearing its genes on a baseliner body.
+
+		forceRace is on for all six: without it, a mere gene request for a winged
+		body (the flight genes carry one) can win the swap over the species race,
+		and the pawn ends up as a plain winged human with no species at all.
 	-->
 
 	<!-- Devil Bug (megascarab): tireless, scent-hungry, fast-crawling -->
@@ -24,7 +37,35 @@
 			<li>PMM_Gene_Insect</li>
 			<li>MoveSpeed_Quick</li>
 			<li>AptitudeRemarkable_Animals</li>
+			<!-- VRE Insector (HANDOFF §5.3), born not unlocked: she mends fast and
+			     shrugs off illness, and she hunts in the dark by heat - InfraredSensors
+			     is a Kemia pherocore gene, which the player unlocks by recruiting her.
+			     Her prices: a body that burns in the sun, and a life cycle that burns
+			     out fast - a swarm drone is many and short-lived, where the queen is
+			     one and never ages. Two and two, as the geneline picker demands
+			     (VRE_NeedEqualAmount). -->
+			<li>VRE_AntimicrobialPeptides</li>
+			<li>VRE_InfraredSensors</li>
+			<li>VRE_Heatstress</li>
+			<li>VRE_RapidLifeCycle</li>
+			<!-- Jelly on the fighting castes only, never the greenworm. The pheromones
+			     that keep real insectoids off her are not a gene from VRE any more:
+			     PMM_Gene_Insect carries that effect itself, in
+			     Source/Insects/InsectPheromones.cs. -->
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_DevilBug</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
 	<!-- Giant Ant (spelopede): diligent worker, digging claws, great strength -->
@@ -39,9 +80,32 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Insect</li>
-			<li>MeleeDamage_Strong</li>
 			<li>AptitudeRemarkable_Mining</li>
+			<li>AptitudeRemarkable_Construction</li>
+			<!-- VRE Insector (HANDOFF §5.3): Hiveglands is the gene that lets her
+			     raise VFEI2 hives, and she and the greenworm are the tribe's two
+			     builders - which is why her hands are for building and digging, not
+			     for brawling. SpelopedeHorn is her digging horn; Dormant and
+			     LowGreyMatter pay for both - a worker drone who sleeps hard and does
+			     not think. Two evolutions, two degrades. -->
+			<li>VRE_Hiveglands</li>
+			<li>VRE_SpelopedeHorn</li>
+			<li>VRE_Dormant</li>
+			<li>VRE_LowGreyMatter</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_GiantAnt</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
 	<!-- Soldier Beetle (megaspider): heavy armour, ripper blades, hidden wings -->
@@ -57,9 +121,34 @@
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Insect</li>
 			<li>Robust</li>
-			<li>PMM_Gene_Flight</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- Large frame (core): the heavy cavalry frame that carries more. She
+			     is a weak flyer, not a strong one, so the two genes do not clash. -->
+			<li>PMM_Gene_LargeFrame</li>
 			<li>MeleeDamage_Strong</li>
+			<!-- VRE Insector (HANDOFF §5.3): HardenedChitin turns aside a quarter of
+			     all incoming damage and CuticleShell shrugs off common disease. That
+			     much body costs her: InefficientMidgut means she must eat far more,
+			     and Stenothermic means she only thrives in her own climate. Two and
+			     two. -->
+			<li>VRE_HardenedChitin</li>
+			<li>VRE_CuticleShell</li>
+			<li>VRE_InefficientMidgut</li>
+			<li>VRE_Stenothermic</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_SoldierBeetle</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
 	<!-- Greenworm (larva, Odyssey): soft, gentle, slow, acid secretion -->
@@ -74,11 +163,34 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Insect</li>
-			<li>MoveSpeed_Slow</li>
+			<li>AptitudeRemarkable_Construction</li>
+			<!-- VRE Insector (HANDOFF §5.3): a hive builder like the ant, and a
+			     midgut that gets full value from raw food. Her prices suit a grub:
+			     Immunodeficiency (soft flesh with no defence against illness) and
+			     HypothermicHibernation (when the cold bites she simply sleeps, as a
+			     grub does). No VRE acid glands - she already has SludgeSpew - and no
+			     jelly gene: she is brood, not a fighter. Two and two. -->
+			<li>VRE_Hiveglands</li>
+			<li>VRE_RobustMidgut</li>
+			<li>VRE_Immunodeficiency</li>
+			<li>VRE_HypothermicHibernation</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Greenworm</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Vamp Mosquito (locust, Odyssey): buzzing wings, venomous bite, blood-drinking -->
+	<!-- Vamp Mosquito (locust, Odyssey): thin buzzing wings and weak flight (no
+	     caravan speed, no passenger), venomous bite, blood-drinking -->
 	<XenotypeDef>
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectVampMosquito</defName>
 		<label>vamp mosquito</label>
@@ -90,9 +202,32 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Insect</li>
-			<li>PMM_Gene_Flight</li>
+			<li>PMM_Gene_FlightWeak</li>
 			<li>Beauty_Beautiful</li>
+			<!-- VRE Insector (HANDOFF §5.3): HighGreyMatter is her cunning - she
+			     learns fast and reads people - and AntimicrobialPeptides keeps her
+			     mending. AcidBlood and WeakenedChitin pay for both: her blood smokes
+			     with tox gas when she is cut, and her shell is thin. That gas is a
+			     gift to a raider, since every momo is immune to it now and the
+			     player's people are not. Two and two. -->
+			<li>VRE_HighGreyMatter</li>
+			<li>VRE_AntimicrobialPeptides</li>
+			<li>VRE_AcidBlood</li>
+			<li>VRE_WeakenedChitin</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_VampMosquito</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
 	<!-- Abaddon (hive queen, Odyssey): the devouring queen, never sleeps, egg-spew -->
@@ -107,10 +242,36 @@
 		<genes>
 			<li>ProjectMomo_Momo</li>
 			<li>PMM_Gene_Insect</li>
-			<li>Robust</li>
-			<li>MeleeDamage_Strong</li>
 			<li>PMM_Gene_Flight</li>
+			<li>AptitudeRemarkable_Social</li>
+			<li>AptitudeStrong_Intellectual</li>
+			<!-- VRE Insector (HANDOFF §5.3), the royal package: SwarmSynapse is
+			     Sorne's pherocore gene, SpawningSack is her fertility, and
+			     SlowedLifeCycle means she never ages. Her three prices:
+			     ProteinDenaturation (sunlight burns her, so she keeps to the hive),
+			     HypothermicHibernation (she sleeps through the cold) and
+			     HardLockedJoints (she waddles, she does not walk). Three and three,
+			     as the geneline picker demands. -->
+			<li>VRE_SwarmSynapse</li>
+			<li>VRE_SpawningSack</li>
+			<li>VRE_SlowedLifeCycle</li>
+			<li>VRE_ProteinDenaturation</li>
+			<li>VRE_HypothermicHibernation</li>
+			<li>VRE_HardLockedJoints</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
 		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Abaddon</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
 	</XenotypeDef>
 
 </Defs>

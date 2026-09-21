@@ -14,6 +14,19 @@
 		   the pawn-level statBases as a stat stage, plus the RaceExtension for
 		   B&S race handling (romance tags, size scaling).
 
+		The three winged castes carry a second tracker, Big & Small's own
+		BS_HumanoidWithWings_Race, through raceHediffList - that one draws the wings.
+		Merging the two into one def was tried on 2026-09-20 and RimWorld refused to
+		load it: a node is registered for XML inheritance only when it carries a
+		<Name> attribute (XmlInheritance.TryRegister never reads "defName"), and B&S
+		declares its trackers with <defName> alone. The log then fills with "Could not
+		find parent node named BS_HumanoidWithWings_Race" and the tracker loads with
+		no art and no comps. One row would mean our tracker declaring its own copy of
+		the wing render nodes (referencing B&S's GraphicSetDefs by name); that waits on
+		a decision. Never declare <comps> on a tracker whose parent is B&S's own
+		tracker either: child list nodes merge into the parent's, so the pawn ends up
+		with two race comps.
+
 		What Route A buys over the old BasePawn clones:
 		- B&S's scaler reads baseBodySize and renders bug girls at their real size
 		  (0.2 devil bug scuttling at your feet, 2.0 Abaddon overhead) with working
@@ -55,6 +68,9 @@
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>100</MarketValue>
+			<!-- 30 chitin a corpse, the value VFEI2's own insect races carry. Human
+			     would give 75 of whatever leather it wears. -->
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -107,6 +123,11 @@
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.6</baseBodySize>
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
@@ -190,6 +211,7 @@
 			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>200</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -235,6 +257,11 @@
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.8</baseBodySize>
 			<baseHealthScale>1.7</baseHealthScale>
 			<baseHungerRate>0.25</baseHungerRate>
@@ -291,6 +318,7 @@
 			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>500</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -336,10 +364,18 @@
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>1.2</baseBodySize>
 			<baseHealthScale>2.5</baseHealthScale>
 			<baseHungerRate>0.35</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Race-level wings, same reason as the vamp mosquito: the flight
+			     gene cannot swap the body of a pawn with her own race def. -->
+			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
 			<li Class="PMM_Insects.CompProperties_HiveNourishment">
@@ -350,6 +386,10 @@
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_SoldierBeetle</raceHediff>
+				<!-- Wing renderer, same as the vamp mosquito's. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -392,6 +432,7 @@
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>35</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -440,6 +481,11 @@
 			<!-- Same ruling as Devil Bug: 0.2 literal bug size renders doll-small;
 			     0.6 is a short woman. HealthScalePatch x2.5 covers her 0.25
 			     baseHealthScale, same as the devil bug's 0.4. -->
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.6</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
@@ -494,6 +540,7 @@
 			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>120</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -539,10 +586,22 @@
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.6</baseBodySize>
 			<baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Wings live on the race, not on the flight gene. B&S's gene path
+			     (Genes/GenePatches.cs) swaps with force:false and targetPriority:0,
+			     and a race def that isn't literally Human keeps priority 200 - so
+			     her own def always wins the fusion fallback and the gene's body
+			     swap is silently refused. This body is what gives her real BS_Wing
+			     parts; the winged tracker below draws them. -->
+			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
 			<li Class="PMM_Insects.CompProperties_HiveNourishment">
@@ -553,6 +612,14 @@
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_VampMosquito</raceHediff>
+				<!-- B&S's winged tracker: draws her full wings for anything without
+				     the flight gene. A weak-flight carrier has no Flagger, so this
+				     tracker blanks itself and the gene's smaller wings show instead.
+				     The strong flight gene raises the flags, so an abaddon keeps
+				     these full-size wings. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -591,6 +658,7 @@
 			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>2000</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
 			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
@@ -638,15 +706,22 @@
 			<meatMarketValue>0.5</meatMarketValue>
 			<!-- baseBodySize matches SM_BodySizeMultiplier (2.0, was 4.5).
 			     baseHealthScale stays 9.8: she is still the queen. -->
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin. The queen
+			     yields the same 30 as her daughters, plus the 150 InsectJelly below. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>2.0</baseBodySize>
 			<baseHealthScale>9.8</baseHealthScale>
 			<needsRest>false</needsRest>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Race-level wings, same reason as the vamp mosquito: the flight
+			     gene cannot swap the body of a pawn with her own race def. -->
+			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
 			<li Class="CompProperties_SpreadSludge">
 				<mtbTicks>15000</mtbTicks>
-				<abilityDef>EggSpew</abilityDef>
+				<abilityDef>PMM_Ability_EggSpew</abilityDef>
 			</li>
 			<li Class="CompProperties_LetterOnRevealed">
 				<label>Hive queen</label>
@@ -664,6 +739,10 @@
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Abaddon</raceHediff>
+				<!-- Wing renderer, same as the vamp mosquito's. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
