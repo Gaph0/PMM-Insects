@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The two insector tribes. One abstract base holds everything the pair share,
+		and the two concrete defs below differ only in name, colour, art and
+		relations.
+
+		Why a pair: the momos are a people, not a monster spawn. One tribe starts
+		neutral, so it can be traded with and befriended, and one is always at war,
+		so the swarm still comes for you. Locked ruling, 2026-09-20.
+
+		Parent: vanilla "TribeBase", the abstract base the gentle tribe uses. It
+		brings Neolithic tech, the tribal meme weights, settlementGenerationWeight 1
+		and canStageAttacks. The hostile tribe copies the savage-tribe fields
+		(permanentEnemy, the Supremacist meme) instead of parenting off
+		"TribeSavageBase": a second parent would mean a second copy of this whole
+		block, and two copies drift apart.
+
+		Villages: the KCSG extension at the bottom of the base makes every insector
+		village generate from VFEI2's own settlement layouts. So the walls are hive
+		walls, the ground is creep, and the nests are real hives. KCSG ships inside
+		Vanilla Expanded Framework. The field takes a list and KCSG picks one at
+		random per village, so the four VFEI2 layouts give four village sizes.
+
+		Deliberately not set:
+		  * backstoryFilters - every momo pawn kind carries its own per-species
+		    spawn category, and a faction-level pool would fight it.
+		  * basicMemberKind - inherited from TribeBase (Tribesperson). The faction
+		    leader is generated from that kind plus the xenotypeSet below, so she
+		    should come out an insect momo. Check her in game; if she is a
+		    baseliner, point basicMemberKind at one of the momo kinds.
+		  * caravanTraderKinds, disallowedMemes - later phases.
+	-->
+	<FactionDef ParentName="TribeBase" Name="PMM_InsectorTribeBase" Abstract="True">
+		<pawnSingular>insector</pawnSingular>
+		<pawnsPlural>insectors</pawnsPlural>
+		<leaderTitle>hive queen</leaderTitle>
+		<listOrderPriority>25</listOrderPriority>
+		<requiredCountAtGameStart>1</requiredCountAtGameStart>
+		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+		<maxConfigurableAtWorldCreation>10</maxConfigurableAtWorldCreation>
+		<configurationListOrderPriority>25</configurationListOrderPriority>
+		<canStageAttacks>true</canStageAttacks>
+		<autoFlee>false</autoFlee>
+		<raidLootMaker>TribeRaidLootMaker</raidLootMaker>
+
+		<!-- Leader. Faction.TryGenerateNewLeader only looks at kinds listed in a
+		     COMBAT group that carry <factionLeader>true</factionLeader>, so a queen
+		     who appears in the Settlement group alone can never be found that way -
+		     which is why both tribes had no leader at all. fixedLeaderKinds is added
+		     to that candidate list directly, so the queen leads a tribe without ever
+		     being listed in a raid group. Without Odyssey the queen does not exist,
+		     so the list is empty and the tribe has no leader, which is how vanilla
+		     treats a faction with no leader kind. -->
+		<fixedLeaderKinds>
+			<li MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</li>
+		</fixedLeaderKinds>
+
+		<!-- Cost curve. The vanilla tribal curve caps a single pawn at roughly 135
+		     to 151 points once a group reaches a village's worth of points (BaseGen
+		     gives a settlement 1150 to 1600 points), and the abaddon costs 500 - so on
+		     the vanilla curve she could never stand in a village. This curve opens the
+		     cap as the points climb, which lets her be a village queen without letting
+		     her near a raid: no Combat group below lists her. -->
+		<maxPawnCostPerTotalPointsCurve>
+			<points>
+				<li>(0, 35)</li>
+				<li>(70, 50)</li>
+				<li>(800, 120)</li>
+				<li>(1150, 520)</li>
+				<li>(2000, 700)</li>
+				<li>(100000, 10000)</li>
+			</points>
+		</maxPawnCostPerTotalPointsCurve>
+
+		<!-- Roster for any pawn generated without a kind of its own, the faction
+		     leader included. Fractions, the outlander pattern. The Odyssey species
+		     carry MayRequire so the mod still loads without the DLC. -->
+		<xenotypeSet Inherit="False">
+			<xenotypeChances>
+				<PMM_InsectDevilBug>0.30</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.30</PMM_InsectGiantAnt>
+				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
+				<PMM_InsectGreenworm MayRequire="Ludeon.RimWorld.Odyssey">0.12</PMM_InsectGreenworm>
+				<PMM_InsectVampMosquito MayRequire="Ludeon.RimWorld.Odyssey">0.06</PMM_InsectVampMosquito>
+				<PMM_InsectAbaddon MayRequire="Ludeon.RimWorld.Odyssey">0.02</PMM_InsectAbaddon>
+			</xenotypeChances>
+		</xenotypeSet>
+
+		<!-- Group kinds. The momos carry no weapons and no apparel, so there is no
+		     ranged group anywhere in here: raiders are melee only.
+		     The Odyssey-gated duplicates exist because the three Odyssey species
+		     are missing without the DLC, and an option naming a missing pawn kind
+		     is a load error. -->
+		<pawnGroupMakers Inherit="False">
+			<li>
+				<!-- Normal fight: swarm fillers, a line, a couple of heavies. -->
+				<kindDef>Combat</kindDef>
+				<commonality>100</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>8</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Odyssey">
+				<!-- The same fight with the mosquito's flight in the mix. -->
+				<kindDef>Combat</kindDef>
+				<commonality>100</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>8</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
+					<PMM_InsectVampMosquito>3</PMM_InsectVampMosquito>
+				</options>
+			</li>
+			<li>
+				<!-- Close quarters: more heavies, no fliers. -->
+				<kindDef>Combat</kindDef>
+				<commonality>60</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>4</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li>
+				<!-- Village life: workers and fillers. -->
+				<kindDef>Peaceful</kindDef>
+				<options>
+					<PMM_InsectDevilBug>20</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>20</PMM_InsectGiantAnt>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Odyssey">
+				<!-- The brood, kept apart from the fighters. -->
+				<kindDef>Peaceful</kindDef>
+				<options>
+					<PMM_InsectGreenworm>10</PMM_InsectGreenworm>
+				</options>
+			</li>
+			<li>
+				<!-- Village garrison. -->
+				<kindDef>Settlement</kindDef>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Odyssey">
+				<!-- The garrison that holds a queen. She is listed here and nowhere
+				     else, so she can never roll into a raid. -->
+				<kindDef>Settlement</kindDef>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
+					<PMM_InsectVampMosquito>5</PMM_InsectVampMosquito>
+					<PMM_InsectAbaddon>1</PMM_InsectAbaddon>
+				</options>
+			</li>
+			<!-- The four role groups vanilla tribes carry, naming our own castes:
+			     the ant cuts the tunnels, the bug hunts, the beetle hauls, and the ant
+			     works the creep. Gated on Ideology exactly as vanilla gates its own,
+			     because only Ideology code asks for these group kinds. -->
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Miners</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Hunters</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectDevilBug>1</PMM_InsectDevilBug>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Loggers</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectSoldierBeetle>1</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Farmers</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
+				</options>
+			</li>
+		</pawnGroupMakers>
+
+		<modExtensions Inherit="False">
+			<li Class="KCSG.CustomGenOption">
+				<preventBridgeable>true</preventBridgeable>
+				<tryFindFreeArea>true</tryFindFreeArea>
+				<chooseFromSettlements>
+					<li>VFEI2_InsectoidSettlement</li>
+					<li>VFEI2_InsectoidSettlementRatingOne</li>
+					<li>VFEI2_InsectoidSettlementRatingTwo</li>
+					<li>VFEI2_InsectoidSettlementRatingThree</li>
+				</chooseFromSettlements>
+			</li>
+		</modExtensions>
+	</FactionDef>
+
+	<!-- The neutral tribe. Starts at peace, can be traded with and befriended, and
+	     raids only if relations turn bad. -->
+	<FactionDef ParentName="PMM_InsectorTribeBase">
+		<defName>PMM_InsectorHive</defName>
+		<label>insector hive</label>
+		<description>These women raise their young among insect nests, in villages grown from hive walls and jelly. They keep to their own valleys and are slow to trust outsiders, but they will trade insect jelly and chitin with anyone who comes in peace.\n\nTheir villages are still hives. Cross them, and the swarm answers.</description>
+		<factionNameMaker>PMM_NamerFactionInsectorHive</factionNameMaker>
+		<settlementNameMaker>NamerSettlementTribal</settlementNameMaker>
+		<!-- factionIconPath is the world-creation and faction-list icon.
+		     settlementTexturePath is what the world map draws for each village;
+		     leaving it unset throws on every settlement draw. -->
+		<factionIconPath>World/WorldObjects/Expanding/Insects</factionIconPath>
+		<settlementTexturePath>UI/InsectoidHive</settlementTexturePath>
+		<colorSpectrum>
+			<li>(0.62, 0.60, 0.45)</li>
+			<li>(0.45, 0.42, 0.30)</li>
+			<li>(0.78, 0.70, 0.52)</li>
+		</colorSpectrum>
+	</FactionDef>
+
+	<!-- The hostile tribe. The savage-tribe fields, copied: always at war, never
+	     an ally. Its own colour and art, so the player can tell the two apart on
+	     the world map without opening anything. -->
+	<FactionDef ParentName="PMM_InsectorTribeBase">
+		<defName>PMM_InsectorSwarm</defName>
+		<label>insector swarm</label>
+		<description>These women live only for the hive. They answer no greeting and keep no deals. Every swarm they send is meant to take your people, not your goods.\n\nThere is no treaty with the swarm. Only the fight.</description>
+		<factionNameMaker>PMM_NamerFactionInsectorSwarm</factionNameMaker>
+		<permanentEnemy>true</permanentEnemy>
+		<requiredMemes>
+			<li MayRequire="Ludeon.RimWorld.Ideology">Supremacist</li>
+		</requiredMemes>
+		<!-- The user's own art: a spiked hive crest. Used for both fields, the
+		     Dragonia pattern. Split them if a separate village shape is wanted later. -->
+		<factionIconPath>World/WorldObjects/Expanding/PMM_InsectorSwarm</factionIconPath>
+		<settlementTexturePath>World/WorldObjects/Expanding/PMM_InsectorSwarm</settlementTexturePath>
+		<colorSpectrum>
+			<li>(0.55, 0.10, 0.08)</li>
+			<li>(0.75, 0.28, 0.16)</li>
+			<li>(0.33, 0.05, 0.05)</li>
+		</colorSpectrum>
+	</FactionDef>
+
+</Defs>

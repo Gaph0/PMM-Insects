@@ -2,12 +2,29 @@
 <Defs>
 
 	<!--
-		Every insect momo shares one life story. The PMM_InsectSpawn category holds
-		exactly one childhood and one adulthood, and the insect pawn kinds filter
-		backstory generation to this category only, so the generator has nothing else
-		to pick (silences "no backstoryCategories in either" / "No shuffled
+		One life story per species. Each PMM_<Species>Spawn category holds exactly one
+		childhood and one adulthood, and the matching pawn kinds filter backstory
+		generation to their own category alone, so the generator has nothing else to
+		pick (silences "no backstoryCategories in either" / "No shuffled
 		Childhood/Adulthood found ... Choosing random" — the vanilla Insect faction
 		defines no backstory categories, and neither did these kinds).
+
+		The filters sit on each concrete pawn kind, not on the abstract base: RimWorld
+		inherits list nodes, so a category on the base would ride along with the kind's
+		own and put a second childhood in the pool, turning the forced pick into a
+		random one. Kind filters only apply to adult-stage pawns (vanilla hardcodes the
+		Child and Newborn categories for younger ones). The six tribe pawn kinds are
+		adult kinds, so every adult insect momo rolls one of these stories. Tribe
+		children will need their own kinds and their own categories (HANDOFF.md §5.5).
+
+		Larva is the one pairing that stays inside a single body: a greenworm childhood
+		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn. The wiki
+		greenworm matures into a papillon, but the momo in game keeps the worm body and
+		never gets wings, so she does not.
+
+		PMM_InsectChild / PMM_InsectAdult below are the retired shared hive story. No
+		pawn kind references PMM_InsectSpawn any more; they are kept in case a later
+		swarm species wants that shape.
 	-->
 	<BackstoryDef>
 		<defName>PMM_InsectChild</defName>
@@ -37,6 +54,220 @@
 		<skillGains>
 			<Melee>3</Melee>
 			<Mining>2</Mining>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Devil bug (megascarab): hatches under floors, lives by instinct in the dark,
+		hunts by smell and never quite settles. Melee, then Melee + Mining.
+	-->
+	<BackstoryDef>
+		<defName>PMM_DevilBugChild</defName>
+		<title>hollow-floor grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched in the damp dark under a house floor, one of a colony that had moved in beneath the boards, and spent {PAWN_possessive} early days eating whatever the workers brought back.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_DevilBugSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_DevilBugAdult</defName>
+		<title>scuttling devil bug</title>
+		<titleShort>devil bug</titleShort>
+		<description>{PAWN_nameDef} grew up quick on {PAWN_possessive} feet, scouting the dark edges of the hive by smell and dragging back under the floor whatever the colony asked for.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_DevilBugSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>3</Melee>
+			<Mining>2</Mining>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Giant ant (spelopede): a worker of a queen-led nest, cutting tunnels
+		through rock and carrying loads far heavier than herself.
+	-->
+	<BackstoryDef>
+		<defName>PMM_GiantAntChild</defName>
+		<title>tunnel child</title>
+		<titleShort>tunnel</titleShort>
+		<description>{PAWN_nameDef} hatched in a nest deep underground and spent {PAWN_possessive} early days hauling spoil along the tunnels and following the scent trails of the workers.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_GiantAntSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+			<Mining>2</Mining>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_GiantAntAdult</defName>
+		<title>tireless giant ant</title>
+		<titleShort>giant ant</titleShort>
+		<description>{PAWN_nameDef} worked the nest from dawn to dark, cutting tunnels through solid rock and carrying loads far heavier than herself, and came home each night to the man the nest had taken for her.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_GiantAntSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Mining>4</Mining>
+			<Construction>2</Construction>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Soldier beetle (megaspider): armoured heavy infantry, silent in the ranks
+		and quick to duel for her place in the queue.
+	-->
+	<BackstoryDef>
+		<defName>PMM_SoldierBeetleChild</defName>
+		<title>shell grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched with {PAWN_possessive} shell already hard, and spent {PAWN_possessive} early days in the leaf litter drinking sap while the armour thickened.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_SoldierBeetleSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_SoldierBeetleAdult</defName>
+		<title>lancer soldier beetle</title>
+		<titleShort>soldier beetle</titleShort>
+		<description>{PAWN_nameDef} grew into a lancer of her kind, silent in the ranks, quick to duel for the place she wanted, and slow to leave the man she picked.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_SoldierBeetleSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>4</Melee>
+			<Shooting>2</Shooting>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Greenworm (larva): a grub childhood and a grown-worm adulthood, both in
+		PMM_GreenwormSpawn, which is the whole pool for the Larva kinds. No butterfly
+		stage here — the momo in game keeps the worm body and never gets wings.
+	-->
+	<BackstoryDef>
+		<defName>PMM_GreenwormChild</defName>
+		<title>munching greenworm</title>
+		<titleShort>greenworm</titleShort>
+		<description>{PAWN_nameDef} hatched as a soft green grub among the hive's egg sacs, and spent {PAWN_possessive} early days eating, sleeping and eating again, storing up everything {PAWN_possessive} body would need later.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_GreenwormSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+			<Plants>2</Plants>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_GreenwormAdult</defName>
+		<title>still-hungry greenworm</title>
+		<titleShort>greenworm</titleShort>
+		<description>{PAWN_nameDef} never spun a chrysalis and never grew wings, staying soft and slow and hungry all day, eating whatever the hive's stores can spare.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_GreenwormSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Plants>3</Plants>
+			<Cooking>2</Cooking>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Vamp mosquito (locust): a patient ambusher that lives on nectar and leaves
+		a bite on the man she chose.
+	-->
+	<BackstoryDef>
+		<defName>PMM_VampMosquitoChild</defName>
+		<title>nectar-fed wriggler</title>
+		<titleShort>wriggler</titleShort>
+		<description>{PAWN_nameDef} hatched in the standing water at the bottom of the hive, and spent {PAWN_possessive} early days drinking nectar, learning to hold still in the air, and watching the workers come and go.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_VampMosquitoSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_VampMosquitoAdult</defName>
+		<title>prowling vamp mosquito</title>
+		<titleShort>mosquito</titleShort>
+		<description>{PAWN_nameDef} grew into the hive's huntress, circling a man for hours before she strikes and leaving a mark that brings him back to her long after he has gone.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_VampMosquitoSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>3</Melee>
+			<Medicine>2</Medicine>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Abaddon (hive queen): a daughter of the swarm queen, sealed underground for
+		ages, who commands by scent and never sleeps.
+	-->
+	<BackstoryDef>
+		<defName>PMM_AbaddonChild</defName>
+		<title>sealed swarm princess</title>
+		<titleShort>princess</titleShort>
+		<description>{PAWN_nameDef} slept sealed deep underground for ages, one of the daughters kept for the day the swarm would be wanted again.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_AbaddonSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+			<Social>2</Social>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_AbaddonAdult</defName>
+		<title>swarm-mother abaddon</title>
+		<titleShort>abaddon</titleShort>
+		<description>{PAWN_nameDef} woke under an open sky and the swarm woke with her, flying where her scent told it to fly and taking the men she chose.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_AbaddonSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Social>4</Social>
+			<Melee>3</Melee>
 		</skillGains>
 	</BackstoryDef>
 

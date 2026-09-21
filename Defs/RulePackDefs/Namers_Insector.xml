@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The faction names. The user listed five Abaddon names and ruled that they
+		live in a small rule pack, so a world rolls one per tribe.
+
+		Two packs rather than one, split three and two: a world then never holds
+		two insector tribes with the same name, and the hostile tribe always sounds
+		like the threat it is. Vanilla is the template - see
+		Data/Core/Defs/RulePackDefs/RulePacks_Namers_Factions.xml line 117
+		(NamerFactionTribal).
+
+		Literal r_name entries need no word utility and no rulesFiles, so these
+		packs have no <include> block.
+	-->
+	<RulePackDef>
+		<defName>PMM_NamerFactionInsectorHive</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name->The Abaddon Hive</li>
+				<li>r_name->Abaddon Nest</li>
+				<li>r_name->Tribe of the Abaddon</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+	<RulePackDef>
+		<defName>PMM_NamerFactionInsectorSwarm</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>r_name->Abaddon Swarm</li>
+				<li>r_name->Abaddon Brood</li>
+			</rulesStrings>
+		</rulePack>
+	</RulePackDef>
+
+</Defs>

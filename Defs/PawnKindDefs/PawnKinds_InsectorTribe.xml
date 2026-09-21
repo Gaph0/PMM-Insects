@@ -2,35 +2,40 @@
 <Defs>
 
 	<!--
-		Insect-faction pawnkinds: the swap's targets for pawns generated AS the Insect
-		faction (infestations, hives, lairs, egg sacs, raids). Each keeps the vanilla
-		insect kind's combatPower exactly, so infestation point budgets are unchanged.
+		Insector tribe pawnkinds: the six castes that fill the tribe villages and
+		their raids. Each keeps the vanilla insect kind's combatPower exactly, so
+		the point budgets the original bugs were tuned for still hold.
+
 		Wildness 0: these are faction NPCs, not wild animals — a 0.99-wildness
-		humanlike hive queen would just go feral. defaultFactionDef Insect mirrors
-		InsectKindBase; canArriveManhunter false (humanlikes cannot manhunt anyway).
-		moveSpeedFactorByTerrainTag gives the 2x bonus on insect sludge from
-		InsectKindBase. All women, naked and unarmed, xenotype pinned per kind.
+		humanlike hive queen would just go feral. defaultFactionDef points at the
+		neutral tribe; the hostile tribe supplies itself through pawnGroupMakers,
+		which is how faction generation works anyway. canArriveManhunter false
+		(humanlikes cannot manhunt anyway). moveSpeedFactorByTerrainTag gives the
+		2x bonus on insect sludge from InsectKindBase. All women, naked and unarmed,
+		xenotype pinned per kind, and each carries its own per-species backstory
+		category.
+
+		Where the six appear is decided in Defs/FactionDefs/Factions_InsectorTribes.xml,
+		not here.
 	-->
 	<PawnKindDef Name="PMM_InsectKindBase" Abstract="True">
 		<maxGenerationAge>60</maxGenerationAge>
 		<fixedGender>Female</fixedGender>
 		<chemicalAddictionChance>0</chemicalAddictionChance>
-		<defaultFactionDef>Insect</defaultFactionDef>
+		<!-- The neutral tribe by default. A pawn kind can name only one faction, and
+		     the hostile tribe supplies its own faction through pawnGroupMakers, which
+		     is how faction generation works anyway. -->
+		<defaultFactionDef>PMM_InsectorHive</defaultFactionDef>
 		<canArriveManhunter>false</canArriveManhunter>
 		<apparelIgnorePollution>true</apparelIgnorePollution>
 		<initialWillRange>0~4</initialWillRange>
 		<initialResistanceRange>4~17</initialResistanceRange>
-		<!-- The vanilla Insect faction defines no backstory categories, so give every
-		     insect momo the single shared hive story (PMM_InsectSpawn category). Without
-		     this the generator logs "no backstoryCategories in either" and picks random
-		     backstories. -->
-		<backstoryFilters>
-			<li>
-				<categories>
-					<li>PMM_InsectSpawn</li>
-				</categories>
-			</li>
-		</backstoryFilters>
+		<!-- The vanilla Insect faction defines no backstory categories, so every
+		     concrete kind below carries its own backstoryFilters naming that species'
+		     single spawn category (PMM_<Species>Spawn). Without that the generator logs
+		     "no backstoryCategories in either" and picks random backstories.
+		     Deliberately not on this abstract base: a category here would ride along
+		     with the kind's own and put a second childhood in the pool. -->
 		<moveSpeedFactorByTerrainTag>
 			<li>
 				<key>Insect</key>
@@ -44,7 +49,13 @@
 		<label>devil bug</label>
 		<race>PMM_Race_DevilBug</race>
 		<combatPower>40</combatPower>
-		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_DevilBugSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<xenotypeSet><xenotypeChances><PMM_InsectDevilBug>100</PMM_InsectDevilBug></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -53,7 +64,13 @@
 		<label>giant ant</label>
 		<race>PMM_Race_GiantAnt</race>
 		<combatPower>75</combatPower>
-		<ecoSystemWeight>0.35</ecoSystemWeight>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_GiantAntSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<xenotypeSet><xenotypeChances><PMM_InsectGiantAnt>100</PMM_InsectGiantAnt></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -62,7 +79,13 @@
 		<label>soldier beetle</label>
 		<race>PMM_Race_SoldierBeetle</race>
 		<combatPower>150</combatPower>
-		<ecoSystemWeight>0.50</ecoSystemWeight>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_SoldierBeetleSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<xenotypeSet><xenotypeChances><PMM_InsectSoldierBeetle>100</PMM_InsectSoldierBeetle></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -71,7 +94,13 @@
 		<label>greenworm</label>
 		<race>PMM_Race_Greenworm</race>
 		<combatPower>25</combatPower>
-		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_GreenwormSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<abilities>
 			<li>SludgeSpew</li>
 		</abilities>
@@ -83,7 +112,13 @@
 		<label>vamp mosquito</label>
 		<race>PMM_Race_VampMosquito</race>
 		<combatPower>55</combatPower>
-		<ecoSystemWeight>0.15</ecoSystemWeight>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_VampMosquitoSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
 		<xenotypeSet><xenotypeChances><PMM_InsectVampMosquito>100</PMM_InsectVampMosquito></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -92,12 +127,22 @@
 		<label>abaddon</label>
 		<race>PMM_Race_Abaddon</race>
 		<combatPower>500</combatPower>
-		<ecoSystemWeight>0.15</ecoSystemWeight>
-		<appearsRandomlyInCombatGroups>false</appearsRandomlyInCombatGroups>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_AbaddonSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<!-- She is the village queen, not a random combat pawn: the factions list her
+		     in the Settlement group and nowhere else, so she garrisons a village and
+		     never rolls into a raid. appearsRandomlyInCombatGroups stays at its default
+		     true for exactly that reason - the old false kept her out of every group,
+		     villages included. -->
 		<canBeScattered>false</canBeScattered>
 		<isBoss>true</isBoss>
 		<abilities>
-			<li>EggSpew</li>
+			<li>PMM_Ability_EggSpew</li>
 		</abilities>
 		<xenotypeSet><xenotypeChances><PMM_InsectAbaddon>100</PMM_InsectAbaddon></xenotypeChances></xenotypeSet>
 	</PawnKindDef>

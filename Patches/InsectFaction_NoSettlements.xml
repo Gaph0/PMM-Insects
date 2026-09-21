@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		The feral insect faction keeps its raids, its infestations, cave and ancient
+		danger spawns, deep drilling and the thumper bosses - but loses its bases on
+		the world map.
+
+		Why: with the two insector tribes in the world there were three insect
+		factions on the overworld, two of them hostile and holding settlements,
+		which read as redundant. Ruling 2026-09-20.
+
+		VFEI2 turns the vanilla hidden insect faction into a settling faction by
+		adding <settlementGenerationWeight>1</settlementGenerationWeight> to it
+		(1.6/Patches/InsectFactionPatch.xml, a PatchOperationAdd). This patch puts
+		the weight back to 0, so world generation places no hive towns. Our mod
+		loads after VFEI2, so this replace runs after their add and wins.
+
+		Everything this switches off is keyed on "is this settlement owned by
+		Faction.OfInsects": the infested territory and its world-map overlay, the
+		insect map generation on those tiles (creep, 20-30 wild hives, and the
+		geneline boss that only spawns on a map owned by that faction), and the
+		distance-based infestation MTB. Raids and infestations are unaffected: they
+		come from the faction, not from its settlements.
+
+		Still reachable afterwards: the geneline bosses through the thumper
+		buildings, and the Emerging Hive quest, which can still turn its site into a
+		real hive settlement and so create one infested region. That one is treated
+		as a feature, not a hole.
+	-->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/FactionDef[defName="Insect"]/settlementGenerationWeight</xpath>
+		<value>
+			<settlementGenerationWeight>0</settlementGenerationWeight>
+		</value>
+	</Operation>
+
+</Patch>
