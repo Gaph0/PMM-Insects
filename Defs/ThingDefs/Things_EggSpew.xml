@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The egg-sac end of the brood chain (Phase 5, 2026-09-20). See
+		Defs/AbilityDefs/Abilities_EggSpew.xml for the ability that throws these.
+
+		Both defs are clones of Odyssey's Proj_EggSac and EggSac with three changes:
+		  - the projectile spawns OUR sac, and the sac carries VFEI2_Swarmling;
+		  - the sac is back on Core's own spawn comp, `CompSpawnLarva` over
+		    CompSpawnPawnOnDestroyed, so the hatch is vanilla behaviour down to the lord rule.
+		    It briefly used a comp of our own, because Core cannot generate a HUMANLIKE pawn:
+		    it asks for age 0 while refusing downed pawns, and a newborn humanlike is always
+		    downed. A swarmling is not humanlike, so that problem is gone;
+		  - the sac keeps `lordJob LordJob_WanderNest`, so a fresh brood wanders its nest
+		    like a vanilla larva instead of standing about. If that reads wrong on a
+		    humanlike pawn in the field test, drop the lordJob and she will simply idle.
+
+		Why the brood lands in the right faction (verified in Assembly-CSharp 1.6):
+		Projectile_SpawnsThing.Impact ends with
+		    if (thing.def.CanHaveFaction) thing.SetFaction(base.Launcher.Faction);
+		so the sac takes the caster's faction, and CompSpawnPawnOnDestroyed spawns the
+		pawn with `Faction faction = parent.Faction` - the sac's. `category` must stay
+		Building for that to apply: ThingDef.CanHaveFaction is true for Pawns and
+		Buildings only, and it ignores `isInert` entirely.
+
+		When it hatches: only DestroyMode.KillFinalize counts, so the sac must be KILLED - a
+		dev-tool destroy or a deconstruct spawns nothing, exactly as with vanilla's sac. A
+		swarmling is generated at age 0, the larva stage of her kind, and she hops up to 5 cells
+		away on a PawnFlyer_Stun - exactly what vanilla's larva does. From there VFEI2's own
+		CompProperties_SwarmlingToCocoon takes over: she cocoons, and a random adult insectoid
+		of the hive crawls out.
+	-->
+	<ThingDef ParentName="BaseGrenadeProjectile" MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>PMM_Proj_EggSac</defName>
+		<label>egg sac</label>
+		<thingClass>Projectile_SpawnsThing</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/PMM_EggSac</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<speed>21</speed>
+			<damageAmountBase>0</damageAmountBase>
+			<spawnsThingDef>PMM_EggSac</spawnsThingDef>
+			<tryAdjacentFreeSpaces>true</tryAdjacentFreeSpaces>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingNaturalBase" MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>PMM_EggSac</defName>
+		<label>egg sac</label>
+		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow. Destroy it and the swarmling crawls out.</description>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<graphicData>
+			<texPath>Things/Building/PMM_EggSac</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.3</fillPercent>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<statBases>
+			<MaxHitPoints>20</MaxHitPoints>
+			<Flammability>0.4</Flammability>
+			<Beauty>-6</Beauty>
+		</statBases>
+		<building>
+			<isInert>true</isInert>
+			<claimable>false</claimable>
+			<deconstructible>false</deconstructible>
+			<repairable>false</repairable>
+			<quickTargetable>true</quickTargetable>
+			<isTargetable>true</isTargetable>
+			<expandHomeArea>false</expandHomeArea>
+		</building>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>6</glowRadius>
+				<glowColor>(113,141,117,0)</glowColor>
+			</li>
+			<!-- The brood: a swarmling of the sac's faction, hatched when the sac is
+			     killed. VFEI2_Swarmling is VFEI2's own juvenile kind - the same pawn their
+			     queen and empress spawn - and it metamorphoses into an adult insect. -->
+			<li Class="CompProperties_SpawnPawnOnDestroyed">
+				<compClass>CompSpawnLarva</compClass>
+				<pawnKind>VFEI2_Swarmling</pawnKind>
+				<lordJob>LordJob_WanderNest</lordJob>
+			</li>
+			<li Class="CompProperties_SpawnEffecterOnDestroy">
+				<effect>CocoonDestroyed</effect>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>

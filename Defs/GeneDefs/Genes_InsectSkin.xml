@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Chitin tones for the insect momos.
+
+		Why five genes instead of one colour: a gene's skinColorOverride is a single
+		fixed RGB, so every carrier looks identical. Vanilla's own answer is a set of
+		mutually exclusive cosmetic genes marked randomChosen (its melanin, tail and
+		hair-colour genes all work this way): the pawn carries all of them, and
+		Pawn_GeneTracker.Notify_GenesChanged keeps exactly ONE - chosen at random,
+		weighted evenly - and overrides the rest. That is per-pawn variation with
+		no code at all.
+
+		So every insect xenotype lists all five of these. Each momo keeps one, and
+		her daughters re-roll their own.
+
+		Colour: 47.1%/46.3%/34.9% as 0-255 is (120, 118, 89), the muted olive-grey
+		base; the other four are that tone shifted pale, mossy, umber and dark.
+
+		All five parent off Biotech's GeneSkinColorOverride, which supplies the
+		Cosmetic_Skin category, the icon, the SkinColorOverride exclusion tag (so
+		they can never stack with each other or with another mod's skin gene) and
+		keeps them out of the tradeable pool. randomBrightnessFactor is pinned to 0:
+		vanilla's own skin-override genes do the same, so the tone is exactly what
+		the def says.
+	-->
+
+	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>PMM_Skin_ChitinPale</defName>
+		<label>pale chitin</label>
+		<labelShortAdj>pale chitin</labelShortAdj>
+		<description>Carriers of this gene grow a pale, ash-olive chitin carapace.</description>
+		<skinColorOverride>(148, 145, 126)</skinColorOverride>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<randomChosen>true</randomChosen>
+		<randomBrightnessFactor>0</randomBrightnessFactor>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	</GeneDef>
+
+	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>PMM_Skin_ChitinOlive</defName>
+		<label>olive chitin</label>
+		<labelShortAdj>olive chitin</labelShortAdj>
+		<description>Carriers of this gene grow a muted olive-grey chitin carapace.</description>
+		<skinColorOverride>(120, 118, 89)</skinColorOverride>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<randomChosen>true</randomChosen>
+		<randomBrightnessFactor>0</randomBrightnessFactor>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	</GeneDef>
+
+	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>PMM_Skin_ChitinMoss</defName>
+		<label>moss chitin</label>
+		<labelShortAdj>moss chitin</labelShortAdj>
+		<description>Carriers of this gene grow a mossy green chitin carapace.</description>
+		<skinColorOverride>(100, 116, 74)</skinColorOverride>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<randomChosen>true</randomChosen>
+		<randomBrightnessFactor>0</randomBrightnessFactor>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	</GeneDef>
+
+	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>PMM_Skin_ChitinUmber</defName>
+		<label>umber chitin</label>
+		<labelShortAdj>umber chitin</labelShortAdj>
+		<description>Carriers of this gene grow a warm umber-brown chitin carapace.</description>
+		<skinColorOverride>(128, 104, 74)</skinColorOverride>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<randomChosen>true</randomChosen>
+		<randomBrightnessFactor>0</randomBrightnessFactor>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	</GeneDef>
+
+	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>PMM_Skin_ChitinDark</defName>
+		<label>dark chitin</label>
+		<labelShortAdj>dark chitin</labelShortAdj>
+		<description>Carriers of this gene grow a dark olive-brown chitin carapace.</description>
+		<skinColorOverride>(84, 82, 62)</skinColorOverride>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<randomChosen>true</randomChosen>
+		<randomBrightnessFactor>0</randomBrightnessFactor>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	</GeneDef>
+
+</Defs>

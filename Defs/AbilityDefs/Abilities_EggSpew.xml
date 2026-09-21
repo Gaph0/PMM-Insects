@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The brood's egg spew (Phase 5, 2026-09-20). Odyssey's own EggSpew ability, cloned so
+		the sac it throws holds a VFEI2 swarmling instead of Odyssey's vanilla larva. The
+		clone is what keeps vanilla Odyssey untouched: patching EggSpew or EggSac instead
+		would change every vanilla egg sac in the game.
+
+		The whole chain is pure XML - no C# anywhere:
+		  - this ability launches PMM_Proj_EggSac (beside the same acid spray as vanilla),
+		  - PMM_Proj_EggSac is a Projectile_SpawnsThing that spawns PMM_EggSac,
+		  - Projectile_SpawnsThing.Impact gives that sac the LAUNCHER's faction
+		    (`thing.SetFaction(base.Launcher.Faction)`), and CompSpawnPawnOnDestroyed then
+		    spawns the pawn with the sac's faction - so a queen's brood belongs to her
+		    faction, in her village, without one line of our code.
+		See Defs/ThingDefs/Things_EggSpew.xml for the two ThingDefs.
+
+		Odyssey-gated, like the queen herself: the sounds, the spray effecter and the
+		sludge projectile it references are all Odyssey content.
+	-->
+	<AbilityDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>PMM_Ability_EggSpew</defName>
+		<label>egg spew</label>
+		<description>Launch an egg sac and a spray of acidic sludge at the target area. The sludge will stick to targets and burn them.</description>
+		<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
+		<cooldownTicksRange>5000</cooldownTicksRange>
+		<aiCanUse>true</aiCanUse>
+		<displayOrder>300</displayOrder>
+		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+		<warmupStartSound>AcidSpray_Warmup</warmupStartSound>
+		<verbProperties>
+			<verbClass>Verb_CastAbility</verbClass>
+			<range>14.9</range>
+			<warmupTime>0.25</warmupTime>
+			<soundCast>AcidSpray_Resolve</soundCast>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+		</verbProperties>
+		<comps>
+			<!-- The sludge half, unchanged from Odyssey. -->
+			<li Class="CompProperties_AbilitySprayLiquid">
+				<projectileDef>Proj_StrongSludgeSpray</projectileDef>
+				<numCellsToHit>18</numCellsToHit>
+				<sprayEffecter>AcidSpray_Directional</sprayEffecter>
+			</li>
+			<!-- The brood half: ours instead of Odyssey's Proj_EggSac. -->
+			<li Class="CompProperties_AbilityLaunchProjectile">
+				<projectileDef>PMM_Proj_EggSac</projectileDef>
+			</li>
+		</comps>
+	</AbilityDef>
+
+</Defs>
