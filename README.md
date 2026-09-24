@@ -1,9 +1,12 @@
 # Project Momo Insects
 
 A Project Momo sub-mod that turns the six insectoids of the Rim into insect momos:
-human-shaped monster girls. Every vanilla insect becomes the matching momo, so
-infestations, hives, ancient dangers, egg sacs, wild spawns and trader livestock all
-change over.
+human-shaped monster girls. The momos live in insector tribes of their own, in villages
+raised from hive walls and creep. Real insects still spawn, raid and infest as they
+always did.
+
+Two tribes settle on polluted ground: one neutral, one always at war. A giant ant of
+the tribe trades with player caravans that reach a village.
 
 | Insect | Momo | What she keeps |
 |--------|------|----------------|
@@ -34,7 +37,9 @@ daughter rolls her own tone.
 The six races live in `Defs/ThingDefs/Races_InsectMomo_BS.xml`, on the Big & Small
 race pattern.
 
-**Requires:** Project Momo (PMM.Core), Biotech, Harmony, Big and Small - Framework.
+**Requires:** Project Momo (PMM.Core), Biotech, Harmony, Big and Small - Framework,
+Vanilla Expanded Framework, Vanilla Races Expanded - Insector, and Vanilla Factions
+Expanded - Insectoids 2.
 **Optional:** Odyssey (larvae, locusts, hive queens).
 
 Build with `./build.sh`. It builds Project Momo first through the project reference.

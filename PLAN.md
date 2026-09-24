@@ -5,6 +5,14 @@ whose xenotypes carry `ProjectMomo_Momo`. Stats are copied 1:1 from the insect d
 the bug girls hit exactly as hard and take exactly the same punishment as the bugs
 they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
 
+> **This is the original design, not the shipped one.** It was written around a
+> global spawn swap plus tameable wild momos. Both were dropped and deleted on
+> 2026-09-20, and the mod shipped as two insector tribes instead. `HANDOFF.md` is the
+> authority for what the mod is and what is left, and it wins wherever the two
+> disagree. What is still useful here is the design reference: the species table
+> above, the stat table in §3 and §7 on the Big & Small conversion. §2 (the swap),
+> §5 (the wild layer) and §6 (their risk list) were deleted on 2026-09-24.
+
 | RimWorld insect | MGE momo      | Source DLC        |
 |-----------------|---------------|-------------------|
 | Megascarab      | Devil Bug     | Core              |
@@ -19,39 +27,20 @@ they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
 ## 1. Mod skeleton (mirrors Reptiles)
 
 - packageId `PMM.Insects`, assembly `PMM_Insects.dll`, namespace `PMM_Insects`.
-- Hard deps: Harmony, Biotech, PMM.Core. **Odyssey is a soft dep** — Larva/Locust/
-  HiveQueen defs are MayRequire-gated, and the swap patch skips kinds that failed
-  to load; the three Core species work without the DLC.
-- `loadAfter`: Harmony, Biotech, PMM.Core. VEF not needed (no egg-laying here —
-  insects reproduce via the normal momo pregnancy).
+- Hard deps: Harmony, Biotech, PMM.Core, VEF, VRE Insector, VFEI2 and
+  BetterPrerequisites. **Odyssey is a soft dep**: the Greenworm, Vamp Mosquito and
+  Abaddon kinds are MayRequire-gated, so the three Core species work without it.
+- `loadAfter`: Harmony, Biotech, PMM.Core, VEF, VRE Insector, VFEI2.
 - `build.sh` / `sync.sh` / `release.sh` copied from Reptiles (same csc pattern,
   minus the VEF reference).
-
-## 2. Core mechanism — the generation swap
-
-A Harmony **prefix on `PawnGenerator.GeneratePawn(ref PawnGenerationRequest)`**:
-when `request.KindDef.defName` is one of the six vanilla insect kinds, it is
-replaced with the matching PMM pawnkind. Every spawn source funnels through
-`PawnGenerator`, so the single patch catches infestations/hives, Odyssey insect
-lairs and egg sacs, wild biome spawns, ancient dangers, deep-drill bugs, quests
-and trader livestock.
-
-Context split inside the patch:
-
-- `request.Faction == Insect` -> `PMM_Insect<Species>` kind (stays in the Insect
-  faction: hostile, joins the hive lord, takes part in raids).
-- otherwise -> `PMM_Wild<Species>` kind (wild woman, tameable).
-
-Everything else in the request is left untouched — faction, position, lord
-assignment flow through as before.
 
 ## 3. Keeping their stats — one cloned humanlike race per species
 
 Genes cannot touch `baseHealthScale`/`baseBodySize` (the Queen's 980% HP needs
 race-level data), so each species gets a humanlike race cloned from `Human`
 (`ParentName="BasePawn"`, `body Human`, `renderTree Humanlike`, Human life stages,
-humanlike think trees, human food, human red blood — these are women, not bugs,
-and the Insect faction's own hostility makes them enemies regardless of race).
+humanlike think trees, human food, human red blood — these are women, not bugs, and
+whether she is an enemy is her tribe's business, not her race's).
 On top of the clone, the insect's numbers are overlaid:
 
 | Stat (race/statBases) | Devil Bug | Giant Ant | Soldier Beetle | Greenworm | Vamp Mosq. | Abaddon |
@@ -74,14 +63,13 @@ Per-species extras kept from the bug defs:
   — exact DPS parity; the core tease-damage patch converts damage on non-momo
   victims as usual.
 - `ToxicEnvironmentResistance 0.8`; Abaddon: `needsRest=false` (never sleeps),
-  `CompProperties_SpreadSludge` + `EggSpew` (spawned Larvae are swapped into
-  Greenworm daughters by the same patch), `CompProperties_LetterOnRevealed`,
+  `CompProperties_SpreadSludge` + `EggSpew` (her egg sac hatches a `VFEI2_Swarmling`), `CompProperties_LetterOnRevealed`,
   butcherProducts `InsectJelly x150`.
 - Greenworm: `CompProperties_SpreadSludge` + `SludgeSpew` (acid spit kept).
 - Pawnkinds keep `combatPower` identical so infestation point budgets are
   unchanged, and carry `moveSpeedFactorByTerrainTag` (2x on insect sludge).
-- `Insect` faction pawnkinds: `Wildness 0` (they are faction NPCs, not wild
-  animals — 0.99 wildness on a humanlike would drive them wild).
+- Tribe pawnkinds: `Wildness 0` (they are faction NPCs, not wild animals — 0.99
+  wildness on a humanlike would drive them wild).
 
 ## 4. Xenotypes & genes
 
@@ -92,35 +80,9 @@ Per-species extras kept from the bug defs:
   Soldier Beetle (robust, sturdy, hidden wings), Greenworm (slow, herbivore
   appetite), Vamp Mosquito (flight + hemogenic + beautiful), Abaddon (tough,
   strong melee, huge wings). Inheritable, all-female,
-  `factionlessGenerationWeight 0` (they only enter the world through the swap).
+  `factionlessGenerationWeight 0` (they enter the world through the tribes only).
 - Every pawnkind pins its xenotype via `xenotypeSet`, `fixedGender Female`,
   no gear (wild-man pattern).
-
-## 5. Wild spawns — the four-piece wild-man recipe
-
-Hard-learned on Reptiles (all four pieces or the pawn walks off the map on her
-first think tick):
-
-1. swap spawns wild kinds **factionless**;
-2. `IsWildMan` postfix -> tameable;
-3. `WildManShouldReachOutsideNow` postfix -> they linger;
-4. `Defs/ThinkTreeDefs/ThinkTrees_InsectWild.xml` — `MainWildManBehaviorCore` +
-   idle wander inserts for all six `PMM_Wild*` kinds.
-
-The `Insect`-faction kinds are excluded from the wild patches — raid/infestation
-bugs stay hostile NPCs; downed ones go through normal capture/recruit.
-
-## 6. Risks / test gates
-
-- **Highest risk:** `LordJob_DefendAndExpandHive` with humanlike pawns (vanilla
-  only ever puts animals in it). Fallback if broken: patch the hive comp to a
-  humanlike-compatible defence lord.
-- `CanBeDormant`/`WakeUpDormant` on humanlikes (ancient danger bugs) — verify.
-- Trader caravans selling insects will sell a bug girl — on-theme quirk, verify
-  no error on purchase.
-- Manhunter-on-harm/tame-fail mechanics disappear (humanlikes cannot manhunt) —
-  accepted loss.
-- Boot with zero red errors, with and without Odyssey (MayRequire gating).
 
 ## 7. Big & Small conversion — Route A (all six species DONE 2026-09-19)
 
@@ -155,12 +117,12 @@ proven on the Devil Bug pilot and then applied to the rest:
 
 Test gate: each species renders at its size (devil bug/greenworm/mosquito
 short, soldier beetle tall-ish, Abaddon towering), armor matches the bug's
-numbers exactly once (no doubling), hive nourishment works, and the wild-man
-recipe still functions on Human-based races.
+numbers exactly once (no doubling), and hive nourishment works.
 
-## 8. Out of scope (later phases)
+## 8. Out of scope
 
-Custom pawn art (antennae/carapace overlays — phase 1 uses human rendering +
-gene icons via mktex.py), RulePack namers, a proper hive faction with
-settlements, jelly economy, Greenworm->Papillon maturation (MGE cocoon lore),
-Odyssey lair-boss loop polish.
+Custom pawn art (antennae/carapace overlays — the castes use human rendering and
+gene icons from `mktex.py`), Greenworm -> Papillon maturation (MGE cocoon lore),
+and Odyssey lair-boss loop polish. The settlements, the RulePack namers and the
+jelly economy this section used to list all shipped with the tribes — see
+`HANDOFF.md` §4.

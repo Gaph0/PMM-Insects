@@ -14,12 +14,15 @@ Three extras came out of the same conversation and are built: chitin instead of
 human leather from a corpse, insect flesh so eating insect meat is cannibalism to a
 momo, and one "momo corpses" line in the item filters (§10, §12.9). That line moved
 into core on 2026-09-20, so the slime and elemental momos share it (§11 item 5).
-Phases 6 to 8 are open: the hive build gate, the kidnapping rework, trade and
-art.
+Phases 6 to 8: the hive build gate is still open, phase 7 was closed on 2026-09-24 by
+deleting the hive bond rule and its vanish rather than repointing them (§8), and
+phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
+art and tuning in §11.
 
 `PLAN.md` holds the old design: a total spawn swap, plus tameable wild momos.
-Where the two files disagree, this one wins. `PLAN.md` §5 (the wild-man recipe)
-and §2 (the swap) are now history.
+Where the two files disagree, this one wins. `PLAN.md` §2 (the swap), §5 (the
+wild-man recipe) and §6 (their risk list) were deleted on 2026-09-24; what is left
+there is the design reference.
 
 ---
 
