@@ -65,10 +65,11 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
 4. **VFEI2 is a hard dependency.**
 5. **No momos in the vanilla Insect faction.** The tribes own every faction-side
    momo kind.
-6. **The hive-abduction wrapper goes.** No "lost forever", no vanish, no special
-   letter. Vanilla kidnapping only.
-7. **The bond rule stays true:** when a hive momo wins a tsugai bond she never
-   joins the colony. She carries the man back to her hive.
+6. **The hive-abduction wrapper is gone.** No vanish, no special letter. Vanilla
+   kidnapping only.
+7. **The bond rule is gone too (changed 2026-09-24).** A hive momo uses the core's
+   tsugai behaviour like any other momo, so she can join the colony on a bond win.
+   §8 lists what was deleted and why.
 8. **No chestburst pregnancy on momos.** Hard no.
 9. **Jelly dependency: combat castes only.** Only the castes that read as fighters
    carry `VRE_InsectJellyDependency`. The greenworm does not.
@@ -113,6 +114,9 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
   behaviour to fake.
 - `Defs/PawnKindDefs/PawnKinds_InsectWild.xml` — all six `PMM_Wild*` kinds.
 - `Defs/ThinkTreeDefs/ThinkTrees_InsectWild.xml` — the wild think trees.
+- `Source/Insects/HiveBondKidnap.cs`, `Source/Insects/HiveKidnapVanish.cs` and
+  `Source/Insects/FactionJoinQuiet.cs` — deleted 2026-09-24. The hive bond rule,
+  the vanish and the swap-era log patch were all unreachable; §8 has the detail.
 
 ### Keep
 
@@ -135,12 +139,6 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
   `ecoSystemWeight` lines: they only count for factionless pawns, so they do
   nothing here. Rename the file to `PawnKinds_InsectorTribe.xml` if you like.
   Keep `combatPower` at the vanilla bug's value.
-- `Source/Insects/HiveBondKidnap.cs` — keep the "she never joins" forced
-  kidnap. Move the faction test off `Faction.OfInsects` and onto the new
-  faction. Delete the custom letter text.
-- `Source/Insects/HiveKidnapVanish.cs` — delete the vanish behaviour. The man
-  becomes a normal prisoner.
-
 ### Add
 
 Landed already:
@@ -990,29 +988,30 @@ whole supply for a colony that keeps insect momos.
 
 ---
 
-## 8. Kidnapping and the bond rule
+## 8. Kidnapping
 
-Two things stay separate. Do not merge them.
+**Vanilla kidnapping only (user ruling, 2026-09-24).** Their raids are humanlike,
+so raiders can kidnap downed colonists. The man is then an ordinary prisoner of the
+tribe, and the village he is held in can be raided to free him. Keep
+`LordJob_Kidnap` and the vanilla job, and leave `IncidentParms.canKidnap` and
+`LordJob_AssaultColony.canKidnap` alone.
 
-**1. Vanilla raid kidnapping.** Their raids are humanlike raids, so raiders can
-kidnap downed colonists. The man is then an ordinary prisoner of the tribe, and
-the village he is held in can be raided to free him. That is the whole reason the
-user allowed kidnapping again. So:
+**No hive special casing is left.** A tribe momo uses the core's tsugai behaviour
+unchanged: when she wins a bond the core rolls its join chance, and if it wins she
+joins the colony like any other momo. Three files were deleted on 2026-09-24:
 
-- Keep `LordJob_Kidnap` and the vanilla job.
-- Delete the vanish behaviour in `HiveKidnapVanish.cs`.
-- Delete the custom letters. Vanilla letters already say he is a prisoner.
-- Leave `IncidentParms.canKidnap` and `LordJob_AssaultColony.canKidnap` alone.
+- `HiveBondKidnap.cs` — the `HiveInsectMomo` gate, the forced "never joins" prefix
+  on `TsugaiFormation.ExecuteJoin`, the abduct job and the "gone for good" letter.
+  The gate tested `Faction.OfInsects`, which the tribes had not used since Phase 1,
+  so none of it was reachable: the bond rule was dead code.
+- `HiveKidnapVanish.cs` — the vanish at the map edge, which existed only to make
+  that forced kidnap final.
+- `FactionJoinQuiet.cs` — it silenced the "humanlike pawn added to a non-humanlike
+  faction" error, which only the deleted generation swap could raise.
 
-**2. The bond rule.** When a hive momo wins a tsugai bond, she never joins the
-colony. She carries the man home. This stays exactly as it is today, with two
-edits:
-
-- The faction test in `HiveInsectMomo.IsHiveInsectMomo` moves from
-  `Faction.OfInsects` to the new tribe. Today it silently stops matching the
-  moment the momos change faction.
-- The custom "lost for good, no ransom, no rescue" text goes. He is a prisoner
-  in a village, which the player can attack.
+**Trap worth keeping:** the gate that died here was written against
+`Faction.OfInsects`. A tribe faction test must go through
+`FactionPlacement.IsInsectTribe`, which compares defNames.
 
 ---
 
@@ -1139,11 +1138,12 @@ Confirm the build gate from §7.1 in both directions.
 Gate: a recruited momo with `VRE_Hiveglands` can build `VFEI2_JellyFarm` and
 `VFEI2_HiveWall`. A momo without the gene cannot.
 
-**Phase 7 — kidnapping and polish.**
-Bond rule on the new faction, letters removed, vanish removed, faction icon,
-description, no new namers yet.
-Gate: a bond win ends with the man as a prisoner in a village, and the player can
-see him there. No "lost forever" letter anywhere.
+**Phase 7 — kidnapping and polish. (done 2026-09-24)**
+The hive bond rule, the vanish and the custom letter were deleted rather than
+repointed at the tribes (user ruling 2026-09-24), so the tribes behave like every
+other momo. The faction icon and description were already in place; no new namers.
+Gate: a tribe raid leaves the man a prisoner in a village he can be freed from, and
+a bond win follows the core's roll.
 
 **Phase 8 — trade and optional extras.**
 The caravan trader kind (§4.6) on the neutral tribe only, and a custom Ideology

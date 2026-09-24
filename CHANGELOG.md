@@ -56,6 +56,8 @@
 
 ## Internal
 
+- 2026-09-24: Removed the hive bond rule, the map-edge vanish and the swap-era log patch, so the tribes use the core's tsugai behaviour unchanged.
+
 - 2026-09-24: Changed the em dashes in this mod's text to plain hyphens.
 
 - 2026-09-20: Changed the brood to VFEI2_Swarmling, VFEI2's own juvenile kind, which cocoons into a random adult insectoid. PMM_EggSac is back on Core's own CompSpawnPawnOnDestroyed with CompSpawnLarva, so the hatch is vanilla behaviour, and a temporary Source/Insects/EggSacHatch.cs was deleted again.
