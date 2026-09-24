@@ -143,8 +143,10 @@ proven on the Devil Bug pilot and then applied to the rest:
   stacks (devil bug showed 1.44 sharp in-game before the dedup).
 - Durability layers: `internalDamageDivisor 3` on Devil Bug's tracker (hard
   shell, squishy inside), `HealthScalePatch.cs` x2.5 for the two fragile
-  species (Devil Bug 0.4, Greenworm 0.25 — the rest need no help), and the
-  shared core hediff `PMM_Hediff_PartToughness` for B&S-added parts (wings).
+  species (Devil Bug 0.4, Greenworm 0.25 — the rest need no help). The old
+  `PMM_Hediff_PartToughness` core hediff is gone (removed 2026-09-23): a
+  hediff cannot change part HP, and `addedPartProps` only applies on
+  `Hediff_AddedPart`.
 - Trackers stay visible in the Health tab — `RaceTracker` hardcodes
   `Visible = true`; we follow the framework (an attempted Visible postfix was
   reverted).

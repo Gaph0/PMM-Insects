@@ -425,7 +425,7 @@
 	<ThingDef ParentName="Human">
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
-		<description>An insect momo born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion — and spits the same sludge at anything that startles her.</description>
+		<description>An insect momo born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
 		<statBases>
 			<MoveSpeed>2.0</MoveSpeed>
 			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
@@ -533,7 +533,7 @@
 	<ThingDef ParentName="Human">
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_VampMosquito</defName>
 		<label>vamp mosquito</label>
-		<description>An insect momo born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right — then her bite leaves a hot, itching mark that only she can soothe.</description>
+		<description>An insect momo born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
 		<statBases>
 			<MoveSpeed>3.0</MoveSpeed>
 			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
@@ -648,7 +648,7 @@
 	<ThingDef ParentName="Human">
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Abaddon</defName>
 		<label>abaddon</label>
-		<description>An insect momo born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters — her pheromones command the swarm and stir every man who smells them.</description>
+		<description>An insect momo born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters - her pheromones command the swarm and stir every man who smells them.</description>
 		<statBases>
 			<MoveSpeed>3.4</MoveSpeed>
 			<!-- Queen size ruling (2026-09-20): 2.0x, down from the bug's literal

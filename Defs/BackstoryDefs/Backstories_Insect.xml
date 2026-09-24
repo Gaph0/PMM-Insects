@@ -6,7 +6,7 @@
 		childhood and one adulthood, and the matching pawn kinds filter backstory
 		generation to their own category alone, so the generator has nothing else to
 		pick (silences "no backstoryCategories in either" / "No shuffled
-		Childhood/Adulthood found ... Choosing random" — the vanilla Insect faction
+		Childhood/Adulthood found ... Choosing random" - the vanilla Insect faction
 		defines no backstory categories, and neither did these kinds).
 
 		The filters sit on each concrete pawn kind, not on the abstract base: RimWorld
@@ -166,7 +166,7 @@
 	<!--
 		Greenworm (larva): a grub childhood and a grown-worm adulthood, both in
 		PMM_GreenwormSpawn, which is the whole pool for the Larva kinds. No butterfly
-		stage here — the momo in game keeps the worm body and never gets wings.
+		stage here - the momo in game keeps the worm body and never gets wings.
 	-->
 	<BackstoryDef>
 		<defName>PMM_GreenwormChild</defName>

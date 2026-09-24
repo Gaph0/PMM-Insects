@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-09-22: Changed the insector hive to trade with player caravans that reach their villages. A giant ant from the tribe handles the trade.
 - 2026-09-21: Added the large frame gene to the soldier beetle. She counts as a riding animal in caravans, and any caravan she joins moves 20% faster.
 - 2026-09-20: Changed a brood hatched from your own queen to stay a normal pawn of your faction, instead of wandering off with the hive.
 - 2026-09-20: Changed the queen's egg spew to hatch a swarmling from Vanilla Factions Expanded - Insectoids 2, instead of a common insect larva. It grows into an adult insect.
@@ -54,6 +55,8 @@
 - 2026-09-06: Changed Odyssey to an optional dependency. Without it only the three base-game insects change.
 
 ## Internal
+
+- 2026-09-24: Changed the em dashes in this mod's text to plain hyphens.
 
 - 2026-09-20: Changed the brood to VFEI2_Swarmling, VFEI2's own juvenile kind, which cocoons into a random adult insectoid. PMM_EggSac is back on Core's own CompSpawnPawnOnDestroyed with CompSpawnLarva, so the hatch is vanilla behaviour, and a temporary Source/Insects/EggSacHatch.cs was deleted again.
 - 2026-09-20: Added PMM_Ability_EggSpew, PMM_Proj_EggSac and PMM_EggSac (Odyssey-gated clones of Odyssey's egg spew chain, retargeted at VFEI2_Swarmling), and pointed the abaddon race comp and the queen pawn kind at the new ability.

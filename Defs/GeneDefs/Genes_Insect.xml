@@ -3,7 +3,7 @@
 
 	<!--
 		The shared insect gene: chitin plates under the skin and feelers that catch
-		every trace of scent and mana. Stat work is light — the species' real numbers
+		every trace of scent and mana. Stat work is light - the species' real numbers
 		live on the race defs (Races_InsectMomo_BS.xml); this gene marks a momo as
 		insect-born and flavours her body.
 
@@ -26,7 +26,7 @@
      <GeneDef>
              <defName>PMM_Gene_Insect</defName>
              <label>insectoid</label>
-             <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her — every scent, every thread of mana. She was born of the hives.</description>
+             <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her - every scent, every thread of mana. She was born of the hives.</description>
              <iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
              <displayCategory>Miscellaneous</displayCategory>
              <displayOrderInCategory>1000</displayOrderInCategory>

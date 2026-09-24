@@ -6,7 +6,7 @@
 		their raids. Each keeps the vanilla insect kind's combatPower exactly, so
 		the point budgets the original bugs were tuned for still hold.
 
-		Wildness 0: these are faction NPCs, not wild animals — a 0.99-wildness
+		Wildness 0: these are faction NPCs, not wild animals - a 0.99-wildness
 		humanlike hive queen would just go feral. defaultFactionDef points at the
 		neutral tribe; the hostile tribe supplies itself through pawnGroupMakers,
 		which is how faction generation works anyway. canArriveManhunter false
@@ -74,6 +74,28 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectGiantAnt>100</PMM_InsectGiantAnt></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
+	<!-- Tribe trader (added 2026-09-22). A caravan trade and a visit at a hive village
+	     both generate their trader through the faction's Trader pawn group, and vanilla
+	     marks that slot's kind with trader:true + isFighter:false (Tribal_Trader /
+	     Town_Trader), so the traders list gets its own kind instead of borrowing a
+	     fighter. She is a giant ant - the caste that does the tribe's own work - and
+	     keeps the same spawn backstory category and pinned xenotype as the others. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectTrader</defName>
+		<label>tribe trader</label>
+		<race>PMM_Race_GiantAnt</race>
+		<trader>true</trader>
+		<isFighter>false</isFighter>
+		<combatPower>35</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_GiantAntSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectGiantAnt>100</PMM_InsectGiantAnt></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
 	<PawnKindDef ParentName="PMM_InsectKindBase">
 		<defName>PMM_InsectSoldierBeetle</defName>
 		<label>soldier beetle</label>

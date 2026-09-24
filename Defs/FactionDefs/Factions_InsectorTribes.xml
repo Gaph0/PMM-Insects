@@ -193,6 +193,28 @@
 					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
 				</options>
 			</li>
+			<li>
+				<!-- Trader group (added 2026-09-22): trading at a village and trading with a
+				     caravan both generate their traders through the faction's Trader group
+				     maker - the Dragonian lesson, where a trader kind alone threw "no usable
+				     PawnGroupMakers for parms groupKind=Trader". It sits on the shared
+				     abstract base so both tribes stay valid to generate pawns; only the
+				     neutral hive can actually be traded with, because the swarm is a
+				     permanent enemy. Carriers so she brings goods, guards so she is not
+				     alone on the road. -->
+				<kindDef>Trader</kindDef>
+				<traders>
+					<PMM_InsectTrader>1</PMM_InsectTrader>
+				</traders>
+				<carriers>
+					<Muffalo>6</Muffalo>
+					<Dromedary>5</Dromedary>
+					<Alpaca>2.5</Alpaca>
+				</carriers>
+				<guards>
+					<PMM_InsectSoldierBeetle>10</PMM_InsectSoldierBeetle>
+				</guards>
+			</li>
 		</pawnGroupMakers>
 
 		<modExtensions Inherit="False">
@@ -222,6 +244,15 @@
 		     leaving it unset throws on every settlement draw. -->
 		<factionIconPath>World/WorldObjects/Expanding/Insects</factionIconPath>
 		<settlementTexturePath>UI/InsectoidHive</settlementTexturePath>
+		<!-- Base trading (added 2026-09-22): a player caravan that reaches a hive
+		     village can trade there. Without this list Settlement_TraderTracker returns
+		     no trader kind at all, so the trade option never appears even though the
+		     tribe is at peace. Vanilla's neolithic base kind fits their tech level, and
+		     the field is read live off the faction def, so it works in existing saves
+		     too. The hostile swarm deliberately has no trader lists. -->
+		<baseTraderKinds>
+			<li>Base_Neolithic_Standard</li>
+		</baseTraderKinds>
 		<colorSpectrum>
 			<li>(0.62, 0.60, 0.45)</li>
 			<li>(0.45, 0.42, 0.30)</li>
