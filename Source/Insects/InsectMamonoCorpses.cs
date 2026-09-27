@@ -11,9 +11,9 @@ namespace PMM_Insects
     /// the insects, the slimes and the elementals share one line instead of one line each.
     /// See MamonoCorpses for why a corpse's category cannot be set in XML.
     ///
-    /// The three Odyssey races are skipped when the DLC is absent: MamonoCorpses looks every
-    /// race up by name and a missing one is harmless. The abaddon folk is not gated - she
-    /// has no DLC behind her, only the mod's own defs.
+    /// Every race is looked up by name, so a name that is not loaded would simply be skipped.
+    /// Nothing here is conditional any more: the three species that were once gated on a DLC are
+    /// registered exactly like the base-game ones, and the abaddon folk never had a gate at all.
     /// </summary>
     [StaticConstructorOnStartup]
     public static class InsectMamonoCorpses

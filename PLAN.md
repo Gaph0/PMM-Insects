@@ -1,6 +1,6 @@
 # Project Mamono Insects - Design Plan
 
-The six vanilla/Odyssey insects become mamonos: humanlike pawns (Human body, women)
+The six vanilla insects become mamonos: humanlike pawns (Human body, women)
 whose xenotypes carry `ProjectMamono_Mamono`. Stats are copied 1:1 from the insect defs -
 the bug girls hit exactly as hard and take exactly the same punishment as the bugs
 they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
@@ -18,9 +18,9 @@ they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
 | Megascarab      | Devil Bug     | Core              |
 | Spelopede       | Giant Ant     | Core              |
 | Megaspider      | Soldier Beetle| Core              |
-| Larva           | Greenworm     | Odyssey (soft)    |
-| Locust          | Vamp Mosquito | Odyssey (soft)    |
-| HiveQueen       | Abaddon       | Odyssey (soft)    |
+| Larva           | Greenworm     | DLC               |
+| Locust          | Vamp Mosquito | DLC               |
+| HiveQueen       | Abaddon       | DLC               |
 
 ---
 
@@ -28,7 +28,7 @@ they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
 
 - packageId `PMM.Insects`, assembly `PMM_Insects.dll`, namespace `PMM_Insects`.
 - Hard deps: Harmony, Biotech, PMM.Core, VEF, VRE Insector, VFEI2 and
-  BetterPrerequisites. **Odyssey is a soft dep**: the Greenworm, Vamp Mosquito and
+  BetterPrerequisites. **No DLC is needed**: the Greenworm, Vamp Mosquito and
   Abaddon kinds are MayRequire-gated, so the three Core species work without it.
 - `loadAfter`: Harmony, Biotech, PMM.Core, VEF, VRE Insector, VFEI2.
 - `build.sh` / `sync.sh` / `release.sh` copied from Reptiles (same csc pattern,
@@ -123,6 +123,6 @@ numbers exactly once (no doubling), and hive nourishment works.
 
 Custom pawn art (antennae/carapace overlays - the castes use human rendering and
 gene icons from `mktex.py`), Greenworm -> Papillon maturation (MGE cocoon lore),
-and Odyssey lair-boss loop polish. The settlements, the RulePack namers and the
+and DLC lair-boss loop polish. The settlements, the RulePack namers and the
 jelly economy this section used to list all shipped with the tribes - see
 `HANDOFF.md` §4.

@@ -112,7 +112,7 @@
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_InsectKindBase">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectGreenworm</defName>
+		<defName>PMM_InsectGreenworm</defName>
 		<label>greenworm</label>
 		<race>PMM_Race_Greenworm</race>
 		<combatPower>25</combatPower>
@@ -130,7 +130,7 @@
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_InsectKindBase">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectVampMosquito</defName>
+		<defName>PMM_InsectVampMosquito</defName>
 		<label>vamp mosquito</label>
 		<race>PMM_Race_VampMosquito</race>
 		<combatPower>55</combatPower>
@@ -145,7 +145,7 @@
 	</PawnKindDef>
 
 	<PawnKindDef ParentName="PMM_InsectKindBase">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</defName>
+		<defName>PMM_InsectAbaddon</defName>
 		<label>abaddon</label>
 		<race>PMM_Race_Abaddon</race>
 		<combatPower>500</combatPower>

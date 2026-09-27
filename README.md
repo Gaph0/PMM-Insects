@@ -13,9 +13,9 @@ the tribe trades with player caravans that reach a village.
 | Megascarab | Devil Bug | 72% sharp chitin, 3.75 c/s, full-grown before her small gene |
 | Spelopede | Giant Ant | 170% HP, digging claws, great strength |
 | Megaspider | Soldier Beetle | weak flight, large frame, 250% HP, ripper claws, sturdy exoskeleton |
-| Larva (Odyssey) | Greenworm | acid sludge spew, frail frame |
-| Locust (Odyssey) | Vamp Mosquito | small weak wings, no caravan speed, 3.0 c/s |
-| HiveQueen (Odyssey) | Abaddon | four arms, 980% HP, never sleeps, beautiful voice, egg-spew |
+| Larva | Greenworm | acid sludge spew, frail frame |
+| Locust | Vamp Mosquito | small weak wings, no caravan speed, 3.0 c/s |
+| HiveQueen | Abaddon | four arms, 980% HP, never sleeps, beautiful voice, egg-spew |
 
 Abaddon keeps the strong flight gene, so she does not carry the core large frame gene: the
 two are exclusive, and a flying queen is worth more to a caravan than a mount. The soldier
@@ -45,7 +45,7 @@ the spawn pawn list, or apply her xenotype to a woman, which turns her into one.
 **Requires:** Project Mamono (PMM.Core), Biotech, Harmony, Big and Small - Framework,
 Vanilla Expanded Framework, Vanilla Races Expanded - Insector, and Vanilla Factions
 Expanded - Insectoids 2.
-**Optional:** Odyssey (larvae, locusts, hive queens).
+**Optional:** nothing beyond the mods listed above.
 
 Build with `./build.sh`. It builds Project Mamono first through the project reference.
 Deploy to a live RimWorld install with `./sync.sh`.

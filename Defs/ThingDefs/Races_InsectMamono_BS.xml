@@ -79,7 +79,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -221,7 +221,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -322,7 +322,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -414,9 +414,9 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Greenworm (was: Larva, Odyssey) ===================== -->
+	<!-- ===================== Greenworm (was: Larva) ===================== -->
 	<ThingDef ParentName="Human">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Greenworm</defName>
+		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
 		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
 		<statBases>
@@ -433,7 +433,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -524,9 +524,9 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Vamp Mosquito (was: Locust, Odyssey) ===================== -->
+	<!-- ===================== Vamp Mosquito (was: Locust) ===================== -->
 	<ThingDef ParentName="Human">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_VampMosquito</defName>
+		<defName>PMM_Race_VampMosquito</defName>
 		<label>vamp mosquito</label>
 		<description>An insect mamono born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
 		<statBases>
@@ -548,7 +548,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -644,9 +644,9 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Abaddon (was: HiveQueen, Odyssey) ===================== -->
+	<!-- ===================== Abaddon (was: HiveQueen) ===================== -->
 	<ThingDef ParentName="Human">
-		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Abaddon</defName>
+		<defName>PMM_Race_Abaddon</defName>
 		<label>abaddon</label>
 		<description>An insect mamono born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters - her pheromones command the swarm and stir every man who smells them.</description>
 		<statBases>
@@ -667,7 +667,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>28</FilthRate>
 		</statBases>
 		<tools>
@@ -886,7 +886,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -1090,7 +1090,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -1234,7 +1234,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -1352,7 +1352,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>
@@ -1464,7 +1464,7 @@
 			<LeatherAmount>30</LeatherAmount>
 			<ToxicResistance>1</ToxicResistance>
 			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
-			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<tools>

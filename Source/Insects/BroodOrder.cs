@@ -57,9 +57,10 @@ namespace PMM_Insects
         private CompProperties_BroodOrder Props => (CompProperties_BroodOrder)props;
 
         /// <summary>
-        /// Looked up by name rather than through a [DefOf] field: the ability def is Odyssey
-        /// gated, and a [DefOf] field pointing at a def that is not loaded is a load error.
-        /// Null means no Odyssey, and the comp then stays quiet instead of burning.
+        /// Looked up by name rather than through a [DefOf] field. The def always ships with this
+        /// mod, but a [DefOf] field pointing at a def that is not loaded is a load error, so the
+        /// lookup stays defensive: null means no def, and the comp then stays quiet instead of
+        /// burning.
         /// </summary>
         private static AbilityDef EggSpewDef => DefDatabase<AbilityDef>.GetNamedSilentFail("PMM_Ability_EggSpew");
 

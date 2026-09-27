@@ -50,11 +50,11 @@
 		     who appears in the Settlement group alone can never be found that way -
 		     which is why both tribes had no leader at all. fixedLeaderKinds is added
 		     to that candidate list directly, so the queen leads a tribe without ever
-		     being listed in a raid group. Without Odyssey the queen does not exist,
-		     so the list is empty and the tribe has no leader, which is how vanilla
-		     treats a faction with no leader kind. -->
+		     being listed in a raid group. She is the only leader kind the tribes
+		     have, so an empty list here would leave a tribe with no leader at all -
+		     which is how vanilla treats a faction with no leader kind. -->
 		<fixedLeaderKinds>
-			<li MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</li>
+			<li>PMM_InsectAbaddon</li>
 		</fixedLeaderKinds>
 
 		<!-- Cost curve. The vanilla tribal curve caps a single pawn at roughly 135
@@ -75,24 +75,25 @@
 		</maxPawnCostPerTotalPointsCurve>
 
 		<!-- Roster for any pawn generated without a kind of its own, the faction
-		     leader included. Fractions, the outlander pattern. The Odyssey species
-		     carry MayRequire so the mod still loads without the DLC. -->
+		     leader included. Fractions, the outlander pattern. Nothing here is
+		     conditional: this mod needs no DLC, so every caste is always defined. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
 				<PMM_InsectDevilBug>0.30</PMM_InsectDevilBug>
 				<PMM_InsectGiantAnt>0.30</PMM_InsectGiantAnt>
 				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
-				<PMM_InsectGreenworm MayRequire="Ludeon.RimWorld.Odyssey">0.12</PMM_InsectGreenworm>
-				<PMM_InsectVampMosquito MayRequire="Ludeon.RimWorld.Odyssey">0.06</PMM_InsectVampMosquito>
-				<PMM_InsectAbaddon MayRequire="Ludeon.RimWorld.Odyssey">0.02</PMM_InsectAbaddon>
+				<PMM_InsectGreenworm>0.12</PMM_InsectGreenworm>
+				<PMM_InsectVampMosquito>0.06</PMM_InsectVampMosquito>
+				<PMM_InsectAbaddon>0.02</PMM_InsectAbaddon>
 			</xenotypeChances>
 		</xenotypeSet>
 
 		<!-- Group kinds. The mamonos carry no weapons and no apparel, so there is no
 		     ranged group anywhere in here: raiders are melee only.
-		     The Odyssey-gated duplicates exist because the three Odyssey species
-		     are missing without the DLC, and an option naming a missing pawn kind
-		     is a load error.
+		     Several groups share a kind on purpose: they are different mixes of the
+		     same castes - one Combat group carries the mosquito's flight, one is
+		     close-quarters, and the two Settlement groups differ by the queen - and
+		     the generator picks whichever fits the points it has.
 		     This is the SWARM's roster. PMM_InsectorHive replaces the whole list with
 		     one of its own further down, so a caste listed here stands only in the
 		     swarm's villages. Both tribes inherit a list otherwise, and that is what
@@ -108,7 +109,7 @@
 					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
 				</options>
 			</li>
-			<li MayRequire="Ludeon.RimWorld.Odyssey">
+			<li>
 				<!-- The same fight with the mosquito's flight in the mix. -->
 				<kindDef>Combat</kindDef>
 				<commonality>100</commonality>
@@ -137,7 +138,7 @@
 					<PMM_InsectGiantAnt>20</PMM_InsectGiantAnt>
 				</options>
 			</li>
-			<li MayRequire="Ludeon.RimWorld.Odyssey">
+			<li>
 				<!-- The brood, kept apart from the fighters. -->
 				<kindDef>Peaceful</kindDef>
 				<options>
@@ -160,7 +161,7 @@
 					<PMM_InsectGirtablilu>3</PMM_InsectGirtablilu>
 				</options>
 			</li>
-			<li MayRequire="Ludeon.RimWorld.Odyssey">
+			<li>
 				<!-- The garrison that holds a queen. She is listed here and nowhere
 				     else, so she can never roll into a raid. The swarm's villages
 				     field this one; the hive's own roster has no queen at all. -->
@@ -264,9 +265,8 @@
 		     inherit the base's list otherwise, which put every caste in both tribes at
 		     once. The three hostile castes - the arachne, the beelzebub and the girtablilu
 		     - are absent on purpose; the swarm never fields the ant arachne. No option here
-		     names a DLC species, so this whole roster needs no MayRequire and the hive
-		     loses no caste without Odyssey - the queen and the vamp mosquito are the
-		     swarm's. Keep it in step with the base's list: a group kind added there
+		     names a DLC species, needs no MayRequire anywhere, and the queen and the
+		     vamp mosquito are the swarm's, not the hive's. Keep it in step with the base's list: a group kind added there
 		     belongs here too, or a pawn generated for that kind throws "no usable
 		     PawnGroupMakers". This replaced an earlier per-group-kind switch, which only
 		     steered KCSG's defenders and left base populations shared. -->
@@ -302,8 +302,8 @@
 				</options>
 			</li>
 			<li>
-				<!-- Village life: workers and fillers. No brood of her own - the green
-				     worm is Odyssey's, and the hive keeps no DLC species. -->
+				<!-- Village life: workers and fillers. No brood of her own: the
+				     greenworm is the swarm's, and the hive fields no brood caste. -->
 				<kindDef>Peaceful</kindDef>
 				<options>
 					<PMM_InsectDevilBug>20</PMM_InsectDevilBug>

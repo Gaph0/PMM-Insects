@@ -5,7 +5,8 @@
 		The egg-sac end of the brood chain (Phase 5, 2026-09-20). See
 		Defs/AbilityDefs/Abilities_EggSpew.xml for the ability that throws these.
 
-		Both defs started as clones of Odyssey's Proj_EggSac and EggSac. What they are now:
+		Both defs started as clones of the vanilla egg-sac projectile and sac. What they
+		are now:
 		  - the projectile spawns OUR sac, and it is `PMM_Insects.Projectile_EggSac`, which
 		    copies the queen's brood order onto that sac at impact;
 		  - the sac's spawn comp is `PMM_Insects.CompEggSacBrood`, which derives from vanilla's
@@ -33,7 +34,7 @@
 		of the hive crawls out. A mamono sac is the other case: the caste the queen chose is
 		generated at age 3, a child, and she simply stands up where the sac was.
 	-->
-	<ThingDef ParentName="BaseGrenadeProjectile" MayRequire="Ludeon.RimWorld.Odyssey">
+	<ThingDef ParentName="BaseGrenadeProjectile">
 		<defName>PMM_Proj_EggSac</defName>
 		<label>egg sac</label>
 		<!-- Ours rather than vanilla's Projectile_SpawnsThing: it does everything vanilla does
@@ -52,7 +53,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef ParentName="BuildingNaturalBase" MayRequire="Ludeon.RimWorld.Odyssey">
+	<ThingDef ParentName="BuildingNaturalBase">
 		<defName>PMM_EggSac</defName>
 		<label>egg sac</label>
 		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow. Kill it and the brood inside crawls out - which daughter she is, the queen decides.</description>

@@ -2,10 +2,10 @@
 <Defs>
 
 	<!--
-		The brood's egg spew (Phase 5, 2026-09-20). Odyssey's own EggSpew ability, cloned so
-		the sac it throws holds a VFEI2 swarmling instead of Odyssey's vanilla larva. The
-		clone is what keeps vanilla Odyssey untouched: patching EggSpew or EggSac instead
-		would change every vanilla egg sac in the game.
+		The brood's egg spew (Phase 5, 2026-09-20). A clone of vanilla's egg-spew ability,
+		and kept a clone on purpose: that way the sac it throws holds a VFEI2 swarmling
+		instead of a vanilla larva. Patching the vanilla ability or sac instead would
+		change every vanilla egg sac in the game.
 
 		The chain, and the one link of it that is ours:
 		  - this ability launches PMM_Proj_EggSac and nothing else,
@@ -31,10 +31,13 @@
 		range and the comps below.
 		See Defs/ThingDefs/Things_EggSpew.xml for the two ThingDefs.
 
-		Odyssey-gated, like the queen herself: the sounds, the spray effecter and the
-		sludge projectile it references are all Odyssey content.
+		Nothing in this chain needs a DLC. The two sounds are Core's own (AcidSpray_Warmup
+		and AcidSpray_Resolve, Data/Core/Defs/SoundDefs/World_Oneshot_Misc.xml), the parents
+		are Core, and the brood's pawn kind comes from VFEI2. The spray effecter and the
+		sludge projectile that used to be referenced here went with the acid spray on
+		2026-09-26.
 	-->
-	<AbilityDef MayRequire="Ludeon.RimWorld.Odyssey">
+	<AbilityDef>
 		<defName>PMM_Ability_EggSpew</defName>
 		<label>egg spew</label>
 		<description>Lay an egg sac on the ground. Break the sac to release the brood inside.</description>
@@ -67,8 +70,8 @@
 			</targetParams>
 		</verbProperties>
 		<comps>
-			<!-- The brood, and the only half left: ours instead of Odyssey's Proj_EggSac. The acid
-			     spray comp that sat above it was deleted on 2026-09-26. -->
+			<!-- The brood, and the only half left: our own projectile rather than the vanilla
+			     one. The acid spray comp that sat above it was deleted on 2026-09-26. -->
 			<li Class="CompProperties_AbilityLaunchProjectile">
 				<projectileDef>PMM_Proj_EggSac</projectileDef>
 			</li>
