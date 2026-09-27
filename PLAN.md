@@ -225,6 +225,22 @@ field, and the project already uses the marker-extension pattern).
 - **The item**: food on the level of vanilla insect jelly, but with
   `foodPoisoningChanceFactor 0`. It is ordinary food: honey does not feed the jelly
   need from `VRE_InsectJellyDependency`, which was considered and cut on 2026-09-27.
+- **Medieval Overhaul compat** (user, 2026-09-27): with MO loaded she produces MO's
+  honey, not ours - the same soft compat the arachne's silk already has. MO is
+  workshop `3219596926` and its honey item is **`DankPyon_Honey`**
+  (`1.6/Defs/ThingDefs_Items/Items_Resources.xml`), a food whose own recipe text
+  calls it "a nutritious and enjoyable meal by its own", so nothing else is needed
+  when MO is present. The patch is `Patches/Honey_MedievalOverhaul.xml`, built
+  exactly like `Patches/ArachneSilk_MedievalOverhaul.xml`: `PatchOperationFindMod`
+  gating on MO by display name, then the gene's `honeyDef` removed and re-added as
+  `DankPyon_Honey` (two ops, because the element ships in our own gene def), then
+  our `PMM_Honey` added to the `excludedThingDefs` of every
+  `StockGenerator_Category` that stocks honey's category - so our jar stops
+  appearing in trader stock once nothing produces it, while `tradeability` stays
+  untouched so a spare jar can still be sold.
+- **Sequencing rule for that patch:** it cannot exist before the gene does. An op
+  whose xpath matches nothing logs a warning on every load, so the patch lands in
+  the same commit as the gene and the item, never before.
 
 **Decisions still open:** how fast honey builds and whether it caps, how much one
 milking yields, whether honey is tradeable, and whether the abaddon's brood list
@@ -232,5 +248,6 @@ should include the bee.
 
 **Steps:** (0) the gene plus its state class and dials; (1) the honey item and its
 ingestion; (2) the milking chain, mirroring the silk chain; (3) the caste defs and
-art, including her weight in the neutral hive's roster and her corpse entry;
-(4) paperwork.
+art, including her weight in the neutral hive's roster and her corpse entry; (4) the
+MO compat patch, in the same commit as the gene, since it has nothing to re-point
+until the gene exists; (5) paperwork.
