@@ -52,19 +52,25 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_DevilBug</defName>
 		<label>devil bug</label>
-		<description>An insect mamono born of the megascarab. Her feelers never stop twitching, scenting the sweat and mana of men, and she scuttles after what she smells with tireless, simple-minded hunger.</description>
+		<description>An insect mamono born of the megascarab, and built like a cockroach - flat, hard-shelled and quick to scuttle into any gap. She stands at the bottom of the hive's order: she raises and patches the walls her sisters live in, hauls what they leave behind, and is treated as a pest by the very women she shelters.</description>
 		<statBases>
 			<MoveSpeed>3.75</MoveSpeed>
 			<!-- Armor moved OUT of statBases: it lives on the race tracker as a
 			     hediff stat stage now, so ALL pawn-level toughness sits in one
 			     hidden hediff (user ruling 2026-09-19). It no longer doubles with
 			     gear or reads as a race quirk on the info card. -->
-			<!-- Visual/mechanical size for B&S. The scaler does NOT read baseBodySize
-			     for the render size of humanlikes - it reads the SM_BodySizeMultiplier
-			     STAT (this is how B&S's own Centaur declares 1.15x). Without this the
-			     devil bug rendered at 1.0 no matter what baseBodySize said.
-			     Set to match baseBodySize 0.6: a short woman, not doll-sized. -->
-			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier (B&S's own maths), and VRE_Microsized then
+			     subtracts a FLAT 0.45 through VEF. So 1.0 x 1.0 = 1.0 before the gene
+			     and 0.55 with it.
+
+			     SM is also the scale B&S DRAWS a humanlike at - baseBodySize is not.
+			     Without this she rendered at 1.0 whatever baseBodySize said, which is
+			     why the pair was pinned together at 0.6 from 2026-09-19. User ruling
+			     2026-09-27: full-grown before the gene, so the pair is 1.0 x 1.0. To
+			     keep a short sprite and still report 1.0 before the gene, the pair
+			     would be baseBodySize 1.667 with SM 0.6. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>100</MarketValue>
@@ -115,9 +121,10 @@
 			     insect flesh and ichor, bug meat when butchered, and the bug's size
 			     package. B&S reads baseBodySize for render scaling; large races get
 			     renderCacheOff automatically in the scaler.
-			     baseBodySize raised 0.2 -> 0.6 (user ruling 2026-09-19): 0.2 was the
-			     megascarab's literal size and rendered her doll-small. 0.6 is a short
-			     woman. Health scale and hunger stay at the bug's values. -->
+			     baseBodySize raised 0.2 -> 0.6 on 2026-09-19 (0.2 was the megascarab's
+			     literal size and rendered her doll-small) and 0.6 -> 1.0 on 2026-09-27,
+			     so she is a full-grown woman before VRE_Microsized takes its flat 0.45.
+			     Health scale and hunger stay at the bug's values. -->
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>
 			<useMeatFrom>Megaspider</useMeatFrom>
@@ -128,7 +135,7 @@
 			     30 per corpse they use, so a dead insector feeds the economy the
 			     tribes trade in. -->
 			<leatherDef>VFEI2_Chitin</leatherDef>
-			<baseBodySize>0.6</baseBodySize>
+			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
@@ -507,7 +514,17 @@
 		<description>An insect mamono born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
 		<statBases>
 			<MoveSpeed>3.0</MoveSpeed>
-			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier (B&S's own maths), and VRE_Microsized then
+			     subtracts a FLAT 0.45 through VEF. So 1.0 x 1.0 = 1.0 before the gene
+			     and 0.55 with it. She was 0.6 x 0.6 = 0.36, which the gene would have
+			     driven below zero. User ruling 2026-09-27: 1.0 before the gene.
+
+			     SM is also the scale B&S DRAWS a humanlike at - baseBodySize is not -
+			     so she renders at human scale now. To keep a small sprite and still
+			     report 1.0 before the gene, the pair would be baseBodySize 1.667 with
+			     SM 0.6. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
 			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>120</MarketValue>
@@ -562,7 +579,10 @@
 			     30 per corpse they use, so a dead insector feeds the economy the
 			     tribes trade in. -->
 			<leatherDef>VFEI2_Chitin</leatherDef>
-			<baseBodySize>0.6</baseBodySize>
+			<!-- 1.0 against the 1.0 multiplier in statBases above: 1.0 on her own,
+			     0.55 once VRE_Microsized takes its flat 0.45. Arithmetic in the note
+			     there. -->
+			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
@@ -733,6 +753,12 @@
 					     against her. -->
 					<li><pawnKind>PMM_InsectArachne</pawnKind></li>
 					<li><pawnKind>PMM_InsectBeelzebub</pawnKind></li>
+					<!-- The assassin of the desert (2026-09-27). A daughter the queen can lay on purpose,
+					     and one the random draw can hand back. -->
+					<li><pawnKind>PMM_InsectGirtablilu</pawnKind></li>
+					<!-- The ant mimic (2026-09-27). A daughter the queen can lay on purpose,
+					     and one the random draw can hand back. -->
+					<li><pawnKind>PMM_InsectAntArachne</pawnKind></li>
 					<li>
 						<randomMamono>true</randomMamono>
 						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
@@ -1283,6 +1309,250 @@
 				<canSwapAwayFrom>true</canSwapAwayFrom>
 			</li>
 		</comps>
+	</HediffDef>
+
+	<!-- The assassin of the desert (2026-09-27), another arachne-family caste.
+	     B&S's spider hybrid body, the same one the arachne wears: an arachne
+	     subspecies with a scorpion's shell, so she is the swarm's striker rather
+	     than its weaver. Where the arachne waits behind her web, she charges in -
+	     VRE's charger claws give her that, and her venom needs no attack of its
+	     own: VenomDamagePatch (core) is keyed to the venom gene, not to a verb, so
+	     every melee hit she lands injects it. The core venom gene is the same one
+	     the reptiles' basilisk carries; nothing had to move for her to have it. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Girtablilu</defName>
+		<label>girtablilu</label>
+		<description>A woman's body on a scorpion's: plated chitin, pincer hands, and venom in every blow. Her name means the assassin of the desert, and she hunts the same way in the swarm - she charges, she stings, and she is always hungry for the kill.</description>
+		<statBases>
+			<MoveSpeed>3.7</MoveSpeed>
+			<SM_BodySizeMultiplier>1.25</SM_BodySizeMultiplier>
+			<!-- Hot country: a little colder than the arachne's 0 is already asking for
+			     trouble, and VRE_HypothermicSlowdown is what the cold does to her
+			     instead of killing her. -->
+			<ComfyTemperatureMin>5</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>450</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left pincer</label>
+				<labelNoLocation>pincer</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right pincer</label>
+				<labelNoLocation>pincer</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>chelicerae</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<body>BS_SpiderHybrid</body>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.25</baseBodySize>
+			<!-- 0.44 x HealthScalePatch's 2.5 lands her at 1.1: a touch tougher than a human,
+			     where the arachne lands exactly on one. The spare tenth is her shell. -->
+			<baseHealthScale>0.44</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Girtablilu</raceHediff>
+				<raceHediffList>
+					<li>BS_SpiderPersonRace</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Girtablilu</defName>
+		<label>girtablilu</label>
+		<description>A girtablilu mamono of the swarm: a scorpion's plated lower body on a woman's.
+		</description>
+		<!-- The heaviest shell in the swarm bar the devil bug (0.72 sharp), and the reason her
+		     melee is the threat: 0.40 sharp against the arachne's 0.15. No capMods - her hands
+		     are pincers, not a weaver's. -->
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.22</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- The ant mimic (2026-09-27): an arachne that looks like a giant ant and
+	     lives in its nests. Smaller than her sister and built for work rather
+	     than the web - the arachne's body and silk, VRE's hiveglands to build
+	     with, and NO web trap. She carries no ability at all. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_AntArachne</defName>
+		<label>ant arachne</label>
+		<description>A smaller arachne wearing an ant's colours: a woman's body on a spider's, with a builder's hands, a silk sac, and no patience for anything but work.</description>
+		<statBases>
+			<MoveSpeed>3.6</MoveSpeed>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier (B&S), then VRE_Microsized takes a FLAT 0.45
+			     through VEF. 1.0 x 1.0 = 1.0 before the gene, 0.55 with it: a small
+			     spiderwoman beside the arachne's 1.3. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>380</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<body>BS_SpiderHybrid</body>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.0</baseBodySize>
+			<!-- 0.36 x HealthScalePatch's 2.5 = 0.9: a worker's frame, a tenth under
+			     a human, in a body her size. The patch needs an entry for her. -->
+			<baseHealthScale>0.36</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+			<!-- Her silk, the arachne's numbers: 25 a cycle, 3 days to fill. The work
+			     giver and the right-click order both find her through THIS COMP, not
+			     through her race, so the only other place that needs to know she
+			     exists is Patches/ArachneSilk_MedievalOverhaul.xml, whose xpath names
+			     the arachne's race. -->
+			<li Class="PMM_Insects.CompProperties_ArachneSilk">
+				<silkDef>PMM_ArachneSilk</silkDef>
+				<silkPerGather>25</silkPerGather>
+				<growthDays>3</growthDays>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_AntArachne</raceHediff>
+				<raceHediffList>
+					<li>BS_SpiderPersonRace</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_AntArachne</defName>
+		<label>ant arachne</label>
+		<description>A smaller arachne mamono of the hive, wearing a giant ant's colours.
+		</description>
+		<!-- Lighter shell than her sister's 0.15 and a builder's hands instead: 0.22
+		     sharp and +0.20 Manipulation against the arachne's +0.10. Manipulation
+		     is what construction speed rides on, which is the whole point of her. -->
+		<stages Inherit="False">
+			<li>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.20</offset>
+					</li>
+				</capMods>
+				<statOffsets>
+					<ArmorRating_Sharp>0.22</ArmorRating_Sharp>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<!-- No abilities, and the emptiness is the decision: the arachne's web trap
+		     is deliberately absent (user, 2026-09-27 - "no web ability"). -->
 	</HediffDef>
 
 </Defs>

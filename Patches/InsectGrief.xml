@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Insect mamono mourn their own like drones, not like daughters (user ruling
+		2026-09-27: "a greatly lowered mood debuff for killed colonists, to match
+		the disposable nature of insect momos").
+
+		The lever is vanilla's own: `ThoughtDef.nullifyingGenes` is read by
+		ThoughtUtility.NullifyingGene and through ThoughtUtility.ThoughtNullified,
+		which Thought_Memory.MoodOffset calls first thing - so a listed gene makes
+		the memory worth nothing, and the mood screen never shows the line. It is
+		the same list that already carries `Psychopath` as a nullifying TRAIT on
+		ColonistLost.
+
+		That switch cannot scale: there is no XML dial between the full hit and no
+		hit. So the list below is exactly the heavy half of grief - a dead child,
+		spouse, fiance, lover, sibling or grandchild, and a close friend at -10 or
+		worse. Left alone on purpose: her parents and extended kin (-4 to -8),
+		bonded animals (-8), and the colony's own generic losses - KnowColonistDied
+		at -3 and ColonistLost at -6 - which are the token that keeps a dead
+		colonist costing her something.
+
+		Both files are covered because vanilla splits the two ways a colonist can be
+		gone (Died = died on the map, Lost = gone from it) and they mirror each
+		other def for def.
+
+		PMM_Gene_Insect is the shared insect gene, so this is one patch for every
+		insect caste, and it covers a woman transformed into one at runtime too.
+	-->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThoughtDef[defName="PawnWithGoodOpinionDied" or defName="MySonDied" or defName="MyDaughterDied" or defName="MyHusbandDied" or defName="MyWifeDied" or defName="MyFianceDied" or defName="MyFianceeDied" or defName="MyLoverDied" or defName="MyBrotherDied" or defName="MySisterDied" or defName="MyGrandchildDied"]</xpath>
+		<value>
+			<nullifyingGenes>
+				<li>PMM_Gene_Insect</li>
+			</nullifyingGenes>
+		</value>
+	</Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThoughtDef[defName="PawnWithGoodOpinionLost" or defName="MySonLost" or defName="MyDaughterLost" or defName="MyHusbandLost" or defName="MyWifeLost" or defName="MyFianceLost" or defName="MyFianceeLost" or defName="MyLoverLost" or defName="MyBrotherLost" or defName="MySisterLost" or defName="MyGrandchildLost"]</xpath>
+		<value>
+			<nullifyingGenes>
+				<li>PMM_Gene_Insect</li>
+			</nullifyingGenes>
+		</value>
+	</Operation>
+
+</Patch>

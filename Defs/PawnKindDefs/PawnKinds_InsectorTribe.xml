@@ -170,10 +170,11 @@
 	</PawnKindDef>
 
 	<!-- The weaver (2026-09-26). Tribe-only by design: factionlessGenerationWeight 0 here and
-	     on her xenotype, so she never appears among random pawns or factionless events. No
-	     backstory filter yet - she draws from the common pool until her own spawn category and
-	     her backstory land (phase 2). Her place in the tribe's own spawn tables, and the line
-	     that lets an abaddon lay her, come next; until then she is dev-spawn only. -->
+	     on her xenotype, so she never appears among random pawns or factionless events. Her
+	     spawn-table place landed 2026-09-27: she stands in the hostile swarm's villages and
+	     nowhere else, and the abaddon can lay her. No backstory filter yet - she draws from
+	     the common pool until her own spawn category and her backstory land (phase 2); see
+	     HANDOFF.md §11 item 11. -->
 	<PawnKindDef ParentName="PMM_InsectKindBase">
 		<defName>PMM_InsectArachne</defName>
 		<label>arachne</label>
@@ -205,6 +206,34 @@
 		<combatPower>55</combatPower>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<xenotypeSet><xenotypeChances><PMM_InsectBeelzebub>100</PMM_InsectBeelzebub></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- The assassin of the desert (2026-09-27). Tribe-only like her sisters: no factionless
+	     pool, no spawn table but the swarm's own, no forced traits (her genes carry the
+	     temperament - ecdysone overdrive and volatile both push her at people), and no raid
+	     groups. Combat power a step above the arachne's 110: the charge and the venom are real.
+	     She has no backstoryFilters, like the arachne and the beelzebub - HANDOFF.md §11
+	     item 11 has that gap and the fix for all three. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectGirtablilu</defName>
+		<label>girtablilu</label>
+		<race>PMM_Race_Girtablilu</race>
+		<combatPower>115</combatPower>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectGirtablilu>100</PMM_InsectGirtablilu></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- The ant mimic (2026-09-27). Tribe-only like her sisters: no factionless pool,
+	     no spawn table but the hive's own, no forced traits, and no raid groups.
+	     Combat power 70, close to the giant ant's 75 she is imitating: she is a
+	     worker with a worker's frame, and what she brings is hands, not claws. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectAntArachne</defName>
+		<label>ant arachne</label>
+		<race>PMM_Race_AntArachne</race>
+		<combatPower>70</combatPower>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectAntArachne>100</PMM_InsectAntArachne></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 </Defs>

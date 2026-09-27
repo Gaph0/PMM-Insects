@@ -2,6 +2,22 @@
 
 ## Player-facing
 
+- 2026-09-27: Changed insect momos to grow old like anyone else. The aches and ills of age land on them now, and their rapid life cycle finally bites. Nothing changed about their fertility: it still never fades unless a sterile gene says so.
+- 2026-09-27: Changed insect momos to mourn like drones instead of daughters. A dead child, spouse, lover, sibling, grandchild or close friend barely touches her; a dead colonist still costs her a little.
+- 2026-09-27: Added the sterile gene to the devil bug, so she can never have children of her own. Swarm drones do not breed; her queen's egg sac is what makes more of them.
+- 2026-09-27: Added antennae to the devil bug, like the other insect castes have.
+- 2026-09-27: Changed the devil bug's description. She reads as a cockroach-like drudge now: she builds and mends the hive's walls, and her sisters treat her as a pest.
+- 2026-09-27: Changed the devil bug's genes. She raises insect hives now, sees heat in the dark, and grows up fast. She is small, dim, short-lived and bad with people, but she builds well. Three of her genes come from the insect bosses, so recruiting her unlocks them.
+- 2026-09-27: Changed the devil bug's body size. She counts as a full-grown woman before her small gene shrinks her; before this the gene would have taken her below nothing.
+- 2026-09-27: Changed the tribes so each one keeps its own castes. The arachne, the beelzebub and the girtablilu now stand only in the hostile swarm, and the abaddon queen and the vamp mosquito stay with them. The neutral hive fields workers and its own ant arachne, and nothing in its roster needs the Odyssey DLC.
+- 2026-09-27: Added the ant arachne, a small builder caste of the neutral insector hive. She spins silk like the arachne, builds hive walls and jelly farms, and has no web attack.
+- 2026-09-27: Added the blood rush gene to the vamp mosquito. Her blood burns twice as fast, and she is quicker on her feet and with her claws while it runs high.
+- 2026-09-27: Removed the prose lines from the insect gene's effect list.
+- 2026-09-27: Changed the vamp mosquito's size. She counts as a full-grown woman before her small gene shrinks her, instead of shrinking twice over.
+- 2026-09-27: Changed the vamp mosquito's genes. She reads heat in the dark, is much smaller, carries insect antennae, and now drinks blood like a sanguophage - she can bloodfeed and close wounds with her hands.
+- 2026-09-27: Removed the vamp mosquito's acid blood, her self-mending and her beauty genes.
+- 2026-09-27: Changed the girtablilu to hibernate in the cold rather than only slow down. She sleeps through it and takes no frostbite, but she can do nothing until she warms up.
+- 2026-09-27: Added the girtablilu, a scorpion-bodied mamono of the hostile insector swarm. She wears the same spider body as the arachne, charges into a fight, and her claws carry venom.
 - 2026-09-27: Changed every internal name to Mamono, so saves from earlier versions no longer load.
 - 2026-09-27: Changed the mod name to Project Mamono Insects.
 - 2026-09-27: Changed the word momo to mamono in the mod's labels and descriptions.

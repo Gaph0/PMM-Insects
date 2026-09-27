@@ -18,8 +18,11 @@ namespace PMM_Insects
     /// Arachne silk: the resource she spins and the player takes (user's call 2026-09-26, gathered
     /// by a right click, and she can gather it herself). The state lives here. `fullness` fills over
     /// time, one gather empties it, and the yield scales with what had built up - so taking it early
-    /// is a shorter wait for less silk, never a loss. Attached to PMM_Race_Arachne in
-    /// Races_InsectMamono_BS.xml.
+    /// is a shorter wait for less silk, never a loss. Attached to PMM_Race_Arachne
+    /// and PMM_Race_AntArachne in Races_InsectMamono_BS.xml. Everything that finds
+    /// silk does it through this comp rather than through a race name - the work
+    /// giver, the right-click order and the gizmo - so a new spinning caste is one
+    /// comp in its race def and nothing else here.
     /// </summary>
     public class CompProperties_ArachneSilk : CompProperties
     {

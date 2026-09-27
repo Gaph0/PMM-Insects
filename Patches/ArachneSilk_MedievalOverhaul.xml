@@ -53,6 +53,19 @@
 						<silkDef>DankPyon_Silk</silkDef>
 					</value>
 				</li>
+				<!-- The ant mimic (2026-09-27) spins the same silk, so her race needs the
+				     same two ops. Written out rather than looped over both defNames: a
+				     PatchOperation names one def per xpath, and two explicit pairs are
+				     easier to read than a "PMM_Race_A (or B)" predicate. -->
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="PMM_Race_AntArachne"]/comps/li/silkDef</xpath>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="PMM_Race_AntArachne"]/comps/li[@Class="PMM_Insects.CompProperties_ArachneSilk"]</xpath>
+					<value>
+						<silkDef>DankPyon_Silk</silkDef>
+					</value>
+				</li>
 				<li Class="PatchOperationAdd">
 					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="Textiles"]/excludedThingDefs</xpath>
 					<value>

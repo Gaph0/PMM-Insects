@@ -61,10 +61,6 @@
                   Two lines were dropped on request for that reason (2026-09-27):
                   the toxins one (the stat offset prints its own) and the feelers
                   one (her description ends on the feelers). -->
-             <customEffectDescriptions>
-                     <li>Chitin carapace skin, in one of five tones.</li>
-                     <li>Insect flesh is an act of cannibalism to these Mamono.</li>
-             </customEffectDescriptions>
              <!-- Insect flesh, ruled 2026-09-20. This is the same effect VRE puts
                   on VRE_InsectFlesh, without that gene's terrain speed factors:
                   customMeatThingDef keeps her butchered meat insect meat, and
@@ -82,6 +78,16 @@
                                      <li>Meat_Megaspider</li>
                              </defsTreatedAsHumanMeat>
                      </li>
+                     <!-- Opt out of core's old-age cure (ruled 2026-09-27). An insect
+                          mamono ages like the bug she is, so the ailments of age land on
+                          her, and VRE_RapidLifeCycle - already on the devil bug and the
+                          ant arachne, and promising exactly this in its own description
+                          - finally bites. Core looks for the marker CLASS and never for
+                          this gene, so the two mods stay decoupled, and the class's own
+                          comment is the contract. Her fertility is a separate switch and
+                          deliberately left alone: she keeps the Mamono 100% floor unless
+                          a sterile gene says otherwise. -->
+                     <li Class="ProjectMamono.AllowsAgeAilmentsExtension" />
              </modExtensions>
 	</GeneDef>
 

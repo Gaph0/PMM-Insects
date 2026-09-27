@@ -92,7 +92,11 @@
 		     ranged group anywhere in here: raiders are melee only.
 		     The Odyssey-gated duplicates exist because the three Odyssey species
 		     are missing without the DLC, and an option naming a missing pawn kind
-		     is a load error. -->
+		     is a load error.
+		     This is the SWARM's roster. PMM_InsectorHive replaces the whole list with
+		     one of its own further down, so a caste listed here stands only in the
+		     swarm's villages. Both tribes inherit a list otherwise, and that is what
+		     put every caste in both tribes at once. -->
 		<pawnGroupMakers Inherit="False">
 			<li>
 				<!-- Normal fight: swarm fillers, a line, a couple of heavies. -->
@@ -141,26 +145,25 @@
 				</options>
 			</li>
 			<li>
-				<!-- Village garrison. -->
+				<!-- Village garrison. The swarm's villages field this one, so they have
+				     defenders whether or not the DLC species are loaded. -->
 				<kindDef>Settlement</kindDef>
 				<options>
 					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
 					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
-					<!-- The weaver (2026-09-26). Villages only, and rare: she holds her web, she
-					     does not march. A weight of 2 against the swarm's 27 keeps her a landmark
-					     rather than a filler, and she is in no raid group at all. -->
+					<!-- The weaver. Villages only, never a raid group: she holds her web. -->
 					<PMM_InsectArachne>2</PMM_InsectArachne>
-					<!-- The fly (2026-09-27). Commoner than the weaver and every bit as
-					     local: four against the swarm's 27, and she is not in any raid group.
-					     Raise the weight if she should be ordinary, or add her to a raid
-					     group if she should march. -->
+					<!-- The fly. Commoner than the weaver, and just as local. -->
 					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
+					<!-- The desert assassin. A landmark, not a filler. -->
+					<PMM_InsectGirtablilu>3</PMM_InsectGirtablilu>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Odyssey">
 				<!-- The garrison that holds a queen. She is listed here and nowhere
-				     else, so she can never roll into a raid. -->
+				     else, so she can never roll into a raid. The swarm's villages
+				     field this one; the hive's own roster has no queen at all. -->
 				<kindDef>Settlement</kindDef>
 				<options>
 					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
@@ -168,10 +171,9 @@
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
 					<PMM_InsectVampMosquito>5</PMM_InsectVampMosquito>
 					<PMM_InsectAbaddon>1</PMM_InsectAbaddon>
-					<!-- The queen's own weaver, a little more likely where a queen lives. -->
 					<PMM_InsectArachne>3</PMM_InsectArachne>
-					<!-- The queen's own fly, and hungrier than the weaver. -->
 					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
+					<PMM_InsectGirtablilu>2</PMM_InsectGirtablilu>
 				</options>
 			</li>
 			<!-- The four role groups vanilla tribes carry, naming our own castes:
@@ -257,6 +259,121 @@
 		     leaving it unset throws on every settlement draw. -->
 		<factionIconPath>World/WorldObjects/Expanding/Insects</factionIconPath>
 		<settlementTexturePath>UI/InsectoidHive</settlementTexturePath>
+		<!-- The hive's own rosters (2026-09-27). Inherit="False" replaces the base's, and
+		     that is the only way one caste can belong to a single tribe: both tribes
+		     inherit the base's list otherwise, which put every caste in both tribes at
+		     once. The three hostile castes - the arachne, the beelzebub and the girtablilu
+		     - are absent on purpose; the swarm never fields the ant arachne. No option here
+		     names a DLC species, so this whole roster needs no MayRequire and the hive
+		     loses no caste without Odyssey - the queen and the vamp mosquito are the
+		     swarm's. Keep it in step with the base's list: a group kind added there
+		     belongs here too, or a pawn generated for that kind throws "no usable
+		     PawnGroupMakers". This replaced an earlier per-group-kind switch, which only
+		     steered KCSG's defenders and left base populations shared. -->
+		<xenotypeSet Inherit="False">
+			<xenotypeChances>
+				<PMM_InsectDevilBug>0.32</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.32</PMM_InsectGiantAnt>
+				<PMM_InsectSoldierBeetle>0.22</PMM_InsectSoldierBeetle>
+				<PMM_InsectAntArachne>0.14</PMM_InsectAntArachne>
+			</xenotypeChances>
+		</xenotypeSet>
+		<pawnGroupMakers Inherit="False">
+			<li>
+				<!-- Normal fight: workers as fillers, a line, a couple of heavies. -->
+				<kindDef>Combat</kindDef>
+				<commonality>100</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>8</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li>
+				<!-- Close quarters: more heavies. The hive keeps no flier, so there is one
+				     Combat group here and not the swarm's two. -->
+				<kindDef>Combat</kindDef>
+				<commonality>60</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>4</PMM_InsectSoldierBeetle>
+					<PMM_InsectAntArachne>2</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li>
+				<!-- Village life: workers and fillers. No brood of her own - the green
+				     worm is Odyssey's, and the hive keeps no DLC species. -->
+				<kindDef>Peaceful</kindDef>
+				<options>
+					<PMM_InsectDevilBug>20</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>20</PMM_InsectGiantAnt>
+					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li>
+				<!-- Village garrison, the hive's own: her villages are the only place the
+				     ant arachne stands, and she is common there - a hive that builds wants
+				     a dozen of her, not two. Never in a raid group. -->
+				<kindDef>Settlement</kindDef>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
+					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<!-- The four role groups vanilla tribes carry. Ideology is gated because
+				     only its code asks for these kinds, exactly as vanilla gates its own. -->
+				<kindDef>Miners</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
+					<PMM_InsectAntArachne>1</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Hunters</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectDevilBug>1</PMM_InsectDevilBug>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Loggers</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectSoldierBeetle>1</PMM_InsectSoldierBeetle>
+				</options>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<kindDef>Farmers</kindDef>
+				<commonality>1</commonality>
+				<options>
+					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
+					<PMM_InsectAntArachne>1</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li>
+				<!-- Trader group. Every group kind the game can ask for must exist in this
+				     list, traders included: a faction with no Trader maker throws "no
+				     usable PawnGroupMakers for parms groupKind=Trader". Carriers so she
+				     brings goods, guards so she is not alone on the road. -->
+				<kindDef>Trader</kindDef>
+				<traders>
+					<PMM_InsectTrader>1</PMM_InsectTrader>
+				</traders>
+				<carriers>
+					<Muffalo>6</Muffalo>
+					<Dromedary>5</Dromedary>
+					<Alpaca>2.5</Alpaca>
+				</carriers>
+				<guards>
+					<PMM_InsectSoldierBeetle>10</PMM_InsectSoldierBeetle>
+				</guards>
+			</li>
+		</pawnGroupMakers>
 		<!-- Base trading (added 2026-09-22): a player caravan that reaches a hive
 		     village can trade there. Without this list Settlement_TraderTracker returns
 		     no trader kind at all, so the trade option never appears even though the

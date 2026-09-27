@@ -23,36 +23,60 @@
 		and the pawn ends up as a plain winged human with no species at all.
 	-->
 
-	<!-- Devil Bug (megascarab): tireless, scent-hungry, fast-crawling -->
+	<!-- Devil Bug (megascarab): a dim, short-lived hive builder of the swarm -->
 	<XenotypeDef>
 		<defName>PMM_InsectDevilBug</defName>
 		<label>devil bug</label>
-		<description>An insect mamono of swarms and dark, damp places. Her feelers quiver at the scent of a man from rooms away, and once she has the smell of him she never tires and never stops - hunger and lust are the only thoughts she has room for.</description>
-		<descriptionShort>A simple, tireless insect mamono who hunts men by scent.</descriptionShort>
+		<description>A cockroach-like insect mamono of dark, damp places, and the lowest rung of the hive. She builds and mends the walls her sisters live in and hauls what they leave behind, and they treat her as little more than a household pest - which is exactly what she is. She does not mind the work, and she does not stop.</description>
+		<descriptionShort>A cockroach-like drudge who raises and mends the hive's walls.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_DevilBug</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
-			<li>MoveSpeed_Quick</li>
-			<li>AptitudeRemarkable_Animals</li>
-			<!-- VRE Insector (HANDOFF §5.3), born not unlocked: she mends fast and
-			     shrugs off illness, and she hunts in the dark by heat - InfraredSensors
-			     is a Kemia pherocore gene, which the player unlocks by recruiting her.
-			     Her prices: a body that burns in the sun, and a life cycle that burns
-			     out fast - a swarm drone is many and short-lived, where the queen is
-			     one and never ages. Two and two, as the geneline picker demands
-			     (VRE_NeedEqualAmount). -->
-			<li>VRE_AntimicrobialPeptides</li>
+			<!-- The other castes carry this in their insect package: antennae that
+			     actually render. Vanilla-side it is a plain cosmetic GeneDef
+			     (`GeneDefs_Cosmetic.xml`: label "insect antennae", `randomChosen`,
+			     1 complexity, no stat effect, not a geneline pick), so it leaves the
+			     3/3 balance below alone. Her own insect gene only *describes* feelers. -->
+			<li>VRE_InsectAntennae</li>
+			<!-- The user's package of 2026-09-27, replacing her launch set. Three
+			     evolutions (hive glands, swarm synapse, infrared sensors) and three
+			     degrades (low grey matter, rapid life cycle, microsized) - three and
+			     three, the balance VRE's own picker demands (VRE_NeedEqualAmount).
+			     Hive glands is what lets a mamono raise VFEI2 hives at all (HANDOFF
+			     §7.1), and that is the point of her now: the swarm's builder. Swarm
+			     synapse, infrared sensors and microsized are pherocore-locked, so
+			     recruiting her is what unlocks them for the player (§5.3 rule 4).
+			     Her prices are a drone's head and a drone's life: low grey matter
+			     leaves her dim, rapid life cycle short-lived, and microsized takes a
+			     flat 0.45 off her body size. -->
+			<li>VRE_Hiveglands</li>
+			<li>VRE_SwarmSynapse</li>
 			<li>VRE_InfraredSensors</li>
-			<li>VRE_Heatstress</li>
+			<li>VRE_LowGreyMatter</li>
 			<li>VRE_RapidLifeCycle</li>
-			<!-- Jelly on the fighting castes only, never the greenworm. The pheromones
-			     that keep real insectoids off her are not a gene from VRE any more:
-			     PMM_Gene_Insect carries that effect itself, in
-			     Source/Insects/InsectPheromones.cs. -->
-			<li>VRE_InsectJellyDependency</li>
+			<li>VRE_Microsized</li>
+			<!-- Vanilla aptitudes in the user's words: "good construction" is
+			     AptitudeStrong_Construction, "awful intellect" is
+			     AptitudeTerrible_Intellectual and "poor social" is AptitudePoor_Social.
+			     Vanilla builds these from templates (AptitudeStrong, AptitudeTerrible
+			     and AptitudePoor in Data/Biotech/Defs/GeneDefs/GeneTemplateDefs.xml),
+			     so no such def exists in any file - the game makes one per skill at
+			     load. The labels are vanilla's own: "good", "awful", "poor". -->
+			<li>AptitudeStrong_Construction</li>
+			<li>AptitudeTerrible_Intellectual</li>
+			<li>AptitudePoor_Social</li>
+			<!-- A drone of the swarm does not breed (user ruling 2026-09-27): vanilla's
+			     `Sterile` (Fertility x0, `sterilize`, 1 metabolism, plain GeneDef), the
+			     same gene the queen carries. It is not a geneline pick, so the 3/3
+			     balance above is untouched, and it is the whole lock - no race stat and
+			     no hediff. What makes it bite lives in the core mod, not here:
+			     `MamonoFertilityPatch.DeliberatelySterile` stands aside for a pawn whose
+			     barrenness is deliberate, so the vanilla gene is enough. The swarm grows
+			     by the queen's egg sac, not by her drones. -->
+			<li>Sterile</li>
 			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
@@ -203,18 +227,39 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>PMM_Gene_FlightWeak</li>
-			<li>Beauty_Beautiful</li>
-			<!-- VRE Insector (HANDOFF §5.3): HighGreyMatter is her cunning - she
-			     learns fast and reads people - and AntimicrobialPeptides keeps her
-			     mending. AcidBlood and WeakenedChitin pay for both: her blood smokes
-			     with tox gas when she is cut, and her shell is thin. That gas is a
-			     gift to a raider, since every mamono is immune to it now and the
-			     player's people are not. Two and two. -->
+			<!-- Rebuilt on the user's list, 2026-09-27; the old set is scrapped. "Generic insect
+			     package" is three things here: the pheromones are PMM_Gene_Insect's job (our
+			     InsectPheromones.cs copies VRE's two patches and keys them to our gene), so VRE's
+			     bare VRE_InsectPheromones flag is deliberately NOT listed - one flag per feature,
+			     as with the beelzebub - and the other two are the antennae and the jelly
+			     dependency below. -->
+			<li>VRE_InfraredSensors</li>
 			<li>VRE_HighGreyMatter</li>
-			<li>VRE_AntimicrobialPeptides</li>
-			<li>VRE_AcidBlood</li>
+			<li>VRE_Microsized</li>
 			<li>VRE_WeakenedChitin</li>
+			<li>VRE_InsectAntennae</li>
 			<li>VRE_InsectJellyDependency</li>
+			<!-- The blood trio, and none of it is VRE: all three are vanilla Biotech genes off
+			     the sanguophage. Hemogenic is the hemogen bar itself (2 hemogen a day lost to
+			     biological entropy); Bloodfeeder is the Bloodfeed ability and names Hemogenic as
+			     its prerequisite, which is why the two travel together; Coagulate is the
+			     wound-tending ability - her hands close a wound, which is the "only her touch
+			     soothes it" half of her lore. Note what is NOT here: vanilla's HemogenDrain, the
+			     need that makes an empty bar dangerous. As listed she can drink blood and never
+			     must, so add HemogenDrain if she should be driven to it. -->
+			<li>Hemogenic</li>
+			<li>Bloodfeeder</li>
+			<li>Coagulate</li>
+			<!-- Blood rush (user, 2026-09-27). Core's own gene, and it fits her better
+			     than anyone: it needs Hemogenic, which she carries, and while her
+			     hemogen sits at 75% or more she is 15% faster on her feet and 15%
+			     faster between melee attacks. The cost is a flat 2 hemogen a day on
+			     top of Hemogenic's own 2, so her bar burns at 4 a day and she feeds
+			     twice as often. It is a core gene, not a VRE geneline one, so it does
+			     not touch her evolution/mutation count. -->
+			<li>PMM_Gene_BloodRush</li>
+			<!-- Scrapped with the old set: VRE_AcidBlood (toxic gas when she is cut),
+			     VRE_AntimicrobialPeptides (self-mending) and vanilla Beauty_Beautiful. -->
 			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
@@ -508,6 +553,118 @@
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Beelzebub</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- The assassin of the desert (2026-09-27). Another arachne-family caste, built from the
+	     user's gene list in their order. Three of the six are VRE's, read as VRE ships them:
+	     "infrared sensors" is VRE_InfraredSensors, "charger claws" VRE_ChargerClaws (the charge
+	     attack, not a stat), "compound eyes" the real VRE_CompoundEyes and not its cosmetic twin.
+	     Two names needed settling. "hyperthermic slowdown" was read as VRE's cold gene, and the
+	     user then asked for VRE_HypothermicHibernation in place of VRE_HypothermicSlowdown
+	     (2026-09-27): she does not slow down in the cold, she goes under until it passes - no
+	     frostbite, but nothing at all until she warms. "volatile" is VRE_InsectVolatile, the same
+	     gene the arachne carries.
+
+	     The swap also settles the count: hibernation is a mutation where slowdown was an
+	     evolution, so she sits at three evolutions and three mutations - the same even split the
+	     soldier beetle and the beelzebub keep at two and two, reached here by the user's choice
+	     of gene rather than by trimming.
+
+	     "Good melee" is AptitudeStrong_Melee - user vocabulary, "good" is Strong and "great" is
+	     Remarkable. Vanilla builds these from the AptitudeStrong template, so there is no
+	     AptitudeStrong_Melee def to find in the files; the game makes one per skill at load. -->
+	<XenotypeDef>
+		<defName>PMM_InsectGirtablilu</defName>
+		<label>girtablilu</label>
+		<description>An assassin of the desert: scorpion-shelled, pincer-handed and always ready to charge, with a sting's worth of venom in her claws.</description>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<!-- The six the user asked for. -->
+			<li>VRE_InfraredSensors</li>
+			<li>VRE_ChargerClaws</li>
+			<li>VRE_CompoundEyes</li>
+			<li>VRE_EcdysoneOverdrive</li>
+			<li>VRE_InsectVolatile</li>
+			<li>VRE_HypothermicHibernation</li>
+			<!-- Good melee (user vocabulary): +4 aptitude, which is learning speed and starting
+			     skill, not damage. Her damage is the pincers and the charge. -->
+			<li>AptitudeStrong_Melee</li>
+			<!-- Venom. This is core's own gene, the one the reptiles' basilisk carries -
+			     ProjectMamono_MamonoVenom, with ProjectMamono_VenomBuildup's tingling-to-pinned
+			     stages behind it. VenomDamagePatch watches for this gene on the attacker, so
+			     every melee hit she lands injects it; she needs no stinger for that. -->
+			<li>ProjectMamono_MamonoVenom</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Girtablilu</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- The ant mimic (2026-09-27). An arachne the size of a worker, built from the
+	     user's gene list in their order: vocal glands, hive glands, high grey
+	     matter, microsized, dormant, rapid life cycle, insect antennae, good
+	     construction.
+
+	     "Good construction" is AptitudeStrong_Construction - user vocabulary, "good"
+	     is Strong and "great" is Remarkable - and like the melee aptitude it is a
+	     TEMPLATE gene: vanilla builds one per skill at load, so there is no def to
+	     find in the files.
+
+	     VRE_Hiveglands is the one that matters most for her: it is what lets a
+	     momono build VFEI2's hive walls and jelly farms, and it carries +50%
+	     construction speed on its own. She is the caste that builds the nest.
+
+	     Dormant and rapid life cycle do not fight: rapid life cycle's exclusion tag
+	     is InsectorLifespan (against SlowedLifeCycle), and dormant's is
+	     InsectorAggression. Checked 2026-09-27.
+
+	     No jelly dependency and no protein denaturation, the two genes her sister
+	     has and she does not: the user's list is the list (2026-09-27). She lives
+	     underground like an ant, so a sunlight penalty would have suited her - one
+	     line if it should be added. -->
+	<XenotypeDef>
+		<defName>PMM_InsectAntArachne</defName>
+		<label>ant arachne</label>
+		<description>A small arachne disguised as a giant ant, living in the ants' own nest. Her hands are made for building, and the silk she spins is the same silk her bigger sister sells.</description>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<!-- The eight the user asked for. -->
+			<li>VRE_VocalGlands</li>
+			<li>VRE_Hiveglands</li>
+			<li>VRE_HighGreyMatter</li>
+			<li>VRE_Microsized</li>
+			<li>VRE_Dormant</li>
+			<li>VRE_RapidLifeCycle</li>
+			<li>VRE_InsectAntennae</li>
+			<li>AptitudeStrong_Construction</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_AntArachne</setRace>
 				<forceRace>true</forceRace>
 			</li>
 		</modExtensions>

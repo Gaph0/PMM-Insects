@@ -525,14 +525,17 @@ Layer 3 is what makes a caste feel different, because raid points buy pawns at
 
 | Caste | Vanilla bug | CP | Health scale | Body size | Role after the overhaul |
 |---|---|---|---|---|---|
-| Devil Bug | Megascarab | 40 | 0.4 | 0.2 | Swarm filler. High weight in `Combat`. Also a village civilian. |
+| Devil Bug | Megascarab | 40 | 0.4 | 1.0 | Swarm filler and hive builder. High weight in `Combat`. Also a village civilian. |
 | Giant Ant | Spelopede | 75 | 1.7 | 0.8 | Line trooper and worker. The tribe's builder. |
 | Soldier Beetle | Megaspider | 150 | 2.5 | 1.2 | Heavy melee. Caste leader. |
 | Greenworm | Larva | 25 | 0.25 | 0.2 | Brood only. Comes out of the queen's egg spew. |
 | Vamp Mosquito | Locust | 55 | 0.7 | 0.6 | Fast flyer. Ranged slot only if she has an ability. |
 | Abaddon | Hive Queen | 500 | 9.8 | 4.5 | The queen. `Settlement` and `leaders`. The reason to raid a village. |
 
-These numbers come from `PLAN.md` §3 and are unchanged. Keep `combatPower` at
+These numbers come from `PLAN.md` §3, with one change: the Devil Bug's body size
+went 0.2 -> 0.6 (2026-09-19) -> 1.0 (2026-09-27), so that `VRE_Microsized` shrinks
+her from a full-grown start instead of shrinking twice over. The mosquito got the
+same treatment the same day. Keep `combatPower` at
 the vanilla bug's value: infestation and raid point budgets were tuned for it.
 
 ### 5.3 The VRE gene package per caste (write-up for review, 2026-09-20)
@@ -552,7 +555,7 @@ unlocks it for the player. Nothing duplicates a race def.
 
 | Caste | Evolutions | Degrades | Reads as |
 |---|---|---|---|
-| Devil Bug (40) | `VRE_AntimicrobialPeptides`, `VRE_InfraredSensors`* | `VRE_Heatstress`, `VRE_RapidLifeCycle` | Mends fast and hunts by heat in the dark, but burns in the sun and burns out young |
+| Devil Bug (40) | `VRE_Hiveglands`, `VRE_SwarmSynapse`*, `VRE_InfraredSensors`* | `VRE_LowGreyMatter`, `VRE_RapidLifeCycle`, `VRE_Microsized`* | Raises hives, sees heat in the dark and answers the swarm's call - small, dim, short-lived and bad with people, but a good builder. Package replaced 2026-09-27 |
 | Giant Ant (75) | `VRE_Hiveglands`, `VRE_SpelopedeHorn` | `VRE_Dormant`, `VRE_LowGreyMatter` | Builds and digs, sleeps hard, does not think |
 | Soldier Beetle (150) | `VRE_HardenedChitin`, `VRE_CuticleShell` | `VRE_InefficientMidgut`, `VRE_Stenothermic` | Armoured and unplagued, but she eats like a horse and only thrives at home |
 | Greenworm (25) | `VRE_Hiveglands`, `VRE_RobustMidgut` | `VRE_Immunodeficiency`, `VRE_HypothermicHibernation` | Builds, eats anything, catches everything, and sleeps through the cold |
@@ -698,9 +701,11 @@ geneline gizmo gene.
    `VRE_AcidBurstSack` if it is ever unlocked for her.
 4. **Locked genes are allowed on castes** (user, 2026-09-20). Those 20 genes are
    VFEI2's boss reward, and a caste carrying one hands the player that reward on
-   recruitment. The user is fine with that, so two are in the packages:
-   `VRE_InfraredSensors` (the devil bug's heat sense) and `VRE_SwarmSynapse` (the
-   queen's crown).
+   recruitment. The user is fine with that, and several are in the packages now,
+   among others: `VRE_InfraredSensors` and `VRE_Microsized` (the devil bug),
+   `VRE_Microsized` (the mosquito), `VRE_SwarmSynapse` (the queen's crown and the
+   devil bug), `VRE_ChargerClaws` (the girtablilu), and `VRE_HardLockedJoints` and
+   `VRE_Colossal` (the queen).
 
 **The pollution immunity: built, on the gene we already had.** The ruling is full
 immunity for all six castes. Checked in the 1.6 assembly: `immuneToToxGasExposure`
@@ -733,8 +738,9 @@ still 1; raise it if the immunity should ever cost her hunger.
 **Decided by the user, 2026-09-20.**
 
 2. **Immunity mechanism: done, on `PMM_Gene_Insect`** (above).
-4. **`VRE_Hiveglands` goes on the Giant Ant *and* the Greenworm**, so two castes
-   can raise VFEI2 hives (§7.1). The other four cannot.
+4. **`VRE_Hiveglands` goes on the Giant Ant, the Greenworm, the Ant Arachne and -
+   from 2026-09-27 - the Devil Bug**, so four castes raise VFEI2 hives (§7.1). The
+   rest do not.
 5. **No `VRE_AcidGlands` on the greenworm.** She keeps `SludgeSpew` alone.
 6. **No `VRE_PollutionDependency` anywhere.** Struck from the queen's package.
 
@@ -1359,9 +1365,9 @@ exclusion tags between `GenelineGeneDef`s. It does not require the pawn to carry
   only. An NPC mamono never seeks jelly. Raids are short, so this only matters for
   long-lived non-player pawns. Off-map villages are not simulated.
 
-**Ruled: the combat castes only.** Carry it on Devil Bug, Giant Ant, Soldier
-Beetle, Vamp Mosquito and Abaddon. Leave it off the greenworm, who is brood, not
-a fighter.
+**Ruled: the combat castes only.** Carry it on Giant Ant, Soldier Beetle, Vamp
+Mosquito and Abaddon. Leave it off the greenworm, who is brood, not a fighter, and
+off the Devil Bug, whose package of 2026-09-27 dropped it.
 
 **Ruled: no `VRE_JellySacks` on any mamono.** Pawns never make jelly. Every drop
 comes from the world or from buildings the player raises, which is what makes the
@@ -1664,6 +1670,16 @@ Worth asking later, not now:
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
    body part, no gut and no art of ours were needed. The folk still has none, and the
    spider stays the reference if she ever gets one.
+11. **Four of the newest castes have no backstories (2026-09-27).** The arachne,
+    the beelzebub, the girtablilu and the ant arachne are the only concrete kinds in
+    `PawnKinds_InsectorTribe.xml` without `<backstoryFilters>`, so pawn generation
+    logs "no backstoryCategories in either" for them and rolls them a random vanilla
+    backstory - a hive assassin with a childhood on a glitterworld. Every older
+    caste names its own `PMM_<Species>Spawn` category, defined in
+    `Backstories_Insect.xml` as one child and one adult story. The fix is one
+    category pair per species plus one `<backstoryFilters>` block on the kind; it was
+    left out of the girtablilu and ant arachne passes because the arachne and the
+    beelzebub set the precedent, and four castes are one job rather than four.
 
 ---
 

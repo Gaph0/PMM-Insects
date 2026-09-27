@@ -42,6 +42,12 @@ namespace PMM_Insects
                 // Giant Ant (1.7), Soldier Beetle (2.5), Vamp Mosquito (0.7), Abaddon
                 // (9.8) and Abaddon Folk (1.0) need no help - their base scales already
                 // meet or exceed human norms, and B&S scales big races' health itself.
+                // Girtablilu: 0.44 base x 2.5 = 1.1 effective. A plated scorpion
+                // body sits a tenth above a human's where the arachne sits on one.
+                "PMM_Race_Girtablilu" => 2.5f,
+                // Ant Arachne: 0.36 base x 2.5 = 0.9 effective. She is the small
+                // worker of the family, and a tenth under a human is the point.
+                "PMM_Race_AntArachne" => 2.5f,
                 _ => 1f,
             };
 

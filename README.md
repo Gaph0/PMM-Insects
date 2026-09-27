@@ -10,7 +10,7 @@ the tribe trades with player caravans that reach a village.
 
 | Insect | Mamono | What she keeps |
 |--------|------|----------------|
-| Megascarab | Devil Bug | 72% sharp chitin, 3.75 c/s, short frame |
+| Megascarab | Devil Bug | 72% sharp chitin, 3.75 c/s, full-grown before her small gene |
 | Spelopede | Giant Ant | 170% HP, digging claws, great strength |
 | Megaspider | Soldier Beetle | weak flight, large frame, 250% HP, ripper claws, sturdy exoskeleton |
 | Larva (Odyssey) | Greenworm | acid sludge spew, frail frame |
