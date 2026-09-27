@@ -175,3 +175,64 @@ formality.
    corpse entry.
 4. Paperwork: this section, a `HANDOFF.md` section, changelog lines, and the
    backstory note that still says the in-game mamono keeps the worm body.
+
+## Honey Bee and the honey gene (planned 2026-09-27)
+
+Two things: a new caste, and a resource mechanic she is built around.
+
+**Part A - the caste.** A honey bee (`PMM_InsectHoneyBee` xenotype,
+`PMM_Race_HoneyBee` race and tracker, a pawn kind). The gene list, with every def
+checked: `VRE_Serotonin` and `VRE_CompoundEyes` (both evolutions, both in
+`GeneDefs_Evolutions.xml`) against `VRE_RapidLifeCycle` and `VRE_Microsized` (both
+degrades) - two and two, balanced. Plus `VRE_InsectAntennae`, the core mod's
+`PMM_Gene_FlightWeak`, vanilla `Sterile`, and the aptitudes in the user's words:
+"good plants" is `AptitudeStrong_Plants`, "good animals" `AptitudeStrong_Animals`,
+"poor intellect" `AptitudePoor_Intellectual`, "poor social" `AptitudePoor_Social`.
+
+One catch to accept or work around: `VRE_Serotonin` carries
+`socialFightChanceFactor 2`, and its own description says carriers are blissful *and
+more aggressive*. "Always happy" plus twice the social fights is a real trade.
+
+Family conventions apply as usual: body-size pair 1.0 with microsized taking her to
+0.55, a tracker for armour, a corpse registration, and a weight in the `Farmers`
+role group - she is the farmer caste, and that group already exists.
+
+**Part B - the honey gene.** `PMM_Gene_Honey`: a `GeneDef` with a `geneClass`
+holding the state and a `DefModExtension` for the dials (`GeneDef` has no comps
+field, and the project already uses the marker-extension pattern).
+
+- **Accumulation is work-driven, and that is the one place this differs from the
+  arachne's silk.** Silk's `fullness` fills with `growthDays`, on the clock. Honey
+  fills from what she does: sowing and cutting plants, and animal work. The clean
+  hook is the pawn's own work records - vanilla keeps per-pawn tallies such as
+  plants sown, plants harvested and animals tamed, trained or milked - polled on an
+  interval and diffed against the last reading, which needs no Harmony at all for
+  the common cases. If a needed record turns out not to exist, the fallback is a
+  postfix on that plant or animal job driver. The exact record defNames are to be
+  verified when this is built, and looked up by name so a missing one is harmless.
+- **The state lives on the gene, not the race**, so any caste that carries the gene
+  makes honey. Every consumer - work giver, right-click order, gizmo - finds her
+  through the gene, which is the rule the silk comp states for itself ("everything
+  that finds silk does it through this comp rather than through a race name").
+- **Milking mirrors the silk chain one for one**: a job def, a work giver, a
+  right-click order and a gizmo, with `honeyPerMilking` and `minFullness` dials and
+  a yield that scales with what has built up, so milking early is a shorter wait for
+  less honey rather than a loss.
+- **The item**: food on the level of vanilla insect jelly, but with
+  `foodPoisoningChanceFactor 0`.
+- **Filling the jelly need does not come free.** VRE does not feed its own need
+  through an ingestion outcome: it ships `JobGiver_ConsumeInsectJelly` and
+  `JobDriver_ConsumeInsectJelly`, which eat `InsectJelly` by def name, and keeps the
+  need itself in `VRE_InsectJellyDependencyHediff` (`Hediff_InsectJellyNeed`). Honey
+  therefore will not satisfy that need just by existing. Step 0 of this part is to
+  read what that driver does to the hediff and mirror it in honey's own ingestion
+  outcome, so any pawn eating honey is topped up whatever VRE's job does.
+
+**Decisions still open:** how fast honey builds and whether it caps, how much one
+milking yields, whether honey is tradeable, whether the abaddon's brood list should
+include the bee, and which tribe she joins (the neutral hive reads best for a farmer;
+the swarm is the alternative).
+
+**Steps:** (0) read VRE's consume job and its effect on the need hediff; (1) the gene
+plus its state class and dials; (2) the honey item and its ingestion; (3) the milking
+chain, mirroring the silk chain; (4) the caste defs and art; (5) paperwork.
