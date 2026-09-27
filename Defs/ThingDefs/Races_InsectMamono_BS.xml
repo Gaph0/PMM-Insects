@@ -421,7 +421,12 @@
 		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
 		<statBases>
 			<MoveSpeed>2.0</MoveSpeed>
-			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier, and VRE_Microsized then subtracts a FLAT
+			     0.45. So 1.0 x 1.0 = 1.0 before the gene and 0.55 with it. Raised
+			     from 0.6 on 2026-09-27 (user ruling), the same treatment the devil
+			     bug, the mosquito and the giant ant had. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>35</MarketValue>
@@ -471,15 +476,20 @@
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
-			<!-- Same ruling as Devil Bug: 0.2 literal bug size renders doll-small;
-			     0.6 is a short woman. HealthScalePatch x2.5 covers her 0.25
-			     baseHealthScale, same as the devil bug's 0.4. -->
+			<!-- Same ruling as the Devil Bug: the bug's literal 0.2 rendered her
+			     doll-small, and since 2026-09-27 the pair is 1.0 x 1.0 so that
+			     VRE_Microsized shrinks her from full-grown. HealthScalePatch x2.5
+			     covers her 0.25 baseHealthScale, same as the devil bug's 0.4. -->
 			<!-- Chitin, not the Leather_Human this race would inherit from its Human
 			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
 			     30 per corpse they use, so a dead insector feeds the economy the
 			     tribes trade in. -->
 			<leatherDef>VFEI2_Chitin</leatherDef>
-			<baseBodySize>0.6</baseBodySize>
+			<!-- 1.0 against the 1.0 multiplier in statBases above: full-grown before
+			     VRE_Microsized takes its flat 0.45, so 0.55 with her genes. Health
+			     scale stays at the grub's 0.25 (x2.5 by HealthScalePatch = 0.625):
+			     she is meant to be fragile. -->
+			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
 			<baseHungerRate>0.10</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>

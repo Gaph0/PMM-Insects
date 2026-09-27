@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-09-27: Changed the greenworm's genes. She is soft, passive and dim: she catches every illness, cannot fight at all, always wants more food, and now needs insect jelly like the rest. She can never have children of her own.
+- 2026-09-27: Changed the greenworm's body size. She counts as a full-grown woman before her small gene shrinks her, like the devil bug, the vamp mosquito and the giant ant.
 - 2026-09-27: Changed the giant ant's genes. She digs and hauls better, needs little sleep, eats raw food without harm, and can never have children of her own. She no longer needs insect jelly.
 - 2026-09-27: Changed the giant ant's body size. She counts as a full-grown woman before her small gene shrinks her, like the devil bug and the vamp mosquito.
 - 2026-09-27: Changed insect momos to grow old like anyone else. The aches and ills of age land on them now, and their rapid life cycle finally bites. Nothing changed about their fertility: it still never fades unless a sterile gene says so.

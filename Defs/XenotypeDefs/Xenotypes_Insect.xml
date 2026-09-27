@@ -203,17 +203,31 @@
 		<genes>
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
-			<li>AptitudeRemarkable_Construction</li>
-			<!-- VRE Insector (HANDOFF §5.3): a hive builder like the ant, and a
-			     midgut that gets full value from raw food. Her prices suit a grub:
-			     Immunodeficiency (soft flesh with no defence against illness) and
-			     HypothermicHibernation (when the cold bites she simply sleeps, as a
-			     grub does). No VRE acid glands - she already has SludgeSpew - and no
-			     jelly gene: she is brood, not a fighter. Two and two. -->
-			<li>VRE_Hiveglands</li>
-			<li>VRE_RobustMidgut</li>
+			<!-- The user's package of 2026-09-27, replacing her launch set. Every gene
+			     here is a degrade and none is an evolution: the hand-kept
+			     evolution/degrade balance the geneline UI asks for is deliberately
+			     broken, because she is the swarm's most useless caste. Porous skin,
+			     weakened chitin and immunodeficiency make her a soft bag of flesh that
+			     catches everything; passive means she will not fight at all (the
+			     user's "docile"); microsized shrinks her; an inefficient midgut always
+			     wants more; low grey matter is the head she has. Passive and
+			     microsized are pherocore-locked, so recruiting her unlocks two of
+			     VFEI2's boss rewards (§5.3 rule 4). The jelly gene is a reversal: she
+			     used to be the one caste exempt from it as brood. -->
 			<li>VRE_Immunodeficiency</li>
-			<li>VRE_HypothermicHibernation</li>
+			<li>VRE_PorousSkin</li>
+			<li>VRE_WeakenedChitin</li>
+			<li>VRE_PassiveInsect</li>
+			<li>VRE_Microsized</li>
+			<li>VRE_InefficientMidgut</li>
+			<li>VRE_LowGreyMatter</li>
+			<li>VRE_InsectAntennae</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Vanilla genes: "low intellect" is AptitudeTerrible_Intellectual, and
+			     "sterile" is vanilla's Sterile - the same lock the queen, the devil
+			     bug and the giant ant carry. -->
+			<li>AptitudeTerrible_Intellectual</li>
+			<li>Sterile</li>
 			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
