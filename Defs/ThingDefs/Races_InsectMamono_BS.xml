@@ -209,7 +209,12 @@
 		<description>An insect mamono born of the spelopede. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
 		<statBases>
 			<MoveSpeed>3.65</MoveSpeed>
-			<SM_BodySizeMultiplier>0.8</SM_BodySizeMultiplier>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier, and VRE_Microsized then subtracts a FLAT
+			     0.45. So 1.0 x 1.0 = 1.0 before the gene and 0.55 with it. Raised
+			     from 0.8 on 2026-09-27 (user ruling), the same treatment the devil
+			     bug and the mosquito had. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
 			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>200</MarketValue>
@@ -264,7 +269,9 @@
 			     30 per corpse they use, so a dead insector feeds the economy the
 			     tribes trade in. -->
 			<leatherDef>VFEI2_Chitin</leatherDef>
-			<baseBodySize>0.8</baseBodySize>
+			<!-- 1.0 against the 1.0 multiplier in statBases above: full-grown before
+			     VRE_Microsized takes its flat 0.45, so 0.55 with her genes. -->
+			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>1.7</baseHealthScale>
 			<baseHungerRate>0.25</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>

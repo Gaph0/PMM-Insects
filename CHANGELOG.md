@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-09-27: Changed the giant ant's genes. She digs and hauls better, needs little sleep, eats raw food without harm, and can never have children of her own. She no longer needs insect jelly.
+- 2026-09-27: Changed the giant ant's body size. She counts as a full-grown woman before her small gene shrinks her, like the devil bug and the vamp mosquito.
 - 2026-09-27: Changed insect momos to grow old like anyone else. The aches and ills of age land on them now, and their rapid life cycle finally bites. Nothing changed about their fertility: it still never fades unless a sterile gene says so.
 - 2026-09-27: Changed insect momos to mourn like drones instead of daughters. A dead child, spouse, lover, sibling, grandchild or close friend barely touches her; a dead colonist still costs her a little.
 - 2026-09-27: Added the sterile gene to the devil bug, so she can never have children of her own. Swarm drones do not breed; her queen's egg sac is what makes more of them.

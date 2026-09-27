@@ -526,16 +526,16 @@ Layer 3 is what makes a caste feel different, because raid points buy pawns at
 | Caste | Vanilla bug | CP | Health scale | Body size | Role after the overhaul |
 |---|---|---|---|---|---|
 | Devil Bug | Megascarab | 40 | 0.4 | 1.0 | Swarm filler and hive builder. High weight in `Combat`. Also a village civilian. |
-| Giant Ant | Spelopede | 75 | 1.7 | 0.8 | Line trooper and worker. The tribe's builder. |
+| Giant Ant | Spelopede | 75 | 1.7 | 1.0 | Line trooper and worker. The tribe's digger and hauler. |
 | Soldier Beetle | Megaspider | 150 | 2.5 | 1.2 | Heavy melee. Caste leader. |
 | Greenworm | Larva | 25 | 0.25 | 0.2 | Brood only. Comes out of the queen's egg spew. |
 | Vamp Mosquito | Locust | 55 | 0.7 | 0.6 | Fast flyer. Ranged slot only if she has an ability. |
 | Abaddon | Hive Queen | 500 | 9.8 | 4.5 | The queen. `Settlement` and `leaders`. The reason to raid a village. |
 
-These numbers come from `PLAN.md` §3, with one change: the Devil Bug's body size
-went 0.2 -> 0.6 (2026-09-19) -> 1.0 (2026-09-27), so that `VRE_Microsized` shrinks
-her from a full-grown start instead of shrinking twice over. The mosquito got the
-same treatment the same day. Keep `combatPower` at
+These numbers come from `PLAN.md` §3, with one change: three castes now start
+full-grown so that `VRE_Microsized` shrinks them from there rather than shrinking
+them twice over - the Devil Bug (0.2 -> 0.6 -> 1.0), the mosquito and the Giant Ant
+(0.8 -> 1.0), all on 2026-09-27. Keep `combatPower` at
 the vanilla bug's value: infestation and raid point budgets were tuned for it.
 
 ### 5.3 The VRE gene package per caste (write-up for review, 2026-09-20)
@@ -556,7 +556,7 @@ unlocks it for the player. Nothing duplicates a race def.
 | Caste | Evolutions | Degrades | Reads as |
 |---|---|---|---|
 | Devil Bug (40) | `VRE_Hiveglands`, `VRE_SwarmSynapse`*, `VRE_InfraredSensors`* | `VRE_LowGreyMatter`, `VRE_RapidLifeCycle`, `VRE_Microsized`* | Raises hives, sees heat in the dark and answers the swarm's call - small, dim, short-lived and bad with people, but a good builder. Package replaced 2026-09-27 |
-| Giant Ant (75) | `VRE_Hiveglands`, `VRE_SpelopedeHorn` | `VRE_Dormant`, `VRE_LowGreyMatter` | Builds and digs, sleeps hard, does not think |
+| Giant Ant (75) | `VRE_SpelopedeHorn`, `VRE_SwarmSynapse`*, `VRE_RobustMidgut` | `VRE_LowGreyMatter`, `VRE_RapidLifeCycle`, `VRE_Microsized`* | Digs and hauls, eats anything raw, sleeps little, needs no jelly - strong, dim, short-lived and sterile. Package replaced 2026-09-27 |
 | Soldier Beetle (150) | `VRE_HardenedChitin`, `VRE_CuticleShell` | `VRE_InefficientMidgut`, `VRE_Stenothermic` | Armoured and unplagued, but she eats like a horse and only thrives at home |
 | Greenworm (25) | `VRE_Hiveglands`, `VRE_RobustMidgut` | `VRE_Immunodeficiency`, `VRE_HypothermicHibernation` | Builds, eats anything, catches everything, and sleeps through the cold |
 | Vamp Mosquito (55) | `VRE_HighGreyMatter`, `VRE_AntimicrobialPeptides` | `VRE_AcidBlood`, `VRE_WeakenedChitin` | Cunning and fast-mending, thin-shelled, and her blood smokes when cut |
@@ -738,9 +738,9 @@ still 1; raise it if the immunity should ever cost her hunger.
 **Decided by the user, 2026-09-20.**
 
 2. **Immunity mechanism: done, on `PMM_Gene_Insect`** (above).
-4. **`VRE_Hiveglands` goes on the Giant Ant, the Greenworm, the Ant Arachne and -
-   from 2026-09-27 - the Devil Bug**, so four castes raise VFEI2 hives (§7.1). The
-   rest do not.
+4. **`VRE_Hiveglands` goes on the Greenworm, the Ant Arachne and the Devil Bug**, so
+   three castes raise VFEI2 hives (§7.1). The Giant Ant lost it with her package of
+   2026-09-27; the rest never had it.
 5. **No `VRE_AcidGlands` on the greenworm.** She keeps `SludgeSpew` alone.
 6. **No `VRE_PollutionDependency` anywhere.** Struck from the queen's package.
 
@@ -1365,9 +1365,9 @@ exclusion tags between `GenelineGeneDef`s. It does not require the pawn to carry
   only. An NPC mamono never seeks jelly. Raids are short, so this only matters for
   long-lived non-player pawns. Off-map villages are not simulated.
 
-**Ruled: the combat castes only.** Carry it on Giant Ant, Soldier Beetle, Vamp
-Mosquito and Abaddon. Leave it off the greenworm, who is brood, not a fighter, and
-off the Devil Bug, whose package of 2026-09-27 dropped it.
+**Ruled: the combat castes only.** Carry it on Soldier Beetle, Vamp Mosquito and
+Abaddon. Leave it off the greenworm, who is brood, not a fighter, and off the Devil
+Bug and the Giant Ant, whose packages of 2026-09-27 dropped it.
 
 **Ruled: no `VRE_JellySacks` on any mamono.** Pawns never make jelly. Every drop
 comes from the world or from buildings the player raises, which is what makes the
