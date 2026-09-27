@@ -19,21 +19,18 @@
 		   gene def. Order matters - op 2's xpath needs the element to be gone, so op 2 matches the
 		   extension without any `honeyDef`.
 
-		2. Our own def must not appear from nowhere. With MO loaded nothing produces `PMM_Honey`
-		   any more, so it is added to the `excludedThingDefs` of every `StockGenerator_Category`
-		   that stocks the `AnimalProductRaw` category, which is where a honey jar sits.
-		   `StockGenerator_Category.GenerateThings` builds stock from
-		   `categoryDef.DescendantThingDefs.Where(t => t.tradeability.TraderCanSell() && ...)` and
-		   that per-generator list is the only per-item escape hatch.
+		Deliberately NOT touched: `tradeability`. `None` would keep the honey off a trader's
+		shelves but also stop the player selling it, and a spare jar should always be sellable.
 
-		   Two ops for it, because not every generator writes the list: op 3 adds to the ones that
-		   already carry `excludedThingDefs`, op 4 creates it for the ones that do not. Op 4's
-		   `[not(excludedThingDefs)]` predicate is what stops it matching a generator op 3 has just
-		   touched and writing the defName in twice.
-
-		   Deliberately NOT touched: `tradeability`. `None` would keep the honey off a trader's
-		   shelves but also stop the player selling it. `excludedThingDefs` stops only the
-		   *generation* of trader stock, so a spare jar can still be sold.
+		No trader-stock work at all, and that is a correction made on the patch's first run
+		(2026-09-27): the first version also added `PMM_Honey` to the `excludedThingDefs` of
+		every `StockGenerator_Category` that stocks the `AnimalProductRaw` category, which is
+		the silk patch's pattern for `Textiles`. The game reported this patch as failed, and
+		the reason turned out to be that **nothing in this load order stocks that category**
+		- zero files across Core, the DLCs, the whole workshop and our own defs, against 45
+		for `Textiles` - so those two ops could never match, and our honey could never appear
+		as trader stock in the first place. Dead config, deleted rather than left behind
+		reading as live support.
 
 		Gated on MO by display name, the same gate the silk patch uses: `PatchOperationFindMod`
 		compares with `ModLister.HasActiveModWithName`, an exact `ModMetaData.Name` test, not a
@@ -52,20 +49,6 @@
 					<xpath>Defs/GeneDef[defName="PMM_Gene_Honey"]/modExtensions/li[@Class="PMM_Insects.HoneyGeneExtension"]</xpath>
 					<value>
 						<honeyDef>DankPyon_Honey</honeyDef>
-					</value>
-				</li>
-				<li Class="PatchOperationAdd">
-					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="AnimalProductRaw"]/excludedThingDefs</xpath>
-					<value>
-						<li>PMM_Honey</li>
-					</value>
-				</li>
-				<li Class="PatchOperationAdd">
-					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="AnimalProductRaw"][not(excludedThingDefs)]</xpath>
-					<value>
-						<excludedThingDefs>
-							<li>PMM_Honey</li>
-						</excludedThingDefs>
 					</value>
 				</li>
 			</operations>

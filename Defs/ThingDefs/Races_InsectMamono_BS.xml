@@ -1423,8 +1423,7 @@
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_Girtablilu</defName>
 		<label>girtablilu</label>
-		<description>A girtablilu mamono of the swarm: a scorpion's plated lower body on a woman's.
-		</description>
+		<description>A girtablilu mamono of the swarm: a scorpion's plated lower body on a woman's.</description>
 		<!-- The heaviest shell in the swarm bar the devil bug (0.72 sharp), and the reason her
 		     melee is the threat: 0.40 sharp against the arachne's 0.15. No capMods - her hands
 		     are pincers, not a weaver's. -->
@@ -1545,8 +1544,7 @@
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_AntArachne</defName>
 		<label>ant arachne</label>
-		<description>A smaller arachne mamono of the hive, wearing a giant ant's colours.
-		</description>
+		<description>A smaller arachne mamono of the hive, wearing a giant ant's colours.</description>
 		<!-- Lighter shell than her sister's 0.15 and a builder's hands instead: 0.22
 		     sharp and +0.20 Manipulation against the arachne's +0.10. Manipulation
 		     is what construction speed rides on, which is the whole point of her. -->

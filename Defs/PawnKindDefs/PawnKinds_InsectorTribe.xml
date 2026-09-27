@@ -17,6 +17,13 @@
 
 		Where the six appear is decided in Defs/FactionDefs/Factions_InsectorTribes.xml,
 		not here.
+
+		No `<factionlessGenerationWeight>` on any kind here, and that is a correction
+		rather than an omission: the field does not exist on `PawnKindDef` in 1.6, and five
+		kinds carried it until 2026-09-27, when the game logged an XML error for each one
+		and ignored them - dead config that read as live. The field is on `XenotypeDef`
+		(`factionlessGenerationWeight 0`, set on every insect xenotype), and that is what
+		keeps these castes out of factionless pawn generation.
 	-->
 	<PawnKindDef Name="PMM_InsectKindBase" Abstract="True">
 		<maxGenerationAge>60</maxGenerationAge>
@@ -169,12 +176,12 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectAbaddon>100</PMM_InsectAbaddon></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- The weaver (2026-09-26). Tribe-only by design: factionlessGenerationWeight 0 here and
-	     on her xenotype, so she never appears among random pawns or factionless events. Her
-	     spawn-table place landed 2026-09-27: she stands in the hostile swarm's villages and
-	     nowhere else, and the abaddon can lay her. No backstory filter yet - she draws from
-	     the common pool until her own spawn category and her backstory land (phase 2); see
-	     HANDOFF.md §11 item 11. -->
+	<!-- The weaver (2026-09-26). Tribe-only by design: `factionlessGenerationWeight 0` on her
+	     xenotype, which is the only def that has that field, so she never appears among random
+	     pawns or factionless events. Her spawn-table place landed 2026-09-27: she stands in the
+	     hostile swarm's villages and nowhere else, and the abaddon can lay her. No backstory
+	     filter yet - she draws from the common pool until her own spawn category and her
+	     backstory land (phase 2); see HANDOFF.md §11 item 11. -->
 	<PawnKindDef ParentName="PMM_InsectKindBase">
 		<defName>PMM_InsectArachne</defName>
 		<label>arachne</label>
@@ -191,7 +198,6 @@
 				<def>Masochist</def>
 			</li>
 		</forcedTraits>
-		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<xenotypeSet><xenotypeChances><PMM_InsectArachne>100</PMM_InsectArachne></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -204,7 +210,6 @@
 		<label>beelzebub</label>
 		<race>PMM_Race_Beelzebub</race>
 		<combatPower>55</combatPower>
-		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<xenotypeSet><xenotypeChances><PMM_InsectBeelzebub>100</PMM_InsectBeelzebub></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -219,7 +224,6 @@
 		<label>girtablilu</label>
 		<race>PMM_Race_Girtablilu</race>
 		<combatPower>115</combatPower>
-		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<xenotypeSet><xenotypeChances><PMM_InsectGirtablilu>100</PMM_InsectGirtablilu></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
@@ -227,6 +231,14 @@
 	     no spawn table but the hive's own, no forced traits, and no raid groups.
 	     Combat power 70, close to the giant ant's 75 she is imitating: she is a
 	     worker with a worker's frame, and what she brings is hands, not claws. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectAntArachne</defName>
+		<label>ant arachne</label>
+		<race>PMM_Race_AntArachne</race>
+		<combatPower>70</combatPower>
+		<xenotypeSet><xenotypeChances><PMM_InsectAntArachne>100</PMM_InsectAntArachne></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
 	<!-- The farmer (2026-09-27). The hive's own caste, and the only one that makes honey: she
 	     stands in the neutral hive's villages, in no raid group, and the swarm never fields her.
 	     Combat power a worker's - she is unarmed, soft-bodied and has no business in a fight;
@@ -239,7 +251,6 @@
 		<label>honey bee</label>
 		<race>PMM_Race_HoneyBee</race>
 		<combatPower>40</combatPower>
-		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<xenotypeSet><xenotypeChances><PMM_InsectHoneyBee>100</PMM_InsectHoneyBee></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 

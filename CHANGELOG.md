@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-09-27: Fixed a crash on new worlds. The ant arachne was missing from the tribes' pawn list, and world generation stopped dead on it, so no factions appeared at all.
 - 2026-09-27: Added the honey bee, a farmer caste of the neutral insector hive. She keeps the hive's crops and its animals, counts as a full-grown woman before her small gene shrinks her, and can never have children of her own. She stands in hive villages and in no raid.
 - 2026-09-27: Added honey. A honey bee fills with honey as she works the plants and tends the animals, and it can be milked out of her - by right click, by another colonist, or from a button on her own bar. Honey is a fine food worth 7 silver a jar, it never spoils, and it never poisons anyone.
 - 2026-09-27: Changed honey to be Medieval Overhaul's own honey when that mod is loaded, so a colony running it has one honey instead of two. The jar she makes is then MO's "smokey honey", and ours stops appearing in trader stock for sale by traders.
@@ -123,6 +124,10 @@
 
 ## Internal
 
+- 2026-09-27: Fixed a missing pawn kind. An edit that added the honey bee's kind replaced the ant arachne's kind instead of sitting beside it, so `PMM_InsectAntArachne` was defined nowhere while five faction roster entries and the queen's brood list still pointed at it. The unresolved `PawnGenOption` left a null kind in the rosters, and world generation died with a `NullReferenceException` in `Faction.TryGenerateNewLeader` - no faction of ANY kind appeared in a new world. Restored, and the whole set re-checked: all 12 kinds the factions name exist.
+- 2026-09-27: Removed `<factionlessGenerationWeight>` from five pawn kinds (arachne, beelzebub, girtablilu, ant arachne, honey bee). The field does not exist on `PawnKindDef` in 1.6 - the game logged an XML error for each and ignored them - so it was dead config reading as live support. The field is on `XenotypeDef`, which every insect xenotype already sets to 0.
+- 2026-09-27: Removed the trader-stock operations from `Patches/Honey_MedievalOverhaul.xml`, which the game reported as a failed patch on first run. Nothing in this load order stocks `AnimalProductRaw` by category (0 files against 45 for `Textiles`), so the two ops could never match. The honey is not reachable as trader stock either way, so nothing was lost.
+- 2026-09-27: Fixed the girtablilu's and the ant arachne's race tracker descriptions. Their trailing whitespace is a config error the game logs on every load.
 - 2026-09-27: Changed the mod folder and project names to Mamono.
 - 2026-09-27: Changed the defNames, class names, scribe labels and file names to Mamono.
 - 2026-09-27: Changed the docs to say mamono.
