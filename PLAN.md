@@ -122,7 +122,56 @@ numbers exactly once (no doubling), and hive nourishment works.
 ## 8. Out of scope
 
 Custom pawn art (antennae/carapace overlays - the castes use human rendering and
-gene icons from `mktex.py`), Greenworm -> Papillon maturation (MGE cocoon lore),
-and DLC lair-boss loop polish. The settlements, the RulePack namers and the
-jelly economy this section used to list all shipped with the tribes - see
+gene icons from `mktex.py`), Greenworm -> Papillon maturation (planned in its own
+section below), and DLC lair-boss loop polish. The settlements, the RulePack namers
+and the jelly economy this section used to list all shipped with the tribes - see
 `HANDOFF.md` §4.
+## Papillon maturation (planned 2026-09-27, decisions locked)
+
+The greenworm is the larval form: with enough mana she pupates into a papillon. The
+lore is already in the mod - `Defs/BackstoryDefs/Backstories_Insect.xml` says a
+greenworm matures into a papillon - and the machinery to do it already exists.
+
+**The swap is already built and never used.** `MamonoTransformation.ConvertXenotype`
+in core is the momo-to-momo path, written for exactly this case: it strips the old
+xenotype's signature endogenes, adds the new set, swaps the B&S race
+(`ApplyXenotypeRace`), refreshes an unborn baby's pregnancy snapshot and dirties the
+graphics. Nothing calls it yet, which is why step 0 below is a test and not a
+formality.
+
+**Locked decisions (user, 2026-09-27)**
+
+1. One way. A papillon never goes back to a greenworm.
+2. Mana is the fuel, and spent mana becomes charges. The comp watches the mana bar
+   and counts every *fall* as mana spent; refills never subtract. That one rule
+   covers both spenders - her passive drain, and giving essence away - and it also
+   means a nest keeps her a grub: `CompHiveNourishment` tops her up at 1.5 bars a
+   day, so charges do not accrue while she sits in a hive.
+3. Colony greenworms only. Off-map village pawns never tick, so they are already
+   safe, and spawned raiders are too: the greenworm is listed under `Peaceful`
+   alone and in no raid group (verified 2026-09-27 - the `Combat` groups list the
+   devilbug, giant ant, soldier beetle and mosquito, never her).
+4. A cocoon, 15 days, reusing the abaddon egg sac's own art
+   (`Things/Building/PMM_EggSac`). A hediff cannot render on its own, so the cocoon
+   is a building spawned on her tile - the sac def is `PassThroughOnly`, so she can
+   share the tile - with an immobility hediff holding her still for the duration.
+5. The papillon's own genes, abilities and size are deferred; the user will spec her
+   later. The comp therefore reads its target xenotype as a defName from XML and
+   looks it up with `GetNamedSilentFail`, so this ships dormant and harmless until
+   that xenotype exists.
+
+**Steps**
+
+0. Prove `ConvertXenotype` on a dev-spawned greenworm: race, genes, graphics and
+   corpse category must all follow. If it misbehaves, the plan changes here.
+1. `Source/Insects/PapillonMaturation.cs`: `CompProperties_PapillonMaturation`
+   (`chargesNeeded`, `manaPerCharge`, `cocoonDays`, `requireColonist`,
+   `targetXenotype`) on the greenworm race. The charge accumulator is scribed, so a
+   reload cannot lose progress. One `PMMLog.Message` line in dev mode.
+2. The cocoon: a `PMM_Cocoon` ThingDef (sac texPath, its own comp), the immobility
+   hediff, and the hatch on expiry. Open question: what a killed cocoon means -
+   losing her, or hatching early.
+3. The papillon herself, once specified: xenotype, race, tracker, icon and the
+   corpse entry.
+4. Paperwork: this section, a `HANDOFF.md` section, changelog lines, and the
+   backstory note that still says the in-game mamono keeps the worm body.
