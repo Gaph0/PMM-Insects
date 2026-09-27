@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The honey gene (built 2026-09-27). Carrying it makes a mamono make honey as
+		she works, and the honey can be taken from her by right click, by her own
+		hands, or from a button on her own bar.
+
+		The state lives on the gene and not on the race, so a new honey-making caste
+		is one gene in her xenotype. That is the arachne silk rule: everything that
+		finds the honey - the work giver, the right-click order, the gizmo - finds it
+		through the gene, never through a race name.
+
+		A `GeneDef` has no comps field, so the dials sit in a DefModExtension read by
+		PMM_Insects.Gene_Honey. `honeyDef` is the one field the Medieval Overhaul
+		patch re-points (Patches/Honey_MedievalOverhaul.xml), so a colony running MO
+		gets MO's own honey rather than a second honey of ours.
+
+		Displayed lines: there are none, on purpose. This gene has no stat offsets
+		and no abilities, so the engine prints nothing for it and the description
+		below is the whole of what the player reads. Nothing here restates it.
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_Honey</defName>
+		<label>honey</label>
+		<description>Bees of the hive carry their harvest in their own bodies. This woman fills with honey as she works the plants and tends the animals, and it can be milked out of her once there is enough - by her own hands, or by anyone willing to do it for her.</description>
+		<iconPath>UI/Icons/Genes/Gene_Honey</iconPath>
+		<geneClass>PMM_Insects.Gene_Honey</geneClass>
+		<displayCategory>Miscellaneous</displayCategory>
+		<displayOrderInCategory>1001</displayOrderInCategory>
+		<!-- No metabolic cost, and that is the ruling rather than an oversight: the
+		     harvest is not free, it is paid for in work she has to do anyway, and the
+		     shared insect gene on the same pawn already costs her 1 (see
+		     Genes_Insect.xml). Move this number if she should eat more for it. -->
+		<biostatMet>0</biostatMet>
+		<modExtensions>
+			<li Class="PMM_Insects.HoneyGeneExtension">
+				<honeyDef>PMM_Honey</honeyDef>
+				<honeyPerMilking>25</honeyPerMilking>
+				<minFullness>0.3</minFullness>
+				<fullnessPerAction>0.03</fullnessPerAction>
+			</li>
+		</modExtensions>
+	</GeneDef>
+
+</Defs>

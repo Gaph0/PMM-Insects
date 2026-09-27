@@ -2,6 +2,10 @@
 
 ## Player-facing
 
+- 2026-09-27: Added the honey bee, a farmer caste of the neutral insector hive. She keeps the hive's crops and its animals, counts as a full-grown woman before her small gene shrinks her, and can never have children of her own. She stands in hive villages and in no raid.
+- 2026-09-27: Added honey. A honey bee fills with honey as she works the plants and tends the animals, and it can be milked out of her - by right click, by another colonist, or from a button on her own bar. Honey is a fine food worth 7 silver a jar, it never spoils, and it never poisons anyone.
+- 2026-09-27: Changed honey to be Medieval Overhaul's own honey when that mod is loaded, so a colony running it has one honey instead of two. The jar she makes is then MO's "smokey honey", and ours stops appearing in trader stock for sale by traders.
+- 2026-09-27: Fixed the arachne, the beelzebub, the girtablilu and the ant arachne. Their bodies were filed with human corpses instead of the mamono corpses line, so the butcher's bill and corpse stockpiles treated them as human bodies.
 - 2026-09-27: Changed the greenworm's genes. She is soft, passive and dim: she catches every illness, cannot fight at all, always wants more food, and now needs insect jelly like the rest. She can never have children of her own.
 - 2026-09-27: Changed the greenworm's body size. She counts as a full-grown woman before her small gene shrinks her, like the devil bug, the vamp mosquito and the giant ant.
 - 2026-09-27: Changed the giant ant's genes. She digs and hauls better, needs little sleep, eats raw food without harm, and can never have children of her own. She no longer needs insect jelly.

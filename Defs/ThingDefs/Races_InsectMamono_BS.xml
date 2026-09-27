@@ -1572,4 +1572,125 @@
 		     is deliberately absent (user, 2026-09-27 - "no web ability"). -->
 	</HediffDef>
 
+	<!-- ===================== Honey Bee (new caste, 2026-09-27) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_HoneyBee</defName>
+		<label>honey bee</label>
+		<description>An insect mamono of the hive's fields: a round, soft-bodied woman whose every waking hour is spent on the crops and the animals. She hums while she works, and the honey she makes collects in her body until someone comes to take it.</description>
+		<statBases>
+			<MoveSpeed>3.7</MoveSpeed>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier (B&S), then VRE_Microsized takes a FLAT 0.45
+			     through VEF. 1.0 x 1.0 = 1.0 before the gene, 0.55 with it: a small
+			     round worker, the same standing as the greenworm and the ant arachne. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>150</MarketValue>
+			<!-- 30 chitin a corpse, the value every caste here carries. -->
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance>1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<!-- Her sisters' standard worker set, and deliberately no sting: her genes are
+		     the user's list and nothing here adds a weapon of its own. There is no bee
+		     in vanilla or in VFEI2 to overlay 1:1, so these are the devil bug's numbers
+		     rather than a copied bug's - the one caste in the family whose numbers are
+		     chosen by comparison instead. -->
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<!-- 1.0 against the 1.0 multiplier in statBases above: full-grown before
+			     VRE_Microsized takes its flat 0.45, so 0.55 with her genes. Health
+			     scale 0.4 is the plain worker's frame - HealthScalePatch multiplies it
+			     by 2.5, so she sits on a human's 1.0 effective, exactly as the devil
+			     bug does. -->
+			<baseBodySize>1.0</baseBodySize>
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<!-- A daughter of the hive is fed by the hive: standing near a nest (a Hive)
+		     tops up her hunger and mana. See HiveNourishment.cs. -->
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_HoneyBee</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Honey Bee race tracker. Auto-applies on spawn via RaceExtension, and the armor
+	     lives here as a stat stage rather than on race statBases, which would STACK.
+	     A light shell: a tenth of the devil bug's chitin and half the ant's, because a
+	     bee's plates cover less of her than either. Her soft abdomen is the trade -
+	     she is the caste that should not be in a fight. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_HoneyBee</defName>
+		<label>honey bee</label>
+		<description>A honey bee mamono of the hive.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
 </Defs>

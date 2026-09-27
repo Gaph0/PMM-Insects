@@ -110,6 +110,7 @@ SPECIES = {
     "PMM_Greenworm":    ((90, 140, 60, 255), (150, 190, 100, 255)), # caterpillar green
     "PMM_VampMosquito": ((70, 50, 80, 255), (130, 90, 140, 255)),   # dusky purple
     "PMM_Abaddon":      ((40, 40, 45, 255), (90, 80, 100, 255)),    # near-black queen
+    "PMM_HoneyBee":     ((200, 160, 60, 255), (245, 215, 120, 255)), # honey gold
 }
 
 for name, (body, belly) in SPECIES.items():
@@ -121,6 +122,14 @@ for name, (body, belly) in SPECIES.items():
 write_png(os.path.join(ROOT, "Textures", "UI", "Icons", "Genes", "Gene_Insect.png"),
           128, 128, bug_icon(128, (70, 90, 50, 255), (120, 150, 80, 255)))
 print("wrote Gene_Insect")
+
+# The honey gene (2026-09-27): the same silhouette in the bee's own colours, so the
+# gene reads as hers on the gene page rather than as a second insect gene. Amber over
+# pale comb, deliberately not the icon her species already uses - two assets with one
+# picture between them is a question for the next reader.
+write_png(os.path.join(ROOT, "Textures", "UI", "Icons", "Genes", "Gene_Honey.png"),
+          128, 128, bug_icon(128, (190, 120, 40, 255), (250, 225, 150, 255)))
+print("wrote Gene_Honey")
 
 # Phase 5, the brood: the sac the abaddon throws, its projectile, and the ability gizmo.
 SAC, GLOW = (120, 150, 90, 255), (150, 200, 120, 255)

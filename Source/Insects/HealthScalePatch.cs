@@ -48,6 +48,9 @@ namespace PMM_Insects
                 // Ant Arachne: 0.36 base x 2.5 = 0.9 effective. She is the small
                 // worker of the family, and a tenth under a human is the point.
                 "PMM_Race_AntArachne" => 2.5f,
+                // Honey Bee: 0.4 base x 2.5 = 1.0 effective, the devil bug's frame. A
+                // farmer's body and not a fighter's, but it keeps her limbs on her.
+                "PMM_Race_HoneyBee" => 2.5f,
                 _ => 1f,
             };
 

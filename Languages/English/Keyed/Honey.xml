@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <PMM_HoneyMilkLabel>Milk honey</PMM_HoneyMilkLabel>
+    <PMM_HoneyNoneYet>no honey yet</PMM_HoneyNoneYet>
+    <PMM_HoneyFullness>honey: {0}</PMM_HoneyFullness>
+</LanguageData>

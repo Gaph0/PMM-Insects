@@ -27,7 +27,15 @@ namespace PMM_Insects
                 "PMM_Race_Greenworm",
                 "PMM_Race_VampMosquito",
                 "PMM_Race_Abaddon",
-                "PMM_Race_AbaddonFolk");
+                "PMM_Race_AbaddonFolk",
+                // The four species built after that list was written were never added to it, so
+                // their corpses sat under vanilla's humanlike line while every older sister's
+                // moved. Straightened out 2026-09-27, in the pass that added the honey bee.
+                "PMM_Race_Arachne",
+                "PMM_Race_Beelzebub",
+                "PMM_Race_Girtablilu",
+                "PMM_Race_AntArachne",
+                "PMM_Race_HoneyBee");
         }
     }
 }

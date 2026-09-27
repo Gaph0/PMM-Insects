@@ -700,4 +700,67 @@
 		</modExtensions>
 	</XenotypeDef>
 
+	<!-- Honey Bee (built 2026-09-27): the hive's farmer, and the one caste with honey -->
+	<XenotypeDef>
+		<defName>PMM_InsectHoneyBee</defName>
+		<label>honey bee</label>
+		<description>A honey bee mamono, round and soft and never still. She keeps the hive's crops and its beasts, humming to herself the whole time, and her body slowly fills with honey as she works. She is happiest doing exactly that, and there is little behind her eyes but the next row and the next animal.</description>
+		<descriptionShort>A cheerful, tireless farmer whose body fills with honey.</descriptionShort>
+		<iconPath>UI/Icons/Xenotypes/PMM_HoneyBee</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<!-- Antennae: the same cosmetic gene the other castes carry. -->
+			<li>VRE_InsectAntennae</li>
+			<!-- Weak flight (core), in the user's list: she has wings and cannot carry
+			     anything with them, so she is no caravan flier - the racing wings are
+			     the mosquito's, not hers. -->
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's package, and its balance is the point: two evolutions
+			     (serotonin, compound eyes) against two degrades (rapid life cycle,
+			     microsized) - two and two, the balance VRE's own picker demands
+			     (VRE_NeedEqualAmount). Microsized takes a flat 0.45 off her body
+			     size, so she stands at 0.55 before anything else.
+			     The trade to know about: serotonin keeps her blissful AND doubles her
+			     chance of a social fight (`socialFightChanceFactor 2`, and its own
+			     description promises the same). A hive full of happy, squabbling
+			     farmers is the result, deliberately kept. -->
+			<li>VRE_Serotonin</li>
+			<li>VRE_CompoundEyes</li>
+			<li>VRE_RapidLifeCycle</li>
+			<li>VRE_Microsized</li>
+			<!-- Her whole reason for existing: the hive's honey. The state and the
+			     dials live on the gene (Defs/GeneDefs/Genes_Honey.xml), never on her
+			     race, so another caste can be given honey later by one gene. -->
+			<li>PMM_Gene_Honey</li>
+			<!-- Vanilla genes in the user's words: "good plants" is
+			     AptitudeStrong_Plants, "good animals" AptitudeStrong_Animals - both the
+			     game's own TEMPLATE genes, one built per skill at load, so there is no
+			     def to find in the files. "Poor intellect" is
+			     AptitudePoor_Intellectual, "poor social" AptitudePoor_Social. -->
+			<li>AptitudeStrong_Plants</li>
+			<li>AptitudeStrong_Animals</li>
+			<li>AptitudePoor_Intellectual</li>
+			<li>AptitudePoor_Social</li>
+			<!-- A worker bee does not breed (user's list): vanilla's `Sterile`, the same
+			     barren lock the queen and four of her sisters carry, which works because
+			     core's MomoFertilityPatch stands aside for a deliberate sterility. -->
+			<li>Sterile</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_HoneyBee</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
 </Defs>

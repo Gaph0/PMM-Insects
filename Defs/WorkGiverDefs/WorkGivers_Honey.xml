@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- She takes her own honey (2026-09-27), on the model of the arachne's silk giver: the only
+	     possible target is the pawn herself, and the player's right-click order covers everything
+	     else, including sending someone to do it for her.
+
+	     Work type Handling, unlike the silk giver's Hauling: vanilla files the milking of animals
+	     under Handling, and this is the caste the user gave a talent for animals
+	     (`AptitudeStrong_Animals`), so the work is hers by nature. The consequence to know is the
+	     silk one - with Handling turned off she will not help herself, though the right-click order
+	     and her own gizmo still work. -->
+	<WorkGiverDef>
+		<defName>PMM_MilkHoney</defName>
+		<label>milk honey</label>
+		<giverClass>PMM_Insects.WorkGiver_MilkHoney</giverClass>
+		<workType>Handling</workType>
+		<verb>milk honey</verb>
+		<gerund>milking honey</gerund>
+		<priorityInType>50</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+</Defs>

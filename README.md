@@ -42,6 +42,12 @@ class of an abaddon's swarm, with four arms and wings. Nothing in the world spaw
 her: no village raises her and no raid brings her. You can spawn her in dev mode from
 the spawn pawn list, or apply her xenotype to a woman, which turns her into one.
 
+Honey bees are the hive's farmers, and the only caste that makes something you can
+take. She keeps the crops and the animals, and her body fills with honey as she works:
+milk it out of her by right click, or press the button on her own bar. Honey is a fine
+food that never spoils. She stands in hive villages and in no raid, and the hostile
+swarm has no farmers of its own.
+
 **Requires:** Project Mamono (PMM.Core), Biotech, Harmony, Big and Small - Framework,
 Vanilla Expanded Framework, Vanilla Races Expanded - Insector, and Vanilla Factions
 Expanded - Insectoids 2.

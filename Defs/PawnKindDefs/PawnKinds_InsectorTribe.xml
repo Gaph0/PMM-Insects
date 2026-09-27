@@ -227,13 +227,20 @@
 	     no spawn table but the hive's own, no forced traits, and no raid groups.
 	     Combat power 70, close to the giant ant's 75 she is imitating: she is a
 	     worker with a worker's frame, and what she brings is hands, not claws. -->
+	<!-- The farmer (2026-09-27). The hive's own caste, and the only one that makes honey: she
+	     stands in the neutral hive's villages, in no raid group, and the swarm never fields her.
+	     Combat power a worker's - she is unarmed, soft-bodied and has no business in a fight;
+	     what she brings to a village is the harvest and the animals. No forced traits: the
+	     user's list was genes, and traits are not one of them. She has no backstoryFilters,
+	     which is the same gap the arachne, the beelzebub, the girtablilu and the ant arachne
+	     carry - HANDOFF.md §11 item 11 has it and the fix for all five. -->
 	<PawnKindDef ParentName="PMM_InsectKindBase">
-		<defName>PMM_InsectAntArachne</defName>
-		<label>ant arachne</label>
-		<race>PMM_Race_AntArachne</race>
-		<combatPower>70</combatPower>
+		<defName>PMM_InsectHoneyBee</defName>
+		<label>honey bee</label>
+		<race>PMM_Race_HoneyBee</race>
+		<combatPower>40</combatPower>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
-		<xenotypeSet><xenotypeChances><PMM_InsectAntArachne>100</PMM_InsectAntArachne></xenotypeChances></xenotypeSet>
+		<xenotypeSet><xenotypeChances><PMM_InsectHoneyBee>100</PMM_InsectHoneyBee></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 </Defs>

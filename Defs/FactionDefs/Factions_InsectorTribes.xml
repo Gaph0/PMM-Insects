@@ -266,16 +266,19 @@
 		     once. The three hostile castes - the arachne, the beelzebub and the girtablilu
 		     - are absent on purpose; the swarm never fields the ant arachne. No option here
 		     names a DLC species, needs no MayRequire anywhere, and the queen and the
-		     vamp mosquito are the swarm's, not the hive's. Keep it in step with the base's list: a group kind added there
+		     vamp mosquito are the swarm's, not the hive's. The honey bee (2026-09-27) is
+		     the hive's alone, in `Peaceful`, in the small `Settlement` garrison and in the
+		     `Farmers` role group - never in a Combat group. Keep it in step with the base's list: a group kind added there
 		     belongs here too, or a pawn generated for that kind throws "no usable
 		     PawnGroupMakers". This replaced an earlier per-group-kind switch, which only
 		     steered KCSG's defenders and left base populations shared. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
-				<PMM_InsectDevilBug>0.32</PMM_InsectDevilBug>
-				<PMM_InsectGiantAnt>0.32</PMM_InsectGiantAnt>
-				<PMM_InsectSoldierBeetle>0.22</PMM_InsectSoldierBeetle>
-				<PMM_InsectAntArachne>0.14</PMM_InsectAntArachne>
+				<PMM_InsectDevilBug>0.28</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.28</PMM_InsectGiantAnt>
+				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
+				<PMM_InsectAntArachne>0.12</PMM_InsectAntArachne>
+				<PMM_InsectHoneyBee>0.12</PMM_InsectHoneyBee>
 			</xenotypeChances>
 		</xenotypeSet>
 		<pawnGroupMakers Inherit="False">
@@ -303,34 +306,41 @@
 			</li>
 			<li>
 				<!-- Village life: workers and fillers. No brood of her own: the
-				     greenworm is the swarm's, and the hive fields no brood caste. -->
+				     greenworm is the swarm's, and the hive fields no brood caste. The honey
+				     bee is common here - a village's fields and animals are hers. -->
 				<kindDef>Peaceful</kindDef>
 				<options>
 					<PMM_InsectDevilBug>20</PMM_InsectDevilBug>
 					<PMM_InsectGiantAnt>20</PMM_InsectGiantAnt>
 					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
+					<PMM_InsectHoneyBee>12</PMM_InsectHoneyBee>
 				</options>
 			</li>
 			<li>
 				<!-- Village garrison, the hive's own: her villages are the only place the
 				     ant arachne stands, and she is common there - a hive that builds wants
-				     a dozen of her, not two. Never in a raid group. -->
+				     a dozen of her, not two. Never in a raid group. The honey bee keeps a
+				     small place here: a village defends itself with the women it has. -->
 				<kindDef>Settlement</kindDef>
 				<options>
 					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
 					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
 					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
+					<PMM_InsectHoneyBee>3</PMM_InsectHoneyBee>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">
-				<!-- The four role groups vanilla tribes carry. Ideology is gated because
-				     only its code asks for these kinds, exactly as vanilla gates its own. -->
-				<kindDef>Miners</kindDef>
+				<!-- The four role groups vanilla tribes carry, gated on Ideology because
+				     only its code asks for these kinds, exactly as vanilla gates its own.
+				     The honey bee carries the heaviest weight among the farmers, being the
+				     caste that farms. -->
+				<kindDef>Farmers</kindDef>
 				<commonality>1</commonality>
 				<options>
 					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
 					<PMM_InsectAntArachne>1</PMM_InsectAntArachne>
+					<PMM_InsectHoneyBee>2</PMM_InsectHoneyBee>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">

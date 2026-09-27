@@ -7,13 +7,6 @@ using Verse.AI;
 
 namespace PMM_Insects
 {
-    [DefOf]
-    public static class InsectDefOf
-    {
-        /// <summary>The job that gathers the silk, from her own hands or another's.</summary>
-        public static JobDef PMM_GatherArachneSilk;
-    }
-
     /// <summary>
     /// Arachne silk: the resource she spins and the player takes (user's call 2026-09-26, gathered
     /// by a right click, and she can gather it herself). The state lives here. `fullness` fills over

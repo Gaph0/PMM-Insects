@@ -1331,6 +1331,91 @@ megascarab 0.5 / spelopede 0.25 / megaspider 0.15 / megapede 0.05 - and spawns o
 `AgeBiologicalTicks = 30000`. There is no XML hook for "what comes out", which is why the
 choice has to be carried by our own comps and the default entry is left to VFEI2 untouched.
 
+### 5.12 The honey bee, and honey - built 2026-09-27
+
+**The caste.** `PMM_InsectHoneyBee` xenotype, `PMM_Race_HoneyBee` race plus tracker,
+`PMM_InsectHoneyBee` pawn kind, and an icon from `Tools/mktex.py`, which now lists her. She is
+the neutral hive's alone: `Peaceful` weight 12, `Settlement` weight 3, the `Farmers` role group
+at weight 2 (the heaviest of the three there - she is the caste that farms), and no Combat group
+anywhere, so the swarm never fields her. The hive's `xenotypeSet` was rebalanced for her: devil
+bug 0.28, giant ant 0.28, soldier beetle 0.20, ant arachne 0.12, honey bee 0.12.
+
+Her genes are the user's list, every def checked against the installed 1.6 files: `VRE_Serotonin`
+and `VRE_CompoundEyes` (both evolutions) against `VRE_RapidLifeCycle` and `VRE_Microsized` (both
+degrades) - two and two, the balance VRE's picker demands - plus `VRE_InsectAntennae`, the core
+mod's `PMM_Gene_FlightWeak`, `Sterile`, `AptitudeStrong_Plants`, `AptitudeStrong_Animals`,
+`AptitudePoor_Intellectual`, `AptitudePoor_Social`, `PMM_Gene_Honey` and the five chitin tones.
+The trade that comes with the list, on the record: serotonin keeps her blissful AND doubles her
+social-fight chance (`socialFightChanceFactor 2`, and its own description promises as much), so a
+hive of farmers is a hive of cheerful squabbles.
+
+**She is the one caste with no bug to copy.** There is no bee in vanilla, in VFEI2 or in VRE
+Insector (checked 2026-09-27), so her numbers are set by comparison with her sisters rather than
+overlaid 1:1 from a bug as every older caste's were: body-size pair 1.0 x 1.0 (0.55 after
+microsized), health scale 0.4 (x2.5 in `HealthScalePatch`, so 1.0 effective - the devil bug's
+frame), hunger 0.15, market value 150, light armor at 0.10 sharp / 0.05 blunt, and the devil
+bug's worker tool set with **no sting**, because nothing in the user's list adds a weapon.
+
+**The honey gene.** `PMM_Gene_Honey` (`Defs/GeneDefs/Genes_Honey.xml`): a `GeneDef` with
+`geneClass PMM_Insects.Gene_Honey` and a `PMM_Insects.HoneyGeneExtension` for the dials, because a
+`GeneDef` has no comps field - the same reason core's age-ailment marker is an extension. **The
+state lives on the gene, not on the race**, so a second honey-making caste is one gene in her
+xenotype: the work giver, the right-click order and the gizmo all find her through
+`Gene_Honey.Get(pawn)` and never through a race name, which is the rule the silk comp states for
+itself.
+
+**Accumulation is work-driven, the one place honey differs from silk.** Silk fills on the clock;
+honey fills from what she does. `Gene_Honey.Tick` polls once an in-game hour
+(`IsHashIntervalTick(2500)`, the core gene's own cadence) and reads three vanilla records:
+`PlantsSown`, `PlantsHarvested`, `AnimalsTamed` - verified in
+`Data/Core/Defs/Misc/RecordDefs/Records_Misc.xml` on 2026-09-27. The plan also named milking
+animals, and **that record does not exist**: vanilla's list holds `AnimalsTamed` and
+`AnimalsSlaughtered` and nothing finer, so animal work counts through taming alone. The records
+are looked up BY NAME, so one missing from this load order is simply not tracked, and no Harmony
+patch is needed anywhere in the accumulation. The first reading of a save-loaded pawn only
+baselines (`lastWorkTotal` starts at -1 and is scribed): she already carries a lifetime of farm
+work on her records, and paying for that would hand the player a full bar the moment she loads.
+
+**The dials**, all on the extension so each is one line to move: `fullnessPerAction 0.03` (a full
+bar is about 33 tracked actions), `honeyPerMilking 25`, `minFullness 0.3`. Fullness clamps at 1,
+so honey caps as silk does, and milking empties her with the yield scaled to what had built up -
+early is a shorter wait for less honey, never a loss. These are the plan's open tuning questions,
+answered as defaults rather than by asking.
+
+**The chain mirrors silk one for one**: a `PMM_MilkHoney` job (`JobDriver_MilkHoney`), a matching
+`PMM_MilkHoney` work giver (`WorkGiver_MilkHoney`, self-only like the silk giver, so she takes her
+own and the player's right-click covers everyone else), a right-click order
+(`HoneyFloatMenuPatch`, the silk patch's hook and decoration) and a gizmo. The gizmo is the one
+thing silk does not have: `Verse.Gene.GetGizmos` is the engine's own hook, so the order sits on
+her own bar with no patch - note that its base implementation returns **null** rather than an
+empty list, so nothing calls base. Work type `Handling` rather than the silk giver's `Hauling`:
+vanilla files the milking of animals under Handling, and this is the caste the user gave the
+animal talent to. `InsectDefOf` moved to its own file (`Source/Insects/InsectDefOf.cs`) because it
+now holds two job defs and stopped belonging in the silk file.
+
+**The item.** `PMM_Honey` (`Defs/ThingDefs/Things_Honey.xml`): vanilla insect jelly's parent and
+shape, with market value 7, mass 0.025, nutrition 0.05, a stack of 25, the `AnimalProductRaw`
+shelf, and **no `FoodPoisonChanceFixedHuman` line at all** - that stat's default is 0, so the
+plan's "never poisons anyone" is reached by omission rather than by a field that says 0. Value,
+nutrition and stack match Medieval Overhaul's own honey, so a colony running MO sees one honey
+either way, and the 25 is exactly one full milking. It is tradeable (vanilla's default), which
+the MO patch's reasoning needs: that patch stops our jar being *generated* as trader stock, never
+the player selling one.
+
+**Medieval Overhaul compat** (`Patches/Honey_MedievalOverhaul.xml`, gated on MO's display name
+the way the silk patch is). MO is workshop `3219596926` and its honey item is `DankPyon_Honey`, a
+food on the same vanilla parent as ours. With MO loaded the gene's `honeyDef` is re-pointed to it
+- remove plus add, because the element ships in our own gene def - and `PMM_Honey` is added to
+the `excludedThingDefs` of every `StockGenerator_Category` that stocks `AnimalProductRaw`, with a
+second op carrying the `[not(excludedThingDefs)]` predicate for the generators that never wrote
+the list. `tradeability` is left alone, the arachne's reasoning. The name the player reads then is
+MO's own: "smokey honey".
+
+**Also in this pass:** the four castes built after `InsectMamonoCorpses.cs` was written - the
+arachne, the beelzebub, the girtablilu and the ant arachne - were never registered in it, so their
+corpses sat under vanilla's humanlike line while every older sister's moved to the mamono line. All
+four are registered now, the bee with them.
+
 ---
 
 ## 6. VRE Insector wiring - what works, what does not
@@ -1671,16 +1756,20 @@ Worth asking later, not now:
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
    body part, no gut and no art of ours were needed. The folk still has none, and the
    spider stays the reference if she ever gets one.
-11. **Four of the newest castes have no backstories (2026-09-27).** The arachne,
-    the beelzebub, the girtablilu and the ant arachne are the only concrete kinds in
-    `PawnKinds_InsectorTribe.xml` without `<backstoryFilters>`, so pawn generation
-    logs "no backstoryCategories in either" for them and rolls them a random vanilla
-    backstory - a hive assassin with a childhood on a glitterworld. Every older
-    caste names its own `PMM_<Species>Spawn` category, defined in
+11. **Five of the newest castes have no backstories (2026-09-27).** The arachne,
+    the beelzebub, the girtablilu, the ant arachne and the honey bee are the only
+    concrete kinds in `PawnKinds_InsectorTribe.xml` without `<backstoryFilters>`, so
+    pawn generation logs "no backstoryCategories in either" for them and rolls them
+    a random vanilla backstory - a hive assassin with a childhood on a glitterworld.
+    Every older caste names its own `PMM_<Species>Spawn` category, defined in
     `Backstories_Insect.xml` as one child and one adult story. The fix is one
     category pair per species plus one `<backstoryFilters>` block on the kind; it was
-    left out of the girtablilu and ant arachne passes because the arachne and the
-    beelzebub set the precedent, and four castes are one job rather than four.
+    left out of the beelzebub's, the girtablilu's and the ant arachne's passes
+    because the arachne set the precedent, and five castes are one job rather than
+    five. The honey bee was built after that precedent was set, so she follows it.
+12. **Should the abaddon be able to lay a honey bee?** Her brood list (§5.11) was not
+    touched by the honey pass (2026-09-27), so the bee is not among the castes the
+    queen can choose. One entry in that list if she should be - no code change.
 
 ---
 

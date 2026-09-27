@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Mamono honey (built 2026-09-27). A food on the level of vanilla insect jelly,
+		and built the same way: the same parent, the same nutrition, the same joyful
+		preferability, the same raw-animal-product shelf. One deliberate difference -
+		it never poisons anyone. Vanilla jelly carries `FoodPoisonChanceFixedHuman
+		0.02` and this def has no such line at all, because that stat's default is 0
+		and a line setting it to 0 would say nothing. That is the plan's
+		"foodPoisoningChanceFactor 0": reached by omission rather than by a dead
+		field.
+
+		Numbers picked to match Medieval Overhaul's own honey (market value 7, mass
+		0.025, nutrition 0.05, stack of 25) rather than vanilla jelly's 8, so a colony
+		that runs MO sees one honey behaving the same way whether it came out of our
+		bee or MO's own bees. The stack of 25 is also exactly one full milking, so a
+		gathered batch lands as one neat pile.
+
+		A plain vanilla-style `tradeability`, so honey is sellable, and the Medieval
+		Overhaul patch stops it being GENERATED as trader stock only in the case where
+		MO's own honey is what she makes - a spare jar can always still be sold.
+
+		Art: vanilla insect jelly's texture with our own `graphicData` tint, the way the
+		silk item wears vanilla cloth. The art pass for this family was scrapped on
+		2026-09-27, so this is the final look rather than a placeholder.
+	-->
+	<ThingDef ParentName="OrganicProductBase">
+		<defName>PMM_Honey</defName>
+		<label>mamono honey</label>
+		<description>Honey gathered from the body of a mamono. Thick, fragrant and impossible to spoil.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/AnimalProductRaw/InsectJelly</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<color>(240,196,80)</color>
+		</graphicData>
+		<stackLimit>25</stackLimit>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<statBases>
+			<MarketValue>7</MarketValue>
+			<Mass>0.025</Mass>
+			<Nutrition>0.05</Nutrition>
+		</statBases>
+		<ingestible>
+			<foodType>AnimalProduct</foodType>
+			<preferability>MealFine</preferability>
+			<joy>0.08</joy>
+			<joyKind>Gluttonous</joyKind>
+			<ingestEffect>EatVegetarian</ingestEffect>
+			<ingestSound>Meal_Eat</ingestSound>
+			<!-- Vanilla jelly's own line, and jelly's reason: worth more as a thing to
+			     trade and cook with than as caravan rations. -->
+			<lowPriorityCaravanFood>true</lowPriorityCaravanFood>
+			<babiesCanIngest>true</babiesCanIngest>
+		</ingestible>
+		<thingCategories>
+			<li>AnimalProductRaw</li>
+		</thingCategories>
+		<allowedArchonexusCount>150</allowedArchonexusCount>
+	</ThingDef>
+
+</Defs>

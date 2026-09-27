@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Medieval Overhaul compat for the honey gene (user's call 2026-09-27: "if MO is installed,
+		make the mamono produce MO honey, not our"). Everything here is gated on MO being loaded;
+		without MO the game is untouched and she makes `PMM_Honey`.
+
+		1. What she makes. MO already has a honey - `DankPyon_Honey`, a food built on the same
+		   vanilla parent as our own, so the two are interchangeable in a kitchen and a stockpile.
+		   With MO loaded the gene's `honeyDef` is re-pointed from `PMM_Honey` to `DankPyon_Honey`,
+		   and a colony running MO has one honey rather than two. The name the player reads in that
+		   case is MO's own: "smokey honey", from MO's vulture bees. That is the trade the user
+		   chose, and it is what keeps a single honey in the colony.
+
+		   Op 1 removes the existing element and op 2 adds the new one, rather than one
+		   `PatchOperationReplace`: `PatchOperationAdd` appends the children of `<value>`, which is
+		   unambiguous, and the two ops always match because the element they touch ships in our own
+		   gene def. Order matters - op 2's xpath needs the element to be gone, so op 2 matches the
+		   extension without any `honeyDef`.
+
+		2. Our own def must not appear from nowhere. With MO loaded nothing produces `PMM_Honey`
+		   any more, so it is added to the `excludedThingDefs` of every `StockGenerator_Category`
+		   that stocks the `AnimalProductRaw` category, which is where a honey jar sits.
+		   `StockGenerator_Category.GenerateThings` builds stock from
+		   `categoryDef.DescendantThingDefs.Where(t => t.tradeability.TraderCanSell() && ...)` and
+		   that per-generator list is the only per-item escape hatch.
+
+		   Two ops for it, because not every generator writes the list: op 3 adds to the ones that
+		   already carry `excludedThingDefs`, op 4 creates it for the ones that do not. Op 4's
+		   `[not(excludedThingDefs)]` predicate is what stops it matching a generator op 3 has just
+		   touched and writing the defName in twice.
+
+		   Deliberately NOT touched: `tradeability`. `None` would keep the honey off a trader's
+		   shelves but also stop the player selling it. `excludedThingDefs` stops only the
+		   *generation* of trader stock, so a spare jar can still be sold.
+
+		Gated on MO by display name, the same gate the silk patch uses: `PatchOperationFindMod`
+		compares with `ModLister.HasActiveModWithName`, an exact `ModMetaData.Name` test, not a
+		packageId test.
+	-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Medieval Overhaul</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/GeneDef[defName="PMM_Gene_Honey"]/modExtensions/li[@Class="PMM_Insects.HoneyGeneExtension"]/honeyDef</xpath>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/GeneDef[defName="PMM_Gene_Honey"]/modExtensions/li[@Class="PMM_Insects.HoneyGeneExtension"]</xpath>
+					<value>
+						<honeyDef>DankPyon_Honey</honeyDef>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="AnimalProductRaw"]/excludedThingDefs</xpath>
+					<value>
+						<li>PMM_Honey</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="AnimalProductRaw"][not(excludedThingDefs)]</xpath>
+					<value>
+						<excludedThingDefs>
+							<li>PMM_Honey</li>
+						</excludedThingDefs>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

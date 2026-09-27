@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Taking the honey (2026-09-27). One job for all three paths: the player's right-click order,
+	     a handler sent to do it, and the bee's own hands through her work giver or her gizmo. The
+	     target is the bee; the worker may be her, in which case the driver skips the walk to
+	     herself. -->
+	<JobDef>
+		<defName>PMM_MilkHoney</defName>
+		<driverClass>PMM_Insects.JobDriver_MilkHoney</driverClass>
+		<reportString>milking honey.</reportString>
+	</JobDef>
+
+</Defs>
