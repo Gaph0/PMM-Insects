@@ -197,6 +197,10 @@ Family conventions apply as usual: body-size pair 1.0 with microsized taking her
 0.55, a tracker for armour, a corpse registration, and a weight in the `Farmers`
 role group - she is the farmer caste, and that group already exists.
 
+**She joins the neutral hive** (`PMM_InsectorHive`), decided 2026-09-27. That is a
+per-tribe decision now rather than a shared list: she goes in the hive's own roster,
+not the swarm's, so the swarm never fields her.
+
 **Part B - the honey gene.** `PMM_Gene_Honey`: a `GeneDef` with a `geneClass`
 holding the state and a `DefModExtension` for the dials (`GeneDef` has no comps
 field, and the project already uses the marker-extension pattern).
@@ -219,20 +223,14 @@ field, and the project already uses the marker-extension pattern).
   a yield that scales with what has built up, so milking early is a shorter wait for
   less honey rather than a loss.
 - **The item**: food on the level of vanilla insect jelly, but with
-  `foodPoisoningChanceFactor 0`.
-- **Filling the jelly need does not come free.** VRE does not feed its own need
-  through an ingestion outcome: it ships `JobGiver_ConsumeInsectJelly` and
-  `JobDriver_ConsumeInsectJelly`, which eat `InsectJelly` by def name, and keeps the
-  need itself in `VRE_InsectJellyDependencyHediff` (`Hediff_InsectJellyNeed`). Honey
-  therefore will not satisfy that need just by existing. Step 0 of this part is to
-  read what that driver does to the hediff and mirror it in honey's own ingestion
-  outcome, so any pawn eating honey is topped up whatever VRE's job does.
+  `foodPoisoningChanceFactor 0`. It is ordinary food: honey does not feed the jelly
+  need from `VRE_InsectJellyDependency`, which was considered and cut on 2026-09-27.
 
 **Decisions still open:** how fast honey builds and whether it caps, how much one
-milking yields, whether honey is tradeable, whether the abaddon's brood list should
-include the bee, and which tribe she joins (the neutral hive reads best for a farmer;
-the swarm is the alternative).
+milking yields, whether honey is tradeable, and whether the abaddon's brood list
+should include the bee.
 
-**Steps:** (0) read VRE's consume job and its effect on the need hediff; (1) the gene
-plus its state class and dials; (2) the honey item and its ingestion; (3) the milking
-chain, mirroring the silk chain; (4) the caste defs and art; (5) paperwork.
+**Steps:** (0) the gene plus its state class and dials; (1) the honey item and its
+ingestion; (2) the milking chain, mirroring the silk chain; (3) the caste defs and
+art, including her weight in the neutral hive's roster and her corpse entry;
+(4) paperwork.
