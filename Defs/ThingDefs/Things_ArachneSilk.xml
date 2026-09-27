@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Arachne silk (2026-09-26). A plain vanilla-style fabric: a `Fabric`/`Textiles` textile, so
+	     anything that accepts a fabric accepts ours, and a vanilla-style `tradeability` default.
+	     Medieval Overhaul's `DankPyon_Silk` is built the same way, which is why neither mod needs a
+	     patch for ordinary recipes.
+
+	     It is NOT the whole MO story though: MO's silk rugs and royal furniture take their silk as a
+	     *named* ingredient (`<DankPyon_Silk>150</DankPyon_Silk>` in a costList), and no fabric can
+	     substitute for that. So with MO loaded she spins MO's silk instead of this one - see
+	     Patches/ArachneSilk_MedievalOverhaul.xml. This def stays in that case only so old saves keep
+	     the bundles they already have, and so the game without MO still has a silk to spin.
+
+	     Numbers sit between cloth (0.36 sharp, 1.5 silver) and MO's silk (0.50 sharp, 5 silver):
+	     better than woven fibre, not noble cloth. It wears vanilla cloth's texture with its own
+	     `graphicData` tint, the way vanilla tints cloth - the art pass was scrapped on 2026-09-27, so
+	     this is the final look rather than a placeholder. -->
+	<ThingDef ParentName="ResourceBase">
+		<defName>PMM_ArachneSilk</defName>
+		<label>arachne silk</label>
+		<description>Fine silk spun by an arachne's own body. Soft, strong, and warm for its weight.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/Cloth</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<color>(226,222,214)</color>
+		</graphicData>
+		<statBases>
+			<StuffPower_Armor_Sharp>0.44</StuffPower_Armor_Sharp>
+			<StuffPower_Armor_Blunt>0</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Heat>0.5</StuffPower_Armor_Heat>
+			<StuffPower_Insulation_Cold>12</StuffPower_Insulation_Cold>
+			<StuffPower_Insulation_Heat>14</StuffPower_Insulation_Heat>
+			<MaxHitPoints>70</MaxHitPoints>
+			<MarketValue>3</MarketValue>
+			<Mass>0.015</Mass>
+			<Flammability>1.4</Flammability>
+			<DeteriorationRate>3</DeteriorationRate>
+		</statBases>
+		<burnableByRecipe>true</burnableByRecipe>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<minRewardCount>30</minRewardCount>
+		<stuffProps>
+			<statFactors>
+				<Flammability>1.2</Flammability>
+				<Beauty>1</Beauty>
+			</statFactors>
+			<categories>
+				<li>Fabric</li>
+			</categories>
+			<color>(226,222,214)</color>
+			<commonality>0.8</commonality>
+			<canSuggestUseDefaultStuff>true</canSuggestUseDefaultStuff>
+		</stuffProps>
+		<thingCategories>
+			<li>Textiles</li>
+		</thingCategories>
+	</ThingDef>
+
+</Defs>

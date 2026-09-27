@@ -9,16 +9,16 @@ using Verse.AI.Group;
 namespace PMM_Insects
 {
     /// <summary>
-    /// Wild insectoids leave a momo alone unless she gives them a reason.
+    /// Wild insectoids leave a mamono alone unless she gives them a reason.
     ///
     /// Vanilla Races Expanded ships this behaviour as its own gene,
     /// VRE_InsectPheromones - but the gene is only a flag: the work is done by two
     /// Harmony patches in that mod's assembly, which check
     /// HasActiveGene(VRE_InsectPheromones) and then tell the insect that the pawn
-    /// is not a valid target. So the momos used to need two genes to say one thing:
+    /// is not a valid target. So the mamonos used to need two genes to say one thing:
     /// PMM_Gene_Insect for their body, and VRE's gene for the insects' behaviour.
     ///
-    /// This file folds that flag into PMM_Gene_Insect, so a momo is entire on her
+    /// This file folds that flag into PMM_Gene_Insect, so a mamono is entire on her
     /// own. The two patches below are a faithful copy of VRE's, with the gene
     /// lookup swapped from theirs to ours:
     ///
@@ -33,8 +33,8 @@ namespace PMM_Insects
     /// VRE's own copy still runs for anyone carrying VRE's gene, so the two do not
     /// fight over the same pawn.
     ///
-    /// "Unless she gives them a reason" is the NotProvoked helper: a momo who has
-    /// the insect as her current target, a momo in a colony the insect's lord is
+    /// "Unless she gives them a reason" is the NotProvoked helper: a mamono who has
+    /// the insect as her current target, a mamono in a colony the insect's lord is
     /// assaulting, or any pairing where the two are already enemies of each other's
     /// faction or in the same lord, is fair game again.
     /// </summary>
@@ -59,7 +59,7 @@ namespace PMM_Insects
             }
         }
 
-        /// <summary>True for a pawn who wears the insectoid gene, momo or not.</summary>
+        /// <summary>True for a pawn who wears the insectoid gene, mamono or not.</summary>
         public static bool Carries(Pawn pawn)
         {
             GeneDef gene = Gene;

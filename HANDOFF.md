@@ -1,4 +1,4 @@
-# PMM Insects — Insector Tribes hand-off
+# PMM Insects - Insector Tribes hand-off
 
 For the next agent picking this up, and for the user. This file is the plan for
 the Insects overhaul.
@@ -12,14 +12,14 @@ work groups and the children; **the user dropped the children on 2026-09-20**, s
 tribal children ship and that research is kept for reference only (§5.5, §12.8).
 Three extras came out of the same conversation and are built: chitin instead of
 human leather from a corpse, insect flesh so eating insect meat is cannibalism to a
-momo, and one "momo corpses" line in the item filters (§10, §12.9). That line moved
-into core on 2026-09-20, so the slime and elemental momos share it (§11 item 5).
+mamono, and one "mamono corpses" line in the item filters (§10, §12.9). That line moved
+into core on 2026-09-20, so the slime and elemental mamonos share it (§11 item 5).
 Phases 6 to 8: the hive build gate is still open, phase 7 was closed on 2026-09-24 by
 deleting the hive bond rule and its vanish rather than repointing them (§8), and
 phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
 art and tuning in §11.
 
-`PLAN.md` holds the old design: a total spawn swap, plus tameable wild momos.
+`PLAN.md` holds the old design: a total spawn swap, plus tameable wild mamonos.
 Where the two files disagree, this one wins. `PLAN.md` §2 (the swap), §5 (the
 wild-man recipe) and §6 (their risk list) were deleted on 2026-09-24; what is left
 there is the design reference.
@@ -44,9 +44,9 @@ every def name and path exact.
 
 | | Today | After the overhaul |
 |---|---|---|
-| Vanilla insects | Removed from the game. Every spawn becomes a momo. | Normal. Real bugs spawn everywhere again. |
-| Wild momos | Exist. Spawn from factionless bug spawns, tameable. | Gone. The wild layer is deleted. |
-| Insect momos | Two jobs: the vanilla Insect faction, or a wild woman. | One job: citizens, raiders and brood of the new insector tribes. |
+| Vanilla insects | Removed from the game. Every spawn becomes a mamono. | Normal. Real bugs spawn everywhere again. |
+| Wild mamonos | Exist. Spawn from factionless bug spawns, tameable. | Gone. The wild layer is deleted. |
+| Insect mamonos | Two jobs: the vanilla Insect faction, or a wild woman. | One job: citizens, raiders and brood of the new insector tribes. |
 | Their home | None. They use vanilla and VFEI2 hives. | Their own villages, built from VFEI2 hive walls and hives. |
 | Their character | Six species with their own genes. | Six castes, each with a VRE Insector gene package. |
 | Mods required | Harmony, Biotech, PMM.Core, B&S. | Plus VRE Insector, VFEI2 and VEF. All hard. |
@@ -59,24 +59,24 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
 
 ## 2. Locked rulings (user, 2026-09-20)
 
-1. **Wild layer: option C.** Delete the swap and the wild momos. Momos live only
+1. **Wild layer: option C.** Delete the swap and the wild mamonos. Mamonos live only
    in the tribes.
 2. **Castes: option 1.** All six species stay, all six spawn in the tribes and
    villages.
 3. **Kidnapping is allowed**, vanilla style. The tribes now have bases, so a
    prisoner can be rescued from one.
 4. **VFEI2 is a hard dependency.**
-5. **No momos in the vanilla Insect faction.** The tribes own every faction-side
-   momo kind.
+5. **No mamonos in the vanilla Insect faction.** The tribes own every faction-side
+   mamono kind.
 6. **The hive-abduction wrapper is gone.** No vanish, no special letter. Vanilla
    kidnapping only.
-7. **The bond rule is gone too (changed 2026-09-24).** A hive momo uses the core's
-   tsugai behaviour like any other momo, so she can join the colony on a bond win.
+7. **The bond rule is gone too (changed 2026-09-24).** A hive mamono uses the core's
+   tsugai behaviour like any other mamono, so she can join the colony on a bond win.
    §8 lists what was deleted and why.
-8. **No chestburst pregnancy on momos.** Hard no.
+8. **No chestburst pregnancy on mamonos.** Hard no.
 9. **Jelly dependency: combat castes only.** Only the castes that read as fighters
    carry `VRE_InsectJellyDependency`. The greenworm does not.
-10. **No `VRE_JellySacks` on any momo.** Pawns never make jelly. All of it comes
+10. **No `VRE_JellySacks` on any mamono.** Pawns never make jelly. All of it comes
     from the world or from VFEI2 buildings the player raises.
 11. **Melee only.** No ranged castes and no ranged pawn groups.
 12. **Children spawn in the villages**, like a vanilla tribe.
@@ -110,34 +110,34 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
 
 ### Delete
 
-- `Source/Insects/InsectSwap.cs` — the whole `Patch_InsectGenerationSwap`.
-  Nothing needs it once the momos are a faction.
-- `Source/Insects/WildInsects.cs` — `Patch_InsectIsWildMan` and
-  `Patch_InsectShouldNotReachOutside`. No factionless momos means no wild-man
+- `Source/Insects/InsectSwap.cs` - the whole `Patch_InsectGenerationSwap`.
+  Nothing needs it once the mamonos are a faction.
+- `Source/Insects/WildInsects.cs` - `Patch_InsectIsWildMan` and
+  `Patch_InsectShouldNotReachOutside`. No factionless mamonos means no wild-man
   behaviour to fake.
-- `Defs/PawnKindDefs/PawnKinds_InsectWild.xml` — all six `PMM_Wild*` kinds.
-- `Defs/ThinkTreeDefs/ThinkTrees_InsectWild.xml` — the wild think trees.
+- `Defs/PawnKindDefs/PawnKinds_InsectWild.xml` - all six `PMM_Wild*` kinds.
+- `Defs/ThinkTreeDefs/ThinkTrees_InsectWild.xml` - the wild think trees.
 - `Source/Insects/HiveBondKidnap.cs`, `Source/Insects/HiveKidnapVanish.cs` and
-  `Source/Insects/FactionJoinQuiet.cs` — deleted 2026-09-24. The hive bond rule,
+  `Source/Insects/FactionJoinQuiet.cs` - deleted 2026-09-24. The hive bond rule,
   the vanish and the swap-era log patch were all unreachable; §8 has the detail.
 
 ### Keep
 
-- `Source/Insects/InsectsMod.cs` — Harmony bootstrap. Add the new patch classes
+- `Source/Insects/InsectsMod.cs` - Harmony bootstrap. Add the new patch classes
   here or beside them.
-- `Source/Insects/HealthScalePatch.cs` — still needed for the two fragile
+- `Source/Insects/HealthScalePatch.cs` - still needed for the two fragile
   species.
-- `Source/Insects/HiveNourishment.cs` — keep, but widen the hive lookup (§7).
-- `Defs/ThingDefs/Races_InsectMomo_BS.xml` — the six races. Still the home of
+- `Source/Insects/HiveNourishment.cs` - keep, but widen the hive lookup (§7).
+- `Defs/ThingDefs/Races_InsectMamono_BS.xml` - the six races. Still the home of
   every stat.
-- `Defs/GeneDefs/*` — the shared insect gene and the chitin skin genes.
-- `Defs/BackstoryDefs/Backstories_Insect.xml` — keep, but re-read the stories.
+- `Defs/GeneDefs/*` - the shared insect gene and the chitin skin genes.
+- `Defs/BackstoryDefs/Backstories_Insect.xml` - keep, but re-read the stories.
   Any line that talks about being found in the wild now points at the wrong
   place.
 
 ### Rewrite
 
-- `Defs/PawnKindDefs/PawnKinds_InsectFaction.xml` — becomes the tribe's kind
+- `Defs/PawnKindDefs/PawnKinds_InsectFaction.xml` - becomes the tribe's kind
   file. Change `defaultFactionDef` from `Insect` to the new faction. Drop the
   `ecoSystemWeight` lines: they only count for factionless pawns, so they do
   nothing here. Rename the file to `PawnKinds_InsectorTribe.xml` if you like.
@@ -146,30 +146,30 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
 
 Landed already:
 
-- `Defs/FactionDefs/Factions_InsectorTribes.xml` — one shared abstract base and
+- `Defs/FactionDefs/Factions_InsectorTribes.xml` - one shared abstract base and
   two factions, neutral and hostile (§4, §4.7).
-- `Defs/RulePackDefs/Namers_Insector.xml` — the five faction names (§4.5).
-- `Source/Insects/InsectMomoCorpses.cs` — registers the six insect races on the
-  family's shared `PMM_MomoCorpses` line. The category def and the mover moved into
-  `Project Momo` on 2026-09-20 (`Defs/ThingCategoryDefs/ThingCategories_MomoCorpses.xml`
-  and `Source/ProjectMomo/MomoCorpses.cs`), so the insects, the slimes and the
+- `Defs/RulePackDefs/Namers_Insector.xml` - the five faction names (§4.5).
+- `Source/Insects/InsectMamonoCorpses.cs` - registers the six insect races on the
+  family's shared `PMM_MamonoCorpses` line. The category def and the mover moved into
+  `Project Mamono` on 2026-09-20 (`Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml`
+  and `Source/ProjectMamono/MamonoCorpses.cs`), so the insects, the slimes and the
   elementals share one line (§11 item 5, §12.9).
-- `Source/Insects/InsectPheromones.cs` — the pheromone patches VRE keeps inside
+- `Source/Insects/InsectPheromones.cs` - the pheromone patches VRE keeps inside
   their gene, moved onto `PMM_Gene_Insect` (§5.3).
-- `Defs/GeneDefs/Genes_Insect.xml` — extended, not new: chitin skin, feelers, full
+- `Defs/GeneDefs/Genes_Insect.xml` - extended, not new: chitin skin, feelers, full
   toxin immunity, pheromones and insect flesh all live on this one gene (§5.3).
-- `Patches/InsectFaction_NoSettlements.xml` — the feral faction's bases off the map
+- `Patches/InsectFaction_NoSettlements.xml` - the feral faction's bases off the map
   (§12.7).
 - `Defs/AbilityDefs/Abilities_EggSpew.xml` and `Defs/ThingDefs/Things_EggSpew.xml`
-  — the brood, landed 2026-09-20 (§5.4). Odyssey-gated, and it hatches a
+  - the brood, landed 2026-09-20 (§5.4). Odyssey-gated, and it hatches a
   `VFEI2_Swarmling`.
 
 Still to come:
 
-- `Defs/TraderKindDefs/Trader_InsectorTribe.xml` — the caravan trader (§4.6).
-- `Textures/` — art for the neutral tribe (§4.4).
-- `About/About.xml` — already carries the dependency block (§9).
-- `CHANGELOG.md` — entries as the work lands (§13).
+- `Defs/TraderKindDefs/Trader_InsectorTribe.xml` - the caravan trader (§4.6).
+- `Textures/` - art for the neutral tribe (§4.4).
+- `About/About.xml` - already carries the dependency block (§9).
+- `CHANGELOG.md` - entries as the work lands (§13).
 
 Dropped, do not re-add without asking: `Defs/PawnKindDefs/PawnKinds_InsectChild.xml`
 and `Source/Insects/ChildStagePatch.cs`. Both were written, shipped for a few hours
@@ -198,7 +198,7 @@ parents off `TribeSavageBase` instead, because that is the one carrying
 and keep the settlement one.
 
 Follow the Reptiles house pattern too. Its abstract faction base in
-`Project Momo Reptiles/Defs/FactionDefs/Factions_Reptile.xml` shows the project
+`Project Mamono Reptiles/Defs/FactionDefs/Factions_Reptile.xml` shows the project
 conventions: `categoryTag`, `listOrderPriority`, `settlementGenerationWeight`,
 `maxConfigurableAtWorldCreation`, `configurationListOrderPriority`,
 `allowedCultures`, `backstoryFilters`, `raidLootMaker`, and a
@@ -215,7 +215,7 @@ Fields to set, with why:
 | `pawnSingular` / `pawnsPlural` | "insector" / "insectors" | |
 | `leaderTitle` | "hive queen" | Reptiles sets `leaderTitle` on both its factions. Fits the Abaddon. |
 | `settlementGenerationWeight` | `1` | Inherited from `TribeBase`. Keeps villages on the map. |
-| `factionNameMaker` | `PMM_NamerFactionInsectorHive` (neutral), `PMM_NamerFactionInsectorSwarm` (hostile) — §4.5 | |
+| `factionNameMaker` | `PMM_NamerFactionInsectorHive` (neutral), `PMM_NamerFactionInsectorSwarm` (hostile) - §4.5 | |
 | `settlementNameMaker` | `NamerSettlementTribal` | Vanilla tribal namer, ruled. |
 | `factionIconPath` | neutral `World/WorldObjects/Expanding/Insects` (vanilla), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | The neutral icon is still a placeholder. |
 | `settlementTexturePath` | neutral `UI/InsectoidHive` (VFEI2), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | Mandatory: leaving it unset throws on every settlement draw. It is what draws the village on the world map, not `factionIconPath`. |
@@ -226,7 +226,7 @@ Fields to set, with why:
 | `maxConfigurableAtWorldCreation` | `10` | House pattern. |
 | `allowedCultures` | `Corunan` | House pattern. |
 | `backstoryFilters` | `Tribal` | House pattern. |
-| `xenotypeSet` | `Inherit="False"`, the six momo xenotypes | Keeps random pawns inside the mod. |
+| `xenotypeSet` | `Inherit="False"`, the six mamono xenotypes | Keeps random pawns inside the mod. |
 | `autoFlee` | `false` | Bugs do not run. |
 | `colorSpectrum` | chitin tones | World map and letters. |
 | `maxPawnCostPerTotalPointsCurve` | own curve, see §4.7 | The vanilla tribal curve cannot allow a 500-point pawn into a village at all. |
@@ -237,10 +237,10 @@ Fields to set, with why:
 sets `canStageAttacks true`, so leave it: the tribe starts neutral and can raid
 once relations sour. That is how vanilla gentle tribes behave. Dragonia does not
 inherit it, which is why Dragonia never raids. Clearing the field gives you the
-Dragonia behaviour exactly, but then the momos never raid at all, and §4.2 has
+Dragonia behaviour exactly, but then the mamonos never raid at all, and §4.2 has
 nowhere to happen.
 
-Raids are melee-only. The momos carry no weapons and no apparel, so there is no
+Raids are melee-only. The mamonos carry no weapons and no apparel, so there is no
 ranged group, and no attack ability is added for one. The two spew abilities the
 mod already has stay (§5.3).
 
@@ -302,7 +302,7 @@ global, so we inherit all 35 of VFEI2's formation layouts.
   `VFEI2_RoyalJellyWall`, standing on `VFEI2_Creep`, with vanilla `Hive` and
   `GlowPod` inside.
 
-If a momo layout is ever wanted on top of these, it is added to the same list,
+If a mamono layout is ever wanted on top of these, it is added to the same list,
 so the four VFEI2 layouts keep rolling. That is where `stockpileOptions`
 (`fillWithDefs` = `InsectJelly`, `VFEI2_Chitin`, `VFEI2_RoyalInsectJelly`) and
 `roadOptions` (`mainRoadDef` = `VFEI2_Creep`) would go. Reel's does both. Not
@@ -476,7 +476,7 @@ with no leader kind.
 
 **Two things the field test confirmed.** Villages generate with hive walls, creep,
 hives and defenders, and the real insects that hatch from a village's hives belong
-to the village's faction, so they defend it instead of fighting the momos beside
+to the village's faction, so they defend it instead of fighting the mamonos beside
 them. And a 10000-point raid produced no queen, which is the intended behaviour.
 
 ### 4.8 Where the villages go
@@ -505,18 +505,18 @@ polluted hearts, lower it if they should spread further.
 
 ---
 
-## 5. The six castes
+## 5. The castes
 
 ### 5.1 What a caste is here
 
 VRE genelines cannot be used on NPCs (§6.1), so a caste is five layers:
 
-1. **Race** — `Races_InsectMomo_BS.xml`. Body size, health scale, hunger, melee
+1. **Race** - `Races_InsectMamono_BS.xml`. Body size, health scale, hunger, melee
    tools, temperature range. Genes cannot change these.
-2. **Xenotype** — the gene package. This is our stand-in for a geneline.
-3. **PawnKindDef** — race, `combatPower`, xenotype, gender, backstories.
-4. **Group slot** — where the kind is listed in `pawnGroupMakers`.
-5. **Role** — what she does in a village, a raid, or a caravan.
+2. **Xenotype** - the gene package. This is our stand-in for a geneline.
+3. **PawnKindDef** - race, `combatPower`, xenotype, gender, backstories.
+4. **Group slot** - where the kind is listed in `pawnGroupMakers`.
+5. **Role** - what she does in a village, a raid, or a caravan.
 
 Layer 3 is what makes a caste feel different, because raid points buy pawns at
 `combatPower`.
@@ -557,7 +557,7 @@ unlocks it for the player. Nothing duplicates a race def.
 | Soldier Beetle (150) | `VRE_HardenedChitin`, `VRE_CuticleShell` | `VRE_InefficientMidgut`, `VRE_Stenothermic` | Armoured and unplagued, but she eats like a horse and only thrives at home |
 | Greenworm (25) | `VRE_Hiveglands`, `VRE_RobustMidgut` | `VRE_Immunodeficiency`, `VRE_HypothermicHibernation` | Builds, eats anything, catches everything, and sleeps through the cold |
 | Vamp Mosquito (55) | `VRE_HighGreyMatter`, `VRE_AntimicrobialPeptides` | `VRE_AcidBlood`, `VRE_WeakenedChitin` | Cunning and fast-mending, thin-shelled, and her blood smokes when cut |
-| Abaddon (500) | `VRE_SwarmSynapse`*, `VRE_SpawningSack`, `VRE_SlowedLifeCycle` | `VRE_ProteinDenaturation`, `VRE_HypothermicHibernation`, `VRE_HardLockedJoints` | A queen who never ages or stops breeding, cannot face the sun, sleeps through cold, and waddles |
+| Abaddon (500) | `VRE_SwarmSynapse`*, `VRE_RobustMidgut`, `VRE_SlowedLifeCycle`, `VRE_VocalGlands` | `VRE_Colossal`, `VRE_Dormant`, `VRE_HardLockedJoints`, `VRE_HypothermicHibernation` | A queen who never ages, eats raw food without harm and speaks with a beautiful human voice, paid for with hunger, dormancy, stiff joints and cold. Reworked 2026-09-26 (§5.10) |
 
 **What the user changed in the vanilla genes** (2026-09-20): hands and heads instead
 of muscle. The Giant Ant and the Greenworm both lost a vanilla gene for
@@ -584,7 +584,11 @@ each carries an `Aptitude<skill>` exclusion tag, so one pawn can never hold two
 aptitudes for the same skill.
 
 **Balance, the Insector way.** Every caste holds as many degrades as evolutions -
-two and two, and four and four for the queen. That is VRE's own rule for a
+two and two (four and four for the queen, after her three passes on 2026-09-26: the
+Fertility clash first left her at three evolutions against four mutations, vocal glands
+swapped the inefficient midgut for hard-locked joints and put her level again, and the
+later parthenogenesis-for-robust-midgut swap was evolution for evolution - see §5.10). That is VRE's own
+rule for a
 geneline, in its language file (`Languages/English/Keyed/Keys.xml`):
 `VRE_NeedEqualAmount`, "Needs equal amount of evolutions and degrades." Nothing in
 the engine enforces it on a xenotype, so it is a house rule we keep by hand, and
@@ -592,7 +596,7 @@ it is why each caste above has its cost listed next to its gift.
 `VRE_InsectJellyDependency` is neither an evolution nor a degrade, so it sits
 outside the count.
 
-On top of those, the fighters carry the jelly dependency, and everything else a momo
+On top of those, the fighters carry the jelly dependency, and everything else a mamono
 is comes free with the insectoid gene they all already carry:
 
 | Added to all six | Why |
@@ -605,7 +609,7 @@ is comes free with the insectoid gene they all already carry:
 in their assembly, which check `HasActiveGene(VRE_InsectPheromones)` and then tell
 the insect that the pawn is not a valid target - a postfix on the compiler
 generated validator nested inside `AttackTargetFinder.BestAttackTarget`, and one on
-`Pawn.ThreatDisabledBecauseNonAggressiveRoamer`. So a momo used to need two genes to
+`Pawn.ThreatDisabledBecauseNonAggressiveRoamer`. So a mamono used to need two genes to
 say one thing. Our own copy lives in `Source/Insects/InsectPheromones.cs`, gated on
 `PMM_Gene_Insect`, and VRE's gene is gone from all six castes. The price of owning
 it: if VRE ever changes how their pheromones work, our copy will not follow. Both
@@ -627,7 +631,7 @@ copies can run at once safely - they act on disjoint gene sets.
 
 So her butchered meat is insect meat - which the races already said with
 `useMeatFrom Megaspider` - and for **her** that meat counts as human meat. Eating
-insect meat, her own kind included, is cannibalism to a momo and ordinary food to
+insect meat, her own kind included, is cannibalism to a mamono and ordinary food to
 everyone else. This is the eating half of the human-leather analogy. There is no
 wearing half: nothing in vanilla, VFEI2 or VRE reacts to chitin apparel
 (`ThoughtWorker_HumanLeatherApparel` compares worn stuff against
@@ -646,7 +650,7 @@ list.
 Two effects are worth seeing before agreeing to them. `VRE_HardenedChitin` is
 `IncomingDamageFactor 0.75` on **all** incoming damage, and it sits on top of the
 armour the B&S race tracker already gives the beetle - test her before keeping it.
-`VRE_Hiveglands` is what lets a momo raise VFEI2 hives at all (§7.1), so the ant
+`VRE_Hiveglands` is what lets a mamono raise VFEI2 hives at all (§7.1), so the ant
 and the greenworm become the tribe's two builders.
 
 **The catalogue.** Read out of the 1.6 load folder on 2026-09-20: 22 free
@@ -702,7 +706,7 @@ geneline gizmo gene.
 immunity for all six castes. Checked in the 1.6 assembly: `immuneToToxGasExposure`
 is a field on `ApparelProperties` and on `GeneDef`, **not on `ThingDef`** - so a
 race def cannot grant it; only a gene can. The user's answer (2026-09-20) was to
-put it on `PMM_Gene_Insect`, the insectoid gene every momo already carries
+put it on `PMM_Gene_Insect`, the insectoid gene every mamono already carries
 (`Defs/GeneDefs/Genes_Insect.xml`), instead of adding a second gene:
 
 ```xml
@@ -712,7 +716,7 @@ put it on `PMM_Gene_Insect`, the insectoid gene every momo already carries
 </statOffsets>
 ```
 
-One edit covers all six castes, and it also covers a woman transformed into a momo
+One edit covers all six castes, and it also covers a woman transformed into a mamono
 at runtime, since that path grants the same gene. Vanilla's own
 `ToxicEnvironmentResistance_Total` ("total antitoxic lungs",
 `Data/Biotech/Defs/GeneDefs/GeneDefs_Health.xml` line 172) was the alternative: the
@@ -722,7 +726,7 @@ have been a second gene saying the same thing. The races keep their own
 so 0.8 plus 1 is already past the point where buildup stops.
 
 Knock-on: `VRE_VestigialTubules` (the toxic degrade) and `VRE_DetoxifierTubules` are
-now no-ops on a momo, so neither is in any package, and the Devil Bug no longer
+now no-ops on a mamono, so neither is in any package, and the Devil Bug no longer
 needs `VRE_DetoxifierTubules` as "her extra". `biostatMet` on the insectoid gene is
 still 1; raise it if the immunity should ever cost her hunger.
 
@@ -749,7 +753,7 @@ still 1; raise it if the immunity should ever cost her hunger.
    consuming pherocores that VFEI2 bosses drop. The flag only hides them from the
    picker, so a caste carrying one has it from birth and the player collects it free
    on recruitment - one fewer reason to hunt that hive's boss. Flavour agrees with
-   the mechanic: a pherocore gene belongs to one hive's bloodline, and the momos are
+   the mechanic: a pherocore gene belongs to one hive's bloodline, and the mamonos are
    a people of their own, not Sorne or Xanides.
    Three options: keep all 20 for the player (recommended); let the *queen* carry a
    couple, since she is the 500-point boss of her own hive; or let the castes use
@@ -760,13 +764,13 @@ still 1; raise it if the immunity should ever cost her hunger.
    permanent unless it is reconsidered later. Detail: the gene is `biostatCpx 3`,
    `biostatMet -5`, and does *nothing* on an NPC, because
    `Gene_GenelineEvolution.GetGizmos` returns early unless
-   `pawn.IsColonistPlayerControlled`. On a recruited momo it opens
+   `pawn.IsColonistPlayerControlled`. On a recruited mamono it opens
    `Window_ManageGenelines`: choose up to four genes from the unlocked pool, she
    sits in a `VRE_Metapod` for 24 hours, then the new loadout lands. The catch is
    `Geneline.AddPawnDirectly`, which removes **every** gene on the pawn whose def
    `is GenelineGeneDef` and which is not in the new loadout - and the whole caste
    package is made of `GenelineGeneDef`s. So her first switch deletes the package
-   she was born with (her `PMM_Gene_Insect`, `ProjectMomo_Momo`, skin genes and
+   she was born with (her `PMM_Gene_Insect`, `ProjectMamono_Mamono`, skin genes and
    vanilla genes survive, because those are plain `GeneDef`s). That is either the
    point of VRE's system or a trap, depending on taste. Without the gene she can
    still be customised the vanilla way, with gene packs and an assembler, but never
@@ -778,23 +782,23 @@ castes, the free stand-ins that pass the tag check are `VRE_CompoundEyes`,
 `VRE_HighGreyMatter` and `VRE_OcelliEyes`.
 
 **What the packages add up to.** The fighters carry `VRE_InsectJellyDependency`
-(`biostatMet 3`) on top of the momo gene's 3 and the insectoid gene's 1. Metabolism
+(`biostatMet 3`) on top of the mamono gene's 3 and the insectoid gene's 1. Metabolism
 raises food need, so the jelly gene makes the fighters eat more than they used to.
 If the tribes turn out to eat the map, lower the insectoid gene or the jelly gene
 before trimming the caste genes.
 
 **Still binding, from the first draft.** Packages stay balanced between evolutes and
 degrades, so the Health tab reads cleanly. VRE's `disableGeneExtraction` stays as
-shipped, so a caste gene cannot be pulled out of a momo. The xenotypes stay
+shipped, so a caste gene cannot be pulled out of a mamono. The xenotypes stay
 `inheritable`, so daughters inherit the caste. Jelly on the fighters only, never
 `VRE_JellySacks` (§6.2). Pheromones come from `PMM_Gene_Insect` rather than from a
 VRE gene, and that copy is ours to maintain. The two spew abilities the mod already
 has stay as they are: `SludgeSpew` on the greenworm and the `EggSpew` clone on the
 abaddon (§5.4).
 
-### 5.4 The brood (egg spew) — built 2026-09-20
+### 5.4 The brood (egg spew) - built 2026-09-20
 
-**Built, awaiting its field test. The brood is a VFEI2 swarmling, not a momo** (the
+**Built, awaiting its field test. The brood is a VFEI2 swarmling, not a mamono** (the
 user's call, 2026-09-20). The clone is `PMM_Ability_EggSpew`, `PMM_Proj_EggSac`
 and `PMM_EggSac` (`Defs/AbilityDefs/Abilities_EggSpew.xml` and
 `Defs/ThingDefs/Things_EggSpew.xml`), all `MayRequire` Odyssey, and the abaddon
@@ -809,7 +813,7 @@ this plan:
   spawn. Its own `CompProperties_SwarmlingToCocoon` turns her into a cocoon, and a
   random adult insectoid of the hive crawls out. So the sac feeds the hive back
   into itself, and the brood's species stays a surprise.
-- Why not a momo: Core cannot generate a HUMANLIKE pawn there at all. It asks for
+- Why not a mamono: Core cannot generate a HUMANLIKE pawn there at all. It asks for
   `fixedBiologicalAge 0` while refusing downed pawns, and a newborn humanlike is
   always downed, so the generator gave up after 120 tries, returned null, and the
   next line threw a NullReferenceException through every other mod's
@@ -831,12 +835,15 @@ carried
 throws spawns a vanilla `Larva`. The old swap turned that larva into a
 greenworm. With the swap gone, it spawns a real larva again.
 
+That comp has since been deleted from her race (2026-09-26): nothing casts the egg spew
+for her any more, and the sac carries a swarmling. See §5.11.
+
 The Odyssey defs are the template, and this is pure XML:
 
-- `Data/Odyssey/Defs/AbilityDefs/Abilities.xml` — `AbilityDef EggSpew` launches
+- `Data/Odyssey/Defs/AbilityDefs/Abilities.xml` - `AbilityDef EggSpew` launches
   `Proj_EggSac`; `ThingDef Proj_EggSac` is a `Projectile_SpawnsThing` with
   `spawnsThingDef EggSac`.
-- `Data/Odyssey/Defs/ThingDefs_Buildings/Buildings_Misc.xml` — `ThingDef
+- `Data/Odyssey/Defs/ThingDefs_Buildings/Buildings_Misc.xml` - `ThingDef
   EggSac` has `CompProperties_SpawnPawnOnDestroyed` with `pawnKind Larva`.
 
 So: clone the chain as `PMM_Ability_EggSpew`, `PMM_Proj_EggSac` and
@@ -852,7 +859,7 @@ Decide which faction the brood belongs to. A brood spawned next to the queen
 should belong to the queen's faction, so the village can use her. Test this in a
 dev-spawned village before shipping.
 
-### 5.5 Children — dropped by the user (2026-09-20)
+### 5.5 Children - dropped by the user (2026-09-20)
 
 Built as this section planned, then removed the same day: the user does not want
 children in these villages. What was built, for the record: six child kinds
@@ -870,9 +877,457 @@ If children ever come back: Biotech's shape is `Villager_Child` / `Tribal_Child`
 `pawnGroupDevelopmentStage` Child, `isFighter` false, no gear - plus
 `fixedChildBackstories` so the child gets a hive story instead of a human one.
 
+### 5.6 Abaddon Folk - the seventh species (2026-09-25)
+
+Added at the user's request from the wiki entry: the soldier class of an abaddon's
+swarm, the "soldier bugs" that make up the bulk of any swarm an abaddon leads. She
+is the first species here with **no vanilla bug behind her** - each of the six above
+replaces one insect - so nothing about her is copied 1:1 and her numbers are set for
+the role instead.
+
+**She deliberately does not spawn** (user ruling 2026-09-25, "doesn't spawn
+normally"). That is a concrete shape, not a tone of voice:
+
+| Layer | What she has |
+|---|---|
+| Race | `PMM_Race_AbaddonFolk` + `PMM_RaceTracker_AbaddonFolk` in `Defs/ThingDefs/Races_InsectMamono_BS.xml` |
+| Xenotype | `PMM_InsectAbaddonFolk` in `Defs/XenotypeDefs/Xenotypes_Insect.xml` |
+| PawnKindDef | `PMM_InsectAbaddonFolk`, in `Defs/PawnKindDefs/PawnKinds_AbaddonFolk.xml` - see the correction below |
+| Pawn groups | none, in neither tribe |
+| Faction `xenotypeSet` | no entry, so even a kindless pawn of either tribe never rolls her |
+
+So she is reachable by hand: dev mode, a xenogerm, or a corruptor who is
+already one. Nothing needed registering for that last path -
+`MamonoTransformation.IsMonsterXenotype` tests a xenotype's gene list for
+`ProjectMamono_Mamono`, not a list of defNames - so any mamono wearing her xenotype
+imprints it on the women she takes. If she is ever given a spawn source (a village
+caste, the queen's egg spew, a special raid), the pawn groups are the piece written
+then.
+
+**Correction, same day: she does have a pawn kind.** The table above first said "none,
+on purpose", on the theory that a kind is the thing that makes a species spawnable.
+That theory is wrong in one direction and costs a test round: **the dev-mode spawn
+list is a list of pawn kinds**, so a species with no kind cannot be spawned for
+testing at all. `PMM_InsectAbaddonFolk` therefore exists, and it stays out of every
+faction's `pawnGroupMakers` and `xenotypeSet`, so the world still never spawns her -
+a kind with no group listing is reachable only when something asks for it by name.
+
+**And that is how the four arms were "missing".** The user was testing with
+vanilla's dev *apply xenotype* action, and Big & Small reads a xenotype's declared
+race (`XenotypeExtension.setRace`) when a pawn is **generated** - so applying her
+xenotype to a living pawn leaves that pawn with her genes and the body it already
+had: no four arms, no wings, no chitin, because none of that lives in genes.
+`MamonoTransformation` calls `BigAndSmall.XenoTypeDefExtensions.
+TrySwapToXenotypeThingDef` for exactly this reason; vanilla's dev action did not.
+
+**Closed the same day, in core.** `Source/ProjectMamono/XenotypeRacePatch.cs` is a
+postfix on `Pawn_GeneTracker.SetXenotype` that calls `ApplyXenotypeRace` whenever the
+new xenotype declares a race the pawn is not already wearing - so dev "apply
+xenotype" now gives the pawn the species' body, and so does anything else that sets a
+xenotype at runtime. It is narrow on purpose: no `XenotypeExtension`/`setRace`, no
+swap (every vanilla xenotype); pawn already that race, no swap (so ordinary generation
+is not swapped twice); animals skipped. **Until 2026-09-25 the workaround for testing
+was to spawn her kind instead**, and that is still the only way to get her as a
+*faction-less* pawn rather than by converting someone.
+
+**Her gene list** is the user's list of 2026-09-25, mapped to defNames: swarm
+synapse `VRE_SwarmSynapse`, hardened chitin `VRE_HardenedChitin`, microsized
+`VRE_Microsized`, inefficient midgut `VRE_InefficientMidgut`, jelly dependency
+`VRE_InsectJellyDependency`, insect skin `VRE_InsectSkin`, insect antennae
+`VRE_InsectAntennae`, weak flight `PMM_Gene_FlightWeak`, poor social
+`AptitudePoor_Social`, mamono `ProjectMamono_Mamono`, plus the five chitin tones - and
+**great melee** `AptitudeRemarkable_Melee`, asked for later the same day (vanilla's
+`AptitudeRemarkable` template is the label "great {0}": +8 aptitude and a passion
+level).
+
+Three notes on how that list departs from §5.3's rules for the six:
+
+1. **"Insect pheromones" needed no gene.** `PMM_Gene_Insect` already carries the
+   behaviour in our own Harmony copy (§5.3), and VRE's `VRE_InsectPheromones` is
+   only the flag those patches read. Listing it would be a second flag for one
+   feature, so it is absent and the behaviour is identical either way.
+2. **`VRE_InsectSkin` is in, against §5.3's exclusion** (user's call, caveat shown:
+   "accepting the lost chitin tones / VRE heads"). The tones are not actually lost:
+   its fur carries `useSkinColorForFur`, so the shell is drawn in the pawn's skin
+   colour, which her chitin gene sets. Its exclusion tags are body and fur tags
+   (`AG_Bodies`, `Bodies`, `Body`, `Fur`) while the chitin genes carry vanilla's
+   `SkinColorOverride`, so the two groups never conflict, and the antennae gene's
+   `Antenna` tags conflict with nothing here. Vanilla's random picker is tag-based -
+   verified in the 1.6 assembly: `Pawn_GeneTracker.Notify_GenesChanged` selects
+   among genes that `ConflictsWith` the changed gene, and `OverrideAllConflicting`
+   overrides exactly those - so one chitin tone is kept at random and the two other
+   cosmetic genes are left alone. The armour-stacking worry behind §5.3's ban is
+   answered differently here: **her race tracker carries no armour stage at all**, so
+   `VRE_InsectSkin`'s sharp 0.27 / blunt 0.18 is the only armour on top of
+   `VRE_HardenedChitin`'s quarter-off.
+3. **`VRE_Microsized` is in, and it does sit on top of B&S sizing** - exactly the
+   thing §5.3 excluded it for. Here it is wanted. The first guess at the numbers was
+   wrong, though, and the user caught it in game: nothing takes a percentage off, so
+   read §5.8 before touching her size.
+
+Balance follows VRE's geneline rule, two evolutions (swarm synapse, hardened
+chitin) against two degrades (microsized, inefficient midgut); the jelly dependency
+and the cosmetic antennae sit outside the count.
+
+Numbers, for the record: MoveSpeed 4.0, chosen to offset
+`VRE_HardenedChitin`'s -0.15 Moving capacity; health scale 1.0, so no entry is owed
+in `Source/Insects/HealthScalePatch.cs` (the roster comment there names her);
+temperature -10 to 60 °C; market value 150; internal damage halved; wings on the
+race plus the B&S winged tracker, because a weak-flight carrier needs a race that
+already has the wing body. She also carries the hive-nourishment comp every caste
+has, and her corpse is registered in `Source/Insects/InsectMamonoCorpses.cs`.
+
+### 5.7 Four arms, and the arms' art (2026-09-25)
+
+The wiki gives her two pairs of arms. Built, in three layers:
+
+| Layer | Def |
+|---|---|
+| Body | `PMM_Body_FourArmedWinged` (`Defs/BodyDefs/Body_FourArmedWinged.xml`): B&S's four-armed humanlike with their two `BS_Wing` parts added, so she has four arms *and* keeps her wings. **Shared with the abaddon queen** since 2026-09-26 - one body def, both species |
+| Groups | `PMM_LowerLeftHand` / `PMM_LowerRightHand` (`Defs/BodyPartGroupDefs/BodyPartGroups_AbaddonFolk.xml`) |
+| Tools | two more fist attacks, `lower left fist` / `lower right fist`, linked to those groups |
+
+**Why the body is a generated copy.** B&S ships `BS_FourArmedHuman` and
+`BS_HumanoidWithWings_Body` as two separate defs, ships no four-armed *winged* one,
+and declares its bodies with `<defName>` only - so `ParentName` XML inheritance
+cannot merge them (the same trap that forced our trackers to be split, see the
+header of `Races_InsectMamono_BS.xml`). `Tools/make_four_armed_winged_body.py` therefore
+copies their part tree and inserts the wings, and the result is committed as plain
+XML. Re-run it if B&S ever changes their bodies; the copy will not follow on its
+own.
+
+**Why the lower hands got groups of their own.** Big & Small leaves both pairs in
+vanilla's `LeftHand` / `RightHand`, and vanilla decides whether a melee tool works
+by the parts in its group - so with their layout, losing the upper arms would
+silence the lower fists as well. Four arms should fail separately, so the lower
+five fingers each point at our groups and the lower fists follow them. Nothing
+else reads those groups; `PawnCapacityWorker_Manipulation` is limb *efficiency*
+(best limb set), not a sum, so the second pair adds redundancy rather than
+manipulation.
+
+**The wings' coverage had to come down (same day).** B&S gives each wing coverage
+0.08, which their two-armed body can afford: its torso children total about 93%. Four
+arms already spend 93% by themselves, so copying the wings at 0.08 took her torso to
+**109%** - and `BodyDef.ConfigErrors` warns about that in dev mode (harmless, warning
+only, but it filled Player.log). `Tools/make_four_armed_winged_body.py` now writes 0.02 per
+wing and *checks* every record's coverage sum, failing rather than letting a future
+edit cross 100% again. Current worst: 97%, the torso.
+
+**The art is a placeholder, and this is the part that still needs a human.**
+Humanlike arms live in the body texture, so B&S's own four-armed race draws two
+arms as well, and no installed mod ships a four-arm or abdomen sprite. What exists
+now is `Tools/mktex_arms.py` output - six crude grey limbs in
+`Textures/RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms_{south,north,east}[m].png`,
+512x512, drawn in near-white because the render node tints them with the pawn's
+skin colour (`colorType Skin`), so her chitin tone applies for free. Replace those
+six files with real art, names unchanged, and nothing in XML moves.
+
+The node itself is on `PMM_RaceTracker_AbaddonFolk` and is a copy of B&S's own
+tail node (`1.6/SimplyRaces/Defs/Races/TailedHuman/RaceTracker_TailedHuman.xml`) -
+`PawnRenderingProps_Ultimate` + `PawnRenderNode_Ultimate`, `parentTagDef Body`,
+`shader Cutout`, per-direction sprites (east serves west through the `m` mirror).
+Two knobs will probably want tuning once it can be seen, because art cannot be
+judged in XML: the layers (2 = over the body, under clothing; -1 for the north
+view) and the `drawSize` (0.8,0.8) copied from the tail.
+
+**One deliberate gap: no hide-when-destroyed alt.** B&S matches a part trigger by
+`BodyPartDef` alone (`ConditionalGraphic.PartRecord` carries only bodyPartDef,
+mirrored, partMissing, replacement/implant/hediff flags - no custom labels), and
+this body has four parts of the def `Arm`. A `partMissing` alt on `Arm` would
+blank the lower arms when an *upper* arm is lost. Always drawn beats wrong here.
+
+**Open ends.** Her xenotype icon is the queen's crest as a placeholder
+(`Defs/XenotypeDefs/Xenotypes_Insect.xml`) until she has art of her own, and the
+arms are drawn with placeholder art. The abdomen the user asked about is **not
+built** - the call on 2026-09-25 was "just do the arms for now", so no abdomen
+body part, no gut inside it and no sprite exist. `BS_SpiderAbdomen` /
+`BS_SpiderHybrid` are the references if it is ever wanted: a 60 HP skin-covered
+part, placed in B&S's spider body as a child of the torso at `height Bottom`, and
+in their version the stomach lives inside it. See §11 item 9.
+The queen's own abdomen needs none of that: she takes hers from VRE's cosmetic
+spawning-sack gene (§5.10), because hers is drawn art rather than a body part. A folk
+version would still need the part, the gut inside it and the sprite.
+
+### 5.8 Her size: two frameworks, both ADDING (2026-09-25)
+
+The first pass at her size was wrong and the user caught it in game: he read **0.36**
+on the pawn where the design wanted 0.5. Where that number comes from, read out of the
+two assemblies rather than guessed:
+
+| Layer | Contribution | Their 1.6 code |
+|---|---|---|
+| Vanilla | `baseBodySize 0.9` x `CurLifeStage.bodySizeFactor 1` = 0.90 | `Pawn.BodySize` |
+| Big & Small | `(0.9 x SM_BodySizeMultiplier) - 0.9` = -0.09 at 0.9 | `Pawn_BodySize` postfix adds `cache.totalSizeOffset`; `BSCache.CalculateSize` builds it as `(baseBodySize + offset) x SM x bodySizeFactor - baseBodySize` |
+| VEF, from `VRE_Microsized` | `VEF_BodySize_Offset -0.45`, **added flat** | `VanillaExpandedFramework_Pawn_BodySize` postfix adds `cache.bodySizeOffset` |
+| | **0.36** | |
+
+So `VEF_BodySize_Offset` is an offset, not a fraction, and "microsized takes 45% off"
+was my error - VEF's own stat description ("+1 roughly doubles size") reads that way,
+the code does not. The fix was to make the B&S half ask for more:
+`SM_BodySizeMultiplier` 0.9 -> **1.0556**, since `0.9 x 1.0556 = 0.95` and
+`0.95 - 0.45 = 0.50`.
+
+`SM_BodySizeMultiplier` is also the stat B&S's scaler reads for how large a humanlike is
+**drawn** (`baseBodySize` is not), so she draws about 17% bigger than before as well as
+measuring 0.5. That one line is the knob if the drawing still reads wrong.
+
+### 5.9 The tracker row stays - hiding it was tried and reverted (2026-09-26)
+
+The two blue rows in her Health tab - "Winged humanoid" (`BS_HumanoidWithWings_Race`) and
+"Abaddon folk" (`PMM_RaceTracker_AbaddonFolk`) - were hidden for an hour. Core's
+`RaceTrackerRowHidden.cs` patched `BigAndSmall.RaceTracker.Visible` (hardcoded `=> true`) to
+return false for `PMM_Race_*` pawns, and the rows did vanish. So did the wings. B&S draws a
+tracker's art through the hediff's own render nodes and only installs them while the hediff is
+`Visible`, so the row and the art are one switch - the patch is deleted and its changelog line
+with it, and the race defs were never touched.
+
+That is the answer to "can we just hide those rows": not without moving every tracker's render
+nodes onto some other, visible hediff, which would put a row straight back. §5.7 still stands -
+the winged tracker's second row is what draws her wings.
+
+### 5.10 The abaddon queen's rework: four arms and a new package (2026-09-26)
+
+The user's second pass on the queen, in two parts.
+
+**Four arms.** She now runs the same `PMM_Body_FourArmedWinged` body as her soldier
+daughters, so the two abaddon species share one body def - renamed from
+`PMM_Body_AbaddonFolk` (and `Tools/make_abaddon_folk_body.py` renamed with it) when the
+queen joined, because a body named for the folk would have been a lie in her race def.
+Her melee tools are unchanged: the user's call was four arms with the second pair
+structural only, so no lower fists exist to dilute the weighted pick between her fists
+and her 30-power claw.
+
+**Her gene package**, straight from the user's list: `VRE_SwarmSynapse`,
+`VRE_Parthenogenesis` and `VRE_SlowedLifeCycle` as the gifts, `VRE_Colossal`,
+`VRE_Dormant`, `VRE_InefficientMidgut` and `VRE_HypothermicHibernation` as the costs,
+plus `VRE_InsectSkin`, `VRE_InsectAntennae` and her jelly dependency. Out:
+`VRE_ProteinDenaturation` (sunlight burned her) and `AptitudeRemarkable_Social` - the
+user's call was that the list is the whole package, and her strong-intellect aptitude
+stays.
+
+**And the fertility question answered itself.** `VRE_Parthenogenesis` was on that list, and
+it held the `Fertility` exclusion tag - which is why the real spawning sack could never
+join it. The user first chose parthenogenesis over the sack, then on 2026-09-26 traded
+parthenogenesis itself out for `VRE_RobustMidgut`, evolution for evolution so the 4/4 holds -
+raw food feeds her at 1.8x and never sickens her.
+
+**And then closed it.** With parthenogenesis gone she would have conceived the ordinary way,
+and that is not what the user wants: more abaddons should mean more egg sacs, not more
+pregnancies. So she took vanilla's **`Sterile`** gene (Fertility x0, `ParentName
+FertilityBase`, 1 metabolism). One line in the xenotype, no race-level stat, and the gene list
+says why she is barren. It costs the 4/4 nothing, because `Sterile` is a plain vanilla
+`GeneDef` rather than one of VRE's pools - same as her jelly dependency and her skin genes.
+Two consequences worth knowing: it explains itself to the player, and it takes the shared
+`Fertility` tag back from parthenogenesis, so `VRE_SpawningSack` is tag-blocked again exactly
+as it was before (see the abdomen note). None of this touches her egg sac, which is our own
+ability on a button rather than a pregnancy.
+
+**And the gene was not enough.** The gene alone did not do it in game: the stat panel listed
+`Sterile` at "x0%" while her Fertility read 100%. Two of my answers to that were wrong and the
+doc keeps the corrections rather than the guesses. Guess one - a stale gene list, since a pawn's
+genes are saved with her - the user shot down: the pawn was spawned after the change, on a fresh
+game. Guess two - the gene overridden by another gene sharing Biotech's `Fertility` exclusion tag,
+which is how one gene knocks out another - fell to a scan of every def in the install: the only
+genes holding that tag are the abstract `FertilityBase` that `Sterile` inherits from, VRE's
+`VRE_SpawningSack` and `VRE_Parthenogenesis`, and one VRE mutation. None of them is in her set;
+her cosmetic sack holds `Tail` alone. My third try, `<Fertility>0</Fertility>` on her race def's
+`statBases`, is dropped too - and the reason I gave for it was wrong, corrected by the user the same
+day: I read the info card header ("Human, Healer") as her race and wrote that down as fact. The
+first token there is the pawn's **name**; "Human" is simply what she is called, and the pawn being
+looked at may very well be the queen herself. Nothing in the fix rests on that reading: the hediff
+reaches a queen from her gene **and** from her race comp.
+
+**The real cause, which took four passes to find, was our own core mod.** `Project
+Mamono/Source/ProjectMamono/MamonoFertilityPatch.cs` protects every Mamono on purpose: a postfix on
+`StatPart_FertilityByGenderAge.TransformValue` restores her pre-age fertility, a postfix on
+`StatExtension.GetStatValue` floors an adult Mamono's Fertility at 1.0 so that - in its own words -
+"no source - sterilized, fertility-drained or removed ovaries, gene/trait offsets, or age - can push
+her below 100%", and a postfix on `Pawn.Sterile()` reports adult Mamonos as not sterile. The abaddon is
+a Mamono, so every x0 in her gene list and every hediff factor was being clipped by our own code,
+exactly as designed. That is why the panel listed both "x0%" lines and still read 100%, and why
+nothing the Insects mod could do was ever going to show. The habit worth keeping: when a vanilla
+mechanism "does nothing", grep our own Source for a patch on it before theorising about the engine.
+
+The fix is one exception in that file, `DeliberatelySterile`, built from vanilla's own other two
+sterility sources - `HediffSet.HasHediffPreventsPregnancy()` and `GeneUtility.SterileGenes`, the pair
+`Pawn.Sterile()` itself checks. She has that gene, so all three core
+layers now skip her and vanilla answers on its own: Fertility 0%, `Sterile()` true, no pregnancy.
+
+**What the 1.6 assembly says**, kept because it settles why both factors showed in the tooltip and
+neither reached the number: `StatWorker.GetValueUnfinalized`
+multiplies `def.statFactors` for every *active* gene, and `Fertility` has no post-process curve, no
+max value, and exactly two parts, both of them multipliers - so a live x0 factor cannot leave the
+value at 100%.
+
+**And then the fix shrank to nothing, in the same pass.** The hidden hediff
+(`Defs/HediffDefs/Hediffs_Insect.xml`, and that folder with it), the `Sterile` gene-class patch, the
+gene class, and the two delivery routes behind it (the `AddGene`/`Tick` hooks and the race comp) are
+all deleted, because the core exception above made every one of them pointless: a gene with
+`sterilize` is enough by itself. Her lock today is one line of vanilla data - `Sterile` in her
+xenotype - which holds the shared `Fertility` tag, pays 1 metabolism, and multiplies her Fertility
+by 0 the moment the core protection steps aside. One consequence worth writing down, since that
+hediff did ship for a few hours: the first load of a save that already has it logs a single "could
+not find def" error for `PMM_InsectSterility` and drops it, and no later load sees it.
+
+**Her third pass, same day: the voice and the swap.** Two changes, both in the
+xenotype's gene list only. In: `VRE_VocalGlands`, the vocal organ that emulates a human
+voice ("a melodic tone that for most people can be described as beautiful"), worth
+Talking +0.25, SocialImpact +0.25, NegotiationAbility +0.4 and TradePriceImprovement
+0.1 - a queen who commands her swarm by pheromone and by voice. Out:
+`VRE_InefficientMidgut`, the permanent 2.5x hunger rate and its extra stomach room.
+Back in: `VRE_HardLockedJoints`, which she carried before this rework and lost in the
+first pass - MoveSpeed -0.4 against her race's 4.0. She now pays for her size with a
+slow walk instead of a bottomless stomach. By VRE's pools `VRE_VocalGlands` is an
+evolution and `VRE_HardLockedJoints` a mutation (pherocore-locked, read out of
+`GeneDefs_Evolutions_VFEInsectoids.xml` / `_Mutations_VFEInsectoids.xml`; those live in
+the nested submod folder inside the Insector mod, `1.6/Mods/VFEInsectoids/`), so the
+package sits at §5.3's four and four - the balance needed one more evolution, and the
+voice is it.
+
+Size, for the record: `VRE_Colossal` adds a positive `VEF_BodySize_Offset` on top of
+her `SM_BodySizeMultiplier` 2.0, which by the B&S maths in §5.8 already makes her Body
+size 4.0.
+
+**Measured, then retuned (2026-09-26).** The user read 4.65 off her in game, which
+confirms the whole model end to end: B&S multiplies `SM_BodySizeMultiplier` by
+`baseBodySize` (2.0 x 2.0 = 4.0), and VRE_Colossal's `VEF_BodySize_Offset` is a flat
+**+0.65** added afterwards, giving 4.65 exactly. Her race pair is now
+**1.1619 / 1.1619**, so 1.1619 x 1.1619 + 0.65 = **2.00**, which is what the user asked
+for. Both numbers move together because they are kept equal across this whole file.
+B&S draws a humanlike from `SM_BodySizeMultiplier` and not from `baseBodySize`, so she
+also *looks* smaller now; if she ever reads too small for a queen, the dial is the
+cosmetic size stat, and touching this pair would move the mechanic as well.
+
+**Her abdomen came back as looks only.** The real spawning sack is out on a tag, as it
+always was: `Sterile` holds the shared `Fertility` tag now that parthenogenesis has gone.
+VRE ships the visual on its own anyway: `VRE_SpawningSack_Cosmetic` is the same
+attachment node, the same texture (`Things/Pawn/Humanlike/BodyAttachments/SpawningSack`)
+and the same `colorType Skin`, so it takes her chitin tone - with no stats and no
+`Fertility` tag. So the answer to "can we get the abdomen without the gene" was that no
+copying was needed: VRE had already split the look from the mechanic. Its one exclusion
+tag is `Tail` (it would clash with a tail gene, and she has none). The node is a plain
+vanilla `GeneDef.renderNodeProperties` attachment, tuned by VRE for a human-sized pawn;
+if it reads wrong on a queen this size, the lever is a PatchOperation on their node or
+our own copy of it (with `overrideMeshSize`/offsets of our own), not anything her race
+def can reach.
+
+### 5.11 The brood picker - the queen chooses what she lays (started 2026-09-26)
+
+The ask: a UI element on the abaddon's egg spew that decides which insect mamono comes out of
+her egg. Five phases; phase 1 is done.
+
+**Phase 1, done - the order itself.** `Source/Insects/BroodOrder.cs` holds
+`CompProperties_BroodOrder` + `CompBroodOrder`, attached to the abaddon's race def so it
+reaches a queen however she arrived. The caste list lives in XML
+(`<broodOptions>`), and the gizmo is a `Command_Action` opening a `FloatMenu`, each entry
+carrying the caste's own **xenotype** icon - `PawnKindDef.xenotypeSet[0]`, which works because
+`XenotypeSet` exposes its private `xenotypeChances` list through a public indexer and `Count`
+(verified in Assembly-CSharp, not assumed). Two scribes, the def and the random flag, rather
+than an option index: reordering `<broodOptions>` later cannot silently change what an
+existing save's queen lays.
+
+The gizmo is offered only to a queen of the player's faction who actually has the ability.
+The ability is looked up by name (`DefDatabase<AbilityDef>.GetNamedSilentFail`) rather than
+through a `[DefOf]` field, because a `[DefOf]` field pointing at the Odyssey-gated def is a
+load error when that DLC is absent, and the same guard is why the comp stays quiet instead of
+throwing. The gate is `pawn.abilities.GetAbility(...)` - `Pawn_AbilityTracker` has no
+`HasAbility`, which the first compile found for us.
+
+**Phases 3 and 4, done 2026-09-26 - the hatch follows the order.** `Source/Insects/EggSacBrood.cs`
+holds both halves. `Projectile_EggSac : Projectile_SpawnsThing` works out the landing cell first
+with vanilla's own rule (impact cell, or the first free standable neighbour when the cell is
+taken and `tryAdjacentFreeSpaces` is on), calls `base.Impact` - vanilla still does the spawning
+and the damage - and then picks the sac up from that cell by its comp
+(`loc.GetFirstThingWithComp<CompEggSacBrood>`) to write the order on it. `CompEggSacBrood :
+CompSpawnPawnOnDestroyed` derives from vanilla so the def keeps `pawnKind`/`lordJob`, and
+branches in `PostDestroy`: a **non-humanlike** brood (a swarmling, or a sac saved before the
+picker) calls `base.PostDestroy` and gets vanilla's hatch untouched - age 0, flyer hop, nest
+lord; a **mamono** is generated by us at age 3 with `allowDowned: true`, and stands up where the
+sac was with no hop and no lord. Her age is a props field, not a constant
+(`<biologicalAge>`, vanilla has no such field): the agreed value is 3, and it is set to 0 in the
+XML right now because the user asked for a newborn on 2026-09-26 while testing the hatch - one
+line, no rebuild. The order is scribed on the sac, so a save/reload in flight or
+with a sac sitting on the map still hatches the right caste, and a sac nobody told anything
+falls back to the def's `pawnKind`. She is also the queen's **daughter**: the sac carries the\nlauncher, and the hatch adds `PawnRelationDefOf.Parent` on the child only. `Child`\n("son"/"daughter") is an **implied** def, and `AddDirectRelation` refuses implied defs outright\n(`if (def.implied) -> Log.Warning and return`), so writing the child's side is the whole job -\nand it is what vanilla's own birth code does in `PregnancyUtility`, for the genetic mother and\nthe father both. The mother's side reads \"daughter\" on its own.\n\nHer **father** comes from the queen's own relations, since an egg has nobody but her mother (a\npregnancy records its father at conception; nothing here does). Order: the core mod's **tsugai\nbond** first - `ProjectMamono_DefOf.ProjectMamono_Tsugai`, a `PawnRelationDef` whose own `importance`\nis 210 against vanilla's spouse at 200, and the lore is that a bond is for life - then spouse,\nfiance, lover. All male: `Parent` is labelled by gender, so a woman partner would be written down\nas a second mother, and `ChildRelationUtility.ChanceOfBecomingChildOf` logs a warning when handed a\nnon-male \"father\". Ex-partners are off the list. The bond partner must be *alive*, which is the core\nmod's own rule for the bond (`TsugaiFormation.HasBondedPartner` asks for `!p.Dead`; a partner's\ndeath severs the bond hediff and leaves grief), while a dead husband stays a husband, because that\nis what vanilla leaves behind.\n\nThe naming window comes with her. Vanilla's factory `PawnNamingUtility.NamePawnDialog` decides\nwhat is editable by testing `Pawn.babyNamingDeadline`, so the dialog is built directly\n(`new Dialog_NamePawn(child, names, names, suggested)`) and that deadline - which vanilla's birth\ncode owns and other systems read - is left alone. First, nick and last name are all editable, the\nqueen's own family name is offered as a suggestion, and the window's description reads \"Mother:\n<queen>\" for free because the relation was added a line earlier. Only for a hatch on the map the\nplayer is looking at, and never for a nest queen's brood.
+
+What the tooltip promised is now true, so the CHANGELOG line went in with this pass. What is
+left of the plan is the optional cocoon (item 5).
+
+**Revision the same day, after the first in-game test.** The gizmo did not appear for the
+user, and the log was clean (no XML or class errors, no exception), so the comp was loaded
+and parsed and one of the comp's own guards was hiding it. That guard was the ability: it
+used to come from her pawn kind, so a queen who arrived by transformation had none. Fixed
+by having the comp **grant the ability itself** in `PostSpawnSetup`, and the kind's
+`<abilities>` entry is deleted with it so there is one source that covers both paths. The
+faction check now leaves the gizmo **visible but disabled** with a reason instead of hiding
+it: a picker that silently vanishes reads as a bug, and an order on somebody else's queen
+is pointless while nothing casts the ability for her.
+
+One thing that was *not* the cause, and is worth keeping: **ThingComps are not saved at
+all.** `ThingWithComps.ExposeData` calls `InitializeComps()` itself when
+`Scribe.mode == LoadingVars` and then only scribes each comp's own state - the save file has
+no `<comps>` node anywhere. So comps are rebuilt from the def on every load, and adding a
+comp to a race def reaches pawns that already exist as soon as the game is restarted.
+
+**Two more egg-spew changes, same day (2026-09-26).** Both the user's call, and together they left it
+a plain sac throw. The cooldown went from 5000 ticks - about two hours - to 900000, fifteen days,
+because the sac is now the only throttle on abaddon numbers. And the acid half is gone: Odyssey's
+`EggSpew` sprays 18 cells of sludge for 18 AcidBurn and leaves `InsectSludge` terrain, and ours now
+drops the `CompProperties_AbilitySprayLiquid` comp - along with the clone built a few minutes earlier
+to redirect that terrain to creep. Nothing burns, nothing is slimed, no terrain is laid. The range
+came in with it, 14.9 cells to 1.9: the ring immediately around her, which is what "domestic" meant
+here. `Things_EggSpew.xml` is back to two ThingDefs, the sac projectile and the sac. Odyssey's
+`AcidSpray` warm-up and cast sounds stay, because vanilla's own EggSpew plays exactly that pair.
+
+**And then the two buttons became one (same day, the user's call).** The brood picker was a second
+gizmo beside the egg spew button, and both described one act, so the picker is gone. The ability def
+now carries `<gizmoClass>PMM_Insects.Command_Ability_EggSpew</gizmoClass>` -
+`AbilityDef.gizmoClass` is a real field, and vanilla's own `Command_AbilitySpeech` is the pattern
+(same `(Ability, Pawn)` constructor, same `Tooltip` override) - and our command opens the caste menu
+first, then hands over to `Command_Ability.ProcessInput`, which is where vanilla starts the targeting
+cursor from `ability.verb`. Order of play: press, choose the daughter, pick the ground. Choosing and
+then cancelling the cursor keeps the new order and spends no cooldown, because a cast is what starts
+the cooldown. `CompBroodOrder` keeps the order and builds the menu; it no longer yields a gizmo, and
+its `CurrentLabel` now feeds the button's tooltip - the old picker label doing the same job. The
+disabled-with-a-reason case for somebody else's queen moved onto the button with it.
+
+**Arachne, the spider mamono (from 2026-09-26), has her own plan file:** `ARACHNE-PLAN.md` - a body
+from Big & Small's own spider, tribe spawns and the brood menu, and the silk, web and coffee phases
+still to come.
+
+**Still to come, agreed with the user 2026-09-26:**
+
+2. **Done 2026-09-26.** Her `CompProperties_SpreadSludge` block is deleted and the ability now
+   carries `aiCanUse false`, so nothing casts it on its own. That comp was the *only* caster -
+   `CompSpreadSludge.CompTick` goes straight to `ability.verb.TryStartCastOn` with no faction
+   check and no `aiCanUse` check - so the deletion was the real fix and the `aiCanUse` flip is
+   the belt to its braces. The greenworm's identically shaped comp points at `SludgeSpew` and
+   stays: no brood in it. What the queen loses with it is the ambient acid she used to spread
+   while laying - deliberate, and the user's call was "fully manual".
+3. **Done 2026-09-26** with phase 4, in `Source/Insects/EggSacBrood.cs`. The ruling that was
+   open here is settled too: the ability is now granted by her race comp (see the revision note
+   above), so a woman transformed into a queen can breed and the pawn kind's `<abilities>`
+   entry is deleted with it.
+4. **Done 2026-09-26.** `CompEggSacBrood`: the chosen caste, age 3, `allowDowned: true`, no
+   nest lord for a humanlike. Vanilla's `CompSpawnPawnOnDestroyed.PostDestroy` hardcodes
+   `fixedBiologicalAge = 0f` and `allowDowned: false`, which is why this had to be our own comp
+   and not a def tweak - that pair is the 2026-09-20 "Generated downed pawn" failure.
+5. **Open, and the user's call.** Optional cocoon stage: the sac spawns our own cocoon building
+   carrying the order, and a killed cocoon loses the brood (their ruling). Recommendation on the
+   record: skip it. It buys the metamorphosis beat and costs a building def, a comp, art, a
+   fourth hop for the order and a second killability rule - and the chain is at two hops today.
+
+**The finding that shaped the plan.** Today nothing about the brood is choosable, and no mamono
+comes out of the egg either: the sac hatches a `VFEI2_Swarmling`, and VFEI2's
+`CompSwarmlingToCocoon` (internal) later swaps her for the `VFEI2_InsectoidCocoon` building,
+whose `VFEInsectoids.Cocoon` class **hardcodes** its table in C# - a public `array` of
+megascarab 0.5 / spelopede 0.25 / megaspider 0.15 / megapede 0.05 - and spawns one at
+`AgeBiologicalTicks = 30000`. There is no XML hook for "what comes out", which is why the
+choice has to be carried by our own comps and the default entry is left to VFEI2 untouched.
+
 ---
 
-## 6. VRE Insector wiring — what works, what does not
+## 6. VRE Insector wiring - what works, what does not
 
 ### 6.1 Genelines cannot be put on NPC pawns
 
@@ -901,14 +1356,14 @@ exclusion tags between `GenelineGeneDef`s. It does not require the pawn to carry
 - A hidden hediff adds 1 severity per day while the bar is empty. Deficiency at
   5, coma at 30, death at 60.
 - The job that makes pawns eat jelly is patched into the **colonist** think tree
-  only. An NPC momo never seeks jelly. Raids are short, so this only matters for
+  only. An NPC mamono never seeks jelly. Raids are short, so this only matters for
   long-lived non-player pawns. Off-map villages are not simulated.
 
 **Ruled: the combat castes only.** Carry it on Devil Bug, Giant Ant, Soldier
 Beetle, Vamp Mosquito and Abaddon. Leave it off the greenworm, who is brood, not
 a fighter.
 
-**Ruled: no `VRE_JellySacks` on any momo.** Pawns never make jelly. Every drop
+**Ruled: no `VRE_JellySacks` on any mamono.** Pawns never make jelly. Every drop
 comes from the world or from buildings the player raises, which is what makes the
 VFEI2 jelly economy matter.
 
@@ -917,14 +1372,17 @@ royal jelly is her flavour.
 
 ### 6.3 What we do not take
 
-- `VRE_ChestburstPregnancy` — ruled out. It is player-gizmo only, but the victim
+- `VRE_ChestburstPregnancy` - ruled out. It is player-gizmo only, but the victim
   hediff kills in 15 days, and the user said no.
-- `VRE_SpawningSack` is fine and stays in the queen's package. It only interacts
-  with chestburst when chestburst is present.
+- `VRE_SpawningSack` only interacts with chestburst when chestburst is present, so it
+  was never the problem - but it is **out of the queen's package** as of 2026-09-26: VRE tags
+  it and `VRE_Parthenogenesis` with the same `Fertility` exclusion tag. She traded
+  parthenogenesis for `VRE_RobustMidgut` that day and took vanilla `Sterile` in its place, so the
+  tag simply changed hands - the sack is blocked by it, before and after (§5.10).
 
 ---
 
-## 7. VFEI2 wiring — hives and jelly
+## 7. VFEI2 wiring - hives and jelly
 
 ### 7.1 The build permission, and why it matters
 
@@ -940,9 +1398,9 @@ if (!modExtension.nonInsectCanBuildIt && !p.IsColonyInsect() &&
 ```
 
 And `Utils.IsColonyInsect()` needs `pawn.RaceProps.Insect`, which a humanlike
-momo can never pass.
+mamono can never pass.
 
-**So `VRE_Hiveglands` is the only key that lets a momo build a hive.** It is a
+**So `VRE_Hiveglands` is the only key that lets a mamono build a hive.** It is a
 string compare on the gene name, not a race or faction check. That is why the
 Giant Ant carries it in §5.3. With it she can raise `VFEI_HiveWall`,
 `VFEI2_InsectJellyWall`, `VFEI2_JellyFarm`, `VFEI2_Creeper` and the artificial
@@ -955,7 +1413,7 @@ Both fit the species.
 
 Research: `VFEI2_BasicHivetech` → `VFEI2_StandardHivetech` → `VFEI2_ExoticHivetech`.
 
-Producers a momo colony can build, once the `VRE_Hiveglands` gate is passed:
+Producers a mamono colony can build, once the `VRE_Hiveglands` gate is passed:
 
 | Building | Output |
 |---|---|
@@ -967,12 +1425,12 @@ Producers a momo colony can build, once the `VRE_Hiveglands` gate is passed:
 
 Loot: NPC hives leave 30 jelly, the walls leave 2 each.
 
-Nothing on the momo side produces jelly, by ruling 10. These buildings are the
-whole supply for a colony that keeps insect momos.
+Nothing on the mamono side produces jelly, by ruling 10. These buildings are the
+whole supply for a colony that keeps insect mamonos.
 
 ### 7.3 Two small code changes
 
-- `HiveNourishment.cs` — **done 2026-09-20.** It now resolves a list of hive-like
+- `HiveNourishment.cs` - **done 2026-09-20.** It now resolves a list of hive-like
   defs once and looks each one up, instead of caching `ThingDef.Named("Hive")`.
   The list takes every def whose `thingClass` is a `Hive` (the same test VFEI2's
   own `Utils.allHiveDefs` uses), plus the `ArtificialHive` class family, which is
@@ -987,7 +1445,7 @@ whole supply for a colony that keeps insect momos.
 - The pawn kinds carry `moveSpeedFactorByTerrainTag` with `Insect 2.0`. VRE's own
   insect skin gene adds `VFEI2_Creep 4.75`, `VFEI2_JellyFloor 5` and
   `VFEI2_RoyalJellyFloor 10`. Our villages stand on creep, so adding those three
-  entries to the kind gives momos their home-field speed. Optional, but cheap.
+  entries to the kind gives mamonos their home-field speed. Optional, but cheap.
 
 ---
 
@@ -999,17 +1457,17 @@ tribe, and the village he is held in can be raided to free him. Keep
 `LordJob_Kidnap` and the vanilla job, and leave `IncidentParms.canKidnap` and
 `LordJob_AssaultColony.canKidnap` alone.
 
-**No hive special casing is left.** A tribe momo uses the core's tsugai behaviour
+**No hive special casing is left.** A tribe mamono uses the core's tsugai behaviour
 unchanged: when she wins a bond the core rolls its join chance, and if it wins she
-joins the colony like any other momo. Three files were deleted on 2026-09-24:
+joins the colony like any other mamono. Three files were deleted on 2026-09-24:
 
-- `HiveBondKidnap.cs` — the `HiveInsectMomo` gate, the forced "never joins" prefix
+- `HiveBondKidnap.cs` - the `HiveInsectMamono` gate, the forced "never joins" prefix
   on `TsugaiFormation.ExecuteJoin`, the abduct job and the "gone for good" letter.
   The gate tested `Faction.OfInsects`, which the tribes had not used since Phase 1,
   so none of it was reachable: the bond rule was dead code.
-- `HiveKidnapVanish.cs` — the vanish at the map edge, which existed only to make
+- `HiveKidnapVanish.cs` - the vanish at the map edge, which existed only to make
   that forced kidnap final.
-- `FactionJoinQuiet.cs` — it silenced the "humanlike pawn added to a non-humanlike
+- `FactionJoinQuiet.cs` - it silenced the "humanlike pawn added to a non-humanlike
   faction" error, which only the deleted generation swap could raise.
 
 **Trap worth keeping:** the gate that died here was written against
@@ -1053,14 +1511,14 @@ test. The installed copy under `Mods` is a separate tree.
 Build in this order. Each phase ends with a boot test, zero red errors, and a
 changelog line.
 
-**Phase 1 — delete the old spawn layer. (done 2026-09-20)**
+**Phase 1 - delete the old spawn layer. (done 2026-09-20)**
 Removed the swap, the wild kinds and the wild think trees. Expect real bugs
 everywhere.
 Gate: an infestation, a hive, an ancient danger and a VFEI2 geneline raid all
-produce real insects. No momo spawns anywhere. The age workaround is gone with
+produce real insects. No mamono spawns anywhere. The age workaround is gone with
 the swap, so check that no "generated downed pawn" spam remains.
 
-**Phase 2 — the two factions, their names and their villages. (done 2026-09-20)**
+**Phase 2 - the two factions, their names and their villages. (done 2026-09-20)**
 Shipped as `Defs/FactionDefs/Factions_InsectorTribes.xml` (one abstract base plus
 the two factions), `Defs/RulePackDefs/Namers_Insector.xml` (two name packs) and
 the renamed `Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml`. The hostile tribe
@@ -1078,10 +1536,10 @@ only - so the only place to see the queen is a real village map.
 Gate: a new world has at least one insector village, the two tribes carry
 different Abaddon names, and they are tellable apart on the world map. Each
 village map has hive walls, creep and hives, with defenders standing in it. Check
-the log for `Skipping AddHostilePawnGroup` — that means a `Settlement` group is
+the log for `Skipping AddHostilePawnGroup` - that means a `Settlement` group is
 missing.
 
-**Phase 3 — raids, children and the caste table. (done 2026-09-20; the children
+**Phase 3 - raids, children and the caste table. (done 2026-09-20; the children
 were dropped, and the rest is not yet field-tested)**
 Done: `pawnGroupMakers` filled with melee groups only - Combat, a second Combat
 for the Odyssey roster, Combat-melee, Peaceful, Settlement - plus the four work
@@ -1092,7 +1550,7 @@ Gate: a large raid fields swarms of devil bugs, a few giant ants and at least on
 soldier beetle, and no ranged group is ever used. A small raid never fields the
 queen. A village raid fields her.
 
-**Phase 4 — gene packages. (built 2026-09-20; not yet field-tested)**
+**Phase 4 - gene packages. (built 2026-09-20; not yet field-tested)**
 Done: the six caste packages are in the six xenotypes (§5.3),
 `VRE_InsectJellyDependency` on the five fighters only, no `VRE_JellySacks`
 anywhere, and no `VRE_GenelineEvolution`. The pheromone effect is ours now, carried
@@ -1102,15 +1560,15 @@ lives on `PMM_Gene_Insect` (`Defs/GeneDefs/Genes_Insect.xml`), the gene all six
 castes already carry, because `immuneToToxGasExposure` is a `GeneDef` field and no
 race def can hold it.
 Gate: each caste shows the expected genes in the Health tab. No gene conflict
-errors. Real insects ignore a momo while she is among them. A momo with an empty
+errors. Real insects ignore a mamono while she is among them. A mamono with an empty
 jelly bar picks up the deficiency hediff, and only the fighters do. No toxic
 buildup builds up in tox gas, on polluted ground, or in toxic fallout.
 
 **Extras, decided in the same conversation and built 2026-09-20.** Three things came
 out of the Phase 4 discussion. None was in the original phase list:
 
-- **Chitin, not human leather.** Every momo race is `ParentName="Human"`, which
-  carries `leatherDef Leather_Human` and a `LeatherAmount` of 75, so a butchered momo
+- **Chitin, not human leather.** Every mamono race is `ParentName="Human"`, which
+  carries `leatherDef Leather_Human` and a `LeatherAmount` of 75, so a butchered mamono
   used to yield human leather. All six races now set `VFEI2_Chitin` with a
   `LeatherAmount` of 30, matching VFEI2's own insect races
   (`Races_Fuelmite.xml`, `Races_Megawasp.xml`, `Races_RoyalMegascarab.xml`).
@@ -1118,37 +1576,37 @@ out of the Phase 4 discussion. None was in the original phase list:
   `bloodDef Filth_BloodInsect`.
 - **Insect flesh.** `PMM_Gene_Insect` carries a VEF `GeneExtension`
   (`customMeatThingDef` + `defsTreatedAsHumanMeat`) so insect meat counts as human
-  meat to a momo: eating it is cannibalism to her and ordinary food to everyone
+  meat to a mamono: eating it is cannibalism to her and ordinary food to everyone
   else. The eating half of the human-leather analogy; the wearing half does not
   exist in any mod (§5.3).
-- **One corpse line.** Six momo corpses now sit under a single "momo corpses" line
+- **One corpse line.** Six mamono corpses now sit under a single "mamono corpses" line
   in the butcher menu and every item filter, instead of six entries mixed into
   humanlike corpses. Three caches, one snapshot and Big and Small had to be dealt
   with, all of it written up in §12.9.
 
-Gate: butchering a momo yields 30 chitin; feeding insect meat to a momo colonist
+Gate: butchering a mamono yields 30 chitin; feeding insect meat to a mamono colonist
 raises the cannibalism thoughts and doing the same to a baseliner does not; the item
-filters show one "momo corpses" line holding all six races, and a default butcher
-bill still accepts a momo corpse.
+filters show one "mamono corpses" line holding all six races, and a default butcher
+bill still accepts a mamono corpse.
 
-**Phase 5 — brood and nourishment. (built 2026-09-20, awaiting its field test)**
+**Phase 5 - brood and nourishment. (built 2026-09-20, awaiting its field test)**
 The egg spew clone, and the widened hive lookup.
 Gate: the Abaddon's egg spew produces a swarmling, in the queen's faction, in a
-dev-spawned village. A momo standing near a `VFEI2_KemianHive` gets nourishment.
+dev-spawned village. A mamono standing near a `VFEI2_KemianHive` gets nourishment.
 
-**Phase 6 — jelly and hives for the player.**
+**Phase 6 - jelly and hives for the player.**
 Confirm the build gate from §7.1 in both directions.
-Gate: a recruited momo with `VRE_Hiveglands` can build `VFEI2_JellyFarm` and
-`VFEI2_HiveWall`. A momo without the gene cannot.
+Gate: a recruited mamono with `VRE_Hiveglands` can build `VFEI2_JellyFarm` and
+`VFEI2_HiveWall`. A mamono without the gene cannot.
 
-**Phase 7 — kidnapping and polish. (done 2026-09-24)**
+**Phase 7 - kidnapping and polish. (done 2026-09-24)**
 The hive bond rule, the vanish and the custom letter were deleted rather than
 repointed at the tribes (user ruling 2026-09-24), so the tribes behave like every
-other momo. The faction icon and description were already in place; no new namers.
+other mamono. The faction icon and description were already in place; no new namers.
 Gate: a tribe raid leaves the man a prisoner in a village he can be freed from, and
 a bond win follows the core's roll.
 
-**Phase 8 — trade and optional extras.**
+**Phase 8 - trade and optional extras.**
 The caravan trader kind (§4.6) on the neutral tribe only, and a custom Ideology
 culture if it is ever wanted. An own settlement layout only if VFEI2's four ever
 feel samey.
@@ -1179,19 +1637,33 @@ Left:
 4. **The Phase 4 gene write-up** (§5.3) is fully answered and built: immunity on
    the insectoid gene, the six caste packages, locked genes allowed (two in use),
    and `VRE_GenelineEvolution` left off. What is left is the field test.
-5. **One momo-corpse line across the whole family: done 2026-09-20.** The category
-   def and the mover live in `Project Momo` (`Source/ProjectMomo/MomoCorpses.cs`) and
-   `Defs/ThingCategoryDefs/ThingCategories_MomoCorpses.xml`, and each species mod
+5. **One mamono-corpse line across the whole family: done 2026-09-20.** The category
+   def and the mover live in `Project Mamono` (`Source/ProjectMamono/MamonoCorpses.cs`) and
+   `Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml`, and each species mod
    registers its own races: insects 6, slimes 6, elementals 8 (§12.9). Reptiles cannot
    join as they are - their pawns are vanilla Human with a xenotype, so their corpses
    are shared human corpses - and giving the 11 reptile species their own race defs is
-   planned as a separate project (`Project Momo Reptiles/RACES-PLAN.md`).
+   planned as a separate project (`Project Mamono Reptiles/RACES-PLAN.md`).
 
 Worth asking later, not now:
 
 6. Do we want our own settlement layout on top of VFEI2's four?
 7. Do we want a custom Ideology culture, and VIE memes with it?
 8. A settlement namer of our own, instead of `NamerSettlementTribal`.
+9. **The abaddon folk's own art (2026-09-25).** Two pieces, both now the only
+   things left on her: the **xenotype icon** (currently the queen's crest) and the
+   **lower-arm sprite** (currently the placeholder from `Tools/mktex_arms.py`, six
+   files in `Textures/RaceDefaults/PMM_AbaddonFolk/`). Replacements go in at the
+   same paths with the same names - no XML changes. §5.7 has the details, including
+   the node settings likely to need tuning in dev mode.
+10. **The insect abdomen - asked about and shelved (2026-09-25).** B&S's spider is
+   the reference if it comes up again: `BS_SpiderAbdomen` is a 60 HP skin-covered
+   body part childed to the torso at `height Bottom`, and in their body the stomach
+   sits inside it. Nothing was built - "just do the arms for now" (§5.7).
+   **Resolved for the queen, not for the folk (2026-09-26):** the abaddon's abdomen is
+   `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
+   body part, no gut and no art of ours were needed. The folk still has none, and the
+   spider stays the reference if she ever gets one.
 
 ---
 
@@ -1224,11 +1696,11 @@ The chain, all in `KCSG` code:
    layout. Defenders come from `pawnGroupMakers`. If `pawnGroupMakers` is null it
    logs `Skipping AddHostilePawnGroup` and the base is empty. It picks
    `LordJob_DefendBase` when the group eats food, `LordJob_DefendBaseNoEat` when
-   it does not. Momos eat, so they get the normal lord.
+   it does not. Mamonos eat, so they get the normal lord.
 
 Two working examples in the user's Mods folder:
 
-- `Reel's Insector Faction` — `FactionDef TribeInsector`, parent
+- `Reel's Insector Faction` - `FactionDef TribeInsector`, parent
   `TribeRoughBase`, `KCSG.CustomGenOption` with
   `chooseFromSettlements Reel_BugSettlement`, and its layouts are made of
   `VFEI_HiveWall`, `VFEI2_InsectJellyWall`, `VFEI2_RoyalJellyWall`,
@@ -1275,7 +1747,7 @@ greenworm.
 
 ### 12.5 Why the wild layer was the cheaper alternative, and why it is out
 
-Recorded so nobody re-derives it. A momo can be made real wildlife with no
+Recorded so nobody re-derives it. A mamono can be made real wildlife with no
 Harmony at all:
 
 - `BiomeDef.AllWildAnimals` iterates every `PawnKindDef` and yields any with
@@ -1285,10 +1757,10 @@ Harmony at all:
 - `WildAnimalSpawner.SpawnRandomWildAnimalAt` spawns with
   `PawnGenerator.GeneratePawn(kind)`, so faction null.
 - `AggressiveAnimalIncidentUtility.CanArriveManhunter` requires
-  `RaceProps.Animal`, so manhunter packs could never have picked a momo.
+  `RaceProps.Animal`, so manhunter packs could never have picked a mamono.
 
-The user chose option C instead: no wild momos at all. If that ever changes, the
-Reptiles mod already has a working pattern for factionless wild momos: a
+The user chose option C instead: no wild mamonos at all. If that ever changes, the
+Reptiles mod already has a working pattern for factionless wild mamonos: a
 pawn kind file plus an `IncidentWorker` that drops one in, driven by
 `ReptileWandersIn.cs`.
 
@@ -1317,8 +1789,8 @@ pawn kind file plus an `IncidentWorker` that drops one in, driven by
 - `PawnKindDef.ecoSystemWeight` is only counted for factionless pawns, in
   `WildAnimalSpawner.CurrentTotalAnimalWeight`. On faction pawns it does nothing.
 - Leather: vanilla `Human` sets `<leatherDef>Leather_Human</leatherDef>` plus a
-  `LeatherAmount` stat of 75, and every momo race is `ParentName="Human"` - so
-  until 2026-09-20 a butchered momo yielded human leather. The six races now set
+  `LeatherAmount` stat of 75, and every mamono race is `ParentName="Human"` - so
+  until 2026-09-20 a butchered mamono yielded human leather. The six races now set
   `<leatherDef>VFEI2_Chitin</leatherDef>` with `LeatherAmount 30`, which is exactly
   what VFEI2's own insect races carry (30 chitin each, in `Races_Fuelmite.xml`,
   `Races_Megawasp.xml`, `Races_RoyalMegascarab.xml`). Meat and blood were already
@@ -1439,7 +1911,9 @@ kind's own stage in a prefix on `PawnGenerator.GeneratePawn(PawnGenerationReques
 - the one overload the group workers call - and the request is a struct, so the
 prefix takes it by `ref`. The prefix is gated on the `PMM_InsectChild` defName
 prefix, so the difficulty setting, vanilla children and every other mod are left
-alone.
+alone. That patch and those kinds were deleted on 2026-09-20 with the rest of the
+child work, so read this as the trap any future child kind walks into rather than as
+something the mod still does.
 
 **4. Role groups are free.** Vanilla `TribeBase` carries `Miners`, `Hunters`,
 `Loggers` and `Farmers` at `commonality` 1, each `MayRequire="Ludeon.RimWorld.
@@ -1447,7 +1921,7 @@ Ideology"`, each holding a single faction-specific kind. Ours name the giant ant
 the devil bug and the soldier beetle. Only Ideology code paths ask for those group
 kinds, so they cost nothing, and nothing else in the mod depends on them.
 
-### 12.9 One line for momo corpses: a snapshot, three caches, and Big and Small
+### 12.9 One line for mamono corpses: a snapshot, three caches, and Big and Small
 
 Read 2026-09-20 from `Assembly-CSharp`, `BigAndSmall.dll` and vanilla XML. It took
 four attempts to make this stick, so the whole chain is written down - every step of
@@ -1462,7 +1936,7 @@ thingCategories.Add(pawnDef.race.Humanlike
     : pawnDef.race.FleshType.corpseCategory);
 ```
 
-The humanlike test comes first, so `fleshType Insectoid` cannot move a momo corpse,
+The humanlike test comes first, so `fleshType Insectoid` cannot move a mamono corpse,
 and there is no XML field for the category at all.
 
 **2. Corpses are generated defs, so no patch can reach them.** They are implied
@@ -1493,17 +1967,17 @@ so after any move they must be rebuilt by calling `ResolveReferences()` again on
 every category def, parents included, because a parent's cached set covers its
 descendants.
 
-**What the code does.** `Project Momo` owns both halves now (2026-09-20):
-`Defs/ThingCategoryDefs/ThingCategories_MomoCorpses.xml`
-defines `PMM_MomoCorpses` ("momo corpses"), a child of `CorpsesHumanlike` the way
+**What the code does.** `Project Mamono` owns both halves now (2026-09-20):
+`Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml`
+defines `PMM_MamonoCorpses` ("mamono corpses"), a child of `CorpsesHumanlike` the way
 vanilla's `CorpsesInsect` is a child of `CorpsesAnimal` - that nesting is what keeps
-every filter that allows humanlike corpses accepting a momo corpse, and what makes
+every filter that allows humanlike corpses accepting a mamono corpse, and what makes
 the menu show one line instead of one entry per race - and
-`Source/ProjectMomo/MomoCorpses.cs` moves the corpses out of `CorpsesHumanlike` and
+`Source/ProjectMamono/MamonoCorpses.cs` moves the corpses out of `CorpsesHumanlike` and
 B&S's two categories, keeps `childThingDefs` in step on both sides, and calls
-`ResolveReferences()` on every category to rebuild the caches. `MomoCorpses.Register(...)`
+`ResolveReferences()` on every category to rebuild the caches. `MamonoCorpses.Register(...)`
 is called once per species mod from its own `[StaticConstructorOnStartup]` (insects:
-`Source/Insects/InsectMomoCorpses.cs`), and the move runs again from a postfix on
+`Source/Insects/InsectMamonoCorpses.cs`), and the move runs again from a postfix on
 `StaticConstructorOnStartupUtility.CallAll()` - that postfix runs after every mod's
 startup constructor, so ours is the last word whatever other mods do.
 
@@ -1537,17 +2011,17 @@ fails it.
 
 - 2026-09-20: Added Vanilla Races Expanded - Insector and Vanilla Factions Expanded - Insectoids 2 as required mods.
 - 2026-09-20: Added insector tribes. Their villages are built from insect hive walls and hives.
-- 2026-09-20: Changed the insect momos to live only in insector tribes. Vanilla insects spawn normally again.
-- 2026-09-20: Removed wild insect momos.
-- 2026-09-20: Changed each insect momo caste to fight with insect genes, so her strengths match her species.
-- 2026-09-20: Added insect jelly as food for the insect momos.
+- 2026-09-20: Changed the insect mamonos to live only in insector tribes. Vanilla insects spawn normally again.
+- 2026-09-20: Removed wild insect mamonos.
+- 2026-09-20: Changed each insect mamono caste to fight with insect genes, so her strengths match her species.
+- 2026-09-20: Added insect jelly as food for the insect mamonos.
 - 2026-09-20: Changed a kidnapped man to be held prisoner in the tribe's village, instead of being lost forever.
 ```
 
 ```markdown
 ## Internal
 
-- 2026-09-20: Removed the pawn generation swap and the wild momo layer.
+- 2026-09-20: Removed the pawn generation swap and the wild mamono layer.
 ```
 
 One change per line. Do not batch them into one entry.

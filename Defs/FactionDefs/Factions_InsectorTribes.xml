@@ -6,7 +6,7 @@
 		and the two concrete defs below differ only in name, colour, art and
 		relations.
 
-		Why a pair: the momos are a people, not a monster spawn. One tribe starts
+		Why a pair: the mamonos are a people, not a monster spawn. One tribe starts
 		neutral, so it can be traded with and befriended, and one is always at war,
 		so the swarm still comes for you. Locked ruling, 2026-09-20.
 
@@ -24,12 +24,12 @@
 		random per village, so the four VFEI2 layouts give four village sizes.
 
 		Deliberately not set:
-		  * backstoryFilters - every momo pawn kind carries its own per-species
+		  * backstoryFilters - every mamono pawn kind carries its own per-species
 		    spawn category, and a faction-level pool would fight it.
 		  * basicMemberKind - inherited from TribeBase (Tribesperson). The faction
 		    leader is generated from that kind plus the xenotypeSet below, so she
-		    should come out an insect momo. Check her in game; if she is a
-		    baseliner, point basicMemberKind at one of the momo kinds.
+		    should come out an insect mamono. Check her in game; if she is a
+		    baseliner, point basicMemberKind at one of the mamono kinds.
 		  * caravanTraderKinds, disallowedMemes - later phases.
 	-->
 	<FactionDef ParentName="TribeBase" Name="PMM_InsectorTribeBase" Abstract="True">
@@ -88,7 +88,7 @@
 			</xenotypeChances>
 		</xenotypeSet>
 
-		<!-- Group kinds. The momos carry no weapons and no apparel, so there is no
+		<!-- Group kinds. The mamonos carry no weapons and no apparel, so there is no
 		     ranged group anywhere in here: raiders are melee only.
 		     The Odyssey-gated duplicates exist because the three Odyssey species
 		     are missing without the DLC, and an option naming a missing pawn kind
@@ -147,6 +147,15 @@
 					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
 					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
+					<!-- The weaver (2026-09-26). Villages only, and rare: she holds her web, she
+					     does not march. A weight of 2 against the swarm's 27 keeps her a landmark
+					     rather than a filler, and she is in no raid group at all. -->
+					<PMM_InsectArachne>2</PMM_InsectArachne>
+					<!-- The fly (2026-09-27). Commoner than the weaver and every bit as
+					     local: four against the swarm's 27, and she is not in any raid group.
+					     Raise the weight if she should be ordinary, or add her to a raid
+					     group if she should march. -->
+					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Odyssey">
@@ -159,6 +168,10 @@
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
 					<PMM_InsectVampMosquito>5</PMM_InsectVampMosquito>
 					<PMM_InsectAbaddon>1</PMM_InsectAbaddon>
+					<!-- The queen's own weaver, a little more likely where a queen lives. -->
+					<PMM_InsectArachne>3</PMM_InsectArachne>
+					<!-- The queen's own fly, and hungrier than the weaver. -->
+					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
 				</options>
 			</li>
 			<!-- The four role groups vanilla tribes carry, naming our own castes:

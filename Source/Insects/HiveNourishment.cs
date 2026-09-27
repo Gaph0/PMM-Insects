@@ -5,20 +5,20 @@ using Verse;
 namespace PMM_Insects
 {
     /// <summary>
-    /// Insectoids are fed by the hive, so are insect Momos. While she stands near a nest
-    /// (a Hive building), her hunger and mana creep back up — the same way the
+    /// Insectoids are fed by the hive, so are insect Mamonos. While she stands near a nest
+    /// (a Hive building), her hunger and mana creep back up - the same way the
     /// hive "sustains" its insects. The refill is gradual, not instant: the rates
     /// below are per day, and XML can override them per race. Attached to each
-    /// insect-momo race def in Races_InsectMomo_BS.xml.
+    /// insect-mamono race def in Races_InsectMamono_BS.xml.
     ///
     /// Ticks rarely (every 600 ticks / 10 game-seconds) and cheaply: it only
     /// queries the map's hive list when the pawn is alive, spawned, and not
-    /// already full on both needs. At the default rates a momo parked by the nest
+    /// already full on both needs. At the default rates a mamono parked by the nest
     /// refills an empty bar in about a day.
     /// </summary>
     public class CompProperties_HiveNourishment : CompProperties
     {
-        /// <summary>Radius (in cells) around a Hive within which a momo is nourished.</summary>
+        /// <summary>Radius (in cells) around a Hive within which a mamono is nourished.</summary>
         public float radius = 12f;
 
         /// <summary>Interval between top-ups, in ticks.</summary>
@@ -101,8 +101,8 @@ namespace PMM_Insects
             // Both bars already full? Nothing to do, and no reason to walk the map's
             // hive list either.
             Need_Food food = pawn.needs?.food;
-            // Mana is the core momo need; only present on Momo-carriers.
-            Need mana = pawn.needs?.TryGetNeed(ProjectMomo.ProjectMomo_DefOf.ProjectMomo_Mana);
+            // Mana is the core mamono need; only present on Mamono-carriers.
+            Need mana = pawn.needs?.TryGetNeed(ProjectMamono.ProjectMamono_DefOf.ProjectMamono_Mana);
             bool foodFull = food == null || food.CurLevel >= food.MaxLevel;
             bool manaFull = mana == null || mana.CurLevel >= mana.MaxLevel;
             if (foodFull && manaFull)
@@ -135,7 +135,7 @@ namespace PMM_Insects
 
         private bool NearHive(Pawn pawn)
         {
-            // One entry per hive def, so a momo is fed by a VFEI2 nest just as well as
+            // One entry per hive def, so a mamono is fed by a VFEI2 nest just as well as
             // by vanilla's Hive. ThingsOfDef is a dictionary lookup, so an absent def
             // ("the player has no Kemian hive") costs nothing.
             foreach (ThingDef def in HiveDefs())

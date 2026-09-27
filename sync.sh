@@ -26,7 +26,7 @@ if [ "${PMM_SYNC_FORCE:-0}" != "1" ]; then
   fi
 fi
 
-DEST="$HOME/.steam/steam/steamapps/common/RimWorld/Mods/Project Momo Insects"
+DEST="$HOME/.steam/steam/steamapps/common/RimWorld/Mods/Project Mamono Insects"
 mkdir -p "$DEST"
 
 # --- What gets deployed -------------------------------------------------
@@ -70,4 +70,4 @@ rsync -a --delete --delete-excluded \
 
 echo "Synced to: $DEST"
 echo "Deployed top level: $(cd "$DEST" && ls -m)"
-echo "Enable 'Project Momo Insects' (pmm.insects) in the mod list after Project Momo."
+echo "Enable 'Project Mamono Insects' (pmm.insects) in the mod list after Project Mamono."

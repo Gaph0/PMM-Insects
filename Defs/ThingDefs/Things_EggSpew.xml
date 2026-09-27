@@ -5,16 +5,17 @@
 		The egg-sac end of the brood chain (Phase 5, 2026-09-20). See
 		Defs/AbilityDefs/Abilities_EggSpew.xml for the ability that throws these.
 
-		Both defs are clones of Odyssey's Proj_EggSac and EggSac with three changes:
-		  - the projectile spawns OUR sac, and the sac carries VFEI2_Swarmling;
-		  - the sac is back on Core's own spawn comp, `CompSpawnLarva` over
-		    CompSpawnPawnOnDestroyed, so the hatch is vanilla behaviour down to the lord rule.
-		    It briefly used a comp of our own, because Core cannot generate a HUMANLIKE pawn:
-		    it asks for age 0 while refusing downed pawns, and a newborn humanlike is always
-		    downed. A swarmling is not humanlike, so that problem is gone;
-		  - the sac keeps `lordJob LordJob_WanderNest`, so a fresh brood wanders its nest
-		    like a vanilla larva instead of standing about. If that reads wrong on a
-		    humanlike pawn in the field test, drop the lordJob and she will simply idle.
+		Both defs started as clones of Odyssey's Proj_EggSac and EggSac. What they are now:
+		  - the projectile spawns OUR sac, and it is `PMM_Insects.Projectile_EggSac`, which
+		    copies the queen's brood order onto that sac at impact;
+		  - the sac's spawn comp is `PMM_Insects.CompEggSacBrood`, which derives from vanilla's
+		    CompSpawnPawnOnDestroyed and honours that order. Vanilla hardcodes age 0 and
+		    `allowDowned: false`, and a newborn humanlike is always downed - that is the
+		    2026-09-20 "Generated downed pawn" cascade, and why the hatch cannot be a def tweak;
+		  - a sac whose brood is NOT humanlike - a swarmling, or one saved before the picker
+		    existed - goes straight through vanilla's own hatch, `CompSpawnLarva` included: age
+		    0, the stun-flyer hop and `lordJob LordJob_WanderNest` are all wanted for a larva.
+		    None of them are right for a three year old mamono, who stands up where the sac was.
 
 		Why the brood lands in the right faction (verified in Assembly-CSharp 1.6):
 		Projectile_SpawnsThing.Impact ends with
@@ -29,12 +30,15 @@
 		swarmling is generated at age 0, the larva stage of her kind, and she hops up to 5 cells
 		away on a PawnFlyer_Stun - exactly what vanilla's larva does. From there VFEI2's own
 		CompProperties_SwarmlingToCocoon takes over: she cocoons, and a random adult insectoid
-		of the hive crawls out.
+		of the hive crawls out. A mamono sac is the other case: the caste the queen chose is
+		generated at age 3, a child, and she simply stands up where the sac was.
 	-->
 	<ThingDef ParentName="BaseGrenadeProjectile" MayRequire="Ludeon.RimWorld.Odyssey">
 		<defName>PMM_Proj_EggSac</defName>
 		<label>egg sac</label>
-		<thingClass>Projectile_SpawnsThing</thingClass>
+		<!-- Ours rather than vanilla's Projectile_SpawnsThing: it does everything vanilla does
+		     and then writes the queen's brood order onto the sac it just spawned. -->
+		<thingClass>PMM_Insects.Projectile_EggSac</thingClass>
 		<graphicData>
 			<texPath>Things/Projectile/PMM_EggSac</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -51,7 +55,7 @@
 	<ThingDef ParentName="BuildingNaturalBase" MayRequire="Ludeon.RimWorld.Odyssey">
 		<defName>PMM_EggSac</defName>
 		<label>egg sac</label>
-		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow. Destroy it and the swarmling crawls out.</description>
+		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow. Kill it and the brood inside crawls out - which daughter she is, the queen decides.</description>
 		<thingClass>Building</thingClass>
 		<category>Building</category>
 		<graphicData>
@@ -82,13 +86,17 @@
 				<glowRadius>6</glowRadius>
 				<glowColor>(113,141,117,0)</glowColor>
 			</li>
-			<!-- The brood: a swarmling of the sac's faction, hatched when the sac is
-			     killed. VFEI2_Swarmling is VFEI2's own juvenile kind - the same pawn their
+			<!-- The brood, hatched when the sac is killed. `pawnKind` is the fallback for a sac
+			     nobody told anything; a humanlike order never uses it, those go through our comp's
+			     own hatch. VFEI2_Swarmling is VFEI2's own juvenile kind - the same pawn their
 			     queen and empress spawn - and it metamorphoses into an adult insect. -->
-			<li Class="CompProperties_SpawnPawnOnDestroyed">
-				<compClass>CompSpawnLarva</compClass>
+			<li Class="PMM_Insects.CompProperties_EggSacBrood">
 				<pawnKind>VFEI2_Swarmling</pawnKind>
 				<lordJob>LordJob_WanderNest</lordJob>
+				<!-- How old a hatched mamono is. 0 = a newborn, and that is the ruling rather than a
+				     test value: the user confirmed on 2026-09-27 that egg sacs are fine hatching
+				     newborns. Nothing else in the hatch depends on it. -->
+				<biologicalAge>0</biologicalAge>
 			</li>
 			<li Class="CompProperties_SpawnEffecterOnDestroy">
 				<effect>CocoonDestroyed</effect>

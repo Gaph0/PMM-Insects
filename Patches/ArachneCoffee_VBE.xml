@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Coffee is alcohol for an arachne (user's call 2026-09-27: "all beverages with caffeine; tea,
+		coffee, iced coffee, every beverage from the coffees and tea VBE mod").
+
+		One xpath, no drink list to maintain. Every caffeinated drink keys its effects on the same
+		chemical: VBE's coffee and iced coffee both carry a doer with `toleranceChemical VBE_Caffeine`
+		for the high and another for the tolerance, and energy drinks do the same, so matching on that
+		chemical catches all of them - and any caffeinated drink another mod adds later. Drinks whose
+		caffeine is only a drug comp are caught by the second half of the predicate.
+
+		The doer is *appended*, which is the point: ingestible outcome doers run in list order, so ours
+		runs after the drink has applied its caffeine, reads that severity, hands her the same amount of
+		intoxication, and strips the caffeine hediffs the drink just added. See
+		Source/Insects/CoffeeDrunk.cs. Stripping the tolerance is what keeps a caffeine addiction from
+		ever starting; an addiction she already has is left alone (the user's call), so coffee no longer
+		feeds it and it will go into withdrawal.
+
+		`severityFactor` is the one dial, and 0.15 is what it is set to: one coffee is one beer. The user
+		asked for a straight mirror, but every caffeine high in this load order is severity 1, and one
+		point of AlcoholHigh is past its blackout stage - their first test had an arachne black out from a
+		single black coffee. At 0.15 she warms up on one coffee (vanilla's stages are tipsy at 0.25, drunk
+		at 0.4, hammered at 0.7), so it takes about two for tipsy, three for drunk and six to black out.
+		Worth knowing before raising it: the caffeine severity is 1 for every drink in this mod, so this
+		factor is the only thing that decides how drunk any of them leave her.
+		`severityFallback` covers a drink whose caffeine rides a chemical rather than a doer.
+
+		Gated on either VBE mod being loaded, by display name (`PatchOperationFindMod` matches any name in
+		its list, and compares against ModMetaData.Name rather than a packageId). Without them the xpath
+		would match nothing, and a patch operation that matches nothing is an error in the log.
+	-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Brewing Expanded</li>
+			<li>Simple Immersion - VBE Coffees and Teas</li>
+		</mods>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[ingestible/outcomeDoers/li[toleranceChemical="VBE_Caffeine"] or comps/li[chemical="VBE_Caffeine"]]/ingestible/outcomeDoers</xpath>
+			<value>
+				<li Class="PMM_Insects.IngestionOutcomeDoer_CoffeeDrunk">
+					<race>PMM_Race_Arachne</race>
+					<caffeine>VBE_Caffeine</caffeine>
+					<drunkHediff>AlcoholHigh</drunkHediff>
+					<severityFactor>0.15</severityFactor>
+					<severityFallback>0.15</severityFallback>
+				</li>
+			</value>
+		</match>
+	</Operation>
+
+</Patch>

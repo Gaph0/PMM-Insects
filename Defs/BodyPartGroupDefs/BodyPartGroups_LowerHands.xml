@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The lower pair of hands, for every abaddon: the queen and her soldier daughters
+		share one body (PMM_Body_FourArmedWinged), so they share these groups.
+
+		Vanilla decides whether a melee tool is usable by looking at the parts in its
+		linkedBodyPartsGroup: destroy those parts and the tool is gone. Big & Small's own
+		four-armed race leaves both pairs in vanilla's LeftHand / RightHand, which makes
+		the two pairs break together - lose the upper hands and the lower fists stop
+		working too, which is the opposite of what a second pair of arms is for.
+
+		So the lower hands get groups of their own, and a lower fist points at these.
+		Two extra hands then mean what they should mean: four arms that fail separately.
+		Nothing else references these groups - no apparel covers a hand by group name in
+		vanilla, and PMM_Body_FourArmedWinged is the only body that uses them. The queen
+		has no lower fists linked here (her second pair is structural, by the user's
+		call), so for her the groups are only about where a lower hand can be hit.
+	-->
+	<BodyPartGroupDef>
+		<defName>PMM_LowerLeftHand</defName>
+		<label>lower left fist</label>
+		<labelShort>lower fist</labelShort>
+		<listOrder>77</listOrder>
+	</BodyPartGroupDef>
+
+	<BodyPartGroupDef>
+		<defName>PMM_LowerRightHand</defName>
+		<label>lower right fist</label>
+		<labelShort>lower fist</labelShort>
+		<listOrder>76</listOrder>
+	</BodyPartGroupDef>
+
+</Defs>

@@ -2,11 +2,11 @@
 <Defs>
 
 	<!--
-		The six insect momo xenotypes. Every one carries ProjectMomo_Momo +
+		The six insect mamono xenotypes. Every one carries ProjectMamono_Mamono +
 		PMM_Gene_Insect (chitin, feelers) and is inheritable, all-female and excluded
 		from the factionless spawner (factionlessGenerationWeight 0 - they only enter
 		the world in the two insector tribes). The bulk of each species' stats lives
-		on its race def (Races_InsectMomo_BS.xml); the genes here add the MGE
+		on its race def (Races_InsectMamono_BS.xml); the genes here add the MGE
 		flavour on top. Gene defNames verified against Core/Biotech 1.6.
 
 		Each xenotype also declares its race with Big & Small's XenotypeExtension
@@ -27,13 +27,13 @@
 	<XenotypeDef>
 		<defName>PMM_InsectDevilBug</defName>
 		<label>devil bug</label>
-		<description>An insect momo of swarms and dark, damp places. Her feelers quiver at the scent of a man from rooms away, and once she has the smell of him she never tires and never stops - hunger and lust are the only thoughts she has room for.</description>
-		<descriptionShort>A simple, tireless insect momo who hunts men by scent.</descriptionShort>
+		<description>An insect mamono of swarms and dark, damp places. Her feelers quiver at the scent of a man from rooms away, and once she has the smell of him she never tires and never stops - hunger and lust are the only thoughts she has room for.</description>
+		<descriptionShort>A simple, tireless insect mamono who hunts men by scent.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_DevilBug</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>MoveSpeed_Quick</li>
 			<li>AptitudeRemarkable_Animals</li>
@@ -53,7 +53,7 @@
 			     PMM_Gene_Insect carries that effect itself, in
 			     Source/Insects/InsectPheromones.cs. -->
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -72,13 +72,13 @@
 	<XenotypeDef>
 		<defName>PMM_InsectGiantAnt</defName>
 		<label>giant ant</label>
-		<description>A worker caste momo of the deep nests. Honest and diligent, she digs through solid rock and carries loads larger than herself without complaint - though the pheromones in her sweat grow heavier the harder she works.</description>
-		<descriptionShort>A diligent, strong insect momo born to dig and haul.</descriptionShort>
+		<description>A worker caste mamono of the deep nests. Honest and diligent, she digs through solid rock and carries loads larger than herself without complaint - though the pheromones in her sweat grow heavier the harder she works.</description>
+		<descriptionShort>A diligent, strong insect mamono born to dig and haul.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_GiantAnt</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>AptitudeRemarkable_Mining</li>
 			<li>AptitudeRemarkable_Construction</li>
@@ -93,7 +93,7 @@
 			<li>VRE_Dormant</li>
 			<li>VRE_LowGreyMatter</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -113,12 +113,12 @@
 		<defName>PMM_InsectSoldierBeetle</defName>
 		<label>soldier beetle</label>
 		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, her claws are ripper-blades, and hidden beneath the carapace on her back are wings for short bursts of flight. Calm, obedient and nearly expressionless - until she chooses a man to escort.</description>
-		<descriptionShort>An armoured, obedient insect momo with ripper claws and hidden wings.</descriptionShort>
+		<descriptionShort>An armoured, obedient insect mamono with ripper claws and hidden wings.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_SoldierBeetle</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>Robust</li>
 			<li>PMM_Gene_FlightWeak</li>
@@ -136,7 +136,7 @@
 			<li>VRE_InefficientMidgut</li>
 			<li>VRE_Stenothermic</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -155,13 +155,13 @@
 	<XenotypeDef>
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectGreenworm</defName>
 		<label>greenworm</label>
-		<description>A soft-bodied, gentle momo who loves nothing more than eating. Her antennae secrete a strange-smelling substance that saps the strength of anything that threatens her - and she spits the same sludge in fright.</description>
-		<descriptionShort>A soft, gentle insect momo who spits acidic sludge.</descriptionShort>
+		<description>A soft-bodied, gentle mamono who loves nothing more than eating. Her antennae secrete a strange-smelling substance that saps the strength of anything that threatens her - and she spits the same sludge in fright.</description>
+		<descriptionShort>A soft, gentle insect mamono who spits acidic sludge.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Greenworm</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>AptitudeRemarkable_Construction</li>
 			<!-- VRE Insector (HANDOFF §5.3): a hive builder like the ant, and a
@@ -174,7 +174,7 @@
 			<li>VRE_RobustMidgut</li>
 			<li>VRE_Immunodeficiency</li>
 			<li>VRE_HypothermicHibernation</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -195,12 +195,12 @@
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectVampMosquito</defName>
 		<label>vamp mosquito</label>
 		<description>The vampire of the insect world. Cunning and mean, she stalks her prey on buzzing wings and strikes when their guard drops. Her bite carries a venom that makes the wound hot and throbbing - and only her touch soothes it. She drinks blood most greedily in her lover's arms.</description>
-		<descriptionShort>A winged, blood-drinking insect momo with a venomous bite.</descriptionShort>
+		<descriptionShort>A winged, blood-drinking insect mamono with a venomous bite.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_VampMosquito</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>PMM_Gene_FlightWeak</li>
 			<li>Beauty_Beautiful</li>
@@ -208,14 +208,14 @@
 			     learns fast and reads people - and AntimicrobialPeptides keeps her
 			     mending. AcidBlood and WeakenedChitin pay for both: her blood smokes
 			     with tox gas when she is cut, and her shell is thin. That gas is a
-			     gift to a raider, since every momo is immune to it now and the
+			     gift to a raider, since every mamono is immune to it now and the
 			     player's people are not. Two and two. -->
 			<li>VRE_HighGreyMatter</li>
 			<li>VRE_AntimicrobialPeptides</li>
 			<li>VRE_AcidBlood</li>
 			<li>VRE_WeakenedChitin</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -235,31 +235,69 @@
 		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_InsectAbaddon</defName>
 		<label>abaddon</label>
 		<description>Daughter of the bug mamono lord who nearly devoured the world in antiquity. Quiet and spacey rather than ferocious, but her appetite - and her fertility - are without limit. Her pheromones command the swarm, her wingbeats shake the heavens, and once she devotes herself to a man it is for life.</description>
-		<descriptionShort>A sleepless queen momo of limitless appetite and fertility.</descriptionShort>
+		<descriptionShort>A sleepless queen mamono of limitless appetite and fertility.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Abaddon</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
-			<li>ProjectMomo_Momo</li>
+			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>PMM_Gene_Flight</li>
-			<li>AptitudeRemarkable_Social</li>
 			<li>AptitudeStrong_Intellectual</li>
-			<!-- VRE Insector (HANDOFF §5.3), the royal package: SwarmSynapse is
-			     Sorne's pherocore gene, SpawningSack is her fertility, and
-			     SlowedLifeCycle means she never ages. Her three prices:
-			     ProteinDenaturation (sunlight burns her, so she keeps to the hive),
-			     HypothermicHibernation (she sleeps through the cold) and
-			     HardLockedJoints (she waddles, she does not walk). Three and three,
-			     as the geneline picker demands. -->
+			<!-- The royal package, reworked to the user's list of 2026-09-26, then two more
+			     passes the same day. The gifts: swarm synapse (the hive mind), slowed life
+			     cycle (she never ages), vocal glands (a human voice, and a song most people
+			     call beautiful), robust midgut (raw food feeds her properly and never
+			     sickens her) and her sheer size. The costs: colossal hunger, dormancy,
+			     hard-locked joints and a body that sleeps through the cold.
+
+			     Four evolutions against four mutations, the 4/4 §5.3 asks for, held across
+			     every pass by swapping like for like: the inefficient midgut out for the
+			     stiff joints (she pays for her size with a slow walk, not a bottomless
+			     stomach), then parthenogenesis out for the robust midgut. She conceives no
+			     children at all now - the vanilla `Sterile` gene below sees to that - so her
+			     egg sac is the only way to more abaddons (§5.11). Sterile is a plain vanilla
+			     GeneDef, not one of VRE's pools, so it costs the 4/4 nothing: it pays 1
+			     metabolism instead, and it takes the `Fertility` tag back that
+			     parthenogenesis gave up. What makes it bite is the core mod's
+			     `MamonoFertilityPatch.DeliberatelySterile`, not anything in this mod.
+
+			     Gone from her old package along the way: the spawning sack, protein
+			     denaturation (sunlight burned her) and the two genes swapped above. She
+			     keeps to the dark because she wants to now, not because the sun forbids it. -->
 			<li>VRE_SwarmSynapse</li>
-			<li>VRE_SpawningSack</li>
+			<li>VRE_RobustMidgut</li>
 			<li>VRE_SlowedLifeCycle</li>
-			<li>VRE_ProteinDenaturation</li>
-			<li>VRE_HypothermicHibernation</li>
+			<li>VRE_VocalGlands</li>
+			<li>VRE_Colossal</li>
+			<li>VRE_Dormant</li>
 			<li>VRE_HardLockedJoints</li>
+			<li>VRE_HypothermicHibernation</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per momo. -->
+			<!-- No natural children, ever: vanilla's `Sterile` (Fertility x0, `sterilize`,
+			     1 metabolism). It holds the shared `Fertility` exclusion tag, it explains itself
+			     in her gene list, and it is the whole lock - no race stat, no hediff, no extra
+			     gene. What makes it bite lives in the core mod, not here: the Mamono fertility
+			     protection used to hold every mamono at 100% whatever her genes said, and
+			     `MamonoFertilityPatch.DeliberatelySterile` now stands aside for a pawn whose
+			     barrenness is deliberate - a gene with `sterilize`, or a hediff that prevents
+			     pregnancy. Vanilla's own words for the gene - "Carriers of this gene cannot
+			     reproduce by natural means" - are true of her. -->
+			<li>Sterile</li>
+			<!-- Body, head and antennae: the same two genes her soldier daughters carry,
+			     and they do not collide with the chitin tones (body/fur tags against the
+			     tones' vanilla SkinColorOverride - see the folk's note). -->
+			<li>VRE_InsectSkin</li>
+			<li>VRE_InsectAntennae</li>
+			<!-- Her abdomen. The real spawning sack is out on a tag, as it always was: the
+			     shared `Fertility` tag it fights over is held by `Sterile` now instead of by
+			     parthenogenesis. VRE ships the look alone as VRE_SpawningSack_Cosmetic: same
+			     attachment node, same texture, same skin-colour tint, and no stat work at
+			     all. Its one exclusion tag is `Tail`, so it would clash with a tail gene -
+			     and she has none. Pure looks: the sacks say what she is without doing
+			     anything. -->
+			<li>VRE_SpawningSack_Cosmetic</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
 			<li>PMM_Skin_ChitinPale</li>
 			<li>PMM_Skin_ChitinOlive</li>
 			<li>PMM_Skin_ChitinMoss</li>
@@ -269,6 +307,207 @@
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Abaddon</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- Abaddon Folk (soldier bugs): the swarm's infantry, and the seventh species
+	     here. No spawn source: no pawn group and no faction roster names her, so read
+	     the header on PMM_Race_AbaddonFolk in Defs/ThingDefs/Races_InsectMamono_BS.xml
+	     before giving her one. Her pawn kind
+	     (Defs/PawnKindDefs/PawnKinds_AbaddonFolk.xml) exists so she can be spawned by
+	     name - dev mode and the like - rather than only converted out of someone else.
+	     Both ways give the body: core's XenotypeRacePatch applies the race a xenotype
+	     declares whenever a living pawn is given one, which is what used to be missing
+	     when this species was tested through dev "apply xenotype".
+
+	     Her gene list is the user's list of 2026-09-25. Two notes on where it
+	     differs from a literal reading of it:
+
+	     * "Insect pheromones" is covered by PMM_Gene_Insect, which carries the
+	       behaviour itself (Source/Insects/InsectPheromones.cs), so VRE's
+	       VRE_InsectPheromones is deliberately absent - it is a bare flag whose two
+	       Harmony patches are the ones we copied. Listing it would add a second
+	       copy of one thing and read as live support for a feature nobody owns.
+	     * "Insect skin" is VRE's VRE_InsectSkin, the user's call, taken knowing it
+	       overrides the chitin tones with VRE's insect body and forces one of VRE's
+	       four insect head shapes. It does not make the five PMM_Skin_Chitin genes
+	       pointless: its fur is drawn with the pawn's skin colour
+	       (`useSkinColorForFur` in its VEF.Genes.GeneExtension), so her shell still
+	       takes the tone she rolled.
+
+	     Balance follows VRE's own geneline rule, two evolutions against two
+	     degrades: swarm synapse and hardened chitin against microsized and
+	     inefficient midgut. The jelly dependency and the cosmetic antennae sit
+	     outside that count. -->
+	<XenotypeDef>
+		<defName>PMM_InsectAbaddonFolk</defName>
+		<label>abaddon folk</label>
+		<description>One of the countless soldier bugs of an abaddon's swarm. Petite where her queen is vast, she is built for the swarm rather than for herself: she reads the swarm's orders in the pheromones in the air, shares her sisters' endless hunger for jelly, and once she has a man for her own she tends him as calmly and as constantly as she tends her post.</description>
+		<descriptionShort>A petite soldier bug of the abaddon swarm, who lives by pheromones.</descriptionShort>
+		<!-- Placeholder: the queen's crest, until she has art of her own. It is the
+		     same family, and a missing path would only log a texture error. -->
+		<iconPath>UI/Icons/Xenotypes/PMM_Abaddon</iconPath>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<!-- The mod's own insect gene: chitin skin and base tone, feelers, full
+			     toxin immunity, insect flesh as her own kind's meat, and the pheromones
+			     that keep wild insectoids off her. -->
+			<li>PMM_Gene_Insect</li>
+			<!-- Two evolutions and two degrades, the geneline balance VRE's own
+			     picker demands. SwarmSynapse is the linked hive mind; HardenedChitin
+			     turns a quarter of every hit; Microsized makes her the smallest thing
+			     in the swarm; InefficientMidgut is the appetite that pays for the
+			     other three. -->
+			<li>VRE_SwarmSynapse</li>
+			<li>VRE_HardenedChitin</li>
+			<li>VRE_Microsized</li>
+			<li>VRE_InefficientMidgut</li>
+			<!-- Jelly on the fighting castes only. She is one of them. -->
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Body, head and antennae. Two gene groups, and they do not collide:
+			     VRE_InsectSkin's exclusion tags are body and fur tags, while the five
+			     chitin genes below carry vanilla's SkinColorOverride tag, so vanilla's
+			     randomChosen picker (Pawn_GeneTracker.Notify_GenesChanged) keeps one
+			     chitin tone and leaves both other genes alone. The antennae gene is
+			     randomChosen too, but nothing else here shares its Antenna tags, so it
+			     simply stays. -->
+			<li>VRE_InsectSkin</li>
+			<li>VRE_InsectAntennae</li>
+			<!-- Weak flight, the same gene the soldier beetle and the vamp mosquito
+			     carry: she flies in short bursts, so she is no caravan mount and carries
+			     no passenger. -->
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- Poor at talking - she answers to the swarm, not to people. An aptitude
+			     changes how fast she learns to deal with others, not how good she is at
+			     it today. -->
+			<li>AptitudePoor_Social</li>
+			<!-- Great at fighting, by contrast: +8 melee aptitude and a passion level,
+			     so a soldier bug is born knowing her trade (user, 2026-09-25). Both
+			     aptitudes sit outside the evolution/degrade count. -->
+			<li>AptitudeRemarkable_Melee</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono, so each
+			     sister in a swarm has her own shade. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_AbaddonFolk</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- ===================== Arachne (2026-09-26) ===================== -->
+	<!-- Species identity through aptitudes and VRE's insect kit, with B&S's spider body
+	     forced at generation through XenotypeExtension/setRace - the same route the folk
+	     xenotype above uses, so a generated pawn and dev "apply xenotype" both end up with
+	     eight legs (core's XenotypeRacePatch covers the dev path).
+
+	     Deliberately NOT on her: VRE_InsectSkin and VRE_InsectAntennae, which the swarm's
+	     other species wear. Her upper body is the spider's own art
+	     (BS_SpooderGraphicSetUpper), and an insect fur body or insect head would fight it.
+	     She stays an insect mamono through PMM_Gene_Insect - insect flesh, feelers, toxin
+	     immunity, the shared skin base - and through the five chitin tones.
+
+	     Look variant: settled 2026-09-26. B&S ships no Synthread and no Devilstrand body gene -
+	     those two names appear only in its own gene-page settings and have no def behind them in
+	     this install (the user checked in game) - and the stock spider body renders clean, so
+	     there is no variant to add and none to fake.
+
+	     Tribe-only: factionlessGenerationWeight 0, so she never turns up in a random pawn
+	     or a factionless event. Her spawn table entry and the line that lets an abaddon lay
+	     her come next; until then she is reachable in dev mode. -->
+	<XenotypeDef>
+		<defName>PMM_InsectArachne</defName>
+		<label>arachne</label>
+		<description>A weaver of the deep dark, patient and cruel, with eight legs and a silk sac.</description>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<!-- A big spider is a caravan animal (user's call 2026-09-26): core's large frame,
+			     the same gene the soldier beetle carries. 20% for any caravan she joins, and
+			     caravans count her as a riding animal. It changes no size stat, so her race's
+			     1.3 pair is untouched, and its PMM_CaravanCarrier tag costs nothing here
+			     because she carries no flight gene. -->
+			<li>PMM_Gene_LargeFrame</li>
+			<!-- The mind and the hands of a weaver: good, not great - user vocabulary
+			     2026-09-26, "good" is AptitudeStrong and "great" is AptitudeRemarkable. -->
+			<li>VRE_HighGreyMatter</li>
+			<li>AptitudeStrong_Intellectual</li>
+			<li>AptitudeStrong_Crafting</li>
+			<li>AptitudePoor_Animals</li>
+			<li>AptitudePoor_Plants</li>
+			<!-- The voice, and the moods that come with it. -->
+			<li>VRE_VocalGlands</li>
+			<li>VRE_InsectVolatile</li>
+			<!-- A creature of the dark: sunlight burns her, and the hive's jelly feeds her. -->
+			<li>VRE_ProteinDenaturation</li>
+			<li>VRE_InsectJellyDependency</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Arachne</setRace>
+				<forceRace>true</forceRace>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- The fly (2026-09-27). The user's gene list, in their order, with the defName each one
+	     actually is in this load order: "sensitive brain" is VRE's sensitive brain goop, "fast
+	     movement" is vanilla's MoveSpeed_VeryQuick, "enhanced psychic sensitivity" is vanilla's
+	     PsychicAbility_Enhanced. Weak flight was asked for afterwards and comes from the core
+	     mod, the same gene the soldier beetle and the vamp mosquito carry. Tribe-only like every
+	     mamono here: factionlessGenerationWeight 0, and her spawn-table entries are in
+	     Factions_InsectorTribes.xml, hostile tribe only. -->
+	<XenotypeDef>
+		<defName>PMM_InsectBeelzebub</defName>
+		<label>beelzebub</label>
+		<description>A lord of gluttony among the swarm's flies: tiny, quick, magically potent and always hungry.</description>
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<!-- The eight the user asked for. -->
+			<li>VRE_SensitiveBrainGoop</li>
+			<li>VRE_RobustMidgut</li>
+			<li>VRE_WeakenedChitin</li>
+			<li>VRE_Microsized</li>
+			<li>VRE_InsectJellyDependency</li>
+			<li>VRE_InsectAntennae</li>
+			<li>MoveSpeed_VeryQuick</li>
+			<li>PsychicAbility_Enhanced</li>
+			<!-- Weak flight (user, 2026-09-27). The core mod's own gene for thin wings: it lifts
+			     only her, so she leaps a short way and carries nobody. This is the exact gene on
+			     the soldier beetle and the vamp mosquito, wings and ability both. It also swaps
+			     in the winged body and puts our small wings on her. -->
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
+			<li>PMM_Skin_ChitinPale</li>
+			<li>PMM_Skin_ChitinOlive</li>
+			<li>PMM_Skin_ChitinMoss</li>
+			<li>PMM_Skin_ChitinUmber</li>
+			<li>PMM_Skin_ChitinDark</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Beelzebub</setRace>
 				<forceRace>true</forceRace>
 			</li>
 		</modExtensions>

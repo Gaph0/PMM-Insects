@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		Insect-mamono races on the Big & Small pattern (Route A, Phase 5).
+
+		Each species is two defs:
+		1. A ThingDef on ParentName="Human" carrying BigAndSmall.RaceExtension ->
+		   its race-tracker hediff. Stats that must live race-level (baseBodySize,
+		   baseHealthScale, baseHungerRate, insect flesh/blood/meat, melee tools)
+		   stay on the ThingDef, overlaid 1:1 from the bug it replaces - same as
+		   the old BasePawn clones.
+		2. A race-tracker HediffDef (ParentName="BS_DefaultRaceTracker") holding
+		   the pawn-level statBases as a stat stage, plus the RaceExtension for
+		   B&S race handling (romance tags, size scaling).
+
+		The three winged castes carry a second tracker, Big & Small's own
+		BS_HumanoidWithWings_Race, through raceHediffList - that one draws the wings.
+		Merging the two into one def was tried on 2026-09-20 and RimWorld refused to
+		load it: a node is registered for XML inheritance only when it carries a
+		<Name> attribute (XmlInheritance.TryRegister never reads "defName"), and B&S
+		declares its trackers with <defName> alone. The log then fills with "Could not
+		find parent node named BS_HumanoidWithWings_Race" and the tracker loads with
+		no art and no comps. One row would mean our tracker declaring its own copy of
+		the wing render nodes (referencing B&S's GraphicSetDefs by name); that waits on
+		a decision. Never declare <comps> on a tracker whose parent is B&S's own
+		tracker either: child list nodes merge into the parent's, so the pawn ends up
+		with two race comps.
+
+		What Route A buys over the old BasePawn clones:
+		- B&S's scaler reads baseBodySize and renders bug girls at their real size
+		  (0.2 devil bug scuttling at your feet, 2.0 Abaddon overhead) with working
+		  camera/melee handling - vanilla humanlikes always drew at 1x.
+		- Race features become composable PawnExtensions/tracker stages instead of
+		  a monolithic race clone, so genes and xenotypes layer cleanly on top.
+		- The chitin render tag (PMM_ChitinGraphics) is wired into core's color
+		  channels, ready for exoskeleton art later.
+
+		This file is the ONLY source of race defs - the old BasePawn clone file
+		(Races_InsectMamono.xml) was deleted 2026-09-20; its six defNames live here.
+
+		lifeExpectancy: never add it to a species here. Human base gives 80 for
+		free, and that is the number we want. The bugs' own lifeExpectancy (4-75y)
+		sits far below HumanlikeAdult's minAge of 18, so PawnGenerator's age curve
+		could not roll a valid adult age -> "Tried 300 times to generate age".
+		Mamono are functionally ageless anyway (core's Mamono gene stops fertility
+		decline and old-age ailments). This is the ONE stat not copied 1:1 from
+		the bugs - not even the queen's 75. Re-adding it breaks age generation.
+	-->
+
+	<!-- ===================== Devil Bug (was: Megascarab, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_DevilBug</defName>
+		<label>devil bug</label>
+		<description>An insect mamono born of the megascarab. Her feelers never stop twitching, scenting the sweat and mana of men, and she scuttles after what she smells with tireless, simple-minded hunger.</description>
+		<statBases>
+			<MoveSpeed>3.75</MoveSpeed>
+			<!-- Armor moved OUT of statBases: it lives on the race tracker as a
+			     hediff stat stage now, so ALL pawn-level toughness sits in one
+			     hidden hediff (user ruling 2026-09-19). It no longer doubles with
+			     gear or reads as a race quirk on the info card. -->
+			<!-- Visual/mechanical size for B&S. The scaler does NOT read baseBodySize
+			     for the render size of humanlikes - it reads the SM_BodySizeMultiplier
+			     STAT (this is how B&S's own Centaur declares 1.15x). Without this the
+			     devil bug rendered at 1.0 no matter what baseBodySize said.
+			     Set to match baseBodySize 0.6: a short woman, not doll-sized. -->
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>100</MarketValue>
+			<!-- 30 chitin a corpse, the value VFEI2's own insect races carry. Human
+			     would give 75 of whatever leather it wears. -->
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<!-- Race-level insect identity, copied 1:1 from the old BasePawn clone:
+			     insect flesh and ichor, bug meat when butchered, and the bug's size
+			     package. B&S reads baseBodySize for render scaling; large races get
+			     renderCacheOff automatically in the scaler.
+			     baseBodySize raised 0.2 -> 0.6 (user ruling 2026-09-19): 0.2 was the
+			     megascarab's literal size and rendered her doll-small. 0.6 is a short
+			     woman. Health scale and hunger stay at the bug's values. -->
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Chitin over a tiny frame: PMM_Insects.HealthScalePatch (Harmony)
+			     multiplies HealthScale for PMM_Race_* defs x2.5. Vanilla HealthScale
+			     drives every body part's max HP, limbs AND organs:
+			     0.4 base x 2.5 = 1.0 effective, so her 8-HP arm becomes ~20 HP.
+			     Punches bruise instead of amputating. Race-level, no gene stacking.
+			     (The factor lives in HealthScalePatch.cs - RaceProperties has no
+			     such field, and inventing one throws XML errors at load.) -->
+		</race>
+		<!-- A daughter of the swarm is fed by the hive: standing near a nest (a Hive)
+		     tops up her hunger and mana. See HiveNourishment.cs. -->
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_DevilBug</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Devil Bug race tracker. Auto-applies on spawn via RaceExtension.
+	     Armor lives here as a stat stage, not on race statBases: one hediff
+	     carries every pawn-level toughness knob (a statBases copy too would
+	     STACK - she showed 1.44 sharp in-game that way). Stays visible in
+	     the Health tab like every B&S race tracker - RaceTracker hardcodes
+	     Visible = true, and we follow the framework.
+	     No renderNodeProperties yet - exoskeleton art comes later through
+	     PMM_ChitinGraphics. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_DevilBug</defName>
+		<label>devil bug</label>
+		<description>A devil bug mamono of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<!-- The bug's armor, moved here from race statBases. -->
+				<statOffsets>
+					<ArmorRating_Sharp>0.72</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<!-- Hard shell, squishy inside: internal damage is divided by 3
+				     (damage / idd in B&S's pipeline, so 3 = internal organs take a
+				     third). Blades glance off chitin or punch through without quickly
+				     pulping anything vital. She still bleeds, still goes down - she
+				     just stops dying outright. B&S's naga uses 0.4 for a FRAILE race;
+				     we want the opposite. -->
+				<internalDamageDivisor>3</internalDamageDivisor>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+
+	<!-- ===================== Giant Ant (was: Spelopede, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_GiantAnt</defName>
+		<label>giant ant</label>
+		<description>An insect mamono born of the spelopede. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
+		<statBases>
+			<MoveSpeed>3.65</MoveSpeed>
+			<SM_BodySizeMultiplier>0.8</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>200</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>digging claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.8</baseBodySize>
+			<baseHealthScale>1.7</baseHealthScale>
+			<baseHungerRate>0.25</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_GiantAnt</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_GiantAnt</defName>
+		<label>giant ant</label>
+		<description>A giant ant mamono of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.18</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Soldier Beetle (was: Megaspider, Core) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_SoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>An insect mamono born of the megaspider. Her exoskeleton is armour from birth, her claws ripper-blades; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
+		<statBases>
+			<MoveSpeed>3.60</MoveSpeed>
+			<SM_BodySizeMultiplier>1.2</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>500</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>ripper claws</label>
+				<capacities><li>Cut</li></capacities>
+				<power>12</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.2</baseBodySize>
+			<baseHealthScale>2.5</baseHealthScale>
+			<baseHungerRate>0.35</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Race-level wings, same reason as the vamp mosquito: the flight
+			     gene cannot swap the body of a pawn with her own race def. -->
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_SoldierBeetle</raceHediff>
+				<!-- Wing renderer, same as the vamp mosquito's. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_SoldierBeetle</defName>
+		<label>soldier beetle</label>
+		<description>A soldier beetle mamono of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Greenworm (was: Larva, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Greenworm</defName>
+		<label>greenworm</label>
+		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
+		<statBases>
+			<MoveSpeed>2.0</MoveSpeed>
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>35</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Same ruling as Devil Bug: 0.2 literal bug size renders doll-small;
+			     0.6 is a short woman. HealthScalePatch x2.5 covers her 0.25
+			     baseHealthScale, same as the devil bug's 0.4. -->
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.25</baseHealthScale>
+			<baseHungerRate>0.10</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="CompProperties_SpreadSludge">
+				<mtbTicks>15000</mtbTicks>
+				<abilityDef>SludgeSpew</abilityDef>
+				<tryAvoidSludge>true</tryAvoidSludge>
+			</li>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Greenworm</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Greenworm</defName>
+		<label>greenworm</label>
+		<description>A greenworm mamono of the swarm.</description>
+		<!-- No armor stage: the larva has none. Soft-bodied, exactly as the bug. -->
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Vamp Mosquito (was: Locust, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_VampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>An insect mamono born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
+		<statBases>
+			<MoveSpeed>3.0</MoveSpeed>
+			<SM_BodySizeMultiplier>0.6</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>120</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin, the same
+			     30 per corpse they use, so a dead insector feeds the economy the
+			     tribes trade in. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.6</baseBodySize>
+			<baseHealthScale>0.7</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Wings live on the race, not on the flight gene. B&S's gene path
+			     (Genes/GenePatches.cs) swaps with force:false and targetPriority:0,
+			     and a race def that isn't literally Human keeps priority 200 - so
+			     her own def always wins the fusion fallback and the gene's body
+			     swap is silently refused. This body is what gives her real BS_Wing
+			     parts; the winged tracker below draws them. -->
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_VampMosquito</raceHediff>
+				<!-- B&S's winged tracker: draws her full wings for anything without
+				     the flight gene. A weak-flight carrier has no Flagger, so this
+				     tracker blanks itself and the gene's smaller wings show instead.
+				     The strong flight gene raises the flags, so an abaddon keeps
+				     these full-size wings. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_VampMosquito</defName>
+		<label>vamp mosquito</label>
+		<description>A vamp mosquito mamono of the swarm.</description>
+		<!-- No armor stage: the locust has none. Fragile flyer, exactly as the bug. -->
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Abaddon (was: HiveQueen, Odyssey) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName MayRequire="Ludeon.RimWorld.Odyssey">PMM_Race_Abaddon</defName>
+		<label>abaddon</label>
+		<description>An insect mamono born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters - her pheromones command the swarm and stir every man who smells them.</description>
+		<statBases>
+			<MoveSpeed>3.4</MoveSpeed>
+			<!-- Queen size (user's call 2026-09-26): body size 2.00, down from 4.65.
+			     The arithmetic, all of it confirmed in game: B&S multiplies this stat by
+			     baseBodySize, and VRE_Colossal then adds its +0.65 VEF_BodySize_Offset on
+			     top as a flat offset. So 1.1619 * 1.1619 + 0.65 = 2.00. The pair is kept
+			     equal on purpose, as everywhere else in this file; the old 2.0/2.0 pair
+			     was 4.0 + 0.65 = 4.65, which is the number the user read off her.
+			     B&S draws a humanlike from this stat, not from baseBodySize, so she also
+			     LOOKS smaller now. If she reads too small for a queen, the dial is the
+			     cosmetic size stat - never this pair, which is the mechanic. -->
+			<SM_BodySizeMultiplier>1.1619</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>2000</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>28</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>queen's claw</label>
+				<capacities><li>Cut</li></capacities>
+				<power>30</power>
+				<cooldownTime>2.6</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>14</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- baseBodySize matches SM_BodySizeMultiplier (1.1619 since 2026-09-26, when
+			     the queen came down from 4.65 to 2.00; the pair was 2.0/2.0 before that).
+			     baseHealthScale stays 9.8: she is still the queen. -->
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human
+			     parent: VFEI2's own insects are skinned for VFEI2_Chitin. The queen
+			     yields the same 30 as her daughters, plus the 150 InsectJelly below. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.1619</baseBodySize>
+			<baseHealthScale>9.8</baseHealthScale>
+			<needsRest>false</needsRest>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Four arms and wings, on the same body as her soldier daughters
+			     (PMM_Body_FourArmedWinged). Those wings are also why a race def has to
+			     declare a body at all: a def that is not literally Human outranks the flight
+			     gene's own body swap (the vamp mosquito lesson above), so the wings live
+			     here and the winged tracker below is what draws them. No lower-arm melee
+			     tools: the user's call was four arms with the second pair structural only. -->
+			<body>PMM_Body_FourArmedWinged</body>
+		</race>
+		<comps>
+			<!-- The auto-cast comp used to sit here (`CompProperties_SpreadSludge` with
+			     `abilityDef PMM_Ability_EggSpew`, mtbTicks 15000). Deleted 2026-09-26 by the
+			     user's call: her egg spew is a player's button and nothing else presses it.
+			     `CompSpreadSludge.CompTick` casts straight through
+			     `ability.verb.TryStartCastOn` with no faction and no `aiCanUse` check, so
+			     leaving it on would have had every nest queen laying brood on her own forever.
+			     The greenworm's identically shaped comp above stays - it points at SludgeSpew,
+			     which lays no eggs. See §5.11. -->
+			<li Class="CompProperties_LetterOnRevealed">
+				<label>Hive queen</label>
+				<text>You've discovered the center of the nest. It's guarded by a massive insect queen!</text>
+				<letterDef>ThreatBig</letterDef>
+			</li>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+			<!-- The brood order (2026-09-26). She remembers which caste she has been told to
+			     lay, and the egg sac she throws carries that choice with it. The list is data:
+			     a new species is one line here, never a code change. `random mamono` draws from
+			     the humanlike entries only, so it can never quietly hand back the swarmling.
+			     The default entry is listed on purpose too - after trying a caste, the player
+			     can hand her the old brood back.
+
+			     Only a queen of the player's faction is offered the menu; a nest queen is not,
+			     and nothing anywhere casts the ability on its own (see §5.11). -->
+			<li Class="PMM_Insects.CompProperties_BroodOrder">
+				<defaultBrood>VFEI2_Swarmling</defaultBrood>
+				<broodOptions>
+					<li><pawnKind>PMM_InsectDevilBug</pawnKind></li>
+					<li><pawnKind>PMM_InsectGiantAnt</pawnKind></li>
+					<li><pawnKind>PMM_InsectSoldierBeetle</pawnKind></li>
+					<li><pawnKind>PMM_InsectGreenworm</pawnKind></li>
+					<li><pawnKind>PMM_InsectVampMosquito</pawnKind></li>
+					<li><pawnKind>PMM_InsectAbaddonFolk</pawnKind></li>
+					<!-- The weaver (2026-09-26). A daughter she can lay on purpose, and one of the
+					     humanlike entries the random draw can hand back - the swarm has no rule
+					     against her. -->
+					<li><pawnKind>PMM_InsectArachne</pawnKind></li>
+					<li><pawnKind>PMM_InsectBeelzebub</pawnKind></li>
+					<li>
+						<randomMamono>true</randomMamono>
+						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
+					</li>
+					<li><pawnKind>VFEI2_Swarmling</pawnKind></li>
+				</broodOptions>
+			</li>
+		</comps>
+		<butcherProducts>
+			<InsectJelly>150</InsectJelly>
+		</butcherProducts>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Abaddon</raceHediff>
+				<!-- Wing renderer, same as the vamp mosquito's. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Abaddon</defName>
+		<label>abaddon</label>
+		<description>An abaddon mamono of the swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.22</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Abaddon Folk (no vanilla bug behind her) ===================== -->
+	<!-- The soldier class of an abaddon's swarm: the soldier bugs that fill the sky
+	     in the thousands and make up the bulk of any swarm an abaddon leads. No
+	     vanilla insect is being replaced here, so nothing is copied 1:1 - her numbers
+	     are set for the role she plays: small, quick, cheap, hard-shelled, and
+	     without much of a self of her own.
+
+	     No spawn source (user ruling 2026-09-25). Neither tribe names her in its
+	     pawnGroupMakers or its `xenotypeSet`, so nothing in the world ever spawns her:
+	     no village raises her and no raid brings her. She does have a pawn kind
+	     (Defs/PawnKindDefs/PawnKinds_AbaddonFolk.xml), added so she can be reached by
+	     name - in dev mode, by a quest, by another mod - because without one she is
+	     invisible to every spawn path there is, dev mode included.
+
+	     Reachable by hand too: a corruptor who is already one imprints her on the
+	     women she takes, since MamonoTransformation.IsMonsterXenotype reads the Mamono gene
+	     rather than a list of defNames. Vanilla's dev "apply xenotype" action works as
+	     well - core's XenotypeRacePatch (Source/ProjectMamono/XenotypeRacePatch.cs) hands
+	     a xenotype's declared race to Big & Small whenever a living pawn is given one,
+	     which is what puts her four arms, wings and chitin on her.
+
+	     Size: 0.36 -> 0.50, at the user's asking (2026-09-25). Her pawn Body size is
+	     not one number from one place, so the arithmetic is worth writing down:
+
+	       vanilla base    baseBodySize 0.9 x lifeStage factor 1          = 0.90
+	       Big & Small     (0.9 x SM_BodySizeMultiplier) - 0.9, ADDED     = -0.09 at 0.9
+	       VEF (microsized) VEF_BodySize_Offset -0.45, ADDED             = -0.45
+	                                                        Body size     = 0.36
+
+	     Both frameworks ADD their offset to Pawn.BodySize (B&S's Pawn_BodySize postfix
+	     adds cache.totalSizeOffset, VEF's VanillaExpandedFramework_Pawn_BodySize adds
+	     cache.bodySizeOffset), so VRE_Microsized does not take 45% off this race - it
+	     takes a flat 0.45 off. Hence a multiplier ABOVE 1 in the statBases below: 0.95
+	     is the B&S half that leaves 0.50 once VEF's -0.45 lands.
+
+	     SM_BodySizeMultiplier is also the knob B&S's scaler reads for how big a
+	     humanlike is drawn (baseBodySize is not), so she draws about 17% larger than
+	     she did at 0.9 - tune this one line if the drawing still reads wrong.
+
+	     Four arms and wings (user, 2026-09-25). Her body is PMM_Body_FourArmedWinged in
+	     Defs/BodyDefs/Body_FourArmedWinged.xml, shared with the abaddon queen: Big &
+	     Small's own four-armed humanlike with their two BS_Wing parts added, generated
+	     by Tools/make_four_armed_winged_body.py.
+	     The lower pair of hands carries body part groups of its own
+	     (Defs/BodyPartGroupDefs/) so the two pairs fail separately, and both pairs
+	     fight - see the tools below.
+
+	     Her extra arms are not drawn yet. Humanlike arms live in the body texture, so
+	     Big & Small's own four-armed race shows two arms as well; the sprite that
+	     fixes it is specced in HANDOFF.md §5.6 and §11 item 9. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_AbaddonFolk</defName>
+		<label>abaddon folk</label>
+		<description>An insect mamono of the swarm's soldier class, called a soldier bug. Small, quick and nearly without a will of her own, she reads her orders out of the air and carries them out without a word - until she has a man of her own, and then she answers to nothing but him.</description>
+		<statBases>
+			<!-- Higher than her sisters on purpose: VRE_HardenedChitin costs her 15% of
+			     her Moving capacity, so the race and the gene roughly cancel out. -->
+			<MoveSpeed>4.0</MoveSpeed>
+			<!-- 1.0556 x 0.9 = 0.95 of the body size, which VEF's microsized offset then
+			     takes to 0.50. See the arithmetic in this def's header: both frameworks
+			     ADD their offsets, so the race has to ask for more than 0.9. -->
+			<SM_BodySizeMultiplier>1.0556</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>150</MarketValue>
+			<!-- 30 chitin a corpse, the value VFEI2's own insect races carry. -->
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<!-- The second pair of arms fights too. Each lower hand sits in a group of
+			     its own, so destroying her upper arms does not silence the lower fists
+			     and the other way round - the reason PMM_LowerLeftHand and
+			     PMM_LowerRightHand exist at all. -->
+			<li>
+				<label>lower left fist</label>
+				<labelNoLocation>lower fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>PMM_LowerLeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>lower right fist</label>
+				<labelNoLocation>lower fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>PMM_LowerRightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>mandibles</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.9</baseBodySize>
+			<!-- 1.0 base: human limbs on a small frame. She is the swarm's rank and
+			     file, not a fortress - the two devil-bug health fixes in
+			     Source/Insects/HealthScalePatch.cs are for races that clone a bug's
+			     tiny scale, and she clones nothing. -->
+			<baseHealthScale>1.0</baseHealthScale>
+			<baseHungerRate>0.20</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Her own body: four arms and wings (Defs/BodyDefs/Body_FourArmedWinged.xml).
+			     The wings must live on the race, not on the flight gene: a race def that
+			     is not literally Human outranks the gene's body swap, so a race without
+			     them would never grow wings (the vamp mosquito lesson above). She is a
+			     weak flyer, so the winged tracker below blanks itself and the gene's
+			     smaller wings are what draws. -->
+			<body>PMM_Body_FourArmedWinged</body>
+		</race>
+		<!-- A daughter of the swarm is fed by the hive: standing near a nest (a Hive)
+		     tops up her hunger and mana. See HiveNourishment.cs. -->
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_AbaddonFolk</raceHediff>
+				<!-- Wing renderer, same as the vamp mosquito's and the soldier beetle's. -->
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_AbaddonFolk</defName>
+		<label>abaddon folk</label>
+		<description>An abaddon folk mamono of the swarm.</description>
+		<!-- No armor stage, and no inner armor either. Her shell is not a race trait
+		     here: VRE_InsectSkin (on her xenotype) already gives sharp 0.27 and blunt
+		     0.18, and VRE_HardenedChitin takes a further quarter off every hit that
+		     lands. Armour from a gene and armour from a tracker STACK, which is the
+		     trap the species' own gene comments warn about, so the tracker stays out
+		     of it and holds the romance tags and the damage divisor only. -->
+		<!-- The lower pair of arms, drawn as an attachment the way B&S draws its own
+		     tail (1.6/SimplyRaces/Defs/Races/TailedHuman/RaceTracker_TailedHuman.xml is
+		     the template this was copied from). colorType Skin, so the sprite takes her
+		     chitin tone, and shader Cutout to match.
+
+		     The art is a PLACEHOLDER: Textures/RaceDefaults/PMM_AbaddonFolk/, written by
+		     Tools/mktex_arms.py. Replace those six PNGs with real art (same names, same
+		     512x512 canvas) and nothing here needs to change.
+
+		     Two knobs to tune in dev mode, because art cannot be judged in XML:
+		     * layers - 2 draws the arms over the body but under clothing, -1 for the
+		       north view, where her own back should hide the middle of the pair. Raise
+		       the 2 towards the apparel range if the arms should show over a shirt.
+		     * drawsize/offsets - copied from B&S's tail; the sprite's own placement
+		       inside its canvas is what actually lines the arms up.
+
+		     No hide-when-lost alt, deliberately. B&S matches a part trigger by
+		     BodyPartDef alone (ConditionalGraphic.PartRecord: bodyPartDef, mirrored,
+		     partMissing, nothing finer), and this body has FOUR parts of the def Arm -
+		     so "an Arm is missing" would blank the lower arms when an upper one is lost.
+		     Always drawn beats wrong for now; HANDOFF.md §5.6 records it. -->
+		<renderNodeProperties>
+			<li Class="BigAndSmall.PawnRenderingProps_Ultimate">
+				<nodeClass>BigAndSmall.PawnRenderNode_Ultimate</nodeClass>
+				<parentTagDef>Body</parentTagDef>
+				<rotDrawMode>Fresh, Rotting</rotDrawMode>
+				<colorType>Skin</colorType>
+				<shader>Cutout</shader>
+				<conditionalGraphics>
+					<texturePaths>
+						<li>RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms</li>
+					</texturePaths>
+				</conditionalGraphics>
+				<drawSize>(0.8,0.8)</drawSize>
+				<drawData>
+					<scaleOffsetByBodySize>true</scaleOffsetByBodySize>
+					<defaultData>
+						<layer>2</layer>
+					</defaultData>
+					<dataNorth>
+						<layer>-1</layer>
+					</dataNorth>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<!-- A hit that gets past the chitin still hurts less inside than it does
+				     a human: internal damage is halved, where the devil bug - a hard
+				     shell around a soft body - divides it by three. She is the swarm's
+				     rank and file, so she sits between a beetle and a grub. -->
+				<internalDamageDivisor>2</internalDamageDivisor>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+	<!-- ===================== Arachne (2026-09-26) ===================== -->
+	<!-- The spidertaur. Her body is Big & Small's own spider, not new art:
+	     `<body>BS_SpiderHybrid</body>` carries the eight-legged lower body - with
+	     `BS_SpiderAbdomen` as a real, damageable part inside it - and B&S's
+	     `BS_SpiderPersonRace` tracker, added through `raceHediffList` and never merged into
+	     ours (the file header explains why merging fails to load), draws the abdomen and
+	     brings B&S's spider numbers with it: MaxNutrition x2, CarryingCapacity x1.5 and a
+	     touch of Manipulation.
+
+	     Race route on purpose, not the gene route the flight gene uses: a `thingDefSwap`
+	     gene silently refuses a race def that is not literally Human (see PMM_Gene_Flight's
+	     note), and she has her own race.
+
+	     Size: the pair below is the queen's mechanic - B&S multiplies SM_BodySizeMultiplier
+	     by baseBodySize, and the pair is kept equal on purpose as everywhere else in this
+	     file - so 1.3 x 1.3 = 1.69: tall, long and heavy, still well under her queen's
+	     2.00. She carries no VRE_Colossal, so nothing adds a flat offset on top. If she
+	     reads wrong in game, the dial is SM_BodySizeMultiplier.
+
+	     No chitin tone and no insect skin here: her upper body is the spider's own art and
+	     her colour comes from the chitin genes in her xenotype. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Arachne</defName>
+		<label>arachne</label>
+		<description>An insect mamono born of the great weavers: a woman's body on a spider's, with eight legs, a silk sac and a cruel patience. She knows exactly how long a caught man can struggle before the struggle is the point.</description>
+		<statBases>
+			<MoveSpeed>3.6</MoveSpeed>
+			<SM_BodySizeMultiplier>1.3</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>400</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>chelicerae</label>
+				<capacities><li>Bite</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<!-- B&S's spider hybrid: the eight-legged silhouette, the abdomen as a real
+			     part, and B&S's own handling of both. -->
+			<body>BS_SpiderHybrid</body>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.3</baseBodySize>
+			<!-- Silk over chitin: 0.4 x HealthScalePatch's 2.5 lands her at a human's 1.0,
+			     so her eight legs and abdomen bruise instead of amputating. -->
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+			<!-- Her silk (user's call 2026-09-26): right-click her to gather it, or let her gather
+			     it herself through the work giver. 25 silk per full cycle and 3 days to fill, so
+			     early gathering is a shorter wait for less, never a loss. Both are tuning dials.
+			     `silkDef` is whichever silk she spins: our own def by default, re-pointed to
+			     Medieval Overhaul's `DankPyon_Silk` by Patches/ArachneSilk_MedievalOverhaul.xml,
+			     because MO's rugs and royal furniture ask for their silk by name. -->
+			<li Class="PMM_Insects.CompProperties_ArachneSilk">
+				<silkDef>PMM_ArachneSilk</silkDef>
+				<silkPerGather>25</silkPerGather>
+				<growthDays>3</growthDays>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Arachne</raceHediff>
+				<raceHediffList>
+					<li>BS_SpiderPersonRace</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Arachne race tracker. Auto-applies on spawn via RaceExtension, and the spider
+	     tracker beside it brings B&S's own spider stats. What is here is the weaver: her
+	     hands, and just enough chitin to turn a knife. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Arachne</defName>
+		<label>arachne</label>
+		<description>An arachne mamono of the swarm: eight legs, a weaver's hands and a silk sac.</description>
+		<stages Inherit="False">
+			<li>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.10</offset>
+					</li>
+				</capMods>
+				<statOffsets>
+					<ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<!-- Her web trap (phase 4, 2026-09-26, user: "Lets do the web trap"): thrown sticky silk that
+		     stuns. Alpha Animals is where the effect comes from, so this reference and the ability def
+		     carry the same `sarg.alphaanimals` gate and neither exists without AA. On the race tracker
+		     rather than on the pawn kind, so it lands on every arachne: dev spawns, daughters laid from
+		     an egg sac, and anything else that generates her. -->
+		<abilities>
+			<li MayRequire="sarg.alphaanimals">PMM_Ability_WebTrap</li>
+		</abilities>
+	</HediffDef>
+
+	<!-- ===================== Beelzebub (2026-09-27; no vanilla bug behind her) ===================== -->
+	<!-- The fly: MGE's "Lord of the flies" and "Lord of gluttony". Her genes are the user's list and
+	     the authority on what she is - sensitive brain, robust midgut, weakened chitin, microsized,
+	     insect jelly dependence, insect antennae, fast movement, enhanced psychic sensitivity - and
+	     everything below only serves them. She is fast because she flies and soft because her chitin is
+	     weakened rather than armoured, which is why her tracker adds no armour of its own: armour from
+	     a gene and armour from a tracker STACK, so a stage there would quietly cancel the gene she is
+	     built around (the trap the abaddon folk's tracker spells out). No vanilla insect is being
+	     replaced here, so nothing is copied 1:1 from one. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Beelzebub</defName>
+		<label>beelzebub</label>
+		<description>A fly mamono of the swarm, called the lord of gluttony by anyone who has fed her. Small enough to sit in a man's lap and quick enough to leave it before his arms close, she eats whatever she finds and covets whatever she finds next.</description>
+		<statBases>
+			<!-- Fast: she is the swarm's flyer, not its brawler. -->
+			<MoveSpeed>4.2</MoveSpeed>
+			<!-- Microsized, and the arithmetic matters: VRE_Microsized carries VEF's flat -0.45 body
+			     size offset, so the race asks for 0.95 of a body for the gene to take her to 0.50 -
+			     1.0556 x 0.9, the same pair the abaddon folk uses, because both frameworks ADD
+			     their offsets instead of multiplying. -->
+			<SM_BodySizeMultiplier>1.0556</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>90</MarketValue>
+			<!-- 30 chitin a corpse, the value VFEI2's own insect races carry. -->
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>6</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<!-- What she feeds with. MGE's fly drinks a man down rather than biting him apart,
+			     so it is a proboscis rather than the mandibles her sisters have. -->
+			<li>
+				<label>proboscis</label>
+				<capacities><li>Bite</li></capacities>
+				<power>5</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>0.9</baseBodySize>
+			<!-- Soft: 0.7 where her sisters carry 1.0. Weakened chitin is the point of her, so she
+			     folds faster than anything else in the swarm. -->
+			<baseHealthScale>0.7</baseHealthScale>
+			<!-- The lord of gluttony eats more than her sisters do; the rest of the swarm sits
+			     between 0.10 and 0.25. A tuning dial. -->
+			<baseHungerRate>0.30</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Wings on the race, not on a gene: a race def that is not literally Human outranks
+			     any body-swap gene, so a race without them would never grow them (the vamp
+			     mosquito lesson). She carries no flight gene - the wings are drawn, they do not
+			     lift her. Add one if she should actually fly. -->
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<!-- Fed by the hive like her sisters: standing near a nest tops up her hunger and mana.
+		     See HiveNourishment.cs. -->
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Beelzebub</raceHediff>
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Beelzebub</defName>
+		<label>beelzebub</label>
+		<description>A beelzebub mamono of the swarm.</description>
+		<!-- Deliberately bare, and the emptiness is the decision. No armour stage: VRE_WeakenedChitin
+		     is already subtracting armour from her, and armour from a gene and armour from a tracker
+		     stack, so a stage here would cancel the gene she is built around. No stat offsets either -
+		     her speed is the race's and her size is the gene's. What is left is what every mamono
+		     tracker needs: the race comp that lets B&S swap her back out of an arachne. -->
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+</Defs>

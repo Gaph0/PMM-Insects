@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Medieval Overhaul compat for arachne silk (user's call 2026-09-26: "an arachne spun out our silk
+		instead of MO's silk, even with MO installed"). Everything here is gated on MO being loaded;
+		without MO the game is untouched and she spins `PMM_ArachneSilk`.
+
+		1. What she spins. Being a `Fabric`/`Textiles` textile is not enough for MO: MO's silk rugs and
+		   royal furniture take their silk as a *named* ingredient - `<DankPyon_Silk>150</DankPyon_Silk>`
+		   in a costList - and no fabric category substitutes for that. So with MO loaded the race's
+		   `CompProperties_ArachneSilk/silkDef` is re-pointed from `PMM_ArachneSilk` to
+		   `DankPyon_Silk`, and a colony running MO has one silk rather than two.
+
+		   Op 1 removes the existing element and op 2 adds the new one, rather than one
+		   `PatchOperationReplace`: `PatchOperationAdd` appends the children of `<value>` (verified in
+		   `XmlContainer.LoadDataFromXmlCustom`, where `node = xmlRoot`), which is unambiguous, and the
+		   two ops always match because the element they touch ships in our own race def. Order matters
+		   - op 2's xpath needs the element to be gone, so op 2 matches the comp without any `silkDef`.
+
+		2. Our own def must not appear from nowhere. With MO loaded nothing produces `PMM_ArachneSilk`
+		   any more, so it is added to the `excludedThingDefs` of every trader generator that stocks the
+		   `Textiles` category. `StockGenerator_Category.GenerateThings` builds stock from
+		   `categoryDef.DescendantThingDefs.Where(t => t.tradeability.TraderCanSell() && ...)` and that
+		   per-generator list is the only per-item escape hatch; nothing in this load order stocks
+		   textiles by tag (`<tag>Textiles</tag>` appears nowhere).
+
+		   Deliberately NOT touched: `tradeability`. `None` would keep the silk off a trader's shelves
+		   but also stop the player selling it. `excludedThingDefs` stops only the *generation* of
+		   trader stock, so a spare bundle can still be sold.
+
+		   51 `StockGenerator_Category` generators stock `Textiles` in this load order and 11 of them
+		   (Core's outlander, neolithic, caravan and orbital kinds, Royalty's empire, plus Keshig and
+		   Forsaken) already carry an `excludedThingDefs` element. Op 3 appends into those existing
+		   elements; op 4 adds the element to the generators that lack one. Reversing those two would
+		   let op 4 match the generators op 3 had just changed and write the defName in twice.
+
+		   Gated on MO by display name: `PatchOperationFindMod` compares with
+		   `ModLister.HasActiveModWithName`, an exact `ModMetaData.Name` test, not a packageId test.
+	-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Medieval Overhaul</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="PMM_Race_Arachne"]/comps/li/silkDef</xpath>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="PMM_Race_Arachne"]/comps/li[@Class="PMM_Insects.CompProperties_ArachneSilk"]</xpath>
+					<value>
+						<silkDef>DankPyon_Silk</silkDef>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="Textiles"]/excludedThingDefs</xpath>
+					<value>
+						<li>PMM_ArachneSilk</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/TraderKindDef/stockGenerators/*[@Class="StockGenerator_Category"][normalize-space(categoryDef)="Textiles"][not(excludedThingDefs)]</xpath>
+					<value>
+						<excludedThingDefs>
+							<li>PMM_ArachneSilk</li>
+						</excludedThingDefs>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

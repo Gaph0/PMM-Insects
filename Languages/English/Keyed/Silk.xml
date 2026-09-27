@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <PMM_SilkGatherLabel>Gather silk</PMM_SilkGatherLabel>
+    <PMM_SilkNoneYet>no silk yet</PMM_SilkNoneYet>
+    <PMM_SilkFullness>silk: {0}</PMM_SilkFullness>
+</LanguageData>

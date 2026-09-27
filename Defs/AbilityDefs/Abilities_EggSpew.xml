@@ -7,13 +7,28 @@
 		clone is what keeps vanilla Odyssey untouched: patching EggSpew or EggSac instead
 		would change every vanilla egg sac in the game.
 
-		The whole chain is pure XML - no C# anywhere:
-		  - this ability launches PMM_Proj_EggSac (beside the same acid spray as vanilla),
-		  - PMM_Proj_EggSac is a Projectile_SpawnsThing that spawns PMM_EggSac,
+		The chain, and the one link of it that is ours:
+		  - this ability launches PMM_Proj_EggSac and nothing else,
+		  - PMM_Proj_EggSac is OUR Projectile_EggSac: it spawns PMM_EggSac and copies the
+		    queen's brood order onto it,
 		  - Projectile_SpawnsThing.Impact gives that sac the LAUNCHER's faction
-		    (`thing.SetFaction(base.Launcher.Faction)`), and CompSpawnPawnOnDestroyed then
-		    spawns the pawn with the sac's faction - so a queen's brood belongs to her
-		    faction, in her village, without one line of our code.
+		    (`thing.SetFaction(base.Launcher.Faction)`), and the sac's spawn comp then spawns
+		    the pawn with the sac's faction - so a queen's brood belongs to her faction, in
+		    her village, and our code never has to decide it.
+
+		The ability itself is a player's button: nothing casts it on its own. `aiCanUse` is
+		false, and the auto-cast comp that used to sit on her race was deleted on 2026-09-26
+		(HANDOFF §5.11).
+
+		`gizmoClass` is ours. Command_Ability_EggSpew turns this button into the brood picker as
+		well: press it, choose which daughter she lays, then choose the ground. It replaced the
+		comp's own picker gizmo, which is deleted, so she has one button where she used to have
+		two.
+
+		Two more changes the same day, both the user's call, and together they left this a plain
+		sac throw: the cooldown went to fifteen days, and the acid spray half is gone - nothing
+		burns, nothing is slimed, and no terrain is laid. See the notes beside the cooldown, the
+		range and the comps below.
 		See Defs/ThingDefs/Things_EggSpew.xml for the two ThingDefs.
 
 		Odyssey-gated, like the queen herself: the sounds, the spray effecter and the
@@ -22,17 +37,29 @@
 	<AbilityDef MayRequire="Ludeon.RimWorld.Odyssey">
 		<defName>PMM_Ability_EggSpew</defName>
 		<label>egg spew</label>
-		<description>Launch an egg sac and a spray of acidic sludge at the target area. The sludge will stick to targets and burn them.</description>
+		<description>Lay an egg sac on the ground. Break the sac to release the brood inside.</description>
 		<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
-		<cooldownTicksRange>5000</cooldownTicksRange>
-		<aiCanUse>true</aiCanUse>
+		<!-- 15 days (user's call 2026-09-26). One sac per 15 days is the whole throttle on abaddon
+		     numbers: 15 x 60000 ticks. It used to be 5000, about two hours. -->
+		<cooldownTicksRange>900000</cooldownTicksRange>
+		<!-- Player-only button (user's call 2026-09-26). Nothing may cast this on its own: the
+		     race's auto-cast comp is gone (§5.11), and this closes the generic AI path too.
+		     `displayGizmoWhileUndrafted` keeps it on the player's own queen. -->
+		<aiCanUse>false</aiCanUse>
 		<displayOrder>300</displayOrder>
 		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
 		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+		<!-- The button is also the brood picker (user's call 2026-09-26): our command asks for the
+		     caste first, then hands over to vanilla's targeting (see EggSpewAbility.cs).
+		     AbilityDef.gizmoClass is vanilla's own hook for this - Command_AbilitySpeech uses it
+		     the same way - so she has one button where she used to have two. -->
+		<gizmoClass>PMM_Insects.Command_Ability_EggSpew</gizmoClass>
 		<warmupStartSound>AcidSpray_Warmup</warmupStartSound>
 		<verbProperties>
 			<verbClass>Verb_CastAbility</verbClass>
-			<range>14.9</range>
+			<!-- 1.9 cells: the ring around her and nothing further (user's call 2026-09-26). Was
+			     14.9, a throwing range, back when the acid spray flew with the sac. -->
+			<range>1.9</range>
 			<warmupTime>0.25</warmupTime>
 			<soundCast>AcidSpray_Resolve</soundCast>
 			<targetParams>
@@ -40,13 +67,8 @@
 			</targetParams>
 		</verbProperties>
 		<comps>
-			<!-- The sludge half, unchanged from Odyssey. -->
-			<li Class="CompProperties_AbilitySprayLiquid">
-				<projectileDef>Proj_StrongSludgeSpray</projectileDef>
-				<numCellsToHit>18</numCellsToHit>
-				<sprayEffecter>AcidSpray_Directional</sprayEffecter>
-			</li>
-			<!-- The brood half: ours instead of Odyssey's Proj_EggSac. -->
+			<!-- The brood, and the only half left: ours instead of Odyssey's Proj_EggSac. The acid
+			     spray comp that sat above it was deleted on 2026-09-26. -->
 			<li Class="CompProperties_AbilityLaunchProjectile">
 				<projectileDef>PMM_Proj_EggSac</projectileDef>
 			</li>

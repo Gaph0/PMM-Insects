@@ -4,17 +4,17 @@
 	<!--
 		The shared insect gene: chitin plates under the skin and feelers that catch
 		every trace of scent and mana. Stat work is light - the species' real numbers
-		live on the race defs (Races_InsectMomo_BS.xml); this gene marks a momo as
+		live on the race defs (Races_InsectMamono_BS.xml); this gene marks a mamono as
 		insect-born and flavours her body.
 
              No armor here: every insect race tracker already grants its species'
              sharp armor as a stat stage, and gene + tracker armor STACKS. The
-             gene's job is identity, colour, and the things every momo shares:
+             gene's job is identity, colour, and the things every mamono shares:
              chitin skin, feelers, full toxin immunity, the pheromone effect in
              InsectPheromones.cs, and insect flesh.
 
              skinColorBase sets the shared chitin tone (muted olive-grey,
-             120/118/89) as the pawn's BASE skin colour, so an insect momo can
+             120/118/89) as the pawn's BASE skin colour, so an insect mamono can
              never fall back to a vanilla human melanin tone. The actual visible
              tone comes from the five randomChosen chitin genes in
              Defs/GeneDefs/Genes_InsectSkin.xml, which every insect xenotype
@@ -30,17 +30,24 @@
              <iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
              <displayCategory>Miscellaneous</displayCategory>
              <displayOrderInCategory>1000</displayOrderInCategory>
-             <biostatMet>1</biostatMet>
+             <!-- User ruling 2026-09-27: this gene COSTS 1 metabolic efficiency;
+                  it paid 1 before. Every insect caste carries this gene, so this
+                  one line moves the whole family: each mamono's metabolic
+                  efficiency drops by 2 and she eats more. -->
+             <biostatMet>-1</biostatMet>
              <!-- Full immunity to environmental toxins, ruled 2026-09-20. Both
                   fields live on GeneDef, not on ThingDef - checked in the 1.6
                   assembly, where immuneToToxGasExposure exists on GeneDef and on
                   ApparelProperties only - so a race def cannot carry them, and a
-                  gene is the only home for this. Every insect momo carries this
+                  gene is the only home for this. Every insect mamono carries this
                   gene, so the ruling is one line here rather than one line per
-                  caste, and it also covers a woman corrupted into a momo later.
+                  caste, and it also covers a woman corrupted into a mamono later.
                   The races keep their own ToxicEnvironmentResistance 0.8: buildup
                   is severity x (1 - resistance), so 0.8 plus the 1 below is
-                  already past the point where buildup stops. -->
+                  already past the point where buildup stops. The effect list
+                  carries no line for the toxins (removed 2026-09-27): the game
+                  prints "Toxic environment resistance +100%" for the offset
+                  below by itself, and the old sentence only said that again. -->
              <immuneToToxGasExposure>true</immuneToToxGasExposure>
              <statOffsets>
                      <ToxicEnvironmentResistance>1</ToxicEnvironmentResistance>
@@ -49,18 +56,21 @@
                   overridden per pawn by the randomChosen chitin genes. -->
              <skinColorBase>(120, 118, 89)</skinColorBase>
              <randomBrightnessFactor>0</randomBrightnessFactor>
+             <!-- Only the lines the game does not print for itself live here, and
+                  nothing that just says what the description above already says.
+                  Two lines were dropped on request for that reason (2026-09-27):
+                  the toxins one (the stat offset prints its own) and the feelers
+                  one (her description ends on the feelers). -->
              <customEffectDescriptions>
                      <li>Chitin carapace skin, in one of five tones.</li>
-					<li>Feelers that scent out men and mana alike.</li>
-					<li>No toxic buildup from tox gas, polluted ground or toxic fallout.</li>
-					<li>Insect meat is her own kind's flesh. Eating it is cannibalism to her.</li>
-			</customEffectDescriptions>
+                     <li>Insect flesh is an act of cannibalism to these Mamono.</li>
+             </customEffectDescriptions>
              <!-- Insect flesh, ruled 2026-09-20. This is the same effect VRE puts
                   on VRE_InsectFlesh, without that gene's terrain speed factors:
                   customMeatThingDef keeps her butchered meat insect meat, and
                   defsTreatedAsHumanMeat makes that meat count as human meat to
                   HER, so eating insect meat - her own kind included - is
-                  cannibalism to a momo, and stays ordinary food to everyone
+                  cannibalism to a mamono, and stays ordinary food to everyone
                   else. Both fields belong to VEF's GeneExtension, so VEF owns the
                   behaviour; Meat_Megaspider is the insect meat vanilla's own
                   recipes list, borrowed the same way the races borrow it with

@@ -2,6 +2,49 @@
 
 ## Player-facing
 
+- 2026-09-27: Changed every internal name to Mamono, so saves from earlier versions no longer load.
+- 2026-09-27: Changed the mod name to Project Mamono Insects.
+- 2026-09-27: Changed the word momo to mamono in the mod's labels and descriptions.
+- 2026-09-27: Changed the insectoid gene to cost 1 metabolic efficiency instead of giving 1, so every insect momo eats more.
+- 2026-09-27: Changed the insectoid gene's cannibalism line to say insect flesh is an act of cannibalism to the Mamono.
+- 2026-09-27: Removed two repeated lines from the insectoid gene's effects. One repeated the toxic resistance line above it, and the other repeated her own description.
+- 2026-09-27: Added the beelzebub, a small fast fly momo of the hostile insector swarm. She is flimsy, quick, hard to catch and always hungry, and she never joins the neutral tribe. Her thin wings give her the same short flight leap as the soldier beetle and the vamp mosquito, and like them she carries no passenger.
+- 2026-09-27: Removed the leftover romance tags from the insect momos. They did nothing since Big & Small's romance layer was switched off, and dead settings read as live ones.
+- 2026-09-27: Changed the arachne's web trap so the tribe's arachnes throw it too. Your own still waits for you to press her button.
+- 2026-09-27: Changed caffeinated drinks to make the arachne drunk instead of wired. One coffee is about one beer's worth of intoxication, and she builds no caffeine tolerance from it. Needs Vanilla Brewing Expanded.
+- 2026-09-26: Added a web trap to the arachne. Press her button to throw sticky silk that stuns whoever it hits, once every ten seconds. It needs Alpha Animals, which supplies the stun.
+- 2026-09-26: Changed arachne silk to spin Medieval Overhaul's own silk when that mod is installed, so MO's silk rugs and royal furniture take it.
+- 2026-09-26: Changed arachne silk to be gathered as hauling work, so it no longer sits with animal handling.
+- 2026-09-26: Changed arachne silk to never spawn in a trader's stock while Medieval Overhaul is installed. You can still sell it.
+- 2026-09-26: Added arachne silk. Right-click an arachne to gather it, and she gathers it herself when the work is free.
+- 2026-09-26: Added the large frame gene to the arachne. She counts as a riding animal in caravans, and any caravan she joins moves 20% faster.
+- 2026-09-26: Changed the arachne to always come with the masochist trait.
+- 2026-09-26: Added the arachne, a large spider momo of the hostile abaddon tribe. She keeps to their villages and never joins a raid.
+- 2026-09-26: Changed the abaddon's egg spew to a 15 day cooldown, so she can lay far less often.
+- 2026-09-26: Changed the abaddon's brood menu and her egg spew into one button: press it, pick the daughter, then pick the ground.
+- 2026-09-26: Changed the brood menu's text to say what it does: choose which insect momo is spawned by a laid egg.
+- 2026-09-26: Changed the egg spew's text to say what it does now: lay a sac on the ground, then break it to let the brood out.
+- 2026-09-26: Removed the acid spray from the abaddon's egg spew, and brought the range in so the sac lands right beside her. Nothing burns, and no sludge or creep is left behind.
+- 2026-09-26: Fixed the abaddon's barrenness: her sterile gene did nothing while the Momo fertility protection held her at 100%, and that protection now stands aside for it. Her egg sac stays the only way to more daughters.
+- 2026-09-26: Added the sterile gene to the abaddon, so she can never conceive a child the natural way. Her egg sac stays the only way to get more of her daughters.
+- 2026-09-26: Changed the abaddon's parthenogenesis for a robust midgut. She no longer breeds alone, but raw food feeds her well and never sickens her.
+- 2026-09-26: Changed the abaddon's hatched daughters to also count as the child of her bonded man, husband or lover, when she has one.
+- 2026-09-26: Added a naming window for the momo that hatches from an abaddon's egg sac, so she can be named as she comes out.
+- 2026-09-26: Changed the momo hatched from the abaddon's egg sac to be her daughter. She shows as family in both of their social lists.
+- 2026-09-26: Added a brood menu to the abaddon, so you can choose which insect momo her egg sac hatches. She comes out young, and she joins your colony.
+- 2026-09-26: Removed two old backstories that no species used any more.
+- 2026-09-26: Changed the abaddon to lay eggs only when you tell her to. A wild queen never lays on her own.
+- 2026-09-26: Changed the abaddon's size down to twice a human's, from more than four times.
+- 2026-09-26: Added vocal glands to the abaddon. She speaks in a human voice now, and her song is beautiful.
+- 2026-09-26: Changed the abaddon's appetite for stiff joints. She no longer eats twice as fast, but she walks slower than before.
+- 2026-09-26: Added the jelly-sack abdomen to the abaddon's look. It is the cosmetic half of the spawning sack, so her fertility genes stay untouched.
+- 2026-09-26: Changed the abaddon's genes: parthenogenesis, colossal size, dormancy, insect skin and antennae are in, and the sunlight burn is out.
+- 2026-09-26: Added a second pair of arms to the abaddon, matching her soldier daughters.
+- 2026-09-25: Rebalanced the abaddon folk's body size up to half a human's, where she used to come out about a third.
+- 2026-09-25: Added great melee to the abaddon folk, so fighting is the one thing she knows from birth.
+- 2026-09-25: Added an abaddon folk pawn kind, so she can be spawned in dev mode. Villages and raids still never bring her.
+- 2026-09-25: Changed the abaddon folk to four arms and her own winged body. All four fists fight, and losing one pair of arms leaves the other fighting.
+- 2026-09-25: Added the abaddon folk, the soldier class of an abaddon's swarm. She never spawns; she exists only as a race and a gene set.
 - 2026-09-22: Changed the insector hive to trade with player caravans that reach their villages. A giant ant from the tribe handles the trade.
 - 2026-09-21: Added the large frame gene to the soldier beetle. She counts as a riding animal in caravans, and any caravan she joins moves 20% faster.
 - 2026-09-20: Changed a brood hatched from your own queen to stay a normal pawn of your faction, instead of wandering off with the hive.
@@ -56,6 +99,9 @@
 
 ## Internal
 
+- 2026-09-27: Changed the mod folder and project names to Mamono.
+- 2026-09-27: Changed the defNames, class names, scribe labels and file names to Mamono.
+- 2026-09-27: Changed the docs to say mamono.
 - 2026-09-24: Removed the hive bond rule, the map-edge vanish and the swap-era log patch, so the tribes use the core's tsugai behaviour unchanged.
 
 - 2026-09-24: Changed the em dashes in this mod's text to plain hyphens.

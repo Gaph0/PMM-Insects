@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The abaddon folk's pawn kind. She is the one kind in this mod that NO faction
+		lists: neither tribe names her in pawnGroupMakers and neither lists her in its
+		xenotypeSet, so a village never raises her and a raid never brings her.
+
+		The kind exists for two reasons, both about being able to reach her at all:
+
+		* The dev-mode spawn list is a list of pawn kinds, so without one she cannot
+		  be spawned for testing at all - she existed only as a xenotype, reachable by
+		  dev "apply xenotype", which is a way of converting a pawn rather than making
+		  a new one. A kind is generated, so she arrives as a whole species: her race,
+		  her four-armed body and her xenotype in one step.
+		  (Converting a pawn works too: core's XenotypeRacePatch applies a xenotype's
+		  declared race whenever a living pawn is given one. Big & Small itself only
+		  reads it while a pawn is generated, so before that patch the converted pawn
+		  wore her genes on its old body - no four arms, no wings, no chitin.)
+		* Anything that wants her by name - a quest, another mod, a patch, a future
+		  spawn source - needs a def to name.
+
+		combatPower 35 puts her between the greenworm (25) and the devil bug (40): a
+		soldier bug is quick and hard-shelled, but she is half a human's size. The
+		number only matters if she is ever put in a pawn group, which today she is not.
+	-->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectAbaddonFolk</defName>
+		<label>abaddon folk</label>
+		<race>PMM_Race_AbaddonFolk</race>
+		<combatPower>35</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_AbaddonFolkSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectAbaddonFolk>100</PMM_InsectAbaddonFolk></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+</Defs>

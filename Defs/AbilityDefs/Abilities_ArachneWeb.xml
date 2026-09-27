@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Arachne web trap (user's call 2026-09-26: "sticky web trap", thrown ability).
+
+	     Alpha Animals supplies the effect: their `AA_Web` projectile is a plain `BaseBullet` whose
+	     `projectile` block is `damageDef Stun`, 8 damage - the stun IS the trap, there is no web left
+	     on the ground. (The `AlphaBehavioursAndEvents.Web_Projectile` class in their assembly belongs
+	     to their elemental webs, Frost/Fire/Acidic/Psy, not to this one.) This def mirrors their verb,
+	     with our own label and wording, one web per cast instead of their burst of three, and a
+	     shorter throw. It wears Alpha Animals' own icon - the art pass was scrapped on 2026-09-27, so
+	     there is no icon of ours to swap in.
+
+	     `verbClass` is ours, and that is the fix for the bug the user hit on 2026-09-27 - webs firing
+	     every few seconds while the gizmo still showed seven seconds of cooldown. Nothing on the cast
+	     path reads the ability's cooldown; only the gizmo and the AI giver do. `Verb_WebTrap` refuses
+	     the shot itself while the ability is cooling down, so no caller can fire it early. See
+	     Source/Insects/ArachneWeb.cs.
+
+	     `aiCanUse` is true, and the tribe acts on it: `Patches/ArachneWeb_EnemyUse.xml` gives humanlike
+	     pawns a think-tree giver for this ability, and that giver's own hostility check is what keeps a
+	     player's own arachne under the player's hand. Without the giver the flag alone does nothing -
+	     vanilla's ability giver has to be named in a think tree before any AI will ever use one.
+
+	     Gated on Alpha Animals, and the `<li>` on `PMM_RaceTracker_Arachne` in Races_InsectMamono_BS.xml
+	     carries the identical gate: without AA neither the def nor the reference exists, and if the two
+	     ever drift one of them dangles and the mod fails to load. -->
+	<AbilityDef MayRequire="sarg.alphaanimals">
+		<defName>PMM_Ability_WebTrap</defName>
+		<label>web trap</label>
+		<description>Throw a web of sticky silk that stuns whoever it hits.</description>
+		<iconPath>UI/Abilities/AA_Web</iconPath>
+		<cooldownTicksRange>600</cooldownTicksRange>
+		<aiCanUse>true</aiCanUse>
+		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+		<writeCombatLog>true</writeCombatLog>
+		<verbProperties>
+			<verbClass>PMM_Insects.Verb_WebTrap</verbClass>
+			<defaultProjectile>AA_Web</defaultProjectile>
+			<accuracyTouch>1</accuracyTouch>
+			<accuracyShort>1</accuracyShort>
+			<accuracyMedium>1</accuracyMedium>
+			<accuracyLong>1</accuracyLong>
+			<range>12</range>
+			<minRange>1</minRange>
+			<muzzleFlashScale>0</muzzleFlashScale>
+			<warmupTime>1.5</warmupTime>
+			<soundCast>AA_ThrowShort</soundCast>
+			<targetParams>
+				<canTargetPawns>true</canTargetPawns>
+			</targetParams>
+		</verbProperties>
+	</AbilityDef>
+
+</Defs>

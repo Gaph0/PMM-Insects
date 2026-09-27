@@ -163,10 +163,48 @@
 		     villages included. -->
 		<canBeScattered>false</canBeScattered>
 		<isBoss>true</isBoss>
-		<abilities>
-			<li>PMM_Ability_EggSpew</li>
-		</abilities>
+		<!-- No <abilities> block: her egg spew is granted by the brood comp on her race def
+		     instead, so it reaches her whether she was generated from this kind or transformed
+		     into a queen later. One source, and the one that covers both paths (§5.11). -->
 		<xenotypeSet><xenotypeChances><PMM_InsectAbaddon>100</PMM_InsectAbaddon></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- The weaver (2026-09-26). Tribe-only by design: factionlessGenerationWeight 0 here and
+	     on her xenotype, so she never appears among random pawns or factionless events. No
+	     backstory filter yet - she draws from the common pool until her own spawn category and
+	     her backstory land (phase 2). Her place in the tribe's own spawn tables, and the line
+	     that lets an abaddon lay her, come next; until then she is dev-spawn only. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectArachne</defName>
+		<label>arachne</label>
+		<race>PMM_Race_Arachne</race>
+		<combatPower>110</combatPower>
+		<!-- Masochist by species (user's call 2026-09-26). The kind is the right home and not a
+		     gene: both spawn paths - a dev spawn and a daughter laid from an egg sac - generate
+		     from this kind, so the trait lands either way. `PawnKindDef.forcedTraits` is a
+		     `List<TraitRequirement>`, hence the nested `<def>`. What this does NOT cover is a
+		     woman transformed into an arachne mid-game (her traits come from genes, not from a
+		     kind); if that ever matters, the fix is a gene with `<forcedTraits>`. -->
+		<forcedTraits>
+			<li>
+				<def>Masochist</def>
+			</li>
+		</forcedTraits>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectArachne>100</PMM_InsectArachne></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- The fly (2026-09-27). Tribe-only, hostile tribe only: she is in no factionless pool and in no
+	     spawn table but the swarm's own. Cheap in combat power on purpose - small, soft-shelled, and
+	     the thing she brings to a fight is speed and a proboscis, not armour. No forced traits: the
+	     user asked for genes only, and traits are not one of them. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectBeelzebub</defName>
+		<label>beelzebub</label>
+		<race>PMM_Race_Beelzebub</race>
+		<combatPower>55</combatPower>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<xenotypeSet><xenotypeChances><PMM_InsectBeelzebub>100</PMM_InsectBeelzebub></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
 </Defs>

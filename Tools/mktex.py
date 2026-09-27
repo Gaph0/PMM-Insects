@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generates the mod's placeholder textures (pure stdlib: zlib + struct).
-Each icon is a soft-edged bug silhouette on a transparent background — a body
+Each icon is a soft-edged bug silhouette on a transparent background - a body
 disc, a smaller head, and two curved antennae. Species vary body colour.
 Run from the mod root:  python3 Tools/mktex.py
 """

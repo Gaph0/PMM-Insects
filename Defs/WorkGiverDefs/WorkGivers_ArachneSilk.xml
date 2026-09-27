@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- She gathers her own silk (user's call 2026-09-26: "she can also do it herself"). Work type
+	     Hauling, at the user's request (2026-09-26): it is dumb labour she can do in her own time,
+	     and it keeps her out of the animal-handling list. Note the consequence: a colony with
+	     Hauling turned off for her will not self-gather, though the player's right-click order
+	     still works either way. -->
+	<WorkGiverDef>
+		<defName>PMM_GatherArachneSilk</defName>
+		<label>gather silk</label>
+		<giverClass>PMM_Insects.WorkGiver_ArachneSilk</giverClass>
+		<workType>Hauling</workType>
+		<verb>gather silk</verb>
+		<gerund>gathering silk</gerund>
+		<priorityInType>50</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+
+</Defs>

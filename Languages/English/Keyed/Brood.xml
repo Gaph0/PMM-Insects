@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <PMM_BroodGizmoLabel>brood: {0}</PMM_BroodGizmoLabel>
+    <PMM_BroodGizmoDesc>Choose which insect mamono is spawned by a laid egg.</PMM_BroodGizmoDesc>
+    <PMM_BroodRandom>a random mamono</PMM_BroodRandom>
+    <PMM_BroodCurrent>(current)</PMM_BroodCurrent>
+    <PMM_BroodNotMine>She is not your queen. Only a queen of your own faction can be told what to lay.</PMM_BroodNotMine>
+    <PMM_BroodSacHolds>Holds: {0}</PMM_BroodSacHolds>
+</LanguageData>

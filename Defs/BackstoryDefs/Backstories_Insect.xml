@@ -14,49 +14,14 @@
 		own and put a second childhood in the pool, turning the forced pick into a
 		random one. Kind filters only apply to adult-stage pawns (vanilla hardcodes the
 		Child and Newborn categories for younger ones). The six tribe pawn kinds are
-		adult kinds, so every adult insect momo rolls one of these stories. Tribe
+		adult kinds, so every adult insect mamono rolls one of these stories. Tribe
 		children will need their own kinds and their own categories (HANDOFF.md §5.5).
 
 		Larva is the one pairing that stays inside a single body: a greenworm childhood
 		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn. The wiki
-		greenworm matures into a papillon, but the momo in game keeps the worm body and
+		greenworm matures into a papillon, but the mamono in game keeps the worm body and
 		never gets wings, so she does not.
-
-		PMM_InsectChild / PMM_InsectAdult below are the retired shared hive story. No
-		pawn kind references PMM_InsectSpawn any more; they are kept in case a later
-		swarm species wants that shape.
 	-->
-	<BackstoryDef>
-		<defName>PMM_InsectChild</defName>
-		<title>hive larva</title>
-		<titleShort>larva</titleShort>
-		<description>{PAWN_nameDef} hatched deep in the hive tunnels and spent {PAWN_possessive} early days scuttling between egg sacs, drinking in the dark and the pheromone-song of the swarm.</description>
-		<slot>Childhood</slot>
-		<spawnCategories>
-			<li>PMM_InsectSpawn</li>
-		</spawnCategories>
-		<bodyTypeGlobal>Child</bodyTypeGlobal>
-		<skillGains>
-			<Melee>2</Melee>
-		</skillGains>
-	</BackstoryDef>
-
-	<BackstoryDef>
-		<defName>PMM_InsectAdult</defName>
-		<title>swarm daughter</title>
-		<titleShort>swarm</titleShort>
-		<description>{PAWN_nameDef} grew into a daughter of the swarm, digging and hunting and guarding the queen's burrow, and dreaming of the man she would one day drag back to it.</description>
-		<slot>Adulthood</slot>
-		<spawnCategories>
-			<li>PMM_InsectSpawn</li>
-		</spawnCategories>
-		<bodyTypeGlobal>Female</bodyTypeGlobal>
-		<skillGains>
-			<Melee>3</Melee>
-			<Mining>2</Mining>
-		</skillGains>
-	</BackstoryDef>
-
 	<!--
 		Devil bug (megascarab): hatches under floors, lives by instinct in the dark,
 		hunts by smell and never quite settles. Melee, then Melee + Mining.
@@ -166,7 +131,7 @@
 	<!--
 		Greenworm (larva): a grub childhood and a grown-worm adulthood, both in
 		PMM_GreenwormSpawn, which is the whole pool for the Larva kinds. No butterfly
-		stage here - the momo in game keeps the worm body and never gets wings.
+		stage here - the mamono in game keeps the worm body and never gets wings.
 	-->
 	<BackstoryDef>
 		<defName>PMM_GreenwormChild</defName>
@@ -268,6 +233,43 @@
 		<skillGains>
 			<Social>4</Social>
 			<Melee>3</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Abaddon folk (soldier bugs), one childhood and one adulthood in
+		PMM_AbaddonFolkSpawn - the pool her pawn kind filters to. She is brood stock,
+		not a queen: the story is the swarm, the ranks and the orders read out of the
+		air, and her hands are for fighting rather than for thinking.
+	-->
+	<BackstoryDef>
+		<defName>PMM_AbaddonFolkChild</defName>
+		<title>swarm grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched in the middle of a swarm in flight, one of thousands of small hard bodies, and learned to follow the scent of her elders before she learned anything else.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_AbaddonFolkSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_AbaddonFolkAdult</defName>
+		<title>soldier bug of the swarm</title>
+		<titleShort>soldier bug</titleShort>
+		<description>{PAWN_nameDef} took her place in the ranks and never left it, fighting where the pheromones told her to fight and answering to the swarm until she took a man of her own.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_AbaddonFolkSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>4</Melee>
+			<Shooting>2</Shooting>
 		</skillGains>
 	</BackstoryDef>
 

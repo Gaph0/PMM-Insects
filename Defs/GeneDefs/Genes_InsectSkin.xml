@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		Chitin tones for the insect momos.
+		Chitin tones for the insect mamonos.
 
 		Why five genes instead of one colour: a gene's skinColorOverride is a single
 		fixed RGB, so every carrier looks identical. Vanilla's own answer is a set of
@@ -12,7 +12,7 @@
 		weighted evenly - and overrides the rest. That is per-pawn variation with
 		no code at all.
 
-		So every insect xenotype lists all five of these. Each momo keeps one, and
+		So every insect xenotype lists all five of these. Each mamono keeps one, and
 		her daughters re-roll their own.
 
 		Colour: 47.1%/46.3%/34.9% as 0-255 is (120, 118, 89), the muted olive-grey

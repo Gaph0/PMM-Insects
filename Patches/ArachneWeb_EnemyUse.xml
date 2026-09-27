@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		Puts the arachne's web trap in the hands of the tribe (user's call 2026-09-27: "give enemy
+		arachnes the ability too").
+
+		Vanilla does this by naming a concrete ability giver inside a think tree - Biotech does exactly
+		this for the mech smokepop, a `JobGiver_AICastAbilityOnSelf` with `<ability>SmokepopMech</ability>`.
+		Ours is a giver of our own, `PMM_Insects.JobGiver_WebTrapTarget`, because vanilla's
+		`JobGiver_AICastAbility` is abstract and the only concrete one in the base game, `...OnSelf`, has
+		nothing to do with throwing a web at somebody else. See Source/Insects/WebTrapAI.cs - the giver
+		targets her current enemy and only fires for pawns hostile to the player, so a player's own
+		arachne still waits to be told.
+
+		Prepended to the root of the humanlike tree rather than appended: in a `ThinkNode_Priority` the
+		first node that yields a job wins, and appending would park this behind the ordinary fight giver,
+		which would mean she never webs at all. In front, she webs the moment she has an enemy in range
+		and the ability is off cooldown - and while it recharges the base giver returns null and the fight
+		giver below takes over, so she switches to her fists without any extra code.
+
+		Gated on Alpha Animals: the think-tree node names `PMM_Ability_WebTrap`, and that ability def
+		carries `MayRequire="sarg.alphaanimals"`, so without AA this reference would dangle. Without AA
+		the ability does not exist either, which is why the whole operation is behind the gate rather
+		than the node carrying a `MayRequire` of its own - patch values are merged in after the loader
+		has already resolved those attributes.
+	-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Alpha Animals</li>
+		</mods>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes</xpath>
+			<order>Prepend</order>
+			<value>
+				<li Class="PMM_Insects.JobGiver_WebTrapTarget">
+					<ability>PMM_Ability_WebTrap</ability>
+				</li>
+			</value>
+		</match>
+	</Operation>
+
+</Patch>

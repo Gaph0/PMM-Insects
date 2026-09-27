@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- Gathering silk from an arachne (2026-09-26). One job for both paths: the player's right-click
+	     order and her own hands through the work giver. The target is the arachne; the worker may
+	     be her, in which case the driver skips the walk to herself. -->
+	<JobDef>
+		<defName>PMM_GatherArachneSilk</defName>
+		<driverClass>PMM_Insects.JobDriver_GatherArachneSilk</driverClass>
+		<reportString>gathering silk.</reportString>
+	</JobDef>
+
+</Defs>
