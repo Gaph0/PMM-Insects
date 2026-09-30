@@ -14,25 +14,27 @@
 		Numbers picked to match Medieval Overhaul's own honey (market value 7, mass
 		0.025, nutrition 0.05, stack of 25) rather than vanilla jelly's 8, so a colony
 		that runs MO sees one honey behaving the same way whether it came out of our
-		bee or MO's own bees. The stack of 25 is also exactly one full milking, so a
-		gathered batch lands as one neat pile.
+		bee or MO's own bees. The stack limit is MO's number and not a match for one
+		milking: a full milking was 25, exactly a stack, until it was halved to 12 on
+		2026-09-29, so a batch now lands as a part-stack.
 
 		A plain vanilla-style `tradeability`, so honey is sellable, and the Medieval
 		Overhaul patch stops it being GENERATED as trader stock only in the case where
 		MO's own honey is what she makes - a spare jar can always still be sold.
 
-		Art: vanilla insect jelly's texture with our own `graphicData` tint, the way the
-		silk item wears vanilla cloth. The art pass for this family was scrapped on
-		2026-09-27, so this is the final look rather than a placeholder.
+		Art: our own jar, shipped 2026-09-29 - Textures/Things/Item/Resource/PMM_Honey.png,
+		from an art drop in the Project Mamono Textures folder. A single texture with
+		`Graphic_Single` rather than the stack-of-three piles dragonium wears, because the
+		drawing is one jar; give it `_a`|`_b`|`_c` variants and it can move back to
+		`Graphic_StackCount`. The arachne's silk stays on vanilla cloth.
 	-->
 	<ThingDef ParentName="OrganicProductBase">
 		<defName>PMM_Honey</defName>
 		<label>mamono honey</label>
 		<description>Honey gathered from the body of a mamono. Thick, fragrant and impossible to spoil.</description>
 		<graphicData>
-			<texPath>Things/Item/Resource/AnimalProductRaw/InsectJelly</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
-			<color>(240,196,80)</color>
+			<texPath>Things/Item/Resource/PMM_Honey</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<stackLimit>25</stackLimit>
 		<socialPropernessMatters>true</socialPropernessMatters>

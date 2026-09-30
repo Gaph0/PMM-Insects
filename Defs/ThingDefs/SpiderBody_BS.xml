@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The spider lower body, ours, so that it can be drawn in the pawn's own colour.
+
+		Big & Small draws that body with two graphic sets, and both take their main tint from
+		HAIR colour (`hairColor`, brightness 0.95). That is why an arachne's spider half
+		disagrees with the rest of her. B&S's own lamia does not have the problem - its tail
+		takes `skinColor` - so these are B&S's two spider sets with that one source swapped:
+		legs and abdomen both come out in her chitin colour, and her hair stays hers to change.
+
+		Why a copy and not a patch on B&S: patching their defs would recolour the spider body of
+		every spider-person in a save, B&S's own race included (user's call, 2026-10-01: our
+		three castes only). So this file owns what we use.
+
+		What it carries over unchanged: the art paths (`RaceDefaults/SpooderNew/`), the blank-art
+		alt for a pawn whose abdomen is destroyed, both render nodes with their draw sizes,
+		offsets, layers and body-type scales, and the pawn behaviour that comes with the body -
+		the spider romance tags, creep walking, the VEF stride hediff and the body position
+		offset, all of which would be lost with B&S's tracker.
+
+		What came off in the copy, and why:
+		  * `HasCustomizableGraphics` (B&S's `AbdomenGraphics` tag). That tag is how a player
+		    forces a colour onto the abdomen; it is B&S's, declared on B&S's race. Ours takes her
+		    skin colour with no escape hatch. Core still ships the unused `PMM_TailGraphics` tag
+		    if an editable colour is ever wanted here.
+		  * the two `taur` gene-tag alts, which blank the spider art for a pawn carrying B&S's
+		    taur gene. Nothing in this mod carries one, so they could never fire.
+
+		The race side: the arachne, the ant arachne and the girtablilu list
+		`PMM_RaceTracker_SpiderBody` in `raceHediffList` beside their own tracker, exactly as
+		they used to list `BS_SpiderPersonRace`, and no longer list B&S's - two trackers both
+		drawing the body would draw it twice.
+	-->
+
+	<BigAndSmall.GraphicSetDef>
+		<defName>PMM_SpiderGraphicSetUpper</defName>
+		<conditionalGraphics>
+			<texturePaths> <li>RaceDefaults/SpooderNew/BS_Spooder</li> </texturePaths>
+			<colorA>
+				<skinColor>true</skinColor>
+				<brightness>0.95</brightness>
+			</colorA>
+			<colorB>
+				<favoriteColor>true</favoriteColor>
+				<maxBrightness>0.75</maxBrightness>
+			</colorB>
+			<alts>
+				<li>
+					<!-- Poor spooder lost her entire abdomen! -->
+					<triggerBodyPart>
+						<li> <bodyPartDef>BS_SpiderAbdomen</bodyPartDef> <partMissing>true</partMissing> </li>
+						<li> <bodyPartDef>BS_Mech_SpiderAbdomen</bodyPartDef> <partMissing>true</partMissing> </li>
+					</triggerBodyPart>
+					<texturePaths><default>BS_Blank</default></texturePaths>
+				</li>
+			</alts>
+		</conditionalGraphics>
+	</BigAndSmall.GraphicSetDef>
+
+	<BigAndSmall.GraphicSetDef>
+		<defName>PMM_SpiderGraphicSetUnder</defName>
+		<conditionalGraphics>
+			<texturePaths>
+				<li>RaceDefaults/SpooderNew/BS_SpooderBack</li>
+			</texturePaths>
+			<colorA>
+				<skinColor>true</skinColor>
+				<brightness>0.95</brightness>
+			</colorA>
+			<colorB>
+				<favoriteColor>true</favoriteColor>
+				<maxBrightness>0.75</maxBrightness>
+			</colorB>
+			<alts>
+				<li>
+					<triggerBodyPart>
+						<li> <bodyPartDef>BS_SpiderAbdomen</bodyPartDef> <partMissing>true</partMissing> </li>
+						<li> <bodyPartDef>BS_Mech_SpiderAbdomen</bodyPartDef> <partMissing>true</partMissing> </li>
+					</triggerBodyPart>
+					<texturePaths><default>BS_Blank</default></texturePaths>
+				</li>
+			</alts>
+		</conditionalGraphics>
+	</BigAndSmall.GraphicSetDef>
+
+	<!-- B&S's spider tracker, worn by our three spider castes in place of theirs. It keeps
+	     everything the body brings - the numbers, the two render nodes above, the creep
+	     walking, the stride hediff, the body offset - and changes only which colour the art
+	     takes. `stages Inherit="False"` for the same reason B&S does it: the body's numbers
+	     are a replacement, not an addition to the default tracker's. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_SpiderBody</defName>
+		<label>spider body</label>
+		<description>The lower half of a spider: eight legs, and a silk sac behind her.</description>
+
+		<stages Inherit="False">
+			<li>
+				<statFactors>
+					<MaxNutrition>2.0</MaxNutrition>
+					<CarryingCapacity>1.5</CarryingCapacity>
+					<VEF_MassCarryCapacity MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">1.5</VEF_MassCarryCapacity>
+				</statFactors>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.05</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+		<renderNodeProperties>
+			<li Class="BigAndSmall.PawnRenderingProps_Ultimate">
+				<nodeClass>BigAndSmall.PawnRenderNode_Ultimate</nodeClass>
+				<workerClass>BigAndSmall.PawnRenderNodeWorker_LazyCentaur</workerClass>
+				<parentTagDef>Body</parentTagDef>
+				<rotDrawMode>Fresh, Rotting</rotDrawMode>
+				<conditionalGraphics>
+					<replacementDef>PMM_SpiderGraphicSetUpper</replacementDef>
+				</conditionalGraphics>
+				<drawSize>(1.1,1.1)</drawSize>
+				<drawData>
+					<bodyTypeScales>
+						<Fat>1.5</Fat> <Female>1.05</Female> <Hulk>1.1</Hulk> <Thin>0.9</Thin>
+						<Child MayRequire="Ludeon.Rimworld.Biotech">0.9</Child>
+						<Baby MayRequire="Ludeon.Rimworld.Biotech">0.75</Baby>
+					</bodyTypeScales>
+					<dataNorth> <offset>(0, 0.000, -0.3)</offset> <layer>89.5</layer> </dataNorth>
+					<dataSouth> <offset>(0, -0.000, -0.1)</offset> <layer>89.5</layer> </dataSouth>
+					<dataEast> <offset>(-0.27, 0.0, -0.2)</offset> <layer>89.5</layer> </dataEast>
+					<dataWest> <offset>(0.27, 0.0, -0.12)</offset> <layer>89.5</layer> </dataWest>
+				</drawData>
+			</li>
+
+			<li Class="BigAndSmall.PawnRenderingProps_Ultimate">
+				<nodeClass>BigAndSmall.PawnRenderNode_Ultimate</nodeClass>
+				<workerClass>BigAndSmall.PawnRenderNodeWorker_LazyCentaur</workerClass>
+				<parentTagDef>Body</parentTagDef>
+				<rotDrawMode>Fresh, Rotting</rotDrawMode>
+				<conditionalGraphics>
+					<replacementDef>PMM_SpiderGraphicSetUnder</replacementDef>
+				</conditionalGraphics>
+				<drawSize>(1.08,1.08)</drawSize>
+				<visibleFacing> <li>South</li> <li>North</li> </visibleFacing>
+				<drawData>
+					<bodyTypeScales>
+						<Fat>1.5</Fat> <Female>1.05</Female> <Hulk>1.1</Hulk> <Thin>0.95</Thin>
+						<Child MayRequire="Ludeon.Rimworld.Biotech">0.9</Child>
+						<Baby MayRequire="Ludeon.Rimworld.Biotech">0.75</Baby>
+					</bodyTypeScales>
+					<dataNorth>
+						<offset>(0, 0.0001, -0.3)</offset>
+						<layer>-1</layer>
+					</dataNorth>
+					<dataSouth>
+						<offset>(0, 0.000, -0.1)</offset>
+						<layer>-4</layer>
+					</dataSouth>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+		<modExtensions>
+			<li Class="BigAndSmall.PawnExtension">
+				<traitIcon>BS_Traits/spooder</traitIcon>
+				<romanceTags>
+					<Spider>1.0</Spider>
+					<Humanlike>0.35</Humanlike>
+				</romanceTags>
+				<canWalkOnCreep>true</canWalkOnCreep>
+				<renderCacheOff>true</renderCacheOff>
+				<applyBodyHediff MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
+					<li>
+						<hediff MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">BS_Stride</hediff>
+					</li>
+				</applyBodyHediff>
+				<bodyPosOffset>0.6</bodyPosOffset>
+			</li>
+		</modExtensions>
+	</HediffDef>
+
+</Defs>

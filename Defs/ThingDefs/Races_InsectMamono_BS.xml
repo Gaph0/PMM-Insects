@@ -998,16 +998,20 @@
 		<!-- The lower pair of arms, drawn as an attachment the way B&S draws its own
 		     tail (1.6/SimplyRaces/Defs/Races/TailedHuman/RaceTracker_TailedHuman.xml is
 		     the template this was copied from). colorType Skin, so the sprite takes her
-		     chitin tone, and shader Cutout to match.
+		     chitin colour, and shader Cutout to match.
 
 		     The art is a PLACEHOLDER: Textures/RaceDefaults/PMM_AbaddonFolk/, written by
 		     Tools/mktex_arms.py. Replace those six PNGs with real art (same names, same
 		     512x512 canvas) and nothing here needs to change.
 
 		     Two knobs to tune in dev mode, because art cannot be judged in XML:
-		     * layers - 2 draws the arms over the body but under clothing, -1 for the
-		       north view, where her own back should hide the middle of the pair. Raise
-		       the 2 towards the apparel range if the arms should show over a shirt.
+		     * layers - 93 draws the arms over her body AND over the wings, -1 for the
+		       north view, where her own back should hide the middle of the pair. B&S's
+		       wings put their front faces at layer 92 and their inner ones at -1 and -2
+		       (RaceTracker_WingedHuman.xml), so the 2 copied from the tail left the LEFT
+		       lower arm behind the front wing while the right one showed past its edge
+		       (user's report, 2026-10-01). Anything above the wings is above clothing too;
+		       those two cannot be separated, because the wings are B&S's own def.
 		     * drawsize/offsets - copied from B&S's tail; the sprite's own placement
 		       inside its canvas is what actually lines the arms up.
 
@@ -1032,7 +1036,7 @@
 				<drawData>
 					<scaleOffsetByBodySize>true</scaleOffsetByBodySize>
 					<defaultData>
-						<layer>2</layer>
+						<layer>93</layer>
 					</defaultData>
 					<dataNorth>
 						<layer>-1</layer>
@@ -1060,9 +1064,10 @@
 	<!-- The spidertaur. Her body is Big & Small's own spider, not new art:
 	     `<body>BS_SpiderHybrid</body>` carries the eight-legged lower body - with
 	     `BS_SpiderAbdomen` as a real, damageable part inside it - and B&S's
-	     `BS_SpiderPersonRace` tracker, added through `raceHediffList` and never merged into
-	     ours (the file header explains why merging fails to load), draws the abdomen and
-	     brings B&S's spider numbers with it: MaxNutrition x2, CarryingCapacity x1.5 and a
+	     `PMM_RaceTracker_SpiderBody` (ThingDefs/SpiderBody_BS.xml) is what draws it, added
+	     through `raceHediffList` the way B&S's own spider tracker used to be - and ours paints
+	     the body in her skin colour, not her hair. It brings the spider numbers with it:
+	     MaxNutrition x2, CarryingCapacity x1.5 and a
 	     touch of Manipulation.
 
 	     Race route on purpose, not the gene route the flight gene uses: a `thingDefSwap`
@@ -1075,8 +1080,8 @@
 	     2.00. She carries no VRE_Colossal, so nothing adds a flat offset on top. If she
 	     reads wrong in game, the dial is SM_BodySizeMultiplier.
 
-	     No chitin tone and no insect skin here: her upper body is the spider's own art and
-	     her colour comes from the chitin genes in her xenotype. -->
+	     No chitin colour of its own and no insect skin here: her upper body is the spider's own art and
+	     her colour comes from the three her xenotype lists. -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Arachne</defName>
 		<label>arachne</label>
@@ -1165,7 +1170,7 @@
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Arachne</raceHediff>
 				<raceHediffList>
-					<li>BS_SpiderPersonRace</li>
+					<li>PMM_RaceTracker_SpiderBody</li>
 				</raceHediffList>
 			</li>
 		</modExtensions>
@@ -1414,7 +1419,7 @@
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Girtablilu</raceHediff>
 				<raceHediffList>
-					<li>BS_SpiderPersonRace</li>
+					<li>PMM_RaceTracker_SpiderBody</li>
 				</raceHediffList>
 			</li>
 		</modExtensions>
@@ -1535,7 +1540,7 @@
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_AntArachne</raceHediff>
 				<raceHediffList>
-					<li>BS_SpiderPersonRace</li>
+					<li>PMM_RaceTracker_SpiderBody</li>
 				</raceHediffList>
 			</li>
 		</modExtensions>

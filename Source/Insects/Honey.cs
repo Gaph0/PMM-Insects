@@ -25,18 +25,28 @@ namespace PMM_Insects
         /// </summary>
         public ThingDef honeyDef;
 
-        /// <summary>Honey from one milking, at full fullness.</summary>
-        public int honeyPerMilking = 25;
+        /// <summary>
+        /// Honey from one milking, at full fullness. Halved from 25 at the user's call
+        /// (2026-09-29); 25 does not halve into whole jars, so this is the rounded-down 12.
+        /// </summary>
+        public int honeyPerMilking = 12;
 
-        /// <summary>How much must build up before there is anything worth taking.</summary>
-        public float minFullness = 0.3f;
+        /// <summary>
+        /// How much must build up before there is anything worth taking. Three quarters, raised
+        /// from a third at the user's call (2026-09-29): she carries her honey further before
+        /// emptying, so one milking takes more at once. This same dial gates her own milking work
+        /// (WorkGiver_MilkHoney), so she holds her honey rather than taking it early.
+        /// </summary>
+        public float minFullness = 0.75f;
 
         /// <summary>
         /// What one tracked work action is worth. Fullness is clamped at 1, so this number is also
-        /// the build rate: 0.03 puts a full bar at about 33 sown plants, harvested plants or tamed
-        /// animals. Farming is what she does anyway; the honey is the by-product of it.
+        /// the build rate: 0.024 puts a full bar at about 42 sown plants, harvested plants or
+        /// tamed animals, where 0.03 put it at 33. Lowered from 0.03 at the user's call
+        /// (2026-09-29), which is the same load costing a quarter more work. Farming is what she
+        /// does anyway; the honey is the by-product of it.
         /// </summary>
-        public float fullnessPerAction = 0.03f;
+        public float fullnessPerAction = 0.024f;
     }
 
     /// <summary>
@@ -86,11 +96,11 @@ namespace PMM_Insects
 
         public float Fullness => fullness;
 
-        public float MinFullness => Dials != null ? Dials.minFullness : 0.3f;
+        public float MinFullness => Dials != null ? Dials.minFullness : 0.75f;
 
-        public int HoneyPerMilking => Dials != null ? Dials.honeyPerMilking : 25;
+        public int HoneyPerMilking => Dials != null ? Dials.honeyPerMilking : 12;
 
-        private float FullnessPerAction => Dials != null ? Dials.fullnessPerAction : 0.03f;
+        private float FullnessPerAction => Dials != null ? Dials.fullnessPerAction : 0.024f;
 
         /// <summary>True when there is honey to take.</summary>
         public bool CanMilk => fullness >= MinFullness && HoneyDef != null;
@@ -217,10 +227,11 @@ namespace PMM_Insects
         }
 
         /// <summary>
-        /// The honey item's own art, so the order reads as the thing it produces. Vanilla insect
-        /// jelly's texture, borrowed the same way the silk item borrows vanilla cloth's.
+        /// The honey item's own art, so the order reads as the thing it produces. Read off the def
+        /// actually in play, so a load order with Medieval Overhaul gets MO's honey picture on the
+        /// button along with MO's honey in her hands.
         /// </summary>
-        private static Texture2D HoneyGizmoIcon => ContentFinder<Texture2D>.Get("Things/Item/Resource/AnimalProductRaw/InsectJelly");
+        private Texture2D HoneyGizmoIcon => HoneyDef?.uiIcon;
 
         public override void ExposeData()
         {

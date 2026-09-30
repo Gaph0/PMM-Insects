@@ -36,9 +36,17 @@
 		<modExtensions>
 			<li Class="PMM_Insects.HoneyGeneExtension">
 				<honeyDef>PMM_Honey</honeyDef>
-				<honeyPerMilking>25</honeyPerMilking>
-				<minFullness>0.3</minFullness>
-				<fullnessPerAction>0.03</fullnessPerAction>
+				<!-- Halved from 25 at the user's call (2026-09-29). 25 was one full milking,
+				     and 25 does not halve into whole jars, so this is the rounded-down 12. -->
+				<honeyPerMilking>12</honeyPerMilking>
+				<!-- Three quarters, raised from a third at the user's call (2026-09-29): she
+				     carries her honey further before emptying, so one milking takes more at
+				     once. Her own milking work (WorkGiver_MilkHoney) reads this same dial, so
+				     she holds her honey rather than taking it early. -->
+				<minFullness>0.75</minFullness>
+				<!-- 0.03 over 1.25, same call (2026-09-29): the bar fills a quarter slower,
+				     so the same load now costs a quarter more work. -->
+				<fullnessPerAction>0.024</fullnessPerAction>
 			</li>
 		</modExtensions>
 	</GeneDef>

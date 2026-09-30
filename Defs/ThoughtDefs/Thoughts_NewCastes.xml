@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The three thoughts behind the two new genes (built 2026-09-30, CASTES-PLAN.md
+		phase 1). Mood cannot live on a gene and an opinion cannot live on a stat, so
+		both halves sit here and Source/Insects/ supplies the workers:
+		`ThoughtWorker_DisorientatingLights` and `ThoughtWorker_Quarrel`.
+
+		The two quarrel defs are social situational thoughts, and that is load
+		bearing. A `ThoughtDef` is only collected once per other pawn when its
+		`thoughtClass` is `Thought_SituationalSocial` - the default for a def with a
+		worker and no duration is `Thought_Situational`, which has no other pawn at
+		all, so the opinion would silently never apply. Vanilla's own examples are
+		Core/Defs/ThoughtDefs/Thoughts_Situation_Social.xml and Anomaly's
+		Thoughts_Situational_Social.xml, and the shape below is theirs.
+
+		-50 is the decided number (2026-09-30), for both. The beetle's is mutual
+		because its gene names itself; the hornet's is one way because its gene names
+		the honey gene, and a honey bee carries no thought about hornets.
+	-->
+	<ThoughtDef>
+		<defName>PMM_Thought_DisorientatingLights</defName>
+		<workerClass>PMM_Insects.ThoughtWorker_DisorientatingLights</workerClass>
+		<stages>
+			<li>
+				<label>giddy in the light</label>
+				<baseMoodEffect>10</baseMoodEffect>
+				<description>She is standing in a light bright enough to make her happy and a little unsteady.</description>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>PMM_Thought_Quarrelsome</defName>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<workerClass>PMM_Insects.ThoughtWorker_Quarrel</workerClass>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<label>quarrelsome kin</label>
+				<baseOpinionOffset>-50</baseOpinionOffset>
+				<description>The two of them cannot share a room. Her own kind grates on her, and she on them.</description>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>PMM_Thought_HoneyHatred</defName>
+		<thoughtClass>Thought_SituationalSocial</thoughtClass>
+		<workerClass>PMM_Insects.ThoughtWorker_Quarrel</workerClass>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<label>smell of honey</label>
+				<baseOpinionOffset>-50</baseOpinionOffset>
+				<description>Hornets were built to fight bees, and the smell of honey is enough to set her teeth.</description>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

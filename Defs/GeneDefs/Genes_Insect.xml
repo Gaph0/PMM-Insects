@@ -13,21 +13,41 @@
              chitin skin, feelers, full toxin immunity, the pheromone effect in
              InsectPheromones.cs, and insect flesh.
 
-             skinColorBase sets the shared chitin tone (muted olive-grey,
-             120/118/89) as the pawn's BASE skin colour, so an insect mamono can
-             never fall back to a vanilla human melanin tone. The actual visible
-             tone comes from the five randomChosen chitin genes in
-             Defs/GeneDefs/Genes_InsectSkin.xml, which every insect xenotype
-             lists: vanilla keeps one of them at random per pawn. Per-species
-             palettes can come later with a PMM_ChitinGraphics GraphicSetDef if
-             wanted. Uses vanilla Biotech fields, so it all renders through the
-             normal skin pipeline with no custom art.
+             skinColorBase sets the BASE skin colour, the one under her real colour
+             and the one that shows if she has none: a caste with no palette of her
+             own (the four castes still to be built), or a woman carrying this gene
+             without one of the caste xenotypes. Every caste's real colour is her
+             own three, listed on her xenotype (a PMM_Insects.InsectSkinColours
+             extension) and defined next door in Genes_InsectSkin.xml.
+
+             That class, `PMM_Insects.Gene_InsectChitin`, is also why the shared
+             gene is the place the roll lives: it is the one gene every insect
+             caste carries, so a caste's colour needs nothing added anywhere but
+             her own three defs and her list, and a woman transformed into one
+             rolls hers when her genes land. Uses vanilla Biotech fields, so it all
+             renders through the normal skin pipeline with no custom art.
+
+             Grief: this gene is also what makes a caste mourn like a drone, but
+             the relation thoughts are NOT written into its `nullifyingGenes` -
+             the game prints that list on this very tooltip, twenty-two lines of
+             dead relatives. The nullification is a marker plus a postfix instead,
+             and no line of it shows anywhere: Patches/InsectGrief.xml and
+             Source/Insects/InsectGrief.cs.
      -->
      <GeneDef>
              <defName>PMM_Gene_Insect</defName>
              <label>insectoid</label>
              <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her - every scent, every thread of mana. She was born of the hives.</description>
+             <geneClass>PMM_Insects.Gene_InsectChitin</geneClass>
              <iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
+             <!-- Explicit white, and it is not decoration. `GeneDef.IconColor` falls back to
+                  `skinColorBase` below when no `iconColor` is set, and the icon is drawn with
+                  that colour multiplied into it - so this gene's hand-drawn art came out as
+                  olive-grey murk (the heart's pink 208,85,148 rendering as 97,39,51). White
+                  opts out. The castes' colour genes are the other half of the same
+                  mechanism and WANT the tint; a coloured icon needs this line instead
+                  (user's fix, 2026-09-30). -->
+             <iconColor>(255,255,255)</iconColor>
              <displayCategory>Miscellaneous</displayCategory>
              <displayOrderInCategory>1000</displayOrderInCategory>
              <!-- User ruling 2026-09-27: this gene COSTS 1 metabolic efficiency;
@@ -52,8 +72,10 @@
              <statOffsets>
                      <ToxicEnvironmentResistance>1</ToxicEnvironmentResistance>
              </statOffsets>
-             <!-- Shared chitin BASE tone: muted olive-grey (120, 118, 89),
-                  overridden per pawn by the randomChosen chitin genes. -->
+             <!-- Shared chitin BASE tone: muted olive-grey (120, 118, 89), under
+                  whichever colour her caste rolled. It is what shows for a caste
+                  with no palette of her own, and for the instant before the roll
+                  lands. -->
              <skinColorBase>(120, 118, 89)</skinColorBase>
              <randomBrightnessFactor>0</randomBrightnessFactor>
              <!-- Only the lines the game does not print for itself live here, and

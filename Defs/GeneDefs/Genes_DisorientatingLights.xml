@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The light gene (built 2026-09-30, CASTES-PLAN.md phase 1). Carrying it makes
+		a mamono giddy in man-made light and a little muddled by it. The mothman is
+		the caste it was written for; nothing carries it yet, and the wiring is
+		phase 2.
+
+		The rule, decided 2026-09-30: -5% consciousness and +10 mood while she
+		stands in artificial light at exactly 50% - the value a man-made light
+		source gives - and NOT under a growing lamp, whose bright core is a
+		different value. A glowing cave counts as light.
+
+		All of that is one engine number and no def names anywhere. `GlowGrid`
+		(Verse/GlowGrid.cs) caps ordinary light sources at 0.5
+		(MaxGameGlowFromNonOverlitGroundLights) and returns a flat 1.0 on every cell
+		inside a source's `overlightRadius` (AlphaOfOverlit). A vanilla
+		`StandingLamp` has no overlight radius, so it reads 0.5; the vanilla
+		`SunLamp` - the growing lamp - has `overlightRadius 7.0`, so its bright core
+		reads 1.0 and is the one place the gene does not fire.
+		Source/Insects/DisorientatingLights.cs holds the test and both halves.
+
+		Two halves, two homes, and that is the interesting part of this gene. A
+		hediff cannot carry the mood: `HediffStage` has `overrideMoodBase`, which
+		REPLACES the mood base rather than adding to it. So the consciousness
+		penalty is the hidden hediff `PMM_Hediff_DisorientatingLights`, which the
+		gene class adds and removes as the light changes, and the mood is the
+		thought `PMM_Thought_DisorientatingLights`.
+
+		Displayed lines: none, on purpose. The gene carries no stat offsets and no
+		abilities, so the engine prints nothing for it, and the hidden hediff is
+		invisible on the Health tab. That is why the description below states the
+		two numbers itself: there is no effect line for them to live in.
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_DisorientatingLights</defName>
+		<label>disorientating lights</label>
+		<description>A moth's eyes: a lamp is a pleasure and a puzzle at once. While she stands in a man-made light - a lamp, a torch, a fire, a glowing cave - she is giddy and her mind swims, worth 10 mood and costing her 5% of her consciousness. The bright core of a growing lamp is the one light that does nothing for her.</description>
+		<iconPath>UI/Icons/Genes/Gene_DisorientatingLights</iconPath>
+		<geneClass>PMM_Insects.Gene_DisorientatingLights</geneClass>
+		<displayCategory>Miscellaneous</displayCategory>
+		<displayOrderInCategory>1002</displayOrderInCategory>
+		<!-- No metabolic cost, and that is the ruling rather than an oversight: the light
+		     does the work, and the price she pays is the muddled head it comes with. -->
+		<biostatMet>0</biostatMet>
+	</GeneDef>
+
+</Defs>

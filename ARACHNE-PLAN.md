@@ -51,8 +51,9 @@ Agreed with the user 2026-09-26. Spider mamono of the hostile abaddon tribe.
   `baseHealthScale` 0.4 -> 1.0 after HealthScalePatch, four melee tools, hive nourishment) and
   `PMM_RaceTracker_Arachne` (Manipulation +0.10, sharp 0.15, race comp, romance tags), with B&S's
   `BS_SpiderPersonRace` attached through `raceHediffList`.
-- `Defs/XenotypeDefs/Xenotypes_Insect.xml`: `PMM_InsectArachne`, seven identity genes plus the five
-  chitin tones, `setRace`/`forceRace` to `PMM_Race_Arachne`, `factionlessGenerationWeight 0`.
+- `Defs/XenotypeDefs/Xenotypes_Insect.xml`: `PMM_InsectArachne`, seven identity genes (the chitin
+  tone came off this list on 2026-09-29 - it is rolled now, see HANDOFF §5.13),
+  `setRace`/`forceRace` to `PMM_Race_Arachne`, `factionlessGenerationWeight 0`.
   Plus core's `PMM_Gene_LargeFrame` (user's call, same day): 20% for any caravan she joins and
   caravans count her as a riding animal, with no size change, so her race's 1.3 pair stands.
   Deliberately without `VRE_InsectSkin`/`VRE_InsectAntennae`: her upper body is the spider's own

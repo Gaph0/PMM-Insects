@@ -29,10 +29,10 @@ Two species needed a health fix. The devil bug and the greenworm copy the bugs' 
 health scale, which left their limbs paper-thin. A patch multiplies their health scale
 by 2.5, so the devil bug sits at 100% of a human and the greenworm at 62%.
 
-Chitin comes in five tones. Every insect xenotype lists the same five skin genes, each
-marked `randomChosen`, and vanilla keeps one of them at random per mamono - the same trick
-vanilla uses for melanin and tails. So no two insect mamonos are the same colour, and a
-daughter rolls her own tone.
+Chitin comes in three colours per caste. Each caste lists her own three on her xenotype, and
+one of them is rolled for each mamono when she is generated - the same trick vanilla uses for
+melanin and tails. So a caste keeps her palette and no two mamonos in it are quite the same
+shade, and a daughter rolls her own colour rather than wearing her mother's.
 
 The races live in `Defs/ThingDefs/Races_InsectMamono_BS.xml`, on the Big & Small
 race pattern.

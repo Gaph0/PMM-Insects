@@ -2,6 +2,20 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the preview image on the mod page.
+
+- 2026-10-01: Fixed the abaddon folk's lower arms, which her wings were covering. The left lower arm now draws over the wing, the way the right one already did.
+- 2026-10-01: Changed the spider-bodied momos so their spider half is drawn in their own body colour. The arachne, the ant arachne and the girtablilu no longer recolour their legs and abdomen when their hair changes.
+- 2026-09-30: Changed the insect momos' body colours. Each caste has three of her own now and every momo is born in one of them, instead of the five tones every caste used to share.
+- 2026-09-30: Fixed the insectoid gene's icon, which was coming out darker than it was drawn.
+- 2026-09-30: Changed the insectoid gene's icon to the Mamono heart with an I on it.
+
+- 2026-09-29: Changed the insectoid gene's effect list. It no longer prints a line for every relative and friend whose death it ignores; insect momos mourn exactly as before.
+- 2026-09-29: Changed the insect skin so each mamono rolls one chitin tone at birth. Her gene list shows that one tone instead of five, four of them greyed out.
+- 2026-09-29: Rebalanced honey. She holds it until she is three quarters full, filling up takes a quarter more work, and one milking gives half as much.
+- 2026-09-29: Changed honey to wear its own jar picture instead of the recoloured insect jelly.
+- 2026-09-29: Changed the honey bee's icon to that same jar, in place of the placeholder silhouette.
+
 - 2026-09-27: Fixed a crash on new worlds. The ant arachne was missing from the tribes' pawn list, and world generation stopped dead on it, so no factions appeared at all.
 - 2026-09-27: Added the honey bee, a farmer caste of the neutral insector hive. She keeps the hive's crops and its animals, counts as a full-grown woman before her small gene shrinks her, and can never have children of her own. She stands in hive villages and in no raid.
 - 2026-09-27: Added honey. A honey bee fills with honey as she works the plants and tends the animals, and it can be milked out of her - by right click, by another colonist, or from a button on her own bar. Honey is a fine food worth 7 silver a jar, it never spoils, and it never poisons anyone.
@@ -123,6 +137,11 @@
 - 2026-09-06: Changed Odyssey to an optional dependency. Without it only the three base-game insects change.
 
 ## Internal
+
+- 2026-10-01: Changed the abaddon folk's lower-arms render node from layer 2 to 93 (north still -1) so the arms draw above Big & Small's wing nodes, which put their front faces at 92. Anything above the wings is above clothing too; the two cannot be separated without copying B&S's winged tracker.
+- 2026-10-01: Added our own copy of Big & Small's two spider graphic sets and its spider tracker, drawing the lower body in skin colour instead of hair, and pointed the three spider castes' raceHediffList at it. B&S's own defs are untouched; the copy drops the abdomen colour tag and the taur alts, which could never fire here.
+- 2026-09-30: Changed the chitin tones into per-caste body colours: 33 colour genes listed on each caste's xenotype, and the roll now draws from her own list. A save made before this loses the removed tone once per mamono and is handed a colour from her caste's palette on load.
+- 2026-09-30: Added the new castes' first genes, with placeholder icons. Nothing carries them yet.
 
 - 2026-09-27: Fixed a missing pawn kind. An edit that added the honey bee's kind replaced the ant arachne's kind instead of sitting beside it, so `PMM_InsectAntArachne` was defined nowhere while five faction roster entries and the queen's brood list still pointed at it. The unresolved `PawnGenOption` left a null kind in the rosters, and world generation died with a `NullReferenceException` in `Faction.TryGenerateNewLeader` - no faction of ANY kind appeared in a new world. Restored, and the whole set re-checked: all 12 kinds the factions name exist.
 - 2026-09-27: Removed `<factionlessGenerationWeight>` from five pawn kinds (arachne, beelzebub, girtablilu, ant arachne, honey bee). The field does not exist on `PawnKindDef` in 1.6 - the game logged an XML error for each and ignored them - so it was dead config reading as live support. The field is on `XenotypeDef`, which every insect xenotype already sets to 0.

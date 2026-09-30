@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The consciousness half of the light gene - the half the engine cannot put on
+		a thought (see Defs/GeneDefs/Genes_DisorientatingLights.xml for the whole
+		rule and why the mood had to go elsewhere).
+
+		A hidden marker hediff: `Gene_DisorientatingLights` adds it while she stands
+		in the light and removes it when she leaves, and its single stage carries the
+		penalty. Hidden because it is state rather than a condition - the family's
+		call for its other marker hediffs (Reptiles' Hediff_Shedding, the slime
+		mod's Hediff_SlimeJellyOozing). The gene's description is where the player
+		reads the rule, so a second row in the Health tab would only say it again.
+	-->
+	<HediffDef>
+		<defName>PMM_Hediff_DisorientatingLights</defName>
+		<hediffClass>PMM_Insects.Hediff_DisorientatingLights</hediffClass>
+		<label>disorientating lights</label>
+		<description>She is standing in a light bright enough to make her giddy.</description>
+		<stages>
+			<li>
+				<!-- The whole penalty: an offset rather than a factor, so it reads as "her
+				     head is not all the way with her" instead of scaling other things. -->
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.05</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+</Defs>

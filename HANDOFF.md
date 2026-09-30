@@ -941,8 +941,8 @@ synapse `VRE_SwarmSynapse`, hardened chitin `VRE_HardenedChitin`, microsized
 `VRE_Microsized`, inefficient midgut `VRE_InefficientMidgut`, jelly dependency
 `VRE_InsectJellyDependency`, insect skin `VRE_InsectSkin`, insect antennae
 `VRE_InsectAntennae`, weak flight `PMM_Gene_FlightWeak`, poor social
-`AptitudePoor_Social`, mamono `ProjectMamono_Mamono`, plus the five chitin tones - and
-**great melee** `AptitudeRemarkable_Melee`, asked for later the same day (vanilla's
+`AptitudePoor_Social`, mamono `ProjectMamono_Mamono`, plus the body colour rolled for her (§5.13)
+- and **great melee** `AptitudeRemarkable_Melee`, asked for later the same day (vanilla's
 `AptitudeRemarkable` template is the label "great {0}": +8 aptitude and a passion
 level).
 
@@ -953,18 +953,13 @@ Three notes on how that list departs from §5.3's rules for the six:
    only the flag those patches read. Listing it would be a second flag for one
    feature, so it is absent and the behaviour is identical either way.
 2. **`VRE_InsectSkin` is in, against §5.3's exclusion** (user's call, caveat shown:
-   "accepting the lost chitin tones / VRE heads"). The tones are not actually lost:
-   its fur carries `useSkinColorForFur`, so the shell is drawn in the pawn's skin
-   colour, which her chitin gene sets. Its exclusion tags are body and fur tags
-   (`AG_Bodies`, `Bodies`, `Body`, `Fur`) while the chitin genes carry vanilla's
-   `SkinColorOverride`, so the two groups never conflict, and the antennae gene's
-   `Antenna` tags conflict with nothing here. Vanilla's random picker is tag-based -
-   verified in the 1.6 assembly: `Pawn_GeneTracker.Notify_GenesChanged` selects
-   among genes that `ConflictsWith` the changed gene, and `OverrideAllConflicting`
-   overrides exactly those - so one chitin tone is kept at random and the two other
-   cosmetic genes are left alone. The armour-stacking worry behind §5.3's ban is
-   answered differently here: **her race tracker carries no armour stage at all**, so
-   `VRE_InsectSkin`'s sharp 0.27 / blunt 0.18 is the only armour on top of
+   "accepting the lost body colour / VRE heads"). The colour is not actually lost: its fur
+   carries `useSkinColorForFur`, so the shell is drawn in the pawn's skin colour, which her
+   chitin gene sets. Its exclusion tags are body and fur tags (`AG_Bodies`, `Bodies`, `Body`,
+   `Fur`) while the tone carries vanilla's `SkinColorOverride`, so the two never conflict, and
+   the antennae gene's `Antenna` tags conflict with nothing here. The armour-stacking worry
+   behind §5.3's ban is answered differently here: **her race tracker carries no armour stage at
+   all**, so `VRE_InsectSkin`'s sharp 0.27 / blunt 0.18 is the only armour on top of
    `VRE_HardenedChitin`'s quarter-off.
 3. **`VRE_Microsized` is in, and it does sit on top of B&S sizing** - exactly the
    thing §5.3 excluded it for. Here it is wanted. The first guess at the numbers was
@@ -1025,7 +1020,7 @@ arms as well, and no installed mod ships a four-arm or abdomen sprite. What exis
 now is `Tools/mktex_arms.py` output - six crude grey limbs in
 `Textures/RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms_{south,north,east}[m].png`,
 512x512, drawn in near-white because the render node tints them with the pawn's
-skin colour (`colorType Skin`), so her chitin tone applies for free. Replace those
+skin colour (`colorType Skin`), so her body colour applies for free. Replace those
 six files with real art, names unchanged, and nothing in XML moves.
 
 The node itself is on `PMM_RaceTracker_AbaddonFolk` and is a copy of B&S's own
@@ -1053,6 +1048,16 @@ in their version the stomach lives inside it. See §11 item 9.
 The queen's own abdomen needs none of that: she takes hers from VRE's cosmetic
 spawning-sack gene (§5.10), because hers is drawn art rather than a body part. A folk
 version would still need the part, the gut inside it and the sprite.
+
+**The lower arms had to move above the wings (2026-10-01).** She was drawn with the left lower arm
+behind her front wing and the right one in front of it. The wings are B&S's own nodes, whose front
+faces sit at layer 92 and whose inner ones sit at -1 and -2, while the arm node was at 2 - the value
+copied from B&S's tail. It is at 93 now, above the wings, with the north view left at -1, where her
+own back and the wings are meant to hide the middle of the pair. Anything above the wings is above
+her clothes too: the two cannot be separated without copying B&S's winged tracker, the same
+copy-or-patch trade `SpiderBody_BS.xml` records for the spider body. Her queen is not covered by
+this: she wears the same body but has no lower-arm node of her own, so if her four arms ever read
+wrong, that is a different look.
 
 ### 5.8 Her size: two frameworks, both ADDING (2026-09-25)
 
@@ -1208,7 +1213,7 @@ cosmetic size stat, and touching this pair would move the mechanic as well.
 always was: `Sterile` holds the shared `Fertility` tag now that parthenogenesis has gone.
 VRE ships the visual on its own anyway: `VRE_SpawningSack_Cosmetic` is the same
 attachment node, the same texture (`Things/Pawn/Humanlike/BodyAttachments/SpawningSack`)
-and the same `colorType Skin`, so it takes her chitin tone - with no stats and no
+and the same `colorType Skin`, so it takes her body colour - with no stats and no
 `Fertility` tag. So the answer to "can we get the abdomen without the gene" was that no
 copying was needed: VRE had already split the look from the mechanic. Its one exclusion
 tag is `Tail` (it would clash with a tail gene, and she has none). The node is a plain
@@ -1334,7 +1339,9 @@ choice has to be carried by our own comps and the default entry is left to VFEI2
 ### 5.12 The honey bee, and honey - built 2026-09-27
 
 **The caste.** `PMM_InsectHoneyBee` xenotype, `PMM_Race_HoneyBee` race plus tracker,
-`PMM_InsectHoneyBee` pawn kind, and an icon from `Tools/mktex.py`, which now lists her. She is
+`PMM_InsectHoneyBee` pawn kind, and her own icon - hand-drawn art since 2026-09-29
+(`Textures/UI/Icons/Xenotypes/PMM_HoneyBee.png`, 64x64 as the reptiles' icons are), so
+`Tools/mktex.py` no longer generates her. She is
 the neutral hive's alone: `Peaceful` weight 12, `Settlement` weight 3, the `Farmers` role group
 at weight 2 (the heaviest of the three there - she is the caste that farms), and no Combat group
 anywhere, so the swarm never fields her. The hive's `xenotypeSet` was rebalanced for her: devil
@@ -1344,7 +1351,8 @@ Her genes are the user's list, every def checked against the installed 1.6 files
 and `VRE_CompoundEyes` (both evolutions) against `VRE_RapidLifeCycle` and `VRE_Microsized` (both
 degrades) - two and two, the balance VRE's picker demands - plus `VRE_InsectAntennae`, the core
 mod's `PMM_Gene_FlightWeak`, `Sterile`, `AptitudeStrong_Plants`, `AptitudeStrong_Animals`,
-`AptitudePoor_Intellectual`, `AptitudePoor_Social`, `PMM_Gene_Honey` and the five chitin tones.
+`AptitudePoor_Intellectual`, `AptitudePoor_Social`, `PMM_Gene_Honey`, and the body colour she
+rolls (§5.13).
 The trade that comes with the list, on the record: serotonin keeps her blissful AND doubles her
 social-fight chance (`socialFightChanceFactor 2`, and its own description promises as much), so a
 hive of farmers is a hive of cheerful squabbles.
@@ -1376,11 +1384,26 @@ patch is needed anywhere in the accumulation. The first reading of a save-loaded
 baselines (`lastWorkTotal` starts at -1 and is scribed): she already carries a lifetime of farm
 work on her records, and paying for that would hand the player a full bar the moment she loads.
 
-**The dials**, all on the extension so each is one line to move: `fullnessPerAction 0.03` (a full
-bar is about 33 tracked actions), `honeyPerMilking 25`, `minFullness 0.3`. Fullness clamps at 1,
+**The dials**, all on the extension so each is one line to move: `fullnessPerAction 0.024` (a full
+bar is about 42 tracked actions), `honeyPerMilking 12`, `minFullness 0.75`. Fullness clamps at 1,
 so honey caps as silk does, and milking empties her with the yield scaled to what had built up -
 early is a shorter wait for less honey, never a loss. These are the plan's open tuning questions,
 answered as defaults rather than by asking.
+
+**The emptying point, raised 2026-09-29 (the user's call).** `minFullness` was 0.3. The user asked
+for honey that drops by itself once the bar is full; shown how the chain works, they took the
+smaller change instead - **no automatic drop**, and the emptying point raised to three quarters so
+one milking takes more at once. The dial is shared, so the right-click order and her gizmo wait the
+same three quarters, and `WorkGiver_MilkHoney` still empties her the moment she passes it wherever
+Handling is on - which is what made the automatic drop unnecessary. The trade accepted with it is
+the wait: fewer milkings, each one bigger than the early trickle it replaced.
+
+**The yield halved and the fill slowed, same day (the user's call).** "Halve the amount of honey
+made, and make the amount of work needed increase by 25%": `honeyPerMilking` 25 -> 12 (25 does not
+halve into whole jars, so it is the rounded-down half) and `fullnessPerAction` 0.03 -> 0.024, which
+is 0.03 over 1.25. The two multiply: honey per tracked action falls to about 38% of its old rate
+(the fill rate 80% times the yield 48%), so a jar costs roughly 2.7 times the work it did. Nothing
+else moved - the item, its stack of 25 and its value are MO's numbers and unchanged.
 
 **The chain mirrors silk one for one**: a `PMM_MilkHoney` job (`JobDriver_MilkHoney`), a matching
 `PMM_MilkHoney` work giver (`WorkGiver_MilkHoney`, self-only like the silk giver, so she takes her
@@ -1398,7 +1421,8 @@ shape, with market value 7, mass 0.025, nutrition 0.05, a stack of 25, the `Anim
 shelf, and **no `FoodPoisonChanceFixedHuman` line at all** - that stat's default is 0, so the
 plan's "never poisons anyone" is reached by omission rather than by a field that says 0. Value,
 nutrition and stack match Medieval Overhaul's own honey, so a colony running MO sees one honey
-either way, and the 25 is exactly one full milking. It is tradeable (vanilla's default), which
+either way. The stack of 25 is MO's number rather than a match for one milking, which has been 12
+since 2026-09-29. It is tradeable (vanilla's default), which
 the MO patch's reasoning needs: that patch stops our jar being *generated* as trader stock, never
 the player selling one.
 
@@ -1415,6 +1439,204 @@ MO's own: "smokey honey".
 arachne, the beelzebub, the girtablilu and the ant arachne - were never registered in it, so their
 corpses sat under vanilla's humanlike line while every older sister's moved to the mamono line. All
 four are registered now, the bee with them.
+
+### 5.13 Body colour is rolled from her caste's three (2026-09-30)
+
+Every caste has three body colours and every mamono wears one of them, rolled for her. The colours
+are 33 gene defs in `Defs/GeneDefs/Genes_InsectSkin.xml`, three per caste, with the arachne and the
+ant arachne sharing a row; which three belong to whom is declared on the caste herself, as a
+`PMM_Insects.InsectSkinColours` list inside her xenotype's `modExtensions`.
+
+**Why a gene at all.** `Pawn_StoryTracker.SkinColor` is `skinColorOverride ?? SkinColorBase`, and
+`skinColorOverride` is only ever written from a gene (`Pawn_GeneTracker.Notify_GenesChanged`), so a
+colour has to be a gene to be a colour. That also means it is saved with her, and that it shows as
+one row on her gene page - the row names her shade ("deep indigo chitin", "bright yellow chitin").
+
+**Why a roll and not a list.** One `skinColorOverride` is one fixed RGB, so three colours need three
+defs - and a xenotype listing all three would show two greyed rows, because vanilla keeps one active
+and overrides the rest. Vanilla answers the same problem with per-pawn melanin genes, and so does
+this, in `Source/Insects/InsectChitin.cs`:
+
+- `Gene_InsectChitin` on `PMM_Gene_Insect` rolls when the gene lands, so ordinary generation, a
+  woman transformed into a caste, and a daughter inheriting her mother's colour all pass through it.
+- `PawnGenerator.GeneratePawn` rolls once more at the end of generation, so a daughter wears her own
+  colour rather than her mother's.
+- `Pawn_GeneTracker.ExposeData` does **not** call `PostAdd`, and the load hook only fills a gap, so a
+  mamono loaded from a save keeps the colour she was saved with.
+- `Pawn_GeneTracker.SetXenotype` sets `xenotype` *before* it adds that xenotype's genes through
+  `AddGene` (checked in the 1.6 assembly), so the roll already knows which list to draw from - and a
+  woman re-cast in game has her old colour replaced by one of her new caste's.
+
+**The five shared tones are gone** (pale, olive, moss, umber, dark: 2026-09-29 to 2026-09-30, rolled
+for every caste alike). A save made while they existed loses the gene reference once per mamono - the
+removed defs mean the game logs it and drops it - and the load hook then hands her a colour from her
+caste's palette, so she comes back in her caste's colours rather than staying untoned.
+
+**A caste with no list keeps the shared base.** `PMM_Gene_Insect` still carries
+`skinColorBase (120, 118, 89)`, which is what shows for the hornet, the mantis, the mothman and the
+papillon until each is given her three, and for a woman carrying the insect gene without one of the
+caste xenotypes. `CASTES-PLAN.md` §2 carries "her three colours" as a build step for each new caste.
+
+**And the colour tints the icon.** `GeneDef.IconColor` (`Verse/GeneDef.cs:220`) falls back through
+`iconColor` -> `skinColorBase` -> `skinColorOverride` -> `hairColorOverride`, and its only reader
+(`GeneUIUtility.cs:431`) multiplies that colour into the gene's icon. That is how vanilla's cosmetic
+genes work: greyscale art, and the tint supplies the colour - which is why the colour genes and every
+hair or skin gene in the load order read correctly. `PMM_Gene_Insect` is the one gene here that
+declares a skin tone without being a skin gene, so its hand-drawn art came out multiplied by the
+chitin base `(120, 118, 89)`: the heart's pink `208,85,148` rendered as `97,39,51` (user's report,
+2026-09-30). It carries an explicit `<iconColor>(255,255,255)</iconColor>` now to opt out.
+**A new gameplay gene with coloured art needs that line; a skin or hair gene must not have it.**
+
+---
+
+### 5.14 Grief leaves the gene's tooltip (2026-09-29)
+
+The 2026-09-27 grief pass (`Patches/InsectGrief.xml`) wrote `PMM_Gene_Insect` into
+`ThoughtDef.nullifyingGenes` on twenty-two relation thoughts. The nullification was right, the
+display was not. That field is read in exactly two places: `ThoughtUtility.NullifyingGene`, which
+is the nullification itself, and `GeneDef.GetDescriptionFull`, which walks every thought naming
+the gene and prints the whole set on the **gene's own tooltip** - a `Mood:` block reading
+`Removes: My daughter died: -23`, once per relation. The user hovered the insectoid gene, found
+twenty-two lines of dead relatives, and asked for them hidden.
+
+The field could not stay, so the same question is answered in code instead:
+
+- The patch marks the same twenty-two thoughts with a `PMM_Insects.InsectGriefThought` mod
+  extension (`PatchOperationAddModExtension`) in place of the `nullifyingGenes` list. A mod
+  extension is read by nothing the game ships, so the tooltip has nothing to print.
+- `Source/Insects/InsectGrief.cs` postfixes `ThoughtUtility.NullifyingGene` and answers with the
+  pawn's `PMM_Gene_Insect` for a marked thought. Only marked thoughts reach the gene lookup, so
+  every other thought on every other pawn costs one null mod-extension check.
+
+`Thought_Memory.MoodOffset` reaches the nullification through `ThoughtUtility.ThoughtNullified`,
+which asks `NullifyingGene` last, and the memory's own explanatory line comes from
+`ThoughtNullifiedMessage`, which asks it too - so a single postfix serves both and neither result
+changes. The memory is still gained, still worth nothing, and still reads "(Disabled by gene:
+insectoid)". What moved is only where the relationship is written down: our code, rather than the
+thought defs' data, which is the one thing to remember before putting the gene back into a
+`nullifyingGenes` list.
+
+---
+
+### 5.15 The new castes' first two genes: light and quarrel (2026-09-30)
+
+Phase 1 of `CASTES-PLAN.md`, built and deployed, with **no caste carrying either gene yet.** The
+plan and the full gene study are `CASTES-PLAN.md` and `GENES-FEASIBILITY.md`; this section is what
+exists. No language keys were needed: every string of both genes is inline in its def, the way the
+mod's other gene labels are.
+
+**The light gene** (`PMM_Gene_DisorientatingLights`, `Defs/GeneDefs/Genes_DisorientatingLights.xml`,
+`Source/Insects/DisorientatingLights.cs`), written for the mothman: -5% consciousness and +10 mood
+while she stands in man-made light at exactly 50%, and not under a growing lamp, with a glowing cave
+counting as light.
+
+The rule is one engine number and no def names. `GlowGrid.GroundGlowAt(cell, ignoreSky: true)` skips
+the sky term, which is what makes the light artificial; what is left is capped at 0.5 for an ordinary
+light source (`MaxGameGlowFromNonOverlitGroundLights`) and reads a flat 1.0 on every cell inside a
+source's `overlightRadius` (`AlphaOfOverlit`). A vanilla `StandingLamp` has no overlight radius, so it
+reads 0.5 and passes; the vanilla `SunLamp` - the growing lamp - has `overlightRadius 7.0`, so its
+bright core reads 1.0 and is the one place the gene does not fire. The lamp's outer ring reads 0.5
+like any lamp and does count, which is the 2026-09-30 call: the core is where the crops stand, and
+excluding the ring would mean scanning the map's light sources on every check.
+
+**The two halves have two homes, and that is the only interesting thing about the gene.** A hediff
+cannot add mood - `HediffStage` has `overrideMoodBase`, which *replaces* the mood base - so the
+consciousness penalty is the hidden marker hediff `PMM_Hediff_DisorientatingLights` (one `capMods`
+stage, added and removed by the gene class on the honey gene's hourly poll) and the mood is the
+situational thought `PMM_Thought_DisorientatingLights`. The hediff is this mod's first hidden
+`Visible => false` hediff; the family's precedent is Reptiles' `Hediff_Shedding`, and the gene's
+`description` is where the player reads the two numbers, because the effect box stays empty.
+
+**The quarrel gene** (`PMM_Gene_Quarrelsome` for the beetle, `PMM_Gene_HoneyHatred` for the hornet,
+`Defs/GeneDefs/Genes_Quarrel.xml`, `Source/Insects/Quarrel.cs`): -50 opinion toward the carriers of
+one named gene, mutual for the beetle and one way for the hornet. The dial is the gene def's own
+`QuarrelGeneExtension.dislikedGene`, so a third grudge is a third def and no new code of any kind.
+
+Two things about it are worth remembering. The fights need no code at all: `Pawn_InteractionsTracker`
+already multiplies the social-fight chance by opinion (x2.5 at -50, x4 at -100), so the opinion
+penalty *is* the aggression. And a social thought is only collected once per other pawn when the def
+names `thoughtClass Thought_SituationalSocial` - the default for a def with a worker and no duration
+is `Thought_Situational`, which has no other pawn at all, so the penalty would silently never apply.
+
+**Still to come:** the four castes themselves, phases 2 to 5 of the plan. The genes are in the def
+database and show on a gene page in dev mode; nothing spawns with them yet.
+
+---
+
+### 5.16 The castes' body colours (2026-09-30)
+
+The user supplied three colour values for each caste, and every caste now rolls one of hers. They are
+recorded here exactly as given; the defs that carry them are in `Genes_InsectSkin.xml` and the roll
+is §5.13.
+
+| caste | value 1 | value 2 | value 3 |
+|---|---|---|---|
+| Giant ant | 50 49 80 `#323150` | 97 112 143 `#61708F` | 126 171 210 `#7EABD2` |
+| Soldier beetle | 87 68 61 `#57443D` | 140 118 105 `#8C7669` | 48 30 28 `#301E1C` |
+| Greenworm | 137 171 120 `#89AB78` | 97 135 84 `#618754` | 74 109 67 `#4A6D43` |
+| Honey bee | 247 218 65 `#F7DA41` | 255 215 45 `#FFD72D` | 217 175 15 `#D9AF0F` |
+| Girtablilu | 196 140 95 `#C48C5F` | 233 185 123 `#E9B97B` | 167 93 78 `#A75D4E` |
+| Devil bug | 42 16 3 `#2A1003` | 134 99 61 `#86633D` | 185 145 94 `#B9915E` |
+| Vamp mosquito | 43 39 38 `#2B2726` | 192 195 202 `#C0C3CA` | 107 103 102 `#6B6766` |
+| Abaddon | 96 80 87 `#605057` | 114 104 105 `#726869` | 50 44 46 `#322C2E` |
+| Abaddon folk | 114 93 98 `#725D62` | 94 71 79 `#5E474F` | 130 100 110 `#82646E` |
+| Arachne, and the ant arachne | 152 144 185 `#9890B9` | 117 116 150 `#757496` | 51 47 72 `#332F48` |
+| Beelzebub | 64 71 77 `#40474D` | 84 92 103 `#545C67` | 110 120 132 `#6E7884` |
+
+**Each row is a set of three, not a ramp.** One of the three is picked for each mamono at random
+(the user's ruling, 2026-09-30), so no value is a shadow and none is a highlight - the order the
+values are written in means nothing. The table keeps the order the user wrote them in.
+
+**Where a caste's colour comes from today.** Each caste lists her three on her own xenotype, as a
+`PMM_Insects.InsectSkinColours` extension, and one is rolled for her when she is generated - so her
+colour is always one of her own three, and the row above is the palette herself, not a suggestion.
+The five tones every caste used to share are gone with it; §5.13 has the mechanism, and what a save
+made before this does on load.
+
+**What is still missing.** The hornet, the mantis, the mothman and the papillon - the four mockup
+castes of `CASTES-PLAN.md` - have no colours yet, and neither does the soldier beetle's rebuild
+beyond the row above. Until a caste has a palette she wears the shared chitin base `(120, 118, 89)`,
+which `PMM_Gene_Insect` keeps for exactly that case.
+
+---
+
+### 5.17 The spider body takes her skin colour (2026-10-01)
+
+The arachne, the ant arachne and the girtablilu have their lower body - legs and abdomen - drawn in
+their own chitin colour now, instead of their hair colour. Before this, changing a spider momo's
+hair recoloured eight legs with it, and the spider half never matched the woman attached to it.
+
+**What B&S does, and why this had to be a copy.** Big & Small draws that body with two graphic sets
+of its own - `BS_SpooderGraphicSetUpper` (legs and body) and `BS_SpooderGraphicSetUnder` (the
+abdomen, south and north only) - and both take their main tint from `hairColor` at brightness 0.95.
+B&S already ships the alternative: the lamia's tail takes `skinColor` (brightness 1.03) while its
+second channel takes hair. Patching their two defs would have recoloured the spider body of every
+spider-person in a save, B&S's own race included, so the user's call on 2026-10-01 was **our three
+castes only, by copy** - and the whole lower body, not just the abdomen.
+
+`Defs/ThingDefs/SpiderBody_BS.xml` is what we own now:
+
+- `PMM_SpiderGraphicSetUpper` and `PMM_SpiderGraphicSetUnder`: B&S's art paths
+  (`RaceDefaults/SpooderNew/`) with `colorA` from `skinColor` (brightness 0.95 - B&S's dial for that
+  art; 1.0 would match her skin exactly) and `colorB` still the favourite colour.
+- `PMM_RaceTracker_SpiderBody`: B&S's `BS_SpiderPersonRace` re-pointed at those two sets, carrying
+  everything else it brought - the numbers (MaxNutrition x2, CarryingCapacity x1.5, Manipulation
+  +0.05), both render nodes with their draw sizes, offsets, layers and body-type scales, the blank art
+  for a pawn whose abdomen is destroyed, and the pawn behaviour that comes with the body (the spider
+  romance tags, creep walking, the VEF stride hediff, the body position offset).
+- All three races list that tracker in `raceHediffList` where they used to list B&S's: two trackers
+  both drawing the body would draw it twice.
+
+**What came off in the copy.** The `HasCustomizableGraphics` extension with B&S's `AbdomenGraphics`
+tag - that tag is the player-facing way to force a colour onto the abdomen, it is B&S's, and it was
+declared on B&S's race. Ours takes her skin colour with no escape hatch. Core still ships the unused
+`PMM_TailGraphics` tag, which is what to reach for if an editable colour is ever wanted here. The two
+`taur` gene-tag alts came off too: they blank the spider art for a pawn carrying B&S's taur gene, and
+nothing in this mod carries one, so they could never fire.
+
+**The cost to remember:** this file is a copy of B&S's spider configuration, so a B&S update that
+changes the spider art, the draw offsets or the body behaviour will not reach the three spider castes
+on its own. Re-diff against `SimplyRaces/Defs/Races/Spider/` when B&S moves.
 
 ---
 

@@ -2,88 +2,294 @@
 <Defs>
 
 	<!--
-		Chitin tones for the insect mamonos.
+		The body colours of the insect castes: three per caste, and every mamono wears one.
 
-		Why five genes instead of one colour: a gene's skinColorOverride is a single
-		fixed RGB, so every carrier looks identical. Vanilla's own answer is a set of
-		mutually exclusive cosmetic genes marked randomChosen (its melanin, tail and
-		hair-colour genes all work this way): the pawn carries all of them, and
-		Pawn_GeneTracker.Notify_GenesChanged keeps exactly ONE - chosen at random,
-		weighted evenly - and overrides the rest. That is per-pawn variation with
-		no code at all.
+		Which three belong to which caste is declared on the caste herself, in
+		Defs/XenotypeDefs/Xenotypes_Insect.xml (a PMM_Insects.InsectSkinColours modExtension),
+		so a caste's palette reads where the caste is defined. A caste with no list - the four
+		castes still to be built - keeps the shared chitin base tone on PMM_Gene_Insect instead.
 
-		So every insect xenotype lists all five of these. Each mamono keeps one, and
-		her daughters re-roll their own.
+		Why genes and not code: a gene's skinColorOverride is what vanilla paints her with
+		(`Pawn_StoryTracker.SkinColor` reads `skinColorOverride ?? SkinColorBase`), it is saved
+		with her, and it is what puts her one colour row on the gene page. Vanilla's own skin
+		colours work this way too: the melanin genes are rolled per pawn, never listed.
 
-		Colour: 47.1%/46.3%/34.9% as 0-255 is (120, 118, 89), the muted olive-grey
-		base; the other four are that tone shifted pale, mossy, umber and dark.
+		Why a roll and not a list: one skinColorOverride is one fixed RGB, so three colours need
+		three defs - and listing all three on a xenotype leaves two greyed rows on her gene page
+		(Pawn_GeneTracker.Notify_GenesChanged keeps one and overrides the rest). So no xenotype
+		lists a colour: Source/Insects/InsectChitin.cs rolls one for her, and re-rolls every
+		generated mamono - a daughter included, whose mother's colour arrives with her genes.
 
-		All five parent off Biotech's GeneSkinColorOverride, which supplies the
-		Cosmetic_Skin category, the icon, the SkinColorOverride exclusion tag (so
-		they can never stack with each other or with another mod's skin gene) and
-		keeps them out of the tradeable pool. randomBrightnessFactor is pinned to 0:
-		vanilla's own skin-override genes do the same, so the tone is exactly what
-		the def says.
+		The five shared tones this file held until 2026-09-30 are gone. A save made while they
+		existed loses the gene reference once per pawn - the defs no longer exist, so the game
+		logs it and drops it - and the roll above hands her a colour from her caste's palette on
+		that same load, so she comes back in her caste's colours instead of staying untoned.
+
+		Every colour parents off PMM_BaseSkinColour below, which carries what they share: the
+		tone class (the marker the roll recognises a colour gene by), the Cosmetic_Skin category,
+		the icon, the SkinColorOverride exclusion tag - so two can never stack - and
+		randomBrightnessFactor pinned to 0, so the colour is exactly what the def says.
 	-->
 
-	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
-		<defName>PMM_Skin_ChitinPale</defName>
-		<label>pale chitin</label>
-		<labelShortAdj>pale chitin</labelShortAdj>
-		<description>Carriers of this gene grow a pale, ash-olive chitin carapace.</description>
-		<skinColorOverride>(148, 145, 126)</skinColorOverride>
+	<GeneDef Name="PMM_BaseSkinColour" ParentName="GeneSkinColorOverride" Abstract="True" MayRequire="Ludeon.RimWorld.Biotech">
+		<geneClass>PMM_Insects.Gene_InsectTone</geneClass>
 		<displayOrderInCategory>1000</displayOrderInCategory>
-		<randomChosen>true</randomChosen>
 		<randomBrightnessFactor>0</randomBrightnessFactor>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 	</GeneDef>
 
-	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
-		<defName>PMM_Skin_ChitinOlive</defName>
-		<label>olive chitin</label>
-		<labelShortAdj>olive chitin</labelShortAdj>
-		<description>Carriers of this gene grow a muted olive-grey chitin carapace.</description>
-		<skinColorOverride>(120, 118, 89)</skinColorOverride>
-		<displayOrderInCategory>1000</displayOrderInCategory>
-		<randomChosen>true</randomChosen>
-		<randomBrightnessFactor>0</randomBrightnessFactor>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	<!-- giant ant. 50 49 80 / 97 112 143 / 126 171 210 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AntIndigo</defName>
+		<label>deep indigo chitin</label>
+		<description>Carriers of this gene grow a deep indigo chitin carapace.</description>
+		<skinColorOverride>(50, 49, 80)</skinColorOverride>
 	</GeneDef>
 
-	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
-		<defName>PMM_Skin_ChitinMoss</defName>
-		<label>moss chitin</label>
-		<labelShortAdj>moss chitin</labelShortAdj>
-		<description>Carriers of this gene grow a mossy green chitin carapace.</description>
-		<skinColorOverride>(100, 116, 74)</skinColorOverride>
-		<displayOrderInCategory>1000</displayOrderInCategory>
-		<randomChosen>true</randomChosen>
-		<randomBrightnessFactor>0</randomBrightnessFactor>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AntSlate</defName>
+		<label>slate blue chitin</label>
+		<description>Carriers of this gene grow a slate blue chitin carapace.</description>
+		<skinColorOverride>(97, 112, 143)</skinColorOverride>
 	</GeneDef>
 
-	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
-		<defName>PMM_Skin_ChitinUmber</defName>
-		<label>umber chitin</label>
-		<labelShortAdj>umber chitin</labelShortAdj>
-		<description>Carriers of this gene grow a warm umber-brown chitin carapace.</description>
-		<skinColorOverride>(128, 104, 74)</skinColorOverride>
-		<displayOrderInCategory>1000</displayOrderInCategory>
-		<randomChosen>true</randomChosen>
-		<randomBrightnessFactor>0</randomBrightnessFactor>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AntSky</defName>
+		<label>sky blue chitin</label>
+		<description>Carriers of this gene grow a sky blue chitin carapace.</description>
+		<skinColorOverride>(126, 171, 210)</skinColorOverride>
 	</GeneDef>
 
-	<GeneDef ParentName="GeneSkinColorOverride" MayRequire="Ludeon.RimWorld.Biotech">
-		<defName>PMM_Skin_ChitinDark</defName>
-		<label>dark chitin</label>
-		<labelShortAdj>dark chitin</labelShortAdj>
-		<description>Carriers of this gene grow a dark olive-brown chitin carapace.</description>
-		<skinColorOverride>(84, 82, 62)</skinColorOverride>
-		<displayOrderInCategory>1000</displayOrderInCategory>
-		<randomChosen>true</randomChosen>
-		<randomBrightnessFactor>0</randomBrightnessFactor>
-		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+	<!-- soldier beetle. 87 68 61 / 140 118 105 / 48 30 28 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeetleDark</defName>
+		<label>dark brown chitin</label>
+		<description>Carriers of this gene grow a dark brown chitin carapace.</description>
+		<skinColorOverride>(87, 68, 61)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeetleTaupe</defName>
+		<label>taupe chitin</label>
+		<description>Carriers of this gene grow a taupe chitin carapace.</description>
+		<skinColorOverride>(140, 118, 105)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeetleSoot</defName>
+		<label>sooty brown chitin</label>
+		<description>Carriers of this gene grow a sooty brown chitin carapace.</description>
+		<skinColorOverride>(48, 30, 28)</skinColorOverride>
+	</GeneDef>
+
+	<!-- greenworm. 137 171 120 / 97 135 84 / 74 109 67 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_WormPale</defName>
+		<label>pale green chitin</label>
+		<description>Carriers of this gene grow a pale green chitin carapace.</description>
+		<skinColorOverride>(137, 171, 120)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_WormLeaf</defName>
+		<label>leaf green chitin</label>
+		<description>Carriers of this gene grow a leaf green chitin carapace.</description>
+		<skinColorOverride>(97, 135, 84)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_WormDeep</defName>
+		<label>deep green chitin</label>
+		<description>Carriers of this gene grow a deep green chitin carapace.</description>
+		<skinColorOverride>(74, 109, 67)</skinColorOverride>
+	</GeneDef>
+
+	<!-- honey bee. 247 218 65 / 255 215 45 / 217 175 15 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeeBright</defName>
+		<label>bright yellow chitin</label>
+		<description>Carriers of this gene grow a bright yellow chitin carapace.</description>
+		<skinColorOverride>(247, 218, 65)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeeVivid</defName>
+		<label>vivid yellow chitin</label>
+		<description>Carriers of this gene grow a vivid yellow chitin carapace.</description>
+		<skinColorOverride>(255, 215, 45)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeeGold</defName>
+		<label>gold chitin</label>
+		<description>Carriers of this gene grow a gold chitin carapace.</description>
+		<skinColorOverride>(217, 175, 15)</skinColorOverride>
+	</GeneDef>
+
+	<!-- girtablilu. 196 140 95 / 233 185 123 / 167 93 78 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_GirtabliluTan</defName>
+		<label>tan chitin</label>
+		<description>Carriers of this gene grow a tan chitin carapace.</description>
+		<skinColorOverride>(196, 140, 95)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_GirtabliluSand</defName>
+		<label>sand chitin</label>
+		<description>Carriers of this gene grow a sand chitin carapace.</description>
+		<skinColorOverride>(233, 185, 123)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_GirtabliluRust</defName>
+		<label>rust chitin</label>
+		<description>Carriers of this gene grow a rust chitin carapace.</description>
+		<skinColorOverride>(167, 93, 78)</skinColorOverride>
+	</GeneDef>
+
+	<!-- devil bug. 42 16 3 / 134 99 61 / 185 145 94 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_DevilBugCharred</defName>
+		<label>charred chitin</label>
+		<description>Carriers of this gene grow a charred chitin carapace.</description>
+		<skinColorOverride>(42, 16, 3)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_DevilBugWalnut</defName>
+		<label>walnut chitin</label>
+		<description>Carriers of this gene grow a walnut chitin carapace.</description>
+		<skinColorOverride>(134, 99, 61)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_DevilBugHazel</defName>
+		<label>hazel chitin</label>
+		<description>Carriers of this gene grow a hazel chitin carapace.</description>
+		<skinColorOverride>(185, 145, 94)</skinColorOverride>
+	</GeneDef>
+
+	<!-- vamp mosquito. 43 39 38 / 192 195 202 / 107 103 102 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MosquitoCharcoal</defName>
+		<label>charcoal chitin</label>
+		<description>Carriers of this gene grow a charcoal chitin carapace.</description>
+		<skinColorOverride>(43, 39, 38)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MosquitoPale</defName>
+		<label>pale grey chitin</label>
+		<description>Carriers of this gene grow a pale grey chitin carapace.</description>
+		<skinColorOverride>(192, 195, 202)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MosquitoAsh</defName>
+		<label>ash grey chitin</label>
+		<description>Carriers of this gene grow an ash grey chitin carapace.</description>
+		<skinColorOverride>(107, 103, 102)</skinColorOverride>
+	</GeneDef>
+
+	<!-- abaddon, and her folk. The queen's palette is the darker three; her soldier carries
+	     her own. 96 80 87 / 114 104 105 / 50 44 46 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonMauve</defName>
+		<label>mauve chitin</label>
+		<description>Carriers of this gene grow a mauve chitin carapace.</description>
+		<skinColorOverride>(96, 80, 87)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonDove</defName>
+		<label>dove grey chitin</label>
+		<description>Carriers of this gene grow a dove grey chitin carapace.</description>
+		<skinColorOverride>(114, 104, 105)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonSoot</defName>
+		<label>soot chitin</label>
+		<description>Carriers of this gene grow a soot chitin carapace.</description>
+		<skinColorOverride>(50, 44, 46)</skinColorOverride>
+	</GeneDef>
+
+	<!-- abaddon folk. 114 93 98 / 94 71 79 / 130 100 110 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonFolkRose</defName>
+		<label>dusty rose chitin</label>
+		<description>Carriers of this gene grow a dusty rose chitin carapace.</description>
+		<skinColorOverride>(114, 93, 98)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonFolkPlum</defName>
+		<label>plum chitin</label>
+		<description>Carriers of this gene grow a plum chitin carapace.</description>
+		<skinColorOverride>(94, 71, 79)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_AbaddonFolkHeather</defName>
+		<label>heather chitin</label>
+		<description>Carriers of this gene grow a heather chitin carapace.</description>
+		<skinColorOverride>(130, 100, 110)</skinColorOverride>
+	</GeneDef>
+
+	<!-- arachne, and the ant arachne, who wear the same three. 152 144 185 / 117 116 150 / 51 47 72 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_ArachneLavender</defName>
+		<label>lavender chitin</label>
+		<description>Carriers of this gene grow a lavender chitin carapace.</description>
+		<skinColorOverride>(152, 144, 185)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_ArachneSlate</defName>
+		<label>slate violet chitin</label>
+		<description>Carriers of this gene grow a slate violet chitin carapace.</description>
+		<skinColorOverride>(117, 116, 150)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_ArachneDeep</defName>
+		<label>deep violet chitin</label>
+		<description>Carriers of this gene grow a deep violet chitin carapace.</description>
+		<skinColorOverride>(51, 47, 72)</skinColorOverride>
+	</GeneDef>
+
+	<!-- beelzebub. 64 71 77 / 84 92 103 / 110 120 132 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeelzebubDark</defName>
+		<label>dark slate chitin</label>
+		<description>Carriers of this gene grow a dark slate chitin carapace.</description>
+		<skinColorOverride>(64, 71, 77)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeelzebubSlate</defName>
+		<label>slate chitin</label>
+		<description>Carriers of this gene grow a slate chitin carapace.</description>
+		<skinColorOverride>(84, 92, 103)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_BeelzebubPale</defName>
+		<label>pale slate chitin</label>
+		<description>Carriers of this gene grow a pale slate chitin carapace.</description>
+		<skinColorOverride>(110, 120, 132)</skinColorOverride>
 	</GeneDef>
 
 </Defs>

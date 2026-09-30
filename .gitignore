@@ -19,6 +19,7 @@ Thumbs.db
 
 # Python venv (editor-created, not part of the mod)
 .venv/
+__pycache__/
 .vscode/
 
 # dotnet build output

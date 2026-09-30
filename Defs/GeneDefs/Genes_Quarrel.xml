@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The quarrel gene (built 2026-09-30, CASTES-PLAN.md phase 1). One mechanism,
+		two castes, two dials: the soldier beetle turns it on her own kind, so the
+		dislike is mutual, and the hornet turns it on the honey bees, so it is one
+		way. Both decided 2026-09-30.
+
+		The dial is `QuarrelGeneExtension.dislikedGene` - the gene whose carriers she
+		cannot stand. Source/Insects/Quarrel.cs answers vanilla's social-thought
+		question with it, and the -50 lives on the two thought defs
+		(Defs/ThoughtDefs/Thoughts_NewCastes.xml).
+
+		The fights need no code of their own, and that is the useful part:
+		`Pawn_InteractionsTracker` already scales the social-fight chance by opinion
+		(x2.5 at -50, x4 at -100), so "much more likely to start a fight with them"
+		comes out of the opinion penalty by itself, pairwise, from the engine.
+
+		The two defs differ in nothing but that one line, which is the point: a third
+		grudge is a third def and no new code.
+
+		Displayed lines: none, on purpose. Neither def carries a stat offset, so
+		their effect boxes stay empty and the description below is what the player
+		reads. The opinion shows up where opinions belong - in the social tab, as
+		"quarrelsome kin" or "smell of honey".
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_Quarrelsome</defName>
+		<label>quarrelsome</label>
+		<description>Her own kind sets her teeth on edge. Another woman carrying this same temper is someone she cannot stand the sight of, and the feeling runs both ways - which is what a village of soldier beetles is like.</description>
+		<iconPath>UI/Icons/Genes/Gene_Quarrelsome</iconPath>
+		<geneClass>PMM_Insects.Gene_Quarrel</geneClass>
+		<displayCategory>Miscellaneous</displayCategory>
+		<displayOrderInCategory>1003</displayOrderInCategory>
+		<!-- A drawback pays a little back, the vanilla convention (Sleepy and Sterile both
+		     give a point). -50 opinion toward her own kind is worth one. -->
+		<biostatMet>1</biostatMet>
+		<modExtensions>
+			<li Class="PMM_Insects.QuarrelGeneExtension">
+				<!-- Aimed at itself: every carrier dislikes every other carrier. -->
+				<dislikedGene>PMM_Gene_Quarrelsome</dislikedGene>
+			</li>
+		</modExtensions>
+	</GeneDef>
+
+	<GeneDef>
+		<defName>PMM_Gene_HoneyHatred</defName>
+		<label>honey-hating</label>
+		<description>Hornets and bees were never friends, and the smell of honey is an insult. A woman carrying the honey gene is someone she cannot stand - though the honey bee herself feels nothing of the sort.</description>
+		<iconPath>UI/Icons/Genes/Gene_HoneyHatred</iconPath>
+		<geneClass>PMM_Insects.Gene_Quarrel</geneClass>
+		<displayCategory>Miscellaneous</displayCategory>
+		<displayOrderInCategory>1004</displayOrderInCategory>
+		<!-- Same reasoning as the quarrel above: one point back for a one-way grudge. -->
+		<biostatMet>1</biostatMet>
+		<modExtensions>
+			<li Class="PMM_Insects.QuarrelGeneExtension">
+				<!-- Aimed at the honey gene, and only that way round: the bee never notices. -->
+				<dislikedGene>PMM_Gene_Honey</dislikedGene>
+			</li>
+		</modExtensions>
+	</GeneDef>
+
+</Defs>

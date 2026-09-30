@@ -77,17 +77,18 @@
 			     barrenness is deliberate, so the vanilla gene is enough. The swarm grows
 			     by the queen's egg sac, not by her drones. -->
 			<li>Sterile</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_DevilBug</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_DevilBugCharred</li>
+					<li>PMM_Skin_DevilBugWalnut</li>
+					<li>PMM_Skin_DevilBugHazel</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -133,17 +134,18 @@
 			<li>AptitudePoor_Social</li>
 			<li>LowSleep</li>
 			<li>Sterile</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_GiantAnt</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_AntIndigo</li>
+					<li>PMM_Skin_AntSlate</li>
+					<li>PMM_Skin_AntSky</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -176,17 +178,18 @@
 			<li>VRE_InefficientMidgut</li>
 			<li>VRE_Stenothermic</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_SoldierBeetle</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_BeetleDark</li>
+					<li>PMM_Skin_BeetleTaupe</li>
+					<li>PMM_Skin_BeetleSoot</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -228,17 +231,18 @@
 			     bug and the giant ant carry. -->
 			<li>AptitudeTerrible_Intellectual</li>
 			<li>Sterile</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Greenworm</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_WormPale</li>
+					<li>PMM_Skin_WormLeaf</li>
+					<li>PMM_Skin_WormDeep</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -290,17 +294,18 @@
 			<li>PMM_Gene_BloodRush</li>
 			<!-- Scrapped with the old set: VRE_AcidBlood (toxic gas when she is cut),
 			     VRE_AntimicrobialPeptides (self-mending) and vanilla Beauty_Beautiful. -->
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_VampMosquito</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_MosquitoCharcoal</li>
+					<li>PMM_Skin_MosquitoPale</li>
+					<li>PMM_Skin_MosquitoAsh</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -360,8 +365,8 @@
 			     reproduce by natural means" - are true of her. -->
 			<li>Sterile</li>
 			<!-- Body, head and antennae: the same two genes her soldier daughters carry,
-			     and they do not collide with the chitin tones (body/fur tags against the
-			     tones' vanilla SkinColorOverride - see the folk's note). -->
+			     and they do not collide with her body colour (body/fur tags against the
+			     colour's vanilla SkinColorOverride - see the folk's note). -->
 			<li>VRE_InsectSkin</li>
 			<li>VRE_InsectAntennae</li>
 			<!-- Her abdomen. The real spawning sack is out on a tag, as it always was: the
@@ -372,17 +377,18 @@
 			     and she has none. Pure looks: the sacks say what she is without doing
 			     anything. -->
 			<li>VRE_SpawningSack_Cosmetic</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Abaddon</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_AbaddonMauve</li>
+					<li>PMM_Skin_AbaddonDove</li>
+					<li>PMM_Skin_AbaddonSoot</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -406,11 +412,10 @@
 	       Harmony patches are the ones we copied. Listing it would add a second
 	       copy of one thing and read as live support for a feature nobody owns.
 	     * "Insect skin" is VRE's VRE_InsectSkin, the user's call, taken knowing it
-	       overrides the chitin tones with VRE's insect body and forces one of VRE's
-	       four insect head shapes. It does not make the five PMM_Skin_Chitin genes
-	       pointless: its fur is drawn with the pawn's skin colour
-	       (`useSkinColorForFur` in its VEF.Genes.GeneExtension), so her shell still
-	       takes the tone she rolled.
+	       overrides the skin with VRE's insect body and forces one of VRE's
+	       four insect head shapes. It does not cost her the body colour: its fur is
+	       drawn with the pawn's skin colour (`useSkinColorForFur` in its
+	       VEF.Genes.GeneExtension), so her shell still takes the colour she rolled.
 
 	     Balance follows VRE's own geneline rule, two evolutions against two
 	     degrades: swarm synapse and hardened chitin against microsized and
@@ -444,10 +449,10 @@
 			<!-- Jelly on the fighting castes only. She is one of them. -->
 			<li>VRE_InsectJellyDependency</li>
 			<!-- Body, head and antennae. Two gene groups, and they do not collide:
-			     VRE_InsectSkin's exclusion tags are body and fur tags, while the five
-			     chitin genes below carry vanilla's SkinColorOverride tag, so vanilla's
-			     randomChosen picker (Pawn_GeneTracker.Notify_GenesChanged) keeps one
-			     chitin tone and leaves both other genes alone. The antennae gene is
+			     VRE_InsectSkin's exclusion tags are body and fur tags, while the chitin
+			     tone she rolls (the roll lives on PMM_Gene_Insect - see
+			     Source/Insects/InsectChitin.cs) carries vanilla's SkinColorOverride
+			     tag, so neither group touches the other. The antennae gene is
 			     randomChosen too, but nothing else here shares its Antenna tags, so it
 			     simply stays. -->
 			<li>VRE_InsectSkin</li>
@@ -464,18 +469,19 @@
 			     so a soldier bug is born knowing her trade (user, 2026-09-25). Both
 			     aptitudes sit outside the evolution/degrade count. -->
 			<li>AptitudeRemarkable_Melee</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono, so each
-			     sister in a swarm has her own shade. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
+
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_AbaddonFolk</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_AbaddonFolkRose</li>
+					<li>PMM_Skin_AbaddonFolkPlum</li>
+					<li>PMM_Skin_AbaddonFolkHeather</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -490,7 +496,7 @@
 	     other species wear. Her upper body is the spider's own art
 	     (BS_SpooderGraphicSetUpper), and an insect fur body or insect head would fight it.
 	     She stays an insect mamono through PMM_Gene_Insect - insect flesh, feelers, toxin
-	     immunity, the shared skin base - and through the five chitin tones.
+	     immunity, the shared skin base - and the chitin colour it rolls for her.
 
 	     Look variant: settled 2026-09-26. B&S ships no Synthread and no Devilstrand body gene -
 	     those two names appear only in its own gene-page settings and have no def behind them in
@@ -528,17 +534,18 @@
 			<!-- A creature of the dark: sunlight burns her, and the hive's jelly feeds her. -->
 			<li>VRE_ProteinDenaturation</li>
 			<li>VRE_InsectJellyDependency</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Arachne</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_ArachneLavender</li>
+					<li>PMM_Skin_ArachneSlate</li>
+					<li>PMM_Skin_ArachneDeep</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -573,17 +580,18 @@
 			     the soldier beetle and the vamp mosquito, wings and ability both. It also swaps
 			     in the winged body and puts our small wings on her. -->
 			<li>PMM_Gene_FlightWeak</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Beelzebub</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_BeelzebubDark</li>
+					<li>PMM_Skin_BeelzebubSlate</li>
+					<li>PMM_Skin_BeelzebubPale</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -630,17 +638,18 @@
 			     stages behind it. VenomDamagePatch watches for this gene on the attacker, so
 			     every melee hit she lands injects it; she needs no stinger for that. -->
 			<li>ProjectMamono_MamonoVenom</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_Girtablilu</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_GirtabliluTan</li>
+					<li>PMM_Skin_GirtabliluSand</li>
+					<li>PMM_Skin_GirtabliluRust</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -685,17 +694,18 @@
 			<li>VRE_RapidLifeCycle</li>
 			<li>VRE_InsectAntennae</li>
 			<li>AptitudeStrong_Construction</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_AntArachne</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_ArachneLavender</li>
+					<li>PMM_Skin_ArachneSlate</li>
+					<li>PMM_Skin_ArachneDeep</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
@@ -748,17 +758,18 @@
 			     barren lock the queen and four of her sisters carry, which works because
 			     core's MomoFertilityPatch stands aside for a deliberate sterility. -->
 			<li>Sterile</li>
-			<!-- Chitin tone: vanilla keeps one of the five at random per mamono. -->
-			<li>PMM_Skin_ChitinPale</li>
-			<li>PMM_Skin_ChitinOlive</li>
-			<li>PMM_Skin_ChitinMoss</li>
-			<li>PMM_Skin_ChitinUmber</li>
-			<li>PMM_Skin_ChitinDark</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
 				<setRace>PMM_Race_HoneyBee</setRace>
 				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_BeeBright</li>
+					<li>PMM_Skin_BeeVivid</li>
+					<li>PMM_Skin_BeeGold</li>
+				</colours>
 			</li>
 		</modExtensions>
 	</XenotypeDef>
