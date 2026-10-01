@@ -217,7 +217,7 @@ Fields to set, with why:
 | `settlementGenerationWeight` | `1` | Inherited from `TribeBase`. Keeps villages on the map. |
 | `factionNameMaker` | `PMM_NamerFactionInsectorHive` (neutral), `PMM_NamerFactionInsectorSwarm` (hostile) - §4.5 | |
 | `settlementNameMaker` | `NamerSettlementTribal` | Vanilla tribal namer, ruled. Inherited from `TribeBase`; the def no longer repeats it. |
-| `factionIconPath` | neutral `World/WorldObjects/Expanding/Insects` (Vanilla Textures Expanded, **not a declared dependency**), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | The neutral icon is still a placeholder, and it only resolves when that texture mod is loaded. |
+| `factionIconPath` | neutral `World/WorldObjects/Expanding/Insects` (**vanilla** - it is the hidden insect faction's own icon, `Core/Defs/FactionDefs/Factions_Hidden.xml`), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | The neutral icon is still a placeholder for our own crest. Vanilla Textures Expanded only re-ships a retouched copy at that path when it is loaded; it is not a dependency and the icon does not need it. |
 | `settlementTexturePath` | neutral `UI/InsectoidHive` (VFEI2), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | Mandatory: leaving it unset throws on every settlement draw. It is what draws the village on the world map, not `factionIconPath`. |
 | `canStageAttacks` | `true` | Inherited. See the note below. |
 | `raidLootMaker` | `TribeRaidLootMaker` | Vanilla def, inherited from `TribeBase` (the def no longer repeats it). The Broods use it too. |
@@ -322,11 +322,17 @@ Usable `CustomGenOption` fields: `chooseFromSettlements`, `chooseFromlayouts`,
   list and world creation, the settlement texture draws each village on the world
   map. Split them if a separate village shape is wanted later.
 - Neutral tribe: still placeholders - VFEI2's `UI/InsectoidHive` for its villages
-  and Vanilla Textures Expanded's `World/WorldObjects/Expanding/Insects` for its icon
-  (that mod is not a dependency, so without it the icon is missing).
+  and the vanilla `World/WorldObjects/Expanding/Insects` for its icon, which is the
+  hidden insect faction's own. (Corrected 2026-10-01: an earlier revision of this
+  note called the icon missing without Vanilla Textures Expanded. That mod ships a
+  retouched copy at the same path, so with it loaded the game draws that version,
+  but the icon is vanilla's and needs no dependency.)
 - The art convention is single-colour line art on transparent, 128x128, drawn
-  tinted by the faction colour. The user's crest follows it. Reference copies of
-  the vanilla shapes live in `Tools/icon-refs/` (excluded from the game copy).
+  tinted by the faction colour. The user's crest follows it. Reference copies live
+  in `Tools/icon-refs/` (excluded from the game copy), and the `vanilla-*` ones are
+  in fact Vanilla Textures Expanded's retouches, byte-identical to its files - the
+  game ships no loose vanilla textures to copy from, which is how they came to be
+  named vanilla.
 - `Tools/mktex.py` can generate placeholder art if needed; the Reptiles mod uses
   it for its faction art.
 - Culture: with Ideology on, allow the vanilla `Corunan` culture, the house
