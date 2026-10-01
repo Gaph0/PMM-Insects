@@ -149,6 +149,10 @@
 
 ## Internal
 
+- 2026-10-01: Changed the arachne's silk and the bee's honey to share one harvest chain: one right-click order, one job driver and one self-gathering work giver, with each feature supplying only where its state lives. No behaviour change, and it dropped an unused member from the honey gene.
+- 2026-10-01: Changed the two self-gathering work givers to hand the pawn to the work search directly, the way the base game's self-tend giver does, instead of asking for every pawn on the map to be looked through.
+- 2026-10-01: Fixed the silk gather being able to run on a silk def that resolved to nothing, which the Medieval Overhaul compat patch could leave behind. It now refuses to gather, as honey already did.
+- 2026-10-01: Changed the silk's tuning numbers in the race defs to name all three, so the bar's emptying point sits beside its siblings.
 - 2026-10-01: Changed the tribes' world-creation cap to vanilla's 9999, which means uncapped.
 - 2026-10-01: Removed the folder of other mods' icon copies, now that neither tribe borrows art.
 - 2026-10-01: Removed four faction settings that only repeated what vanilla's tribal base already sets.

@@ -1161,7 +1161,9 @@
 			</li>
 			<!-- Her silk (user's call 2026-09-26): right-click her to gather it, or let her gather
 			     it herself through the work giver. 25 silk per full cycle and 3 days to fill, so
-			     early gathering is a shorter wait for less, never a loss. Both are tuning dials.
+			     early gathering is a shorter wait for less, never a loss. All three are tuning
+			     dials, and `minFullness` is how much has to build up before there is anything worth
+			     taking - the same number her own work giver and the right-click order both read.
 			     `silkDef` is whichever silk she spins: our own def by default, re-pointed to
 			     Medieval Overhaul's `DankPyon_Silk` by Patches/ArachneSilk_MedievalOverhaul.xml,
 			     because MO's rugs and royal furniture ask for their silk by name. -->
@@ -1169,6 +1171,7 @@
 				<silkDef>PMM_ArachneSilk</silkDef>
 				<silkPerGather>25</silkPerGather>
 				<growthDays>3</growthDays>
+				<minFullness>0.3</minFullness>
 			</li>
 		</comps>
 		<modExtensions>
@@ -1530,15 +1533,16 @@
 				<radius>12</radius>
 				<intervalTicks>600</intervalTicks>
 			</li>
-			<!-- Her silk, the arachne's numbers: 25 a cycle, 3 days to fill. The work
-			     giver and the right-click order both find her through THIS COMP, not
-			     through her race, so the only other place that needs to know she
-			     exists is Patches/ArachneSilk_MedievalOverhaul.xml, whose xpath names
-			     the arachne's race. -->
+			<!-- Her silk, the arachne's numbers: 25 a cycle, 3 days to fill, and the same third
+			     of a bar before there is anything worth taking. The work giver and the
+			     right-click order both find her through THIS COMP, not through her race, so the
+			     only other place that needs to know she exists is
+			     Patches/ArachneSilk_MedievalOverhaul.xml, whose xpath names the arachne's race. -->
 			<li Class="PMM_Insects.CompProperties_ArachneSilk">
 				<silkDef>PMM_ArachneSilk</silkDef>
 				<silkPerGather>25</silkPerGather>
 				<growthDays>3</growthDays>
+				<minFullness>0.3</minFullness>
 			</li>
 		</comps>
 		<modExtensions>
