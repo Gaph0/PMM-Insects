@@ -33,6 +33,13 @@
 		<cooldownTicksRange>600</cooldownTicksRange>
 		<aiCanUse>true</aiCanUse>
 		<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+		<!-- Both flags, and the pair is not decoration. `displayGizmoWhileUndrafted` decides only that
+		     the button is DRAWN while she is undrafted; `disableGizmoWhileUndrafted`, true by default
+		     (AbilityDef.cs), is what makes `Ability.CanCast` answer "AbilityDisabledUndrafted" and
+		     grey it out. Setting only the first showed an undrafted arachne a button she could not
+		     press - found in review 2026-10-01. Alpha Animals' own AA_Web, the def this one mirrors,
+		     sets both, and so does every other ability in the family. -->
+		<disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
 		<writeCombatLog>true</writeCombatLog>
 		<verbProperties>
 			<verbClass>PMM_Insects.Verb_WebTrap</verbClass>
