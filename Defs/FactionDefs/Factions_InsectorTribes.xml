@@ -260,11 +260,15 @@
 		<description>These women raise their young among insect nests, in villages grown from hive walls and jelly. They keep to their own valleys and are slow to trust outsiders, but they will trade insect jelly and chitin with anyone who comes in peace.\n\nTheir villages are still hives. Cross them, and the swarm answers.</description>
 		<factionNameMaker>PMM_NamerFactionInsectorHive</factionNameMaker>
 		<!-- No settlementNameMaker here: TribeBase already sets NamerSettlementTribal. -->
-		<!-- factionIconPath is the world-creation and faction-list icon.
-		     settlementTexturePath is what the world map draws for each village;
-		     leaving it unset throws on every settlement draw. -->
-		<factionIconPath>World/WorldObjects/Expanding/Insects</factionIconPath>
-		<settlementTexturePath>UI/InsectoidHive</settlementTexturePath>
+		<!-- Both fields are our own art now (2026-10-01): the neutral tribe used to
+		     borrow vanilla's `World/WorldObjects/Expanding/Insects` for its icon and
+		     VFEI2's `UI/InsectoidHive` for its villages. factionIconPath is the
+		     world-creation and faction-list icon; settlementTexturePath is what the
+		     world map draws for each village, and leaving it unset throws on every
+		     settlement draw. One crest serves both fields, the same way the swarm's
+		     does; split them if a separate village shape is wanted later. -->
+		<factionIconPath>World/WorldObjects/Expanding/PMM_InsectorHive</factionIconPath>
+		<settlementTexturePath>World/WorldObjects/Expanding/PMM_InsectorHive</settlementTexturePath>
 		<!-- The hive's own rosters (2026-09-27). Inherit="False" replaces the base's, and
 		     that is the only way one caste can belong to a single tribe: both tribes
 		     inherit the base's list otherwise, which put every caste in both tribes at

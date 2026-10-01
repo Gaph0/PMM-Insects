@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the neutral insector tribe to wear our own picture for its villages and for its icon in the faction list, instead of the base game's and another mod's.
+
 - 2026-10-01: Fixed the insector hive's farming groups, where the honey bee was in only half of them.
 
 - 2026-10-01: Fixed genepacks found as loot or sold by traders being able to contain this mod's genes. A pack could hand a stranger the chitin skin, the honey or a grudge meant for one caste.
