@@ -36,6 +36,21 @@
      -->
      <GeneDef>
              <defName>PMM_Gene_Insect</defName>
+             <!-- One family per woman (user ruling 2026-10-01). The three family
+                  identity genes - this one, the reptilian (PMM_Gene_Reptile) and the
+                  slime gel (PMM_Gene_SlimeGel) - all carry the same exclusion tag, so
+                  any two of them are conflicting genes to the engine. That buys three
+                  things: `GeneSet.Add` and `Pawn_GeneTracker.CheckForOverrides` grey
+                  the loser when both land on one pawn, Biotech's xenotype and xenogerm
+                  editors refuse to build the mix at all, and core's
+                  `RemoveConflictingGenes` - which removes by shared tag - takes the
+                  old family's gene off a woman remade into another family. The tag
+                  string never reaches the player: the UI names the gene that won, not
+                  the tag. The base Mamono gene carries no tag on purpose - every
+                  family gene has to coexist with it. -->
+             <exclusionTags>
+                     <li>PMM_MamonoFamily</li>
+             </exclusionTags>
              <label>insectoid</label>
              <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her - every scent, every thread of mana. She was born of the hives.</description>
              <geneClass>PMM_Insects.Gene_InsectChitin</geneClass>
@@ -77,6 +92,24 @@
                   with no palette of her own, and for the instant before the roll
                   lands. -->
              <skinColorBase>(120, 118, 89)</skinColorBase>
+             <!-- The line below is load-bearing, and deleting it is a real bug.
+                  `PawnSkinColors.SkinColorGenesInOrder` - vanilla's pool of "skin
+                  colour genes" - takes every GeneDef that has a `skinColorBase`
+                  AND either sits in the melanin category or has a `minMelanin`
+                  below 0. `GeneDef.minMelanin` DEFAULTS to -1, so a
+                  `skinColorBase` on its own is enough to put a gene in that pool,
+                  and a factionless pawn being generated - every one of our wild
+                  spawns - is handed a weighted random member of the pool as her
+                  skin colour gene. Our `selectionWeight` is the default 1, while
+                  vanilla's melanins weigh 0.1-0.5, so this gene came out the
+                  HEAVIEST entry in the pool: a wandering slime, reptile or
+                  elemental spawned wearing the insectoid gene, with this olive
+                  tone for skin (user's bug report 2026-10-01). A non-negative
+                  `minMelanin` is what the pool's own filter asks for, and it is
+                  read nowhere else in the assembly - the other two readers, the
+                  pool's own sort and its index walk, both only ever see genes that
+                  are already in it. -->
+             <minMelanin>0</minMelanin>
              <randomBrightnessFactor>0</randomBrightnessFactor>
              <!-- Only the lines the game does not print for itself live here, and
                   nothing that just says what the description above already says.

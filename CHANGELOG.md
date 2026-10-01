@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the insectoid gene so a mamono cannot hold it together with the reptilian or slime gel gene. She loses the others when she takes one, and the gene editors refuse the mix.
+- 2026-10-01: Fixed wild momos of other species carrying the insectoid gene. The game handed it to them as their skin colour. Only fresh spawns change; momos who already have it keep it, as do their daughters.
 - 2026-10-01: Changed the preview image on the mod page.
 
 - 2026-10-01: Fixed the abaddon folk's lower arms, which her wings were covering. The left lower arm now draws over the wing, the way the right one already did.
