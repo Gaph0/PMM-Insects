@@ -289,11 +289,16 @@
 		     steered KCSG's defenders and left base populations shared. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
-				<PMM_InsectDevilBug>0.28</PMM_InsectDevilBug>
-				<PMM_InsectGiantAnt>0.28</PMM_InsectGiantAnt>
+				<!-- The mothman and the papillon (2026-10-01) took their 0.03 each off the devil bug
+				     and the giant ant, at CASTES-PLAN.md §0 decision 4 - a low natural rate for the two
+				     passive castes. The list still totals 1. -->
+				<PMM_InsectDevilBug>0.25</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.25</PMM_InsectGiantAnt>
 				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
 				<PMM_InsectAntArachne>0.12</PMM_InsectAntArachne>
 				<PMM_InsectHoneyBee>0.12</PMM_InsectHoneyBee>
+				<PMM_InsectMothman>0.03</PMM_InsectMothman>
+				<PMM_InsectPapillon>0.03</PMM_InsectPapillon>
 			</xenotypeChances>
 		</xenotypeSet>
 		<pawnGroupMakers Inherit="False">
@@ -329,6 +334,10 @@
 					<PMM_InsectGiantAnt>20</PMM_InsectGiantAnt>
 					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
 					<PMM_InsectHoneyBee>12</PMM_InsectHoneyBee>
+					<!-- The two passive castes (2026-10-01) keep a small place in village life and
+					     no place in a fight: no Combat group lists either of them. -->
+					<PMM_InsectMothman>2</PMM_InsectMothman>
+					<PMM_InsectPapillon>2</PMM_InsectPapillon>
 				</options>
 			</li>
 			<li>
@@ -383,6 +392,10 @@
 				<kindDef>Trader</kindDef>
 				<traders>
 					<PMM_InsectTrader>1</PMM_InsectTrader>
+					<!-- The two social castes lead most hive caravans (CASTES-PLAN.md §0 decisions 4
+					     and 9, 2026-10-01), which is what their kind weights here say. -->
+					<PMM_InsectMothmanTrader>3</PMM_InsectMothmanTrader>
+					<PMM_InsectPapillonTrader>3</PMM_InsectPapillonTrader>
 				</traders>
 				<carriers>
 					<Muffalo>6</Muffalo>

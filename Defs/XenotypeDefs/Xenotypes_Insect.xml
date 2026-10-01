@@ -774,4 +774,102 @@
 		</modExtensions>
 	</XenotypeDef>
 
+	<!-- Mothman (built 2026-10-01, CASTES-PLAN.md phase 2): the hive's gentle one, and the only
+	     caste of this batch whose list carries a new gene - the light gene. -->
+	<XenotypeDef>
+		<defName>PMM_InsectMothman</defName>
+		<label>mothman</label>
+		<description>A mothman mamono, soft and dusty-winged and never quite awake. She keeps to the dark until a lamp is lit, and then she cannot leave it - the light leaves her a little dazed and very happy. She will not fight anyone, and she is the best company in the village.</description>
+		<descriptionShort>A drowsy, gentle moth woman who loves lamp light and cannot fight.</descriptionShort>
+		<!-- No iconPath yet on purpose: the art is hand-drawn and dropped in
+		     Textures/UI/Icons/Xenotypes/PMM_Mothman (CASTES-PLAN.md §0 decision 12). Add
+		     <iconPath>UI/Icons/Xenotypes/PMM_Mothman</iconPath> with the PNG - a path with no
+		     file behind it is a red error, which is why it is absent rather than guessed. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's list (CASTES-PLAN.md §3.3), each gene's real effect checked in
+			     GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
+			     tags, so she never fights; VRE_Heatstress is x4 flame damage and a fire-terror
+			     break; VRE_HypothermicHibernation is immunity to hypothermia and +5 on her
+			     comfort floor; KindInstinct forces the Kind trait, Pain_Extra forces Wimp. -->
+			<li>VRE_InfraredSensors</li>
+			<li>VRE_Serotonin</li>
+			<li>VRE_VocalGlands</li>
+			<li>VRE_PassiveInsect</li>
+			<li>VRE_Heatstress</li>
+			<li>VRE_HypothermicHibernation</li>
+			<li>KindInstinct</li>
+			<li>Sleepy</li>
+			<li>Pain_Extra</li>
+			<!-- "great social" in the mockup's own vocabulary (GENES-FEASIBILITY.md §3.1). -->
+			<li>AptitudeRemarkable_Social</li>
+			<!-- Her own gene, built in phase 1: -5% consciousness and +10 mood in light at 50%,
+			     which is what a lamp gives - not in a growing lamp's bright core, which the engine
+			     reports as 1.0. A glowing cave counts as light, at the user's call. -->
+			<li>PMM_Gene_DisorientatingLights</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Mothman</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_MothCream</li>
+					<li>PMM_Skin_MothTan</li>
+					<li>PMM_Skin_MothDust</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- Papillon (built 2026-10-01, CASTES-PLAN.md phase 2): no new gene at all - every gene in
+	     her list already existed, which makes her the cheapest caste of the batch. -->
+	<XenotypeDef>
+		<defName>PMM_InsectPapillon</defName>
+		<label>papillon</label>
+		<description>A papillon mamono, bright-winged and soft-bodied, and the frailest of her sisters. Violence is not in her at all; what is in her is a quick mind and a quicker heart, in a village that mostly has neither. Everyone likes her, and she has never once been surprised by that.</description>
+		<descriptionShort>A beautiful, fragile butterfly woman who cannot fight and learns fast.</descriptionShort>
+		<!-- No iconPath yet; see the mothman's note above. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's list (CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
+			     no fighting at all, and it excludes melee damage genes by tag. Pain_Extra forces
+			     Wimp on top of that, and VRE_HighGreyMatter with VRE_SensitiveBrainGoop make her
+			     the sharp and psychic one. -->
+			<li>VRE_VocalGlands</li>
+			<li>VRE_AntimicrobialPeptides</li>
+			<li>VRE_HighGreyMatter</li>
+			<li>VRE_SensitiveBrainGoop</li>
+			<li>KindInstinct</li>
+			<li>Sleepy</li>
+			<li>Pain_Extra</li>
+			<li>ViolenceDisabled</li>
+			<li>AptitudeRemarkable_Social</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Papillon</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectSkinColours">
+				<colours>
+					<li>PMM_Skin_PapillonApricot</li>
+					<li>PMM_Skin_PapillonRose</li>
+					<li>PMM_Skin_PapillonViolet</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
 </Defs>

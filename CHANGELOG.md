@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-01: Added the papillon, the hive's butterfly momo. She is the frailest of the castes, cannot fight at all, and learns faster than her sisters.
+- 2026-10-01: Added the mothman, a drowsy moth momo of the neutral hive. Lamp light leaves her a little dazed and happier, and she will not fight anyone.
 - 2026-10-01: Changed caffeine to make every spider-bodied momo drunk, not just the arachne. The ant arachne and the girtablilu get about one beer's worth per coffee too.
 - 2026-10-01: Fixed the arachne's body, whose arms and legs were far more fragile than they should be - fragile enough for a single punch to take a limb off.
 - 2026-10-01: Changed the arachne, the beelzebub, the girtablilu, the ant arachne and the honey bee to remember their own childhood and adult life, instead of being handed a random story from somewhere else.
@@ -152,6 +154,8 @@
 
 ## Internal
 
+- 2026-10-01: Added the mothman and the papillon: races, trackers, xenotypes, three body colours each, pawn kinds, a caravan kind each, their backstories, and their places in the hive's rosters and the abaddon's brood list. Their xenotype icons are still to be drawn.
+- 2026-10-01: Removed the superseded `PLAN.md` from the working docs into `archive/PLAN.md`, after its one live section - the papillon maturation - moved into `CASTES-PLAN.md` §7, and repointed the three files that cited it.
 - 2026-10-01: Removed the arachne plan from the working docs into `archive/ARACHNE-PLAN.md`, now that every phase in it is built and tested, and repointed the three files that cited it.
 - 2026-10-01: Changed the arachne's coffee patch to cover the ant arachne and the girtablilu as well, and cut the coffees mod's name from its gate: VBE defines the caffeine chemical and every caffeinated drink.
 - 2026-10-01: Fixed the insect faction patch to skip instead of logging a failed patch when VFEI2 is absent.

@@ -292,4 +292,50 @@
 		<skinColorOverride>(110, 120, 132)</skinColorOverride>
 	</GeneDef>
 
+	<!-- mothman. 222 214 190 / 186 166 132 / 150 140 128 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MothCream</defName>
+		<label>cream chitin</label>
+		<description>Carriers of this gene grow a cream chitin carapace.</description>
+		<skinColorOverride>(222, 214, 190)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MothTan</defName>
+		<label>tan chitin</label>
+		<description>Carriers of this gene grow a tan chitin carapace.</description>
+		<skinColorOverride>(186, 166, 132)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_MothDust</defName>
+		<label>dusty chitin</label>
+		<description>Carriers of this gene grow a dusty grey chitin carapace.</description>
+		<skinColorOverride>(150, 140, 128)</skinColorOverride>
+	</GeneDef>
+
+	<!-- papillon. 236 196 148 / 214 160 182 / 176 166 214 -->
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_PapillonApricot</defName>
+		<label>apricot chitin</label>
+		<description>Carriers of this gene grow an apricot chitin carapace.</description>
+		<skinColorOverride>(236, 196, 148)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_PapillonRose</defName>
+		<label>rose chitin</label>
+		<description>Carriers of this gene grow a rose chitin carapace.</description>
+		<skinColorOverride>(214, 160, 182)</skinColorOverride>
+	</GeneDef>
+
+	<GeneDef ParentName="PMM_BaseSkinColour">
+		<defName>PMM_Skin_PapillonViolet</defName>
+		<label>violet chitin</label>
+		<description>Carriers of this gene grow a violet chitin carapace.</description>
+		<skinColorOverride>(176, 166, 214)</skinColorOverride>
+	</GeneDef>
+
 </Defs>

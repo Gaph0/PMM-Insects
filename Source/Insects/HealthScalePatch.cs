@@ -60,6 +60,12 @@ namespace PMM_Insects
                 // Honey Bee: 0.4 base x 2.5 = 1.0 effective, the devil bug's frame. A
                 // farmer's body and not a fighter's, but it keeps her limbs on her.
                 "PMM_Race_HoneyBee" => 2.5f,
+                // Mothman: 0.4 base x 2.0 = 0.8 effective. The hive's gentle one - softer
+                // than a human and tougher than the papillon, and never in a fight anyway.
+                "PMM_Race_Mothman" => 2.0f,
+                // Papillon: 0.4 base x 1.25 = 0.5 effective, the frailest caste in the mod
+                // (CASTES-PLAN.md 0 decision 10). Her limbs are meant to be a liability.
+                "PMM_Race_Papillon" => 1.25f,
                 _ => 1f,
             };
 

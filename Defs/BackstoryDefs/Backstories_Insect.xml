@@ -452,4 +452,75 @@
 		</skillGains>
 	</BackstoryDef>
 
+	<!--
+		Mothman (2026-10-01): a moth of the hive's dark corners, drawn to the lamps and never
+		far from one. Social, then Social + Intellectual.
+	-->
+	<BackstoryDef>
+		<defName>PMM_MothmanChild</defName>
+		<title>lamplit grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched in a dark corner of the hive and spent {PAWN_possessive} early days crawling toward the nearest lamp, sitting under it for hours, and listening to the grown women talk.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_MothmanSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Social>2</Social>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_MothmanAdult</defName>
+		<title>moth of the lamps</title>
+		<titleShort>mothman</titleShort>
+		<description>{PAWN_nameDef} keeps the hive's lamps and its records, sits up late talking with whoever is awake, and is happy in a way her sisters quietly envy.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_MothmanSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Social>4</Social>
+			<Intellectual>2</Intellectual>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Papillon (2026-10-01): raised among the hive's flower rows by whichever sister was
+		nearest, and the one the hive sends to do the talking. Social, then Social +
+		Intellectual.
+	-->
+	<BackstoryDef>
+		<defName>PMM_PapillonChild</defName>
+		<title>flower-row child</title>
+		<titleShort>papillon</titleShort>
+		<description>{PAWN_nameDef} hatched among the hive's flower rows and was raised by whichever sister was nearest, learning every face in the village before she could walk.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_PapillonSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Social>2</Social>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_PapillonAdult</defName>
+		<title>hive butterfly</title>
+		<titleShort>papillon</titleShort>
+		<description>{PAWN_nameDef} is the one the hive sends to do the talking, because everyone talks back to her. She reads, she remembers, and she is careful to be nowhere near a fight.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_PapillonSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Social>4</Social>
+			<Intellectual>3</Intellectual>
+		</skillGains>
+	</BackstoryDef>
+
 </Defs>
