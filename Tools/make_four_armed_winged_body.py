@@ -12,9 +12,10 @@ copied verbatim, including B&S's own comments and their attributes.
 
 Run it as `python3 Tools/make_four_armed_winged_body.py [output.xml]`; with no
 argument it overwrites the committed def beside it. The source folder is looked up
-under the usual Steam locations (the workshop copy first, then local Mods folders)
-and printed, because one machine can hold several copies of the framework at once.
-Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder to choose one by hand.
+under the usual Steam roots - every workshop copy before any local `Mods/` folder,
+so a stale local copy cannot shadow the published one - and printed, because one
+machine can hold several copies of the framework at once. Set PMM_BS_RACES to a
+SimplyRaces/Defs/Races folder to choose one by hand.
 """
 
 import os
@@ -35,11 +36,15 @@ def find_bs_races():
     if override:
         candidates = [Path(override).expanduser()]
     else:
-        candidates = []
-        for steamapps in (Path.home() / ".steam/steam/steamapps",
+        steamapps_dirs = (Path.home() / ".steam/steam/steamapps",
                           Path.home() / ".steam/debian-installation/steamapps",
-                          Path.home() / ".local/share/Steam/steamapps"):
-            candidates.append(steamapps / "workshop/content/294100" / BS_WORKSHOP_ID / BS_RELATIVE)
+                          Path.home() / ".local/share/Steam/steamapps")
+        # Two passes over the roots, so the workshop copy wins wherever it lives: a
+        # stale local copy under an earlier root must not shadow the published one
+        # under a later root.
+        candidates = [steamapps / "workshop/content/294100" / BS_WORKSHOP_ID / BS_RELATIVE
+                      for steamapps in steamapps_dirs]
+        for steamapps in steamapps_dirs:
             candidates.extend(sorted((steamapps / "common/RimWorld/Mods").glob("*/" + str(BS_RELATIVE))))
     tried = []
     for path in candidates:
