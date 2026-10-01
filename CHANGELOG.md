@@ -152,6 +152,7 @@
 
 ## Internal
 
+- 2026-10-01: Removed the arachne plan from the working docs into `archive/ARACHNE-PLAN.md`, now that every phase in it is built and tested, and repointed the three files that cited it.
 - 2026-10-01: Changed the arachne's coffee patch to cover the ant arachne and the girtablilu as well, and cut the coffees mod's name from its gate: VBE defines the caffeine chemical and every caffeinated drink.
 - 2026-10-01: Fixed the insect faction patch to skip instead of logging a failed patch when VFEI2 is absent.
 - 2026-10-01: Removed the run-specific generator counts from the arachne silk patch's comment, and the stale op numbers that went with them.

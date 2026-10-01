@@ -1320,9 +1320,9 @@ the cooldown. `CompBroodOrder` keeps the order and builds the menu; it no longer
 its `CurrentLabel` now feeds the button's tooltip - the old picker label doing the same job. The
 disabled-with-a-reason case for somebody else's queen moved onto the button with it.
 
-**Arachne, the spider mamono (from 2026-09-26), has her own plan file:** `ARACHNE-PLAN.md` - a body
-from Big & Small's own spider, tribe spawns and the brood menu, and the silk, web and coffee phases
-still to come.
+**Arachne, the spider mamono (from 2026-09-26):** her plan is finished and archived at
+`archive/ARACHNE-PLAN.md` (2026-10-01) - a body from Big & Small's own spider, tribe spawns, the brood
+menu, silk, web and coffee. Everything in it is built and tested; the file is kept for its evidence.
 
 **Still to come, agreed with the user 2026-09-26:**
 

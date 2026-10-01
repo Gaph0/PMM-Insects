@@ -59,7 +59,7 @@ stays in, and her gene list becomes a **rebuild** rather than an addition (§6).
 | Prefix | Source | Note for the next reader |
 |---|---|---|
 | `VRE_*` | Vanilla Races Expanded - Insector, workshop `3260509684` | These are **not** written as `<GeneDef>`. The node is `<VanillaRacesExpandedInsector.GenelineGeneDef>`, so a grep for `<GeneDef>` finds 12 of them and misses ~60. Read the mod's own files. |
-| `Aptitude*` | Biotech | Four `GeneTemplateDef` templates (`AptitudeStrong` = "strong {0}", `AptitudePoor` = "poor {0}", `AptitudeRemarkable` = "great {0}", `AptitudeTerrible` = "awful {0}"). One gene per skill is generated from each, so `AptitudeRemarkable_Melee` is a real defName that no file spells out. `ARACHNE-PLAN.md` already records this. |
+| `Aptitude*` | Biotech | Four `GeneTemplateDef` templates (`AptitudeStrong` = "strong {0}", `AptitudePoor` = "poor {0}", `AptitudeRemarkable` = "great {0}", `AptitudeTerrible` = "awful {0}"). One gene per skill is generated from each, so `AptitudeRemarkable_Melee` is a real defName that no file spells out. `archive/ARACHNE-PLAN.md` already records this. |
 | plain (`Sterile`, `Sleepy`, ...) | Core / Biotech | Ordinary genes. |
 | `PMM_*` | this workspace | Core's `PMM_Gene_FlightWeak`, `PMM_Gene_LargeFrame`, and this mod's own. |
 
@@ -70,7 +70,7 @@ stays in, and her gene list becomes a **rebuild** rather than an addition (§6).
 ### 3.1 Aptitudes
 
 The mockups use tiers, not def names. They map like this - and this is already the mod's own
-vocabulary (`ARACHNE-PLAN.md`, 2026-09-26: "good" = `AptitudeStrong_<Skill>`, "great" =
+vocabulary (`archive/ARACHNE-PLAN.md`, 2026-09-26: "good" = `AptitudeStrong_<Skill>`, "great" =
 `AptitudeRemarkable_<Skill>`):
 
 | Mockup wording | defName pattern | Example |
