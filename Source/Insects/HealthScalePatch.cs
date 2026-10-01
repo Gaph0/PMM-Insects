@@ -36,12 +36,21 @@ namespace PMM_Insects
                 // Devil Bug: 0.4 base x 2.5 = 1.0 effective. Her 8-HP arm becomes
                 // ~20 HP, so punches bruise instead of amputating.
                 "PMM_Race_DevilBug" => 2.5f,
+                // Arachne: 0.4 base x 2.5 = 1.0 effective, the same silk-over-chitin
+                // frame as the devil bug's. She was missing from this switch while
+                // her own race def claimed the factor was applied, so she sat at 0.4
+                // and one punch could take one of her eight legs off - the failure
+                // this patch exists to prevent.
+                "PMM_Race_Arachne" => 2.5f,
                 // Greenworm: 0.25 base x 2.5 = 0.625 effective. The larva is the
                 // frailest bug; same treatment keeps her limbs on her body.
                 "PMM_Race_Greenworm" => 2.5f,
-                // Giant Ant (1.7), Soldier Beetle (2.5), Vamp Mosquito (0.7), Abaddon
-                // (9.8) and Abaddon Folk (1.0) need no help - their base scales already
-                // meet or exceed human norms, and B&S scales big races' health itself.
+                // Giant Ant (1.7), Soldier Beetle (2.5), Abaddon (9.8) and Abaddon
+                // Folk (1.0) need no help: B&S scales big races' health itself, and
+                // those bases already meet or exceed human norms.
+                // Vamp Mosquito (0.7) and Beelzebub (0.7) are left alone on purpose.
+                // Both are meant to be fragile - the swarm's fliers, not its brawlers
+                // (user's word, 2026-10-01: "both are meant to be fragile").
                 // Girtablilu: 0.44 base x 2.5 = 1.1 effective. A plated scorpion
                 // body sits a tenth above a human's where the arachne sits on one.
                 "PMM_Race_Girtablilu" => 2.5f,
