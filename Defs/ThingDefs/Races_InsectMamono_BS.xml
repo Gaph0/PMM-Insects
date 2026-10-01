@@ -50,7 +50,7 @@
 		numbers - not even the queen's 75. Re-adding it breaks age generation.
 	-->
 
-	<!-- ===================== Devil Bug (was: Megascarab, Core) ===================== -->
+	<!-- ===================== Devil Bug (from the Megascarab, Core) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_DevilBug</defName>
 		<label>devil bug</label>
@@ -204,7 +204,7 @@
 	</HediffDef>
 
 
-	<!-- ===================== Giant Ant (was: Spelopede, Core) ===================== -->
+	<!-- ===================== Giant Ant (from the Spelopede, Core) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_GiantAnt</defName>
 		<label>giant ant</label>
@@ -310,7 +310,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Soldier Beetle (was: Megaspider, Core) ===================== -->
+	<!-- ===================== Soldier Beetle (from the Megaspider, Core) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_SoldierBeetle</defName>
 		<label>soldier beetle</label>
@@ -416,7 +416,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Greenworm (was: Larva) ===================== -->
+	<!-- ===================== Greenworm (from the Larva, Odyssey) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
@@ -531,7 +531,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Vamp Mosquito (was: Locust) ===================== -->
+	<!-- ===================== Vamp Mosquito (from the Locust, Odyssey) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_VampMosquito</defName>
 		<label>vamp mosquito</label>
@@ -651,7 +651,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Abaddon (was: HiveQueen) ===================== -->
+	<!-- ===================== Abaddon (from the HiveQueen, Odyssey) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Abaddon</defName>
 		<label>abaddon</label>
@@ -826,8 +826,8 @@
 
 	<!-- ===================== Abaddon Folk (no vanilla bug behind her) ===================== -->
 	<!-- The soldier class of an abaddon's swarm: the soldier bugs that fill the sky
-	     in the thousands and make up the bulk of any swarm an abaddon leads. No
-	     vanilla insect is being replaced here, so nothing is copied 1:1 - her numbers
+	     in the thousands and make up the bulk of any swarm an abaddon leads. She has
+	     no vanilla counterpart, so nothing is copied 1:1 - her numbers
 	     are set for the role she plays: small, quick, cheap, hard-shelled, and
 	     without much of a self of her own.
 
@@ -1228,8 +1228,8 @@
 	     everything below only serves them. She is fast because she flies and soft because her chitin is
 	     weakened rather than armoured, which is why her tracker adds no armour of its own: armour from
 	     a gene and armour from a tracker STACK, so a stage there would quietly cancel the gene she is
-	     built around (the trap the abaddon folk's tracker spells out). No vanilla insect is being
-	     replaced here, so nothing is copied 1:1 from one. -->
+	     built around (the trap the abaddon folk's tracker spells out). She has no vanilla
+	     counterpart, so nothing is copied 1:1 from one. -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Beelzebub</defName>
 		<label>beelzebub</label>
