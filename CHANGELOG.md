@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-01: Added the mantis, the swarm's killer. She is fast and thin-shelled, feels nothing for the woman in front of her, and hunts only to kill.
 - 2026-10-01: Changed the wording of the soldier beetle's and the hornet's dislike thoughts.
 - 2026-10-01: Added one more name the abaddon swarm can be given: "Chittering Abaddons".
 - 2026-10-01: Fixed egg sacs mixing up their brood when a queen's throws land on the same cell. The sac that hatches now holds the order she was given.

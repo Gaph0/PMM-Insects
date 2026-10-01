@@ -388,4 +388,24 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectHornet>100</PMM_InsectHornet></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
+	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4): the swarm's glass cannon, and a swarm
+	     caste only - she is in the swarm's raid groups, never in a hive village. Combat power
+	     120, above the girtablilu's 115 and the hornet's 110: she kills faster than either, and
+	     the price is that she dies faster too. No forced traits - her temper and her kill hunger
+	     are both genes. No caravan kind: the swarm does not trade. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectMantis</defName>
+		<label>mantis</label>
+		<race>PMM_Race_Mantis</race>
+		<combatPower>120</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_MantisSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectMantis>100</PMM_InsectMantis></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
 </Defs>

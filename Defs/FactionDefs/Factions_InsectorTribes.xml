@@ -87,12 +87,17 @@
 		     Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
-				<PMM_InsectDevilBug>0.30</PMM_InsectDevilBug>
-				<PMM_InsectGiantAnt>0.30</PMM_InsectGiantAnt>
+				<PMM_InsectDevilBug>0.27</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.27</PMM_InsectGiantAnt>
 				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
 				<PMM_InsectGreenworm>0.12</PMM_InsectGreenworm>
 				<PMM_InsectVampMosquito>0.06</PMM_InsectVampMosquito>
 				<PMM_InsectAbaddon>0.02</PMM_InsectAbaddon>
+				<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4) took her 0.06 off the devil bug
+				     and the giant ant, which were 0.30 each when the swarm's own list was written.
+				     She is a swarm caste only - the hive's own set is a separate list further
+				     down, and she is not in it. -->
+				<PMM_InsectMantis>0.06</PMM_InsectMantis>
 			</xenotypeChances>
 		</xenotypeSet>
 
@@ -126,6 +131,9 @@
 					<PMM_InsectGiantAnt>8</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
 					<PMM_InsectVampMosquito>3</PMM_InsectVampMosquito>
+					<!-- The mantis (2026-10-01) fights in both of the swarm's Combat groups: she is
+					     the caste the swarm aims at a target and lets go. -->
+					<PMM_InsectMantis>3</PMM_InsectMantis>
 				</options>
 			</li>
 			<li>
@@ -136,6 +144,7 @@
 					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
 					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>4</PMM_InsectSoldierBeetle>
+					<PMM_InsectMantis>3</PMM_InsectMantis>
 				</options>
 			</li>
 			<li>
@@ -167,6 +176,8 @@
 					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
 					<!-- The desert assassin. A landmark, not a filler. -->
 					<PMM_InsectGirtablilu>3</PMM_InsectGirtablilu>
+					<!-- The reaper (2026-10-01). As rare in a village as the assassin is. -->
+					<PMM_InsectMantis>2</PMM_InsectMantis>
 				</options>
 			</li>
 			<li>
@@ -183,6 +194,7 @@
 					<PMM_InsectArachne>3</PMM_InsectArachne>
 					<PMM_InsectBeelzebub>4</PMM_InsectBeelzebub>
 					<PMM_InsectGirtablilu>2</PMM_InsectGirtablilu>
+					<PMM_InsectMantis>2</PMM_InsectMantis>
 				</options>
 			</li>
 			<!-- The four role groups vanilla tribes carry, naming our own castes:
@@ -201,6 +213,9 @@
 				<commonality>1</commonality>
 				<options>
 					<PMM_InsectDevilBug>1</PMM_InsectDevilBug>
+					<!-- The mantis hunts (2026-10-01): a killer the swarm sends after meat as
+					     readily as after people. -->
+					<PMM_InsectMantis>1</PMM_InsectMantis>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">

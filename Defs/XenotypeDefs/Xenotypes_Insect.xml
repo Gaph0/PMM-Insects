@@ -941,4 +941,65 @@
 		</modExtensions>
 	</XenotypeDef>
 
+	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4): the swarm's glass cannon. Her gene
+	     list is the user's mockup list with the one swap decided 2026-09-30 - VRE_VocalChitters
+	     is OUT (it sets her Talking capacity to 0, so she could not speak) and VRE_LowOctopamine
+	     is IN, which keeps her voice and pays with a doubled lovin' cooldown instead. The
+	     fertility half of that gene is dead on a mamono: core's MamonoFertilityPatch floors an
+	     adult mamono's Fertility at 1.0 whatever her genes say.
+
+	     The kill thirst STAYS (VRE_EcdysoneOverdrive, the girtablilu's gene, so it is proven in
+	     this mod). She is the fragile half of the pair and means it: VRE_WeakenedChitin takes
+	     x1.5 damage and her tracker adds almost no armour, while VRE_RipperBlades is what she
+	     kills with - the race carries no weapon of its own.
+
+	     Her three colours are the user's, supplied 2026-10-01 while the phase was being built:
+	     8dae77, 365d4b, 47755b. The mockup carries no palette of its own. -->
+	<XenotypeDef>
+		<defName>PMM_InsectMantis</defName>
+		<label>mantis</label>
+		<description>A mantis mamono of the swarm: long-limbed, green, with ripper blades folded into her arms. She hunts to kill and feels nothing for the woman in front of her, and she is too thin-shelled to take a blow in return.</description>
+		<descriptionShort>A cold, thin-shelled killer with blades folded into her arms.</descriptionShort>
+		<!-- No iconPath yet: hand art lands in Textures/UI/Icons/Xenotypes/PMM_Mantis, and a
+		     path with no file behind it is a red error, which is why it is absent. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<!-- The mockup's list (CASTES-PLAN.md §3.2), each effect read out of the def itself in
+			     GENES-FEASIBILITY.md §3: VRE_RipperBlades is WorkSpeedGlobal -0.3 and grants the
+			     ripper tools, VRE_CompoundEyes is Sight +0.5, VRE_InfraredSensors is shooting
+			     accuracy x1.1 plus heat vision, VRE_WeakenedChitin is Moving +0.15 and x1.5
+			     incoming damage, and Aggression_HyperAggressive triples her fight chance. -->
+			<li>VRE_RipperBlades</li>
+			<li>VRE_CompoundEyes</li>
+			<li>VRE_InfraredSensors</li>
+			<li>VRE_LowOctopamine</li>
+			<li>VRE_WeakenedChitin</li>
+			<!-- The kill thirst, the girtablilu's gene: it causes the KillThirst need. -->
+			<li>VRE_EcdysoneOverdrive</li>
+			<!-- The mockup's aptitudes in its own vocabulary (GENES-FEASIBILITY.md §3.1):
+			     "awful" is AptitudeTerrible, "great" is AptitudeRemarkable. -->
+			<li>AptitudeTerrible_Social</li>
+			<li>AptitudeRemarkable_Melee</li>
+			<li>MeleeDamage_Strong</li>
+			<li>Aggression_HyperAggressive</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Mantis</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectHairColours">
+				<colours>
+					<li>(141, 174, 119)</li>
+					<li>(54, 93, 75)</li>
+					<li>(71, 117, 91)</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
 </Defs>

@@ -1631,11 +1631,13 @@ colour is always one of her own three, and the row above is the palette herself,
 These were skin colours until 2026-10-01, when the user moved them onto hair and wings and asked for
 the skin to be vanilla; §5.13 has the mechanism and §5.17 the legs of the three spider castes.
 
-**What is still missing.** The mantis and the soldier beetle's rebuild - two of the mockup castes of
-`CASTES-PLAN.md` - have no colours yet. The mothman's and the papillon's arrived 2026-10-01
-(`a27499 684063 835079` and `cf5e92 7e4c6f cc4d62`), and the hornet's are the honey bee's
-(`F7DA41 FFD72D D9AF0F`, user's call: "copy her colours from the honey bee"). Until a caste has a
-palette she is simply uncoloured: her skin is vanilla and her hair is whatever she was born with.
+**What is still missing.** Only the soldier beetle's rebuild, the last mockup caste of
+`CASTES-PLAN.md`. Where the newer palettes came from, since the table above stops at 2026-09-30: the
+mothman's and the papillon's were supplied on 2026-10-01 (`a27499 684063 835079` and
+`cf5e92 7e4c6f cc4d62`), the hornet's are the honey bee's (`F7DA41 FFD72D D9AF0F`, user's call: "copy
+her colours from the honey bee"), and the mantis's are the user's too (`8dae77 365d4b 47755b`,
+supplied 2026-10-01 with phase 4). Until a caste has a palette she is simply uncoloured: her skin is
+vanilla and her hair is whatever she was born with.
 
 ---
 
@@ -1679,6 +1681,50 @@ nothing in this mod carries one, so they could never fire.
 **The cost to remember:** this file is a copy of B&S's spider configuration, so a B&S update that
 changes the spider art, the draw offsets or the body behaviour will not reach the three spider castes
 on its own. Re-diff against `SimplyRaces/Defs/Races/Spider/` when B&S moves.
+
+### 5.18 The mantis, and the tool rule she sets (2026-10-01, CASTES-PLAN.md phase 4)
+
+The swarm's glass cannon, built from the mockup list in `CASTES-PLAN.md` §3.2. The same nine-step
+wiring the honey bee's pass touched:
+
+| What | Where |
+|---|---|
+| The xenotype, her thirteen genes and her three colours | `Defs/XenotypeDefs/Xenotypes_Insect.xml` |
+| The race and her tracker | `Defs/ThingDefs/Races_InsectMamono_BS.xml` |
+| The pawn kind, `combatPower` 120 | `Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml` |
+| Her backstory pair, category `PMM_MantisSpawn` | `Defs/BackstoryDefs/Backstories_Insect.xml` |
+| Her place in the swarm: 0.06 of its set, both `Combat` groups, both `Settlement` garrisons, `Hunters` | `Defs/FactionDefs/Factions_InsectorTribes.xml` |
+| 0.4 base x 1.75 = 0.7 effective | `Source/Insects/HealthScalePatch.cs` |
+| Her corpse files with the mamonos | `Source/Insects/InsectMamonoCorpses.cs` |
+| A daughter the queen can lay | the brood order comp on `PMM_Race_Abaddon` |
+
+**The two decisions, as built.** `VRE_VocalChitters` is **not** on her: it sets the Talking capacity to
+0, so it would have taken her voice. `VRE_LowOctopamine` is in its place - she keeps her voice and pays
+with a doubled lovin' cooldown. The fertility half of that gene is dead on a mamono (core's
+`MamonoFertilityPatch` floors an adult mamono's Fertility at 1.0 whatever her genes say), so the
+cooldown is the whole cost. `VRE_EcdysoneOverdrive`, the kill thirst, stays.
+
+**The tool rule she sets.** Every fighting caste here carries a four-tool block: two fists, a species
+weapon and her head. Hers has three - the fists and the head - because `VRE_RipperBlades` is her weapon.
+That is what "one set of tools, not two" means in practice: the race owns the body and the gene owns
+the killing. Her race also has no `<body>` line and no winged tracker, because she has no flight gene:
+the Human parent's own body is the one she draws. This is the shape `CASTES-PLAN.md` §3.5 tells the
+soldier beetle to copy, so phase 5 now has a built example instead of a proposal.
+
+**Her colours are the user's, supplied while the phase was built.** The mockup carries no palette, so
+the three in her xenotype came from the user on 2026-10-01: `8dae77`, `365d4b`, `47755b`.
+
+**Two wrong lines in the plan, corrected the same day.** `CASTES-PLAN.md` §4 put her gate at "she
+cannot speak", which the 2026-09-30 decision on `VRE_VocalChitters` had already undone, and §3.5 said
+"the girtablilu's race has no melee tools at all" - her race carries four (two pincers, chelicerae and
+her head) and she carries `VRE_ChargerClaws` on top, so she is the *double-tool* example, not the empty
+one. Both lines now say what the defs say.
+
+**Still missing: her icon, and seven others'.** As with the mothman, the papillon and the hornet, no
+`iconPath` is written, because a path with no file behind it is a worse error than its absence. The
+cost is a log line each - "Config error in PMM_InsectMantis: iconPath is empty." - and it is the same
+line the arachne, the beelzebub, the girtablilu and the ant arachne have printed since they were built.
+Hand art at 64x64 in `Textures/UI/Icons/Xenotypes/` clears all eight; nothing else does.
 
 ---
 
