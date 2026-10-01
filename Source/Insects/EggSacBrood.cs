@@ -6,23 +6,32 @@ using Verse;
 namespace PMM_Insects
 {
     /// <summary>
-    /// Carries the queen's brood order across the throw. Vanilla's `Projectile_SpawnsThing`
-    /// creates the sac, hands it a position and a faction, and gives us no handle on it - so the
-    /// landing cell is worked out first, with vanilla's own rule, and the sac is picked up from
-    /// there afterwards.
+    /// Carries the queen's brood order across the throw.
     ///
-    /// `base.Impact()` is still the one that spawns (and that destroys the projectile), so the
-    /// map is captured before the call: `Map` is gone afterwards.
+    /// It spawns the sac itself rather than leaving that to `Projectile_SpawnsThing`, for one reason:
+    /// vanilla's version drops the thing it just made, so the order would have to be found again on
+    /// the map afterwards - by landing cell, which is where two sacs in one cell can swap orders (a
+    /// sac is a building, and vanilla's `tryAdjacentFreeSpaces` walk steps around the cell it hit, not
+    /// around a sac already sitting beside it). Making the sac here keeps the handle, so the order
+    /// goes to that very object and to nothing else.
+    ///
+    /// `Projectile.Impact`'s own three lines - the impact clamour, the landed effect and the
+    /// projectile's destruction - are copied below because `base` is the thing that spawns. Re-diff
+    /// them against `Verse.Projectile.Impact` when a 1.6.x patch ships.
     /// </summary>
     public class Projectile_EggSac : Projectile_SpawnsThing
     {
         protected override void Impact(Thing hitThing, bool blockedByShield = false)
         {
             Map map = Map;
+            if (map == null)
+            {
+                return;
+            }
             IntVec3 loc = Position;
-            // Vanilla's own landing rule, repeated here only so we know where to look:
-            // the impact cell, or the first free standable neighbour when the cell is taken by
-            // a building and tryAdjacentFreeSpaces is on (our projectile sets it).
+            // Vanilla's own landing rule, kept because the spawn below has to land where vanilla's
+            // would have: the impact cell, or the first free standable neighbour when the cell is
+            // taken by a building and tryAdjacentFreeSpaces is on (our projectile sets it).
             if (def.projectile.tryAdjacentFreeSpaces && loc.GetFirstBuilding(map) != null)
             {
                 foreach (IntVec3 cell in GenAdjFast.AdjacentCells8Way(loc))
@@ -34,20 +43,32 @@ namespace PMM_Insects
                     }
                 }
             }
-            base.Impact(hitThing, blockedByShield);
-            if (map == null)
+
+            // Verse.Projectile.Impact, verbatim.
+            GenClamor.DoClamor(this, 12f, ClamorDefOf.Impact);
+            if (!blockedByShield && def.projectile.landedEffecter != null)
             {
-                return;
+                def.projectile.landedEffecter.Spawn(ExactPosition.ToIntVec3(), map).Cleanup();
             }
+            Destroy();
+
+            // Projectile_SpawnsThing.Impact's own spawn, in vanilla's order: spawn, then take the
+            // launcher's faction. Vanilla reads `Launcher.Faction` unguarded, which throws for a
+            // projectile nobody launched (a dev spawn); this one leaves the sac unfactioned instead.
+            Thing spawned = GenSpawn.Spawn(ThingMaker.MakeThing(def.projectile.spawnsThingDef), loc, map);
+            if (spawned.def.CanHaveFaction && Launcher != null)
+            {
+                spawned.SetFaction(Launcher.Faction);
+            }
+
             // No launcher, or a launcher that is not a queen (a dev spawn, a stray projectile):
             // the sac simply keeps the def's own default brood.
             Pawn queen = Launcher as Pawn;
             CompBroodOrder order = queen?.GetComp<CompBroodOrder>();
-            if (order == null)
+            if (order != null && spawned is ThingWithComps sac)
             {
-                return;
+                sac.GetComp<CompEggSacBrood>()?.SetBrood(order.ResolvedBrood, queen);
             }
-            loc.GetFirstThingWithComp<CompEggSacBrood>(map)?.GetComp<CompEggSacBrood>().SetBrood(order.ResolvedBrood, queen);
         }
     }
 

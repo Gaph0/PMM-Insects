@@ -113,15 +113,21 @@ namespace PMM_Insects
         }
 
         /// <summary>
-        /// What she is currently told to lay, as the player reads it. Public because the egg spew
-        /// button prints it in its tooltip now that no picker gizmo carries it.
+        /// What she is currently told to lay, as the player reads it, or null when there is nothing to
+        /// name - nothing picked, and a def that names no default brood. Public because the egg spew
+        /// button prints it in its tooltip now that no picker gizmo carries it; the caller leaves the
+        /// line out rather than printing an empty label.
         /// </summary>
         public string CurrentLabel
         {
             get
             {
                 BroodOption option = CurrentOption;
-                return option != null ? OptionLabel(option) : Props.defaultBrood.LabelCap;
+                if (option != null)
+                {
+                    return OptionLabel(option);
+                }
+                return Props.defaultBrood?.LabelCap;
             }
         }
 
@@ -164,6 +170,12 @@ namespace PMM_Insects
         public bool ShowOrderMenu(Action afterPick)
         {
             List<FloatMenuOption> options = new List<FloatMenuOption>();
+            // A def that names no list at all is the same mistake as an empty one, and the caller
+            // treats both the same way: no menu, plain cast.
+            if (Props.broodOptions == null)
+            {
+                return false;
+            }
             foreach (BroodOption option in Props.broodOptions)
             {
                 if (option == null || (option.pawnKind == null && !option.randomMamono))
@@ -257,6 +269,10 @@ namespace PMM_Insects
 
         private PawnKindDef RandomMamonoOption()
         {
+            if (Props.broodOptions == null)
+            {
+                return null;
+            }
             List<PawnKindDef> pool = new List<PawnKindDef>();
             foreach (BroodOption option in Props.broodOptions)
             {

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -40,24 +42,15 @@ namespace PMM_Insects
     /// </summary>
     public static class InsectPheromones
     {
-        private static GeneDef cachedGene;
-
         /// <summary>
-        /// Looked up by defName rather than through a DefOf class, so a load-order
-        /// or rename problem cannot throw during static constructor resolution -
-        /// the same choice PollutedSettlement makes.
+        /// Looked up by defName rather than through a DefOf class (so a load-order or rename problem
+        /// cannot throw during static constructor resolution - the same choice PollutedSettlement
+        /// makes), and looked up fresh on every call rather than kept: defs compare by reference, so a
+        /// def held across a def database rebuild matches no gene on any pawn and the pheromones would
+        /// quietly stop working. One dictionary lookup, on a check that is already far cheaper than the
+        /// attack search around it.
         /// </summary>
-        private static GeneDef Gene
-        {
-            get
-            {
-                if (cachedGene == null)
-                {
-                    cachedGene = DefDatabase<GeneDef>.GetNamedSilentFail("PMM_Gene_Insect");
-                }
-                return cachedGene;
-            }
-        }
+        private static GeneDef Gene => DefDatabase<GeneDef>.GetNamedSilentFail("PMM_Gene_Insect");
 
         /// <summary>True for a pawn who wears the insectoid gene, mamono or not.</summary>
         public static bool Carries(Pawn pawn)
@@ -68,22 +61,25 @@ namespace PMM_Insects
 
         /// <summary>
         /// The equivalent of VRE's CheckHostility. Returns whether the attack is
-        /// still allowed: false means the insect should not bother her.
+        /// still allowed: false means the insect should not bother her. VRE threads its
+        /// caller's own answer in and back out again; the answer is the return value
+        /// here, so a re-diff against their copy is the one line that dropped it.
         /// </summary>
-        public static bool CheckHostility(bool result, Pawn pawn1, Pawn pawn2)
+        public static bool CheckHostility(Pawn pawn1, Pawn pawn2)
         {
-            if (result && pawn1 != null && pawn2 != null)
+            if (pawn1 == null || pawn2 == null)
             {
-                if (pawn1.RaceProps.Insect && Carries(pawn2) && NotProvoked(pawn2, pawn1))
-                {
-                    result = false;
-                }
-                else if (pawn2.RaceProps.Insect && Carries(pawn1) && NotProvoked(pawn1, pawn2))
-                {
-                    result = false;
-                }
+                return true;
             }
-            return result;
+            if (pawn1.RaceProps.Insect && Carries(pawn2) && NotProvoked(pawn2, pawn1))
+            {
+                return false;
+            }
+            if (pawn2.RaceProps.Insect && Carries(pawn1) && NotProvoked(pawn1, pawn2))
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -118,35 +114,71 @@ namespace PMM_Insects
     }
 
     /// <summary>
-    /// The validator nested inside AttackTargetFinder.BestAttackTarget. Its name is
-    /// compiler generated, so VRE finds it by shape and so do we: the method that
-    /// takes exactly one IAttackTarget.
+    /// Every validator nested inside AttackTargetFinder.BestAttackTarget that takes one IAttackTarget
+    /// - the filter the method builds and then wraps in filters of its own. The names are compiler
+    /// generated, so they are found by shape, and all of them are patched rather than the first one
+    /// found: they live in the same compiler-generated class beside methods of the same shape, and
+    /// picking one by the order the compiler emitted it in is a bet that a game patch can silently
+    /// lose - the patch would land on a wrapper, or on nothing, and the gene would stop meaning
+    /// anything. The postfix only ever removes a candidate, so covering the whole family costs a
+    /// repeated check on the same pair and buys independence from that order.
+    ///
+    /// A class without a `searcherThing` field is skipped: the postfix reads that field, and it is the
+    /// pawn the validator is being asked about.
     /// </summary>
     [HarmonyPatch]
     public static class Patch_BestAttackTarget_InsectPheromones
     {
-        public static MethodBase TargetMethod()
+        public static IEnumerable<MethodBase> TargetMethods()
         {
-            foreach (System.Type type in typeof(AttackTargetFinder).GetNestedTypes(AccessTools.all))
+            List<MethodBase> targets = new List<MethodBase>();
+            foreach (Type type in typeof(AttackTargetFinder).GetNestedTypes(AccessTools.all))
             {
-                MethodInfo method = type.GetMethods(AccessTools.all).FirstOrDefault(x =>
-                    x.Name.Contains("<BestAttackTarget>")
-                    && x.GetParameters().Length == 1
-                    && x.GetParameters()[0].ParameterType == typeof(IAttackTarget));
-                if (method != null)
+                if (type.GetField("searcherThing", AccessTools.all) == null)
                 {
-                    return method;
+                    continue;
+                }
+                foreach (MethodInfo method in type.GetMethods(AccessTools.all))
+                {
+                    if (method.Name.Contains("<BestAttackTarget>")
+                        && method.GetParameters().Length == 1
+                        && method.GetParameters()[0].ParameterType == typeof(IAttackTarget))
+                    {
+                        targets.Add(method);
+                    }
                 }
             }
-            return null;
+            if (targets.Count == 0)
+            {
+                // Harmony patches nothing at all when this list is empty, so say it here instead:
+                // a patch that quietly did not apply is the one outcome nobody notices until the
+                // gene looks broken.
+                Log.Error("[PMM Insects] InsectPheromones: no AttackTargetFinder.BestAttackTarget "
+                    + "validator was found; the insect gene no longer stops insects attacking her.");
+                return targets;
+            }
+            if (Prefs.DevMode)
+            {
+                Log.Message("[PMM Insects] InsectPheromones patched " + targets.Count
+                    + " target validators: " + string.Join(", ", targets.Select(m => m.Name)));
+            }
+            return targets;
         }
 
-        public static void Postfix(ref bool __result, IAttackTarget t, Thing ___searcherThing)
+        /// <summary>
+        /// The candidate arrives as `__0`: by position, not by name. Harmony binds a plain parameter by
+        /// its *name*, and the three validators do not agree on one - the compiler named the single
+        /// parameter of two of them `t` and of the third `x`. A postfix asking for `t` therefore failed
+        /// to build for the third (log, 2026-10-01: `Parameter "t" not found in method ...b__3(IAttackTarget
+        /// x)`), and that failure took the whole patch set with it, because `Harmony.PatchAll` throws at
+        /// the first class it cannot build. `__0` is the first parameter whatever the compiler called it,
+        /// and the selector above only ever hands over methods that have exactly one.
+        /// </summary>
+        public static void Postfix(ref bool __result, IAttackTarget __0, Thing ___searcherThing)
         {
             if (__result)
             {
-                __result = InsectPheromones.CheckHostility(
-                    true, t.Thing as Pawn, ___searcherThing as Pawn);
+                __result = InsectPheromones.CheckHostility(__0.Thing as Pawn, ___searcherThing as Pawn);
             }
         }
     }
@@ -159,7 +191,7 @@ namespace PMM_Insects
     {
         public static void Postfix(ref bool __result, Pawn __instance, Pawn otherPawn)
         {
-            if (!__result && !InsectPheromones.CheckHostility(true, __instance, otherPawn))
+            if (!__result && !InsectPheromones.CheckHostility(__instance, otherPawn))
             {
                 __result = true;
             }

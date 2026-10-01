@@ -60,7 +60,13 @@ namespace PMM_Insects
                 {
                     return text;
                 }
-                text += "\n\n" + "PMM_BroodGizmoLabel".Translate(brood.CurrentLabel).Resolve();
+                // Nothing to name when she has no standing order and the def names no default brood:
+                // the line is left out rather than printed empty.
+                string order = brood.CurrentLabel;
+                if (!order.NullOrEmpty())
+                {
+                    text += "\n\n" + "PMM_BroodGizmoLabel".Translate(order).Resolve();
+                }
                 if (!brood.CanOrder)
                 {
                     text += "\n" + "PMM_BroodNotMine".Translate().Resolve();

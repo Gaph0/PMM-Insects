@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-01: Fixed egg sacs mixing up their brood when a queen's throws land on the same cell. The sac that hatches now holds the order she was given.
+- 2026-10-01: Fixed an insect momo ignoring her family's deaths while a second family gene had switched her insectoid gene off.
 - 2026-10-01: Added the hornet, the hive's fighter and its only flier. She is quick, bad-tempered, carries venom in every blow, and cannot stand the smell of a honey bee.
 - 2026-10-01: Changed every insect momo's colour to sit on her hair and wings instead of her skin, so her skin is a normal skin colour like anyone else's. The three spider castes' legs and abdomen carry that colour too.
 - 2026-10-01: Added the papillon, the hive's butterfly momo. She is the frailest of the castes, cannot fight at all, and learns faster than her sisters.
@@ -156,6 +158,13 @@
 
 ## Internal
 
+- 2026-10-01: Changed the pheromone patches to cover every target chooser in the game's attack search and to take its argument by position, since Harmony binds by name and the compiler names that argument differently per chooser.
+- 2026-10-01: Changed the mod to apply its patch classes one at a time, so a class that cannot bind no longer leaves every class after it unapplied, and the log names the class that failed.
+- 2026-10-01: Changed the pheromone gene, the honey work records and the hive feeder's hive list to re-read the def database, since defs compare by reference and a def database rebuild left all three matching nothing.
+- 2026-10-01: Changed the egg sac projectile to spawn the sac itself and hand it the queen's order directly, because `Projectile_SpawnsThing` drops what it spawns and the order had to be re-found by landing cell.
+- 2026-10-01: Changed the brood comp and the egg spew tooltip to survive a def that names no brood list or no default brood, instead of throwing on every gizmo draw.
+- 2026-10-01: Added a once-per-race log warning when an insect race keeps a base health scale under 1 and the health patch has no line for it.
+- 2026-10-01: Changed the hive feeder's interval to floor at one rare tick in both the countdown and the amounts, so an XML value under 250 feeds at the rate it names.
 - 2026-10-01: Added the hornet: race, tracker, xenotype, pawn kind, a backstory pair, her place in the hive's rosters and the abaddon's brood list, and the hive's second `Combat` group. Her palette is the honey bee's, her sting is a `Stab` tool on the mouth slot (the winged body has no stinger part), and the venom is core's `ProjectMamono_MamonoVenom` gene, which keys on the gene rather than a weapon. The hive's "keeps no flier" note is gone: it described the roster as it stood, never a decision.
 - 2026-10-01: Removed the castes' skin colours: a caste's palette is now a `PMM_Insects.InsectHairColours` list of plain colours rolled onto `Pawn.story.HairColor`, replacing the 33 `PMM_Skin_*` genes, `InsectChitin.cs` and `PMM_Gene_Insect`'s `skinColorBase`. Colours rather than genes because a hair-colour gene joins vanilla's hair-gene pool and lands on strangers, and a skin-colour gene competed for `SkinColorBase` with the melanin gene (a coin flip). Big & Small paints the wings from `hairColor` and our copied spider sets take it again, so one colour covers hair, wings and legs.
 - 2026-10-01: Added the mothman and the papillon: races, trackers, xenotypes, three hair-and-wing colours each, pawn kinds, a caravan kind each, their backstories, and their places in the hive's rosters and the abaddon's brood list. Their xenotype icons are still to be drawn.
