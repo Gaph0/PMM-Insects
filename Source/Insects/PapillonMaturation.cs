@@ -1,3 +1,4 @@
+using HarmonyLib;
 using ProjectMamono;
 using RimWorld;
 using Verse;
@@ -26,6 +27,27 @@ namespace PMM_Insects
     /// (`CompPapillonCocoon`, `Defs/ThingDefs/Things_Cocoon.xml`) with an immobility hediff holding
     /// her still for the duration. Destroy that cocoon before its time and she dies with it - the
     /// user's ruling, 2026-10-02.
+    ///
+    /// Holding her is where the engine pushed back, and the first build got it wrong: `Moving` set
+    /// to 0 is what `Pawn_HealthTracker.ShouldBeDowned` reads, so the hediff made her a *downed*
+    /// colonist - and a downed colonist is a rescue target. Her own colony fetched her into a bed
+    /// within minutes of the cocoon closing and left the sac standing empty (user's report,
+    /// 2026-10-02: "she exists outside the cocoon building when she reaches her required mana").
+    /// The hediff stays, because being downed is also what a cocoon wants - no jobs, no work, no
+    /// mental breaks - so it is the rest of it that is closed off now:
+    ///
+    ///   - `CocoonedNotRescuedPatch` refuses `HealthAIUtility.CanRescueNow` while she wears it. That
+    ///     is the one gate the rescue work giver, the AI rescue job and the rescue, capture and
+    ///     bring-the-baby-to-safety float menu options all ask, so nobody picks her up, and the
+    ///     player is not even offered the option.
+    ///   - She does not eat or sleep (the stage's own `hungerRateFactor` and `restFallFactor`, both
+    ///     0). Nothing can feed a woman downed in a field - vanilla only feeds a patient who is
+    ///     `InBed` - so fifteen days of hunger would have been fifteen days of starving to death
+    ///     inside her own cocoon. `BeginCocoon` fills her belly as it closes instead, and a grub who
+    ///     was already starving has nothing left to starve on.
+    ///
+    /// Everything else follows from being downed, and `MakeUndowned` stands her up again the moment
+    /// the hatch takes the hediff off.
     ///
     /// The swap itself is core's, not ours: `MamonoTransformation.ConvertXenotype` is the
     /// mamono-to-mamono path, written for exactly this case and never called until now. It strips
@@ -168,8 +190,7 @@ namespace PMM_Insects
                 {
                     return true;
                 }
-                HediffDef cocooned = DefDatabase<HediffDef>.GetNamedSilentFail(CompPapillonCocoon.HediffDefName);
-                return cocooned != null && pawn.health.hediffSet.HasHediff(cocooned);
+                return CompPapillonCocoon.IsCocooned(pawn);
             }
         }
 
@@ -180,6 +201,15 @@ namespace PMM_Insects
             if (cocoonDef == null || target == null)
             {
                 return;
+            }
+
+            // She stops eating in there: the hediff freezes hunger, and nothing can feed a woman
+            // downed in the open (vanilla only feeds a patient who is `InBed`). So the cocoon
+            // closes on a full stomach - and a grub who was already starving has nothing left to
+            // starve on, her malnutrition decaying on its own from the moment it is not fed.
+            if (pawn.needs?.food != null)
+            {
+                pawn.needs.food.CurLevelPercentage = 1f;
             }
 
             Thing cocoon = ThingMaker.MakeThing(cocoonDef);
@@ -224,6 +254,21 @@ namespace PMM_Insects
     {
         /// <summary>The hediff named by the props' default, for the two places that need it by name.</summary>
         public const string HediffDefName = "PMM_Cocooned";
+
+        /// <summary>
+        /// True while that hediff is on her. Three places ask this question - the cocoon keeping it
+        /// on her, the greenworm's own comp, and the rescue gate below - so it is asked once here,
+        /// and the def is looked up defensively on every call like everything else in this file.
+        /// </summary>
+        public static bool IsCocooned(Pawn pawn)
+        {
+            if (pawn?.health?.hediffSet == null)
+            {
+                return false;
+            }
+            HediffDef hediff = DefDatabase<HediffDef>.GetNamedSilentFail(HediffDefName);
+            return hediff != null && pawn.health.hediffSet.HasHediff(hediff);
+        }
 
         private Pawn grub;
 
@@ -338,6 +383,38 @@ namespace PMM_Insects
             {
                 grub.Kill(null);
             }
+        }
+    }
+
+    /// <summary>
+    /// A woman in a cocoon is not carried out of it.
+    ///
+    /// The immobility hediff (`Moving` 0) is what `Pawn_HealthTracker.ShouldBeDowned` reads, so it
+    /// makes her a *downed* colonist - and a downed colonist is a rescue target. The first build
+    /// shipped without this gate, and her own colony fetched her to a bed within minutes of the
+    /// cocoon closing, leaving it standing empty (user's report, 2026-10-02: "she exists outside the
+    /// cocoon building when she reaches her required mana").
+    ///
+    /// The hediff is not the thing to remove: it is also what keeps her out of jobs, work and mental
+    /// breaks for the fifteen days, and `MakeUndowned` stands her back up when the hatch takes it
+    /// off. What was missing was this one refusal.
+    ///
+    /// One gate rather than four patches: `HealthAIUtility.CanRescueNow` is what the rescue work
+    /// giver, the AI rescue job, and the rescue, capture and bring-the-baby-to-safety float menu
+    /// options all ask before anyone picks a downed pawn up. Saying no here means none of those
+    /// routes can move her, and the player is not offered a rescue in the first place.
+    /// </summary>
+    [HarmonyPatch(typeof(HealthAIUtility), nameof(HealthAIUtility.CanRescueNow))]
+    public static class CocoonedNotRescuedPatch
+    {
+        public static bool Prefix(Pawn patient, ref bool __result)
+        {
+            if (!CompPapillonCocoon.IsCocooned(patient))
+            {
+                return true;
+            }
+            __result = false;
+            return false;
         }
     }
 }

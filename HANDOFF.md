@@ -1835,7 +1835,23 @@ papillon. The four decisions locked on 2026-09-27, and how each one is built:
 | Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
 | A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want thirty bars spent (`chargesNeeded 600` against `manaPerCharge 0.05`), which is around sixty days away from one - the user raised it from three bars the same day. |
 | Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
-| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0. |
+| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0, hunger and rest frozen, and `CocoonedNotRescuedPatch` so nobody carries her off. |
+
+**Being downed is both the point and the trap** (user's report, 2026-10-02: "she exists outside the
+cocoon building when she reaches her required mana"). `Moving` set to 0 is exactly what
+`Pawn_HealthTracker.ShouldBeDowned` reads, so the hediff made her a *downed* colonist - and a downed
+colonist is a rescue target. Her own colony fetched her to a bed within minutes of the cocoon closing
+and the sac stood where she had been. The hediff stays, because being downed is also what keeps her
+out of jobs, work and mental breaks, and `MakeUndowned` stands her up again when it comes off; what
+changed is the rest of it:
+
+- `CocoonedNotRescuedPatch` refuses `HealthAIUtility.CanRescueNow`, the one gate the rescue work giver,
+  the AI rescue job and the rescue, capture and bring-the-baby-to-safety float menu options all ask.
+  No route can pick her up, and the player is not offered one in the first place.
+- The hediff's stage freezes hunger and rest (`hungerRateFactor` and `restFallFactor`, both 0), because
+  vanilla feeds only a patient who is `InBed`: a woman downed in a field would have starved to death
+  inside her own cocoon. `BeginCocoon` fills her belly as it closes, so a grub who was already
+  starving has nothing left to starve on, and no sleeping bubble floats over the sac.
 
 **The swap is core's, and it had never been called.** `MamonoTransformation.ConvertXenotype` is the
 mamono-to-mamono path: it strips the old xenotype's signature endogenes, adds the new set, swaps the
