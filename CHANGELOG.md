@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the arachne, the beelzebub, the girtablilu, the ant arachne and the honey bee to remember their own childhood and adult life, instead of being handed a random story from somewhere else.
 - 2026-10-01: Changed the insector tribes so you can set up as many of them as you like when you make a world. The neutral tribe was capped at ten.
 - 2026-10-01: Changed the neutral insector tribe to wear our own picture for its villages and for its icon in the faction list, instead of the base game's and another mod's.
 
@@ -149,6 +150,8 @@
 
 ## Internal
 
+- 2026-10-01: Added a childhood and an adult history to the five castes that had none, so no insector mamono is handed a random one from another walk of life.
+- 2026-10-01: Removed the old claim that the castes' combat power matches the vanilla insects', and the replacement-era wording in the race defs that went with it.
 - 2026-10-01: Removed the two placeholder-art generators, now that every icon is hand art or a final placeholder. The four-armed body tool stays: it is the only way to re-derive that body def from Big & Small, and the check that shows the def has not drifted.
 - 2026-10-01: Changed the arachne's silk and the bee's honey to share one harvest chain: one right-click order, one job driver and one self-gathering work giver, with each feature supplying only where its state lives. No behaviour change, and it dropped an unused member from the honey gene.
 - 2026-10-01: Changed the two self-gathering work givers to hand the pawn to the work search directly, the way the base game's self-tend giver does, instead of asking for every pawn on the map to be looked through.

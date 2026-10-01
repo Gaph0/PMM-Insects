@@ -13,9 +13,9 @@
 		inherits list nodes, so a category on the base would ride along with the kind's
 		own and put a second childhood in the pool, turning the forced pick into a
 		random one. Kind filters only apply to adult-stage pawns (vanilla hardcodes the
-		Child and Newborn categories for younger ones). The six tribe pawn kinds are
-		adult kinds, so every adult insect mamono rolls one of these stories. Tribe
-		children will need their own kinds and their own categories (HANDOFF.md §5.5).
+		Child and Newborn categories for younger ones). Every tribe kind is an adult kind, so every
+		adult insect mamono rolls one of these stories. Tribe children will need their own kinds
+		and their own categories (HANDOFF.md §5.5).
 
 		Larva is the one pairing that stays inside a single body: a greenworm childhood
 		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn. The wiki
@@ -270,6 +270,185 @@
 		<skillGains>
 			<Melee>4</Melee>
 			<Shooting>2</Shooting>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Arachne (spider): spins the silk the hive dresses itself in, patient with her
+		hands and stranger than her sisters about pain.
+	-->
+	<BackstoryDef>
+		<defName>PMM_ArachneChild</defName>
+		<title>web-nursery spiderling</title>
+		<titleShort>spiderling</titleShort>
+		<description>{PAWN_nameDef} hatched in a web the size of a room, one of many small bodies in it, and spent {PAWN_possessive} early days learning which strands would hold her weight and which would not.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_ArachneSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Crafting>2</Crafting>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_ArachneAdult</defName>
+		<title>silk-spinning arachne</title>
+		<titleShort>arachne</titleShort>
+		<description>{PAWN_nameDef} spins the silk her hive dresses itself in, and meets every bite and sting she earns with the same strange patience - she goes back to the same man for more.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_ArachneSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Crafting>3</Crafting>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Beelzebub (fly): MGE's lord of gluttony, hatched in rot and never done eating
+		or drinking.
+	-->
+	<BackstoryDef>
+		<defName>PMM_BeelzebubChild</defName>
+		<title>midden maggot</title>
+		<titleShort>maggot</titleShort>
+		<description>{PAWN_nameDef} hatched in the warm rot the swarm leaves behind it, and spent {PAWN_possessive} early days eating what nobody else would touch and growing fat on it.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_BeelzebubSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Cooking>2</Cooking>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_BeelzebubAdult</defName>
+		<title>gorged beelzebub</title>
+		<titleShort>beelzebub</titleShort>
+		<description>{PAWN_nameDef} grew into the swarm's glutton, quick on her own wings and always hungry, drinking her fill from whatever the hive brings down and keeping a man close enough to drink from.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_BeelzebubSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>3</Melee>
+			<Cooking>2</Cooking>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Girtablilu (scorpion): the desert's ambusher, buried by day and stinging by
+		night.
+	-->
+	<BackstoryDef>
+		<defName>PMM_GirtabliluChild</defName>
+		<title>sand-buried stingling</title>
+		<titleShort>stingling</titleShort>
+		<description>{PAWN_nameDef} hatched under the sand and spent {PAWN_possessive} early days buried in it, learning to hold still while the whole desert walked past above her.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_GirtabliluSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_GirtabliluAdult</defName>
+		<title>venomed girtablilu</title>
+		<titleShort>girtablilu</titleShort>
+		<description>{PAWN_nameDef} hunts the desert alone at night, charging down whatever she has decided to take and leaving a venom in it that finishes the argument - and then goes home to the man she marked the same way.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_GirtabliluSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>4</Melee>
+			<Medicine>2</Medicine>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Ant arachne (ant mimic): a worker wearing a spider's frame, and the hive's
+		hands wherever four are needed.
+	-->
+	<BackstoryDef>
+		<defName>PMM_AntArachneChild</defName>
+		<title>tunnel-raised mimic</title>
+		<titleShort>mimic</titleShort>
+		<description>{PAWN_nameDef} hatched in the tunnels of a colony that was not hers by blood, and spent {PAWN_possessive} early days carrying whatever was put in front of her, learning the whole nest by feel before she could speak.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_AntArachneSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Mining>2</Mining>
+			<Construction>2</Construction>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_AntArachneAdult</defName>
+		<title>many-handed ant arachne</title>
+		<titleShort>ant arachne</titleShort>
+		<description>{PAWN_nameDef} does the work of four of her sisters at once, cutting, carrying and mending whatever the hive asks for, and keeps the man she chose as busy as she keeps herself.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_AntArachneSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Mining>3</Mining>
+			<Construction>3</Construction>
+		</skillGains>
+	</BackstoryDef>
+
+	<!--
+		Honey bee (bee): the hive's farmer, fed on honey from her first day and
+		filling with it as she works.
+	-->
+	<BackstoryDef>
+		<defName>PMM_HoneyBeeChild</defName>
+		<title>comb-raised bee</title>
+		<titleShort>bee</titleShort>
+		<description>{PAWN_nameDef} hatched in a comb in the hive's warm dark, fed by her sisters from the day she hatched, and grew up with the smell of honey in everything she knew.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_HoneyBeeSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Plants>2</Plants>
+			<Animals>2</Animals>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_HoneyBeeAdult</defName>
+		<title>honey-heavy bee</title>
+		<titleShort>honey bee</titleShort>
+		<description>{PAWN_nameDef} keeps the hive's fields and its animals, filling with honey as she works them, and gives away the sweet part of everything she brings home.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_HoneyBeeSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Plants>4</Plants>
+			<Animals>2</Animals>
 		</skillGains>
 	</BackstoryDef>
 
