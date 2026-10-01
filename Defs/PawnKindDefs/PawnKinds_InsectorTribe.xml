@@ -295,4 +295,78 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectHoneyBee>100</PMM_InsectHoneyBee></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
+	<!-- The mothman (2026-10-01, CASTES-PLAN.md phase 2). A hive caste: her own backstory
+	     category, a pinned xenotype, and no Combat weight anywhere (see the faction file). No
+	     forced traits, because the user's list was genes and genes are where her Kind and Wimp
+	     traits come from. combatPower 45 - the gentle one's number. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectMothman</defName>
+		<label>mothman</label>
+		<race>PMM_Race_Mothman</race>
+		<combatPower>45</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_MothmanSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectMothman>100</PMM_InsectMothman></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- Her caravan kind (CASTES-PLAN.md §0 decisions 4 and 9): the mothman and the papillon lead
+	     most hive caravans, so each has a <trader>true</trader> kind of her own, modelled on
+	     PMM_InsectTrader. Neither caste is a fighter and neither walks as an escort - the Trader
+	     group's guards stay soldier beetles. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectMothmanTrader</defName>
+		<label>mothman trader</label>
+		<race>PMM_Race_Mothman</race>
+		<trader>true</trader>
+		<isFighter>false</isFighter>
+		<combatPower>35</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_MothmanSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectMothman>100</PMM_InsectMothman></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<!-- The papillon (2026-10-01, CASTES-PLAN.md phase 2): the frailest caste in the mod, and
+	     the cheapest to build - no new gene at all. combatPower 30. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectPapillon</defName>
+		<label>papillon</label>
+		<race>PMM_Race_Papillon</race>
+		<combatPower>30</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_PapillonSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectPapillon>100</PMM_InsectPapillon></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectPapillonTrader</defName>
+		<label>papillon trader</label>
+		<race>PMM_Race_Papillon</race>
+		<trader>true</trader>
+		<isFighter>false</isFighter>
+		<combatPower>35</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_PapillonSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectPapillon>100</PMM_InsectPapillon></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
 </Defs>

@@ -9,9 +9,10 @@ namespace PMM_Insects
     /// or honey-making caste needs no entry here), the shared insect gene, and the light gene's
     /// hidden hediff.
     ///
-    /// The insect gene is named by `InsectChitin.cs`, which rolls one body colour onto every insect
-    /// mamono. The colours themselves are not named here: each caste lists her own three on her
-    /// xenotype (`InsectSkinColours`), so a new caste adds nothing to this class. That same gene
+    /// The insect gene is named by `InsectColours.cs`, which rolls one of her caste's colours onto
+    /// every insect mamono as her hair colour. The colours themselves are not named here: each
+    /// caste lists her own three on her xenotype (`InsectHairColours`), so a new caste adds nothing
+    /// to this class. That same gene
     /// field is what the grief postfix in `InsectGrief.cs` asks a pawn for. The hediff below is
     /// named by `DisorientatingLights.cs`, which adds and removes it as the light she stands in
     /// changes.

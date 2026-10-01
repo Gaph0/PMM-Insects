@@ -13,17 +13,16 @@
              chitin skin, feelers, full toxin immunity, the pheromone effect in
              InsectPheromones.cs, and insect flesh.
 
-             skinColorBase sets the BASE skin colour, the one under her real colour
-             and the one that shows if she has none: a caste with no palette of her
-             own (the four castes still to be built), or a woman carrying this gene
-             without one of the caste xenotypes. Every caste's real colour is her
-             own three, listed on her xenotype (a PMM_Insects.InsectSkinColours
-             extension) and defined next door in Genes_InsectSkin.xml.
+             No skin colour lives here any more. Every caste's colours are her hair
+             and her wings (2026-10-01, user's call: "the skin should be left to
+             vanilla's skin colours entirely"), listed on her xenotype as a
+             PMM_Insects.InsectHairColours extension of plain colours; her skin is the
+             melanin gene she rolls like any other pawn.
 
-             That class, `PMM_Insects.Gene_InsectChitin`, is also why the shared
+             That class, `PMM_Insects.Gene_InsectColours`, is also why the shared
              gene is the place the roll lives: it is the one gene every insect
              caste carries, so a caste's colour needs nothing added anywhere but
-             her own three defs and her list, and a woman transformed into one
+             her own list, and a woman transformed into one
              rolls hers when her genes land. Uses vanilla Biotech fields, so it all
              renders through the normal skin pipeline with no custom art.
 
@@ -53,7 +52,7 @@
              </exclusionTags>
              <label>insectoid</label>
              <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her - every scent, every thread of mana. She was born of the hives.</description>
-             <geneClass>PMM_Insects.Gene_InsectChitin</geneClass>
+             <geneClass>PMM_Insects.Gene_InsectColours</geneClass>
              <iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
              <!-- Explicit white, and it is not decoration. `GeneDef.IconColor` falls back to
                   `skinColorBase` below when no `iconColor` is set, and the icon is drawn with
@@ -100,29 +99,21 @@
              <statOffsets>
                      <ToxicEnvironmentResistance>1</ToxicEnvironmentResistance>
              </statOffsets>
-             <!-- Shared chitin BASE tone: muted olive-grey (120, 118, 89), under
-                  whichever colour her caste rolled. It is what shows for a caste
-                  with no palette of her own, and for the instant before the roll
-                  lands. -->
-             <skinColorBase>(120, 118, 89)</skinColorBase>
-             <!-- The line below is load-bearing, and deleting it is a real bug.
-                  `PawnSkinColors.SkinColorGenesInOrder` - vanilla's pool of "skin
-                  colour genes" - takes every GeneDef that has a `skinColorBase`
-                  AND either sits in the melanin category or has a `minMelanin`
-                  below 0. `GeneDef.minMelanin` DEFAULTS to -1, so a
-                  `skinColorBase` on its own is enough to put a gene in that pool,
-                  and a factionless pawn being generated - every one of our wild
-                  spawns - is handed a weighted random member of the pool as her
-                  skin colour gene. Our `selectionWeight` is the default 1, while
-                  vanilla's melanins weigh 0.1-0.5, so this gene came out the
-                  HEAVIEST entry in the pool: a wandering slime, reptile or
-                  elemental spawned wearing the insectoid gene, with this olive
-                  tone for skin (user's bug report 2026-10-01). A non-negative
-                  `minMelanin` is what the pool's own filter asks for, and it is
-                  read nowhere else in the assembly - the other two readers, the
-                  pool's own sort and its index walk, both only ever see genes that
-                  are already in it. -->
-             <minMelanin>0</minMelanin>
+             <!-- No `skinColorBase` and no `minMelanin`, and the pair's absence is the fix (user's
+                  call 2026-10-01: "the skin should be left to vanilla's skin colours entirely").
+                  This gene used to carry the family's shared chitin tone, olive-grey (120, 118, 89),
+                  which made a caste with no palette of her own show chitin skin and a caste with one
+                  show it by luck: `Pawn_GeneTracker.Notify_GenesChanged` picks ONE gene among those
+                  carrying a `skinColorBase`, using `SelectGene`, and that method ends in
+                  `tmpGenes.TryRandomElement` over the pawn's own genes - so a mamono holding this
+                  gene and a vanilla melanin gene was showing one tone or the other at random.
+                  (Earlier still it was worse: with the default `minMelanin -1` this gene also joined
+                  `PawnSkinColors.SkinColorGenesInOrder`, the pool a factionless pawn draws her skin
+                  colour gene from, where its default `selectionWeight` of 1 made it the heaviest
+                  entry - the 2026-10-01 report of wandering slimes and reptiles spawning in the
+                  insectoid tone.) Carrying no tone at all is what makes the skin vanilla: her colour
+                  comes from the melanin gene she rolls like any other pawn, and a caste that names a
+                  body palette still paints over it with `skinColorOverride`. -->
              <randomBrightnessFactor>0</randomBrightnessFactor>
              <!-- Only the lines the game does not print for itself live here, and
                   nothing that just says what the description above already says.

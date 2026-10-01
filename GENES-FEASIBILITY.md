@@ -1,8 +1,8 @@
 # New-gene feasibility study
 
-Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **Nothing here is built.** This is the
-review copy: every gene the mockups name, resolved to a real def or marked new, and the new ones
-worked out against the 1.6 assembly.
+Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **The two new genes at §4 and §5 are built
+(2026-09-30); the castes that carry them are not.** This file resolves every gene the mockups name to
+a real def or marks it new, and works the new ones out against the 1.6 assembly.
 
 The plan that uses this study is `CASTES-PLAN.md`.
 
@@ -59,7 +59,7 @@ stays in, and her gene list becomes a **rebuild** rather than an addition (§6).
 | Prefix | Source | Note for the next reader |
 |---|---|---|
 | `VRE_*` | Vanilla Races Expanded - Insector, workshop `3260509684` | These are **not** written as `<GeneDef>`. The node is `<VanillaRacesExpandedInsector.GenelineGeneDef>`, so a grep for `<GeneDef>` finds 12 of them and misses ~60. Read the mod's own files. |
-| `Aptitude*` | Biotech | Four `GeneTemplateDef` templates (`AptitudeStrong` = "strong {0}", `AptitudePoor` = "poor {0}", `AptitudeRemarkable` = "great {0}", `AptitudeTerrible` = "awful {0}"). One gene per skill is generated from each, so `AptitudeRemarkable_Melee` is a real defName that no file spells out. `ARACHNE-PLAN.md` already records this. |
+| `Aptitude*` | Biotech | Four `GeneTemplateDef` templates (`AptitudeStrong` = "strong {0}", `AptitudePoor` = "poor {0}", `AptitudeRemarkable` = "great {0}", `AptitudeTerrible` = "awful {0}"). One gene per skill is generated from each, so `AptitudeRemarkable_Melee` is a real defName that no file spells out. `archive/ARACHNE-PLAN.md` already records this. |
 | plain (`Sterile`, `Sleepy`, ...) | Core / Biotech | Ordinary genes. |
 | `PMM_*` | this workspace | Core's `PMM_Gene_FlightWeak`, `PMM_Gene_LargeFrame`, and this mod's own. |
 
@@ -70,7 +70,7 @@ stays in, and her gene list becomes a **rebuild** rather than an addition (§6).
 ### 3.1 Aptitudes
 
 The mockups use tiers, not def names. They map like this - and this is already the mod's own
-vocabulary (`ARACHNE-PLAN.md`, 2026-09-26: "good" = `AptitudeStrong_<Skill>`, "great" =
+vocabulary (`archive/ARACHNE-PLAN.md`, 2026-09-26: "good" = `AptitudeStrong_<Skill>`, "great" =
 `AptitudeRemarkable_<Skill>`):
 
 | Mockup wording | defName pattern | Example |
@@ -286,7 +286,7 @@ The soldier beetle mockup asks how to give a caste one of ripper blades, charger
 horn. All three exist (`VRE_RipperBlades`, `VRE_ChargerClaws`, `VRE_MegaspiderHorns`).
 
 **The pattern is already in this mod, and it was built for exactly this shape of question.** The
-body colour roll (`Source/Insects/InsectChitin.cs`, `HANDOFF.md` §5.13): the shared insect gene
+body colour roll (`Source/Insects/InsectColours.cs`, `HANDOFF.md` §5.13): the shared insect gene
 carries a class that picks one of her caste's three when the gene lands, and a
 `PawnGenerator.GeneratePawn` postfix re-rolls at the end of generation so a daughter gets a fresh
 pick rather than her mother's. A weapon gene works the same way: one class, one list of three, one
@@ -298,7 +298,7 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 1. **Settled 2026-09-30, and confirmed: her race tool list is emptied and the gene owns the weapon.**
    The girtablilu is the precedent - that race def carries **zero** melee tools and
    `VRE_ChargerClaws` is its weapon. Expect a balance change: the beetle's damage then follows VRE's
-   tuning rather than the megaspider's exact numbers, so `PLAN.md` §3's "exact DPS parity" stops
+   tuning rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
    describing her.
 2. **The three genes exclude things.** `VRE_MegaspiderHorns` excludes the `Headbone` cosmetic tag,
    and the others have their own lists. Adding exactly one is fine; adding two is not. The roll must
@@ -334,8 +334,6 @@ body colours, so the postfix is a second entry in one existing patch).
    The family's convention is one PNG per gene in `Textures/UI/Icons/Genes/`, hand-drawn.
 
 ---
-
-## 8. What I need from you
 
 ## 8. What is settled, and what is left
 

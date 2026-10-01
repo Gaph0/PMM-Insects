@@ -5,11 +5,11 @@
 		The spider lower body, ours, so that it can be drawn in the pawn's own colour.
 
 		Big & Small draws that body with two graphic sets, and both take their main tint from
-		HAIR colour (`hairColor`, brightness 0.95). That is why an arachne's spider half
-		disagrees with the rest of her. B&S's own lamia does not have the problem - its tail
-		takes `skinColor` - so these are B&S's two spider sets with that one source swapped:
-		legs and abdomen both come out in her chitin colour, and her hair stays hers to change.
-
+                HAIR colour (`hairColor`, brightness 0.95) - which is also the source the wings use,
+                and where a caste's palette lives since 2026-10-01, so the legs, the abdomen, the
+                hair and the wings all come out in her caste's colour together. B&S's own lamia takes
+                `skinColor` for its tail instead; these sets followed it for a while, back when a
+                caste's colour was a skin-colour gene, and that swap is reverted.
 		Why a copy and not a patch on B&S: patching their defs would recolour the spider body of
 		every spider-person in a save, B&S's own race included (user's call, 2026-10-01: our
 		three castes only). So this file owns what we use.
@@ -39,7 +39,7 @@
 		<conditionalGraphics>
 			<texturePaths> <li>RaceDefaults/SpooderNew/BS_Spooder</li> </texturePaths>
 			<colorA>
-				<skinColor>true</skinColor>
+				<hairColor>true</hairColor>
 				<brightness>0.95</brightness>
 			</colorA>
 			<colorB>
@@ -66,7 +66,7 @@
 				<li>RaceDefaults/SpooderNew/BS_SpooderBack</li>
 			</texturePaths>
 			<colorA>
-				<skinColor>true</skinColor>
+				<hairColor>true</hairColor>
 				<brightness>0.95</brightness>
 			</colorA>
 			<colorB>

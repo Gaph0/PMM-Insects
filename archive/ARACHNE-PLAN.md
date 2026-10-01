@@ -1,4 +1,11 @@
-# Arachne plan (Project Mamono Insects)
+# Arachne plan (Project Mamono Insects) - ARCHIVED 2026-10-01
+
+**Every phase below is built, deployed and tested. This file is the record, kept for its evidence: the
+Big & Small spider body, the VBE caffeine study, and the web cooldown root cause.**
+
+Later changes live in `CHANGELOG.md` and `HANDOFF.md`, not here. Two have landed since this plan closed:
+the coffee reaction now covers every arachnid-bodied caste (the arachne, her ant mimic and the
+girtablilu), and the silk and honey harvest chains were merged into one shared chain.
 
 Agreed with the user 2026-09-26. Spider mamono of the hostile abaddon tribe.
 

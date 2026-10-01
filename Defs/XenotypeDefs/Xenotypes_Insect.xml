@@ -83,11 +83,11 @@
 				<setRace>PMM_Race_DevilBug</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_DevilBugCharred</li>
-					<li>PMM_Skin_DevilBugWalnut</li>
-					<li>PMM_Skin_DevilBugHazel</li>
+					<li>(42, 16, 3)</li>
+					<li>(134, 99, 61)</li>
+					<li>(185, 145, 94)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -140,11 +140,11 @@
 				<setRace>PMM_Race_GiantAnt</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_AntIndigo</li>
-					<li>PMM_Skin_AntSlate</li>
-					<li>PMM_Skin_AntSky</li>
+					<li>(50, 49, 80)</li>
+					<li>(97, 112, 143)</li>
+					<li>(126, 171, 210)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -184,11 +184,11 @@
 				<setRace>PMM_Race_SoldierBeetle</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_BeetleDark</li>
-					<li>PMM_Skin_BeetleTaupe</li>
-					<li>PMM_Skin_BeetleSoot</li>
+					<li>(87, 68, 61)</li>
+					<li>(140, 118, 105)</li>
+					<li>(48, 30, 28)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -237,11 +237,11 @@
 				<setRace>PMM_Race_Greenworm</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_WormPale</li>
-					<li>PMM_Skin_WormLeaf</li>
-					<li>PMM_Skin_WormDeep</li>
+					<li>(137, 171, 120)</li>
+					<li>(97, 135, 84)</li>
+					<li>(74, 109, 67)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -300,11 +300,11 @@
 				<setRace>PMM_Race_VampMosquito</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_MosquitoCharcoal</li>
-					<li>PMM_Skin_MosquitoPale</li>
-					<li>PMM_Skin_MosquitoAsh</li>
+					<li>(43, 39, 38)</li>
+					<li>(192, 195, 202)</li>
+					<li>(107, 103, 102)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -383,11 +383,11 @@
 				<setRace>PMM_Race_Abaddon</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_AbaddonMauve</li>
-					<li>PMM_Skin_AbaddonDove</li>
-					<li>PMM_Skin_AbaddonSoot</li>
+					<li>(96, 80, 87)</li>
+					<li>(114, 104, 105)</li>
+					<li>(50, 44, 46)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -449,12 +449,13 @@
 			<!-- Jelly on the fighting castes only. She is one of them. -->
 			<li>VRE_InsectJellyDependency</li>
 			<!-- Body, head and antennae. Two gene groups, and they do not collide:
-			     VRE_InsectSkin's exclusion tags are body and fur tags, while the chitin
-			     tone she rolls (the roll lives on PMM_Gene_Insect - see
-			     Source/Insects/InsectChitin.cs) carries vanilla's SkinColorOverride
-			     tag, so neither group touches the other. The antennae gene is
-			     randomChosen too, but nothing else here shares its Antenna tags, so it
-			     simply stays. -->
+			     VRE_InsectSkin's exclusion tags are body and fur tags, and nothing
+			     here carries those. The chitin tone this caste used to roll through
+			     vanilla's SkinColorOverride tag is gone (2026-10-01) - her colour is
+			     her hair and wings now, rolled onto Pawn.story.HairColor by
+			     Source/Insects/InsectColours.cs - so there is no tag left to collide
+			     with. The antennae gene is randomChosen too, but nothing else here
+			     shares its Antenna tags, so it simply stays. -->
 			<li>VRE_InsectSkin</li>
 			<li>VRE_InsectAntennae</li>
 			<!-- Weak flight, the same gene the soldier beetle and the vamp mosquito
@@ -476,11 +477,11 @@
 				<setRace>PMM_Race_AbaddonFolk</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_AbaddonFolkRose</li>
-					<li>PMM_Skin_AbaddonFolkPlum</li>
-					<li>PMM_Skin_AbaddonFolkHeather</li>
+					<li>(114, 93, 98)</li>
+					<li>(94, 71, 79)</li>
+					<li>(130, 100, 110)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -540,11 +541,11 @@
 				<setRace>PMM_Race_Arachne</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_ArachneLavender</li>
-					<li>PMM_Skin_ArachneSlate</li>
-					<li>PMM_Skin_ArachneDeep</li>
+					<li>(152, 144, 185)</li>
+					<li>(117, 116, 150)</li>
+					<li>(51, 47, 72)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -586,11 +587,11 @@
 				<setRace>PMM_Race_Beelzebub</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_BeelzebubDark</li>
-					<li>PMM_Skin_BeelzebubSlate</li>
-					<li>PMM_Skin_BeelzebubPale</li>
+					<li>(64, 71, 77)</li>
+					<li>(84, 92, 103)</li>
+					<li>(110, 120, 132)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -644,11 +645,11 @@
 				<setRace>PMM_Race_Girtablilu</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_GirtabliluTan</li>
-					<li>PMM_Skin_GirtabliluSand</li>
-					<li>PMM_Skin_GirtabliluRust</li>
+					<li>(196, 140, 95)</li>
+					<li>(233, 185, 123)</li>
+					<li>(167, 93, 78)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -700,11 +701,11 @@
 				<setRace>PMM_Race_AntArachne</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_ArachneLavender</li>
-					<li>PMM_Skin_ArachneSlate</li>
-					<li>PMM_Skin_ArachneDeep</li>
+					<li>(152, 144, 185)</li>
+					<li>(117, 116, 150)</li>
+					<li>(51, 47, 72)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -764,11 +765,117 @@
 				<setRace>PMM_Race_HoneyBee</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_BeeBright</li>
-					<li>PMM_Skin_BeeVivid</li>
-					<li>PMM_Skin_BeeGold</li>
+					<li>(247, 218, 65)</li>
+					<li>(255, 215, 45)</li>
+					<li>(217, 175, 15)</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- Mothman (built 2026-10-01, CASTES-PLAN.md phase 2): the hive's gentle one, and the only
+	     caste of this batch whose list carries a new gene - the light gene. -->
+	<XenotypeDef>
+		<defName>PMM_InsectMothman</defName>
+		<label>mothman</label>
+		<description>A mothman mamono, soft and dusty-winged and never quite awake. She keeps to the dark until a lamp is lit, and then she cannot leave it - the light leaves her a little dazed and very happy. She will not fight anyone, and she is the best company in the village.</description>
+		<descriptionShort>A drowsy, gentle moth woman who loves lamp light and cannot fight.</descriptionShort>
+		<!-- No iconPath yet on purpose: the art is hand-drawn and dropped in
+		     Textures/UI/Icons/Xenotypes/PMM_Mothman (CASTES-PLAN.md §0 decision 12). Add
+		     <iconPath>UI/Icons/Xenotypes/PMM_Mothman</iconPath> with the PNG - a path with no
+		     file behind it is a red error, which is why it is absent rather than guessed. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's list (CASTES-PLAN.md §3.3), each gene's real effect checked in
+			     GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
+			     tags, so she never fights; VRE_Heatstress is x4 flame damage and a fire-terror
+			     break; VRE_HypothermicHibernation is immunity to hypothermia and +5 on her
+			     comfort floor; KindInstinct forces the Kind trait, Pain_Extra forces Wimp. -->
+			<li>VRE_InfraredSensors</li>
+			<li>VRE_Serotonin</li>
+			<li>VRE_VocalGlands</li>
+			<li>VRE_PassiveInsect</li>
+			<li>VRE_Heatstress</li>
+			<li>VRE_HypothermicHibernation</li>
+			<li>KindInstinct</li>
+			<li>Sleepy</li>
+			<li>Pain_Extra</li>
+			<!-- "great social" in the mockup's own vocabulary (GENES-FEASIBILITY.md §3.1). -->
+			<li>AptitudeRemarkable_Social</li>
+			<!-- Her own gene, built in phase 1: -5% consciousness and +10 mood in light at 50%,
+			     which is what a lamp gives - not in a growing lamp's bright core, which the engine
+			     reports as 1.0. A glowing cave counts as light, at the user's call. -->
+			<li>PMM_Gene_DisorientatingLights</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Mothman</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<!-- Her colours are the hair's, not the skin's (user's call 2026-10-01: "apply them as the
+			     possible colours of the wings and hair, can the skin colours spawn normally"). She names
+			     no skin palette at all, so her skin is vanilla, like any palette-less caste's. Big &
+			     Small paints every wing colour setting from `hairColor`, so this one list is the hair
+			     joins the pool `PawnHairColors.HairColorGenes` builds from every GeneDef with a
+			     `hairColorOverride`, and `PawnGenerator` hands one of those to any generated pawn. -->
+			<li Class="PMM_Insects.InsectHairColours">
+				<colours>
+					<li>(162, 116, 153)</li>
+					<li>(104, 64, 99)</li>
+					<li>(131, 80, 121)</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
+	<!-- Papillon (built 2026-10-01, CASTES-PLAN.md phase 2): no new gene at all - every gene in
+	     her list already existed, which makes her the cheapest caste of the batch. -->
+	<XenotypeDef>
+		<defName>PMM_InsectPapillon</defName>
+		<label>papillon</label>
+		<description>A papillon mamono, bright-winged and soft-bodied, and the frailest of her sisters. Violence is not in her at all; what is in her is a quick mind and a quicker heart, in a village that mostly has neither. Everyone likes her, and she has never once been surprised by that.</description>
+		<descriptionShort>A beautiful, fragile butterfly woman who cannot fight and learns fast.</descriptionShort>
+		<!-- No iconPath yet; see the mothman's note above. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's list (CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
+			     no fighting at all, and it excludes melee damage genes by tag. Pain_Extra forces
+			     Wimp on top of that, and VRE_HighGreyMatter with VRE_SensitiveBrainGoop make her
+			     the sharp and psychic one. -->
+			<li>VRE_VocalGlands</li>
+			<li>VRE_AntimicrobialPeptides</li>
+			<li>VRE_HighGreyMatter</li>
+			<li>VRE_SensitiveBrainGoop</li>
+			<li>KindInstinct</li>
+			<li>Sleepy</li>
+			<li>Pain_Extra</li>
+			<li>ViolenceDisabled</li>
+			<li>AptitudeRemarkable_Social</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Papillon</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<!-- Her hair and wings, the same rule as the mothman's above: no skin palette, a hair
+			     palette, and the wings follow the hair. -->
+			<li Class="PMM_Insects.InsectHairColours">
+				<colours>
+					<li>(207, 94, 146)</li>
+					<li>(126, 76, 111)</li>
+					<li>(204, 77, 98)</li>
 				</colours>
 			</li>
 		</modExtensions>

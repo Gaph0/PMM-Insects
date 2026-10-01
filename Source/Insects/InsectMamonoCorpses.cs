@@ -35,7 +35,11 @@ namespace PMM_Insects
                 "PMM_Race_Beelzebub",
                 "PMM_Race_Girtablilu",
                 "PMM_Race_AntArachne",
-                "PMM_Race_HoneyBee");
+                "PMM_Race_HoneyBee",
+                // The two built 2026-10-01 (CASTES-PLAN.md phase 2), for the same reason as the
+                // five above: a caste added without a line here files her corpse with the humans.
+                "PMM_Race_Mothman",
+                "PMM_Race_Papillon");
         }
     }
 }

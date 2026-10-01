@@ -19,10 +19,11 @@ deleting the hive bond rule and its vanish rather than repointing them (§8), an
 phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
 art and tuning in §11.
 
-`PLAN.md` holds the old design: a total spawn swap, plus tameable wild mamonos.
-Where the two files disagree, this one wins. `PLAN.md` §2 (the swap), §5 (the
-wild-man recipe) and §6 (their risk list) were deleted on 2026-09-24; what is left
-there is the design reference.
+`archive/PLAN.md` holds the old design: a total spawn swap, plus tameable wild
+mamonos. It was archived on 2026-10-01, once the mod had shipped as two tribes and its
+one live section - the papillon maturation - moved into `CASTES-PLAN.md` §7. Where the
+two files disagree, this one wins. What is left there is the design reference, with §2
+(the swap), §5 (the wild-man recipe) and §6 (their risk list) deleted on 2026-09-24.
 
 ---
 
@@ -549,7 +550,7 @@ Layer 3 is what makes a caste feel different, because raid points buy pawns at
 | Vamp Mosquito | Locust | 55 | 0.7 | 0.6 | Fast flyer. Ranged slot only if she has an ability. |
 | Abaddon | Hive Queen | 500 | 9.8 | 4.5 | The queen. `Settlement` and `leaders`. The reason to raid a village. |
 
-These numbers come from `PLAN.md` §3, with one change: four castes now start
+These numbers come from `archive/PLAN.md` §3, with one change: four castes now start
 full-grown so that `VRE_Microsized` shrinks them from there rather than shrinking
 them twice over - the Devil Bug (0.2 -> 0.6 -> 1.0), the mosquito, the Giant Ant and
 the Greenworm (0.8 and 0.6 -> 1.0), all on 2026-09-27.
@@ -1320,9 +1321,9 @@ the cooldown. `CompBroodOrder` keeps the order and builds the menu; it no longer
 its `CurrentLabel` now feeds the button's tooltip - the old picker label doing the same job. The
 disabled-with-a-reason case for somebody else's queen moved onto the button with it.
 
-**Arachne, the spider mamono (from 2026-09-26), has her own plan file:** `ARACHNE-PLAN.md` - a body
-from Big & Small's own spider, tribe spawns and the brood menu, and the silk, web and coffee phases
-still to come.
+**Arachne, the spider mamono (from 2026-09-26):** her plan is finished and archived at
+`archive/ARACHNE-PLAN.md` (2026-10-01) - a body from Big & Small's own spider, tribe spawns, the brood
+menu, silk, web and coffee. Everything in it is built and tested; the file is kept for its evidence.
 
 **Still to come, agreed with the user 2026-09-26:**
 
@@ -1471,32 +1472,38 @@ arachne, the beelzebub, the girtablilu and the ant arachne - were never register
 corpses sat under vanilla's humanlike line while every older sister's moved to the mamono line. All
 four are registered now, the bee with them.
 
-### 5.13 Body colour is rolled from her caste's three (2026-09-30)
+### 5.13 A caste's colour is rolled from her three (2026-09-30; moved onto hair and wings 2026-10-01)
 
-Every caste has three body colours and every mamono wears one of them, rolled for her. The colours
-are 33 gene defs in `Defs/GeneDefs/Genes_InsectSkin.xml`, three per caste, with the arachne and the
-ant arachne sharing a row; which three belong to whom is declared on the caste herself, as a
-`PMM_Insects.InsectSkinColours` list inside her xenotype's `modExtensions`.
+Every caste has three colours and every mamono wears one of them, rolled for her. She wears it as her
+hair - which is also her wings', because Big & Small paints every wing colour setting from `hairColor`,
+and her lower body's on the three eight-legged castes, whose copied spider sets take the same source
+(§5.17). Which three belong to whom is declared on the caste herself, as a `PMM_Insects.InsectHairColours`
+list of plain colours inside her xenotype's `modExtensions`; her skin is vanilla, from the melanin gene
+she rolls like any other pawn.
 
-**Why a gene at all.** `Pawn_StoryTracker.SkinColor` is `skinColorOverride ?? SkinColorBase`, and
-`skinColorOverride` is only ever written from a gene (`Pawn_GeneTracker.Notify_GenesChanged`), so a
-colour has to be a gene to be a colour. That also means it is saved with her, and that it shows as
-one row on her gene page - the row names her shade ("deep indigo chitin", "bright yellow chitin").
+**Why colours and not genes, which is what these used to be.** Two reasons, both read out of the 1.6
+assembly. A *hair*-colour gene joins the pool `PawnHairColors.HairColorGenes` builds from every GeneDef
+carrying a `hairColorOverride`, and `PawnGenerator` hands one of those to any pawn it generates - so a
+palette of genes would have coloured strangers' hair. And a *skin*-colour gene competed for
+`Pawn.story.SkinColorBase` with vanilla's own melanin gene: `Notify_GenesChanged` gathers every gene
+carrying a `skinColorBase` and picks one with `SelectGene`, which ends in `tmpGenes.TryRandomElement`
+over the pawn's genes - so which tone she wore came down to luck, and a caste with no palette had the
+family's chitin tone about half the time. On the hair the colour is a saved field of her own, and
+nothing else in the game wants it.
 
-**Why a roll and not a list.** One `skinColorOverride` is one fixed RGB, so three colours need three
-defs - and a xenotype listing all three would show two greyed rows, because vanilla keeps one active
-and overrides the rest. Vanilla answers the same problem with per-pawn melanin genes, and so does
-this, in `Source/Insects/InsectChitin.cs`:
+**Why a roll and not three genes on her xenotype.** The three are a set, not a ramp: one is picked for
+each mamono. Vanilla keeps one hair-colour gene active and greys the rest, which is why this is a roll
+over plain colours rather than three defs on a xenotype. The roll lives in
+`Source/Insects/InsectColours.cs`:
 
-- `Gene_InsectChitin` on `PMM_Gene_Insect` rolls when the gene lands, so ordinary generation, a
-  woman transformed into a caste, and a daughter inheriting her mother's colour all pass through it.
+- `Gene_InsectColours` on `PMM_Gene_Insect` rolls when the gene lands, so ordinary generation and a
+  woman transformed into a caste both pass through it.
 - `PawnGenerator.GeneratePawn` rolls once more at the end of generation, so a daughter wears her own
   colour rather than her mother's.
-- `Pawn_GeneTracker.ExposeData` does **not** call `PostAdd`, and the load hook only fills a gap, so a
-  mamono loaded from a save keeps the colour she was saved with.
 - `Pawn_GeneTracker.SetXenotype` sets `xenotype` *before* it adds that xenotype's genes through
-  `AddGene` (checked in the 1.6 assembly), so the roll already knows which list to draw from - and a
-  woman re-cast in game has her old colour replaced by one of her new caste's.
+  `AddGene` (checked in the 1.6 assembly), so the roll already knows which list to draw from.
+- Nothing re-asserts the colour on load: it is a saved field, so a mamono loaded from a save keeps
+  what she had, and a colour the player picks in the hair styler is left alone.
 
 **The five shared tones are gone** (pale, olive, moss, umber, dark: 2026-09-29 to 2026-09-30, rolled
 for every caste alike). A save made while they existed loses the gene reference once per mamono - the
@@ -1597,8 +1604,8 @@ database and show on a gene page in dev mode; nothing spawns with them yet.
 ### 5.16 The castes' body colours (2026-09-30)
 
 The user supplied three colour values for each caste, and every caste now rolls one of hers. They are
-recorded here exactly as given; the defs that carry them are in `Genes_InsectSkin.xml` and the roll
-is §5.13.
+recorded here exactly as given; each caste carries them on her own xenotype as an `InsectHairColours`
+list, and the roll is §5.13.
 
 | caste | value 1 | value 2 | value 3 |
 |---|---|---|---|
@@ -1619,23 +1626,24 @@ is §5.13.
 values are written in means nothing. The table keeps the order the user wrote them in.
 
 **Where a caste's colour comes from today.** Each caste lists her three on her own xenotype, as a
-`PMM_Insects.InsectSkinColours` extension, and one is rolled for her when she is generated - so her
+`PMM_Insects.InsectHairColours` extension, and one is rolled for her when she is generated - so her
 colour is always one of her own three, and the row above is the palette herself, not a suggestion.
-The five tones every caste used to share are gone with it; §5.13 has the mechanism, and what a save
-made before this does on load.
+These were skin colours until 2026-10-01, when the user moved them onto hair and wings and asked for
+the skin to be vanilla; §5.13 has the mechanism and §5.17 the legs of the three spider castes.
 
-**What is still missing.** The hornet, the mantis, the mothman and the papillon - the four mockup
-castes of `CASTES-PLAN.md` - have no colours yet, and neither does the soldier beetle's rebuild
-beyond the row above. Until a caste has a palette she wears the shared chitin base `(120, 118, 89)`,
-which `PMM_Gene_Insect` keeps for exactly that case.
+**What is still missing.** The hornet, the mantis and the soldier beetle's rebuild - three of the
+mockup castes of `CASTES-PLAN.md` - have no colours yet. The mothman's and the papillon's arrived
+2026-10-01 (`a27499 684063 835079` and `cf5e92 7e4c6f cc4d62`). Until a caste has a palette she is
+simply uncoloured: her skin is vanilla and her hair is whatever she was born with.
 
 ---
 
-### 5.17 The spider body takes her skin colour (2026-10-01)
+### 5.17 The spider body takes her colour (2026-10-01, back on hair the same day)
 
 The arachne, the ant arachne and the girtablilu have their lower body - legs and abdomen - drawn in
-their own chitin colour now, instead of their hair colour. Before this, changing a spider momo's
-hair recoloured eight legs with it, and the spider half never matched the woman attached to it.
+their caste's colour, which since 2026-10-01 is her **hair** colour: the same source the wings use, so
+legs, abdomen, hair and wings all match. The copied sets carried `skinColor` for part of that day,
+while the palette was still a skin-colour gene; that one source is swapped back.
 
 **What B&S does, and why this had to be a copy.** Big & Small draws that body with two graphic sets
 of its own - `BS_SpooderGraphicSetUpper` (legs and body) and `BS_SpooderGraphicSetUnder` (the
@@ -1648,8 +1656,10 @@ castes only, by copy** - and the whole lower body, not just the abdomen.
 `Defs/ThingDefs/SpiderBody_BS.xml` is what we own now:
 
 - `PMM_SpiderGraphicSetUpper` and `PMM_SpiderGraphicSetUnder`: B&S's art paths
-  (`RaceDefaults/SpooderNew/`) with `colorA` from `skinColor` (brightness 0.95 - B&S's dial for that
-  art; 1.0 would match her skin exactly) and `colorB` still the favourite colour.
+  (`RaceDefaults/SpooderNew/`) with `colorA` from `hairColor` (brightness 0.95 - B&S's dial for that
+  art) and `colorB` still the favourite colour. B&S's own lamia is the pair that takes `skinColor`;
+  ours did too for part of 2026-10-01, while the palette was a skin-colour gene, and both are back on
+  hair now.
 - `PMM_RaceTracker_SpiderBody`: B&S's `BS_SpiderPersonRace` re-pointed at those two sets, carrying
   everything else it brought - the numbers (MaxNutrition x2, CarryingCapacity x1.5, Manipulation
   +0.05), both render nodes with their draw sizes, offsets, layers and body-type scales, the blank art

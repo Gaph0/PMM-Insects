@@ -783,6 +783,10 @@
 					<!-- The ant mimic (2026-09-27). A daughter the queen can lay on purpose,
 					     and one the random draw can hand back. -->
 					<li><pawnKind>PMM_InsectAntArachne</pawnKind></li>
+					<!-- The mothman and the papillon (2026-10-01, CASTES-PLAN.md phase 2). Both are hive
+					     castes, so the queen can lay either on purpose, and both join the random draw. -->
+					<li><pawnKind>PMM_InsectMothman</pawnKind></li>
+					<li><pawnKind>PMM_InsectPapillon</pawnKind></li>
 					<li>
 						<randomMamono>true</randomMamono>
 						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
@@ -1700,6 +1704,158 @@
 				</statOffsets>
 			</li>
 		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Mothman (new caste, 2026-10-01, CASTES-PLAN.md phase 2) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Mothman</defName>
+		<label>mothman</label>
+		<description>An insect mamono of the hive's quiet corners: a soft, dusty-winged woman who keeps to the dark until a lamp is lit, and then cannot leave it alone. She is gentle to the point of uselessness in a fight, and happier than anyone else in the village.</description>
+		<statBases>
+			<!-- Slower than her sisters on foot, and no flight: her wings are drawn, they
+			     do not carry her. PMM_Gene_FlightWeak is a leap, not flight. -->
+			<MoveSpeed>3.6</MoveSpeed>
+			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
+			     SM_BodySizeMultiplier (B&S's own maths). 1.0 x 1.0 = 1.0, and she carries no
+			     size gene, so she stands at a human's size. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
+			<!-- VRE_HypothermicHibernation adds +5 to this floor on top. -->
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>140</MarketValue>
+			<!-- 30 chitin a corpse, the value every caste here carries. -->
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance>1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<!-- No <tools> block, and that is the decision rather than an omission: her gene list
+		     carries VRE_PassiveInsect, which disables the Violent work tag outright, so a tool
+		     list here would be decoration. She inherits the Human parent's fists and teeth,
+		     which is all she can ever use. -->
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<!-- Chitin, not the Leather_Human this race would inherit from its Human parent. -->
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.0</baseBodySize>
+			<!-- 0.4 x HealthScalePatch's 2.0 = 0.8 effective: a softer frame than a human's,
+			     and the tougher of the two new castes. -->
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<!-- Wings on the race, not on a gene: a race def that is not literally Human
+			     outranks any body-swap gene, so a race without them would never grow them
+			     (the vamp mosquito lesson). -->
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Mothman</raceHediff>
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Mothman race tracker. Auto-applies on spawn via RaceExtension, and the little armour she
+	     has lives here as a stat stage rather than on race statBases, which would STACK.
+	     Dust and fur, not plates: half the honey bee's chitin and a third of the devil bug's. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Mothman</defName>
+		<label>mothman</label>
+		<description>A mothman mamono of the insector hive.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.05</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- ===================== Papillon (new caste, 2026-10-01, CASTES-PLAN.md phase 2) ===================== -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Papillon</defName>
+		<label>papillon</label>
+		<description>An insect mamono of the hive's flower rows: a bright-winged, soft-bodied woman who could not hurt anyone if she tried, and who is very good company. She thinks faster than her sisters, feels everything more sharply, and knows it.</description>
+		<statBases>
+			<MoveSpeed>3.8</MoveSpeed>
+			<!-- 1.0 x 1.0, and no size gene: a human's size, like the mothman. -->
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>160</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance>1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<!-- No <tools> block: her list carries ViolenceDisabled, which is the strongest of the
+		     passive genes and excludes melee damage genes by tag, so she never fights by
+		     design. The Human parent's fists are what is left. -->
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.0</baseBodySize>
+			<!-- 0.4 x HealthScalePatch's 1.25 = 0.5 effective: the frailest caste in the mod
+			     (CASTES-PLAN.md §0 decision 10). Her limbs are meant to be a liability. -->
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<body>BS_HumanoidWithWings_Body</body>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Papillon</raceHediff>
+				<raceHediffList>
+					<li>BS_HumanoidWithWings_Race</li>
+				</raceHediffList>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Papillon race tracker. Deliberately bare, like the beelzebub's: no armour stage at all,
+	     because a body that weak is the whole design of her and armour would argue with it. No
+	     stat offsets either - her speed is the race's and her size is her own. What is left is
+	     what every mamono tracker needs: the race comp that lets B&S swap her out again. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Papillon</defName>
+		<label>papillon</label>
+		<description>A papillon mamono of the insector hive.</description>
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
