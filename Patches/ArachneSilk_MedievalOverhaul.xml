@@ -29,11 +29,11 @@
 		   but also stop the player selling it. `excludedThingDefs` stops only the *generation* of
 		   trader stock, so a spare bundle can still be sold.
 
-		   51 `StockGenerator_Category` generators stock `Textiles` in this load order and 11 of them
-		   (Core's outlander, neolithic, caravan and orbital kinds, Royalty's empire, plus Keshig and
-		   Forsaken) already carry an `excludedThingDefs` element. Op 3 appends into those existing
-		   elements; op 4 adds the element to the generators that lack one. Reversing those two would
-		   let op 4 match the generators op 3 had just changed and write the defName in twice.
+		   Every `StockGenerator_Category` generator that stocks `Textiles` either already carries an
+		   `excludedThingDefs` element or does not. The last two ops cover both cases: one appends into
+		   the elements that exist, the other adds the element to the generators that lack one. Reversing
+		   those two would let the second match the generators the first had just changed and write the
+		   defName in twice.
 
 		   Gated on MO by display name: `PatchOperationFindMod` compares with
 		   `ModLister.HasActiveModWithName`, an exact `ModMetaData.Name` test, not a packageId test.

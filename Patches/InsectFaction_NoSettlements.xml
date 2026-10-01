@@ -16,6 +16,12 @@
 		the weight back to 0, so world generation places no hive towns. Our mod
 		loads after VFEI2, so this replace runs after their add and wins.
 
+		Gated on VFEI2 by display name, even though About.xml already declares it a
+		dependency: vanilla's Insect faction carries no settlementGenerationWeight at
+		all, so in a load order where someone force-enabled us without VFEI2 the
+		replace would match nothing and log a failed patch. Gated, it is skipped
+		silently, the way the rest of this folder behaves.
+
 		Everything this switches off is keyed on "is this settlement owned by
 		Faction.OfInsects": the infested territory and its world-map overlay, the
 		insect map generation on those tiles (creep, 20-30 wild hives, and the
@@ -28,11 +34,16 @@
 		real hive settlement and so create one infested region. That one is treated
 		as a feature, not a hole.
 	-->
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/FactionDef[defName="Insect"]/settlementGenerationWeight</xpath>
-		<value>
-			<settlementGenerationWeight>0</settlementGenerationWeight>
-		</value>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Factions Expanded - Insectoids 2</li>
+		</mods>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/FactionDef[defName="Insect"]/settlementGenerationWeight</xpath>
+			<value>
+				<settlementGenerationWeight>0</settlementGenerationWeight>
+			</value>
+		</match>
 	</Operation>
 
 </Patch>
