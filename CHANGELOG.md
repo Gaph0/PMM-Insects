@@ -2,6 +2,9 @@
 
 ## Player-facing
 
+- 2026-10-01: Fixed genepacks found as loot or sold by traders being able to contain this mod's genes. A pack could hand a stranger the chitin skin, the honey or a grudge meant for one caste.
+- 2026-10-01: Changed the mod's genes to cost gene complexity in the xenotype editor and the gene assembler, instead of being free.
+
 - 2026-10-01: Changed the insectoid gene so a mamono cannot hold it together with the reptilian or slime gel gene. She loses the others when she takes one, and the gene editors refuse the mix.
 - 2026-10-01: Fixed wild momos of other species carrying the insectoid gene. The game handed it to them as their skin colour. Only fresh spawns change; momos who already have it keep it, as do their daughters.
 - 2026-10-01: Changed the preview image on the mod page.

@@ -65,6 +65,19 @@
              <iconColor>(255,255,255)</iconColor>
              <displayCategory>Miscellaneous</displayCategory>
              <displayOrderInCategory>1000</displayOrderInCategory>
+             <!-- Complexity 2, and out of the random gene sets (decided 2026-10-01).
+                  `biostatCpx` is what Biotech charges a gene in the xenotype editor and
+                  against the gene assembler's ceiling, and 2 matches the family's own
+                  identity gene, `PMM_Gene_Reptile`.
+
+                  `canGenerateInGeneSet false` keeps this gene out of the random genepacks
+                  traders sell and loot hands out: `GeneUtility.GenerateGeneSet` draws from
+                  every GeneDef that does not opt out, so without this line a pack could
+                  hand a stranger the chitin tone, the toxin immunity and the insect flesh.
+                  Vanilla's own endogenes (ears, nose, jaw, hands, melanin, hair colour)
+                  opt out the same way, as do our colour genes. -->
+             <biostatCpx>2</biostatCpx>
+             <canGenerateInGeneSet>false</canGenerateInGeneSet>
              <!-- User ruling 2026-09-27: this gene COSTS 1 metabolic efficiency;
                   it paid 1 before. Every insect caste carries this gene, so this
                   one line moves the whole family: each mamono's metabolic

@@ -41,6 +41,11 @@
 		<geneClass>PMM_Insects.Gene_DisorientatingLights</geneClass>
 		<displayCategory>Miscellaneous</displayCategory>
 		<displayOrderInCategory>1002</displayOrderInCategory>
+		<!-- Complexity 1, and out of the random gene sets (2026-10-01): priced with
+		     the vanilla drawback, and not something a trader's genepack should hand to a
+		     stranger - Genes_Insect.xml carries the mechanism in full. -->
+		<biostatCpx>1</biostatCpx>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<!-- No metabolic cost, and that is the ruling rather than an oversight: the light
 		     does the work, and the price she pays is the muddled head it comes with. -->
 		<biostatMet>0</biostatMet>
