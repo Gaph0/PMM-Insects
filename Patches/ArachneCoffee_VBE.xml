@@ -27,20 +27,36 @@
 		factor is the only thing that decides how drunk any of them leave her.
 		`severityFallback` covers a drink whose caffeine rides a chemical rather than a doer.
 
-		Gated on either VBE mod being loaded, by display name (`PatchOperationFindMod` matches any name in
-		its list, and compares against ModMetaData.Name rather than a packageId). Without them the xpath
-		would match nothing, and a patch operation that matches nothing is an error in the log.
+		Both arachnes: the weaver and her ant mimic (review 2026-10-01 found the mimic left out of a
+		reaction meant for her kind - "an arachne that looks like a giant ant" in the race file's own
+		words, with the arachne's body and silk). One more `li` in this list is all it costs, because
+		CoffeeDrunk.cs reads the race off the pawn. The girtablilu is left out on purpose: she shares
+		the spider body, but she is the swarm's one arachnid that is not an arachne - a scorpion with
+		pincers and venom, and no silk.
+
+		Gated on VBE being loaded, by display name (`PatchOperationFindMod` compares against
+		ModMetaData.Name rather than a packageId). VBE is the one name that can decide it: the chemical
+		`VBE_Caffeine` and every caffeinated drink are defined in VBE itself, while the standalone
+		coffees mod adds recipes and relabels VBE's drinks rather than adding any of its own. Without
+		VBE the xpath would match nothing, and a patch operation that matches nothing is an error in
+		the log.
 	-->
 	<Operation Class="PatchOperationFindMod">
 		<mods>
 			<li>Vanilla Brewing Expanded</li>
-			<li>Simple Immersion - VBE Coffees and Teas</li>
 		</mods>
 		<match Class="PatchOperationAdd">
 			<xpath>Defs/ThingDef[ingestible/outcomeDoers/li[toleranceChemical="VBE_Caffeine"] or comps/li[chemical="VBE_Caffeine"]]/ingestible/outcomeDoers</xpath>
 			<value>
 				<li Class="PMM_Insects.IngestionOutcomeDoer_CoffeeDrunk">
 					<race>PMM_Race_Arachne</race>
+					<caffeine>VBE_Caffeine</caffeine>
+					<drunkHediff>AlcoholHigh</drunkHediff>
+					<severityFactor>0.15</severityFactor>
+					<severityFallback>0.15</severityFallback>
+				</li>
+				<li Class="PMM_Insects.IngestionOutcomeDoer_CoffeeDrunk">
+					<race>PMM_Race_AntArachne</race>
 					<caffeine>VBE_Caffeine</caffeine>
 					<drunkHediff>AlcoholHigh</drunkHediff>
 					<severityFactor>0.15</severityFactor>
