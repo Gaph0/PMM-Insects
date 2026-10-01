@@ -3,7 +3,6 @@ using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace PMM_Insects
 {
@@ -41,17 +40,28 @@ namespace PMM_Insects
         }
     }
 
-    public class CompArachneSilk : ThingComp
+    /// <summary>
+    /// The silk itself, on the woman who spins it: filled on the clock, emptied by one gather, with
+    /// the yield scaled to what had built up. Implements `IPawnHarvest` - the shape both harvest
+    /// chains share - so the right-click order, the job driver and the self-only work giver live
+    /// once, in Source/Insects/PawnHarvest.cs.
+    /// </summary>
+    public class CompArachneSilk : ThingComp, IPawnHarvest
     {
         private float fullness;
 
         private CompProperties_ArachneSilk Props => (CompProperties_ArachneSilk)props;
 
-        /// <summary>True when there is silk to take.</summary>
-        public bool CanGather => fullness >= Props.minFullness;
+        /// <summary>
+        /// True when there is silk to take. The def check is not decoration: `silkDef` is the field
+        /// the Medieval Overhaul patch rewrites, and a name that resolved to nothing would leave the
+        /// gather building a thing out of a null def. Honey guards its own `honeyDef` for the same
+        /// patch and the same reason.
+        /// </summary>
+        public bool CanHarvest => Props.silkDef != null && fullness >= Props.minFullness;
 
         /// <summary>What she spins. Named by the race def; the MO patch changes which def that is.</summary>
-        public ThingDef SilkDef => Props.silkDef;
+        public ThingDef YieldDef => Props.silkDef;
 
         public override void CompTickInterval(int delta)
         {
@@ -65,9 +75,9 @@ namespace PMM_Insects
 
         /// <summary>
         /// Takes everything that has built up and empties her. Returns at least one unit, because
-        /// every caller checks <see cref="CanGather"/> first.
+        /// every caller checks <see cref="CanHarvest"/> first.
         /// </summary>
-        public int GatherNow()
+        public int HarvestNow()
         {
             int amount = Mathf.Max(1, Mathf.RoundToInt(Props.silkPerGather * fullness));
             fullness = 0f;
@@ -87,10 +97,9 @@ namespace PMM_Insects
     }
 
     /// <summary>
-    /// Puts "Gather silk" on the right-click menu of an arachne for any of the player's pawns -
-    /// including the arachne herself, who is perfectly able to do it with her own hands. Mirrors
-    /// core's CorruptionFloatMenuPatch: same hook, same decoration, and greyed with a reason rather
-    /// than hidden when there is nothing to take yet.
+    /// Puts "Gather silk" on the right-click menu of an arachne - for any of the player's pawns,
+    /// including the arachne herself, who is perfectly able to do it with her own hands. The option
+    /// itself is built once for both harvest chains, in `PawnHarvestOrder`.
     /// </summary>
     [HarmonyPatch(typeof(Pawn), nameof(Pawn.GetFloatMenuOptions))]
     public static class ArachneSilkFloatMenuPatch
@@ -102,122 +111,40 @@ namespace PMM_Insects
                 yield return option;
             }
 
-            FloatMenuOption gather = BuildOption(__instance, selPawn);
+            FloatMenuOption gather = PawnHarvestOrder.BuildOption(__instance, selPawn,
+                InsectDefOf.PMM_GatherArachneSilk, "PMM_SilkGatherLabel", "PMM_SilkNoneYet",
+                target => target.GetComp<CompArachneSilk>());
             if (gather != null)
             {
                 yield return gather;
             }
         }
+    }
 
-        private static FloatMenuOption BuildOption(Pawn target, Pawn worker)
+    /// <summary>
+    /// The gather itself. The walk, the wait and the drop are shared with honey
+    /// (`JobDriver_HarvestFromPawn`); this class says only where the silk lives.
+    /// </summary>
+    public class JobDriver_GatherArachneSilk : JobDriver_HarvestFromPawn
+    {
+        protected override IPawnHarvest StateOn(Pawn pawn)
         {
-            if (target == null || worker == null || !worker.Spawned || !target.Spawned || worker.Map != target.Map)
-            {
-                return null;
-            }
-            // Yours at both ends: your own hand, and an arachne of yours. A nest arachne has no
-            // reason to stand still for it.
-            if (worker.Faction != Faction.OfPlayer || !worker.IsColonistPlayerControlled)
-            {
-                return null;
-            }
-            if (target.Faction != Faction.OfPlayer)
-            {
-                return null;
-            }
-            if (!(target.GetComp<CompArachneSilk>() is CompArachneSilk silk))
-            {
-                return null;
-            }
-
-            string label = "PMM_SilkGatherLabel".Translate().Resolve();
-            if (!silk.CanGather)
-            {
-                return new FloatMenuOption(label + " (" + "PMM_SilkNoneYet".Translate().Resolve() + ")", null);
-            }
-
-            return FloatMenuUtility.DecoratePrioritizedTask(
-                new FloatMenuOption(label, delegate
-                {
-                    // Re-checked on click: she may have been gathered from since the menu was built.
-                    if (silk.CanGather)
-                    {
-                        worker.jobs.TryTakeOrderedJob(JobMaker.MakeJob(InsectDefOf.PMM_GatherArachneSilk, target), JobTag.Misc);
-                    }
-                }),
-                worker,
-                target);
+            return pawn.GetComp<CompArachneSilk>();
         }
     }
 
     /// <summary>
-    /// The gather itself: a short wait with a progress bar, then the silk lands on the ground beside
-    /// her. One driver for both paths - a handler taking it, and an arachne working her own.
+    /// She gathers her own silk (user's call: "she can also do it herself"). The scan, the skip and
+    /// the job start are shared with honey (`WorkGiver_HarvestFromSelf`); this class says only where
+    /// the silk lives and which job to start.
     /// </summary>
-    public class JobDriver_GatherArachneSilk : JobDriver
+    public class WorkGiver_ArachneSilk : WorkGiver_HarvestFromSelf
     {
-        private const int GatherTicks = 400;
-
-        private Pawn Target => TargetA.Thing as Pawn;
-
-        private CompArachneSilk Silk => Target?.GetComp<CompArachneSilk>();
-
-        public override bool TryMakePreToilReservations(bool errorOnFailed)
+        protected override IPawnHarvest StateOn(Pawn pawn)
         {
-            return true;
+            return pawn.GetComp<CompArachneSilk>();
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
-        {
-            this.FailOn(() => Silk == null || !Silk.CanGather);
-
-            // Nothing to walk to when she is doing it herself.
-            if (pawn != Target)
-            {
-                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-            }
-
-            Toil wait = Toils_General.Wait(GatherTicks, TargetIndex.A);
-            wait.WithProgressBarToilDelay(TargetIndex.A);
-            yield return wait;
-
-            yield return Toils_General.Do(delegate
-            {
-                CompArachneSilk silk = Silk;
-                Pawn target = Target;
-                if (silk == null || target == null || !silk.CanGather)
-                {
-                    return;
-                }
-
-                Thing bundle = ThingMaker.MakeThing(silk.SilkDef);
-                bundle.stackCount = silk.GatherNow();
-                GenPlace.TryPlaceThing(bundle, target.Position, target.Map, ThingPlaceMode.Near);
-            });
-        }
-    }
-
-    /// <summary>
-    /// She gathers her own silk (user's call: "she can also do it herself"), on the model of
-    /// vanilla's SelfTend: a work giver whose only possible target is the pawn herself.
-    /// </summary>
-    public class WorkGiver_ArachneSilk : WorkGiver_Scanner
-    {
-        public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForGroup(ThingRequestGroup.Pawn);
-
-        public override bool ShouldSkip(Pawn pawn, bool forced = false)
-        {
-            return !(pawn?.GetComp<CompArachneSilk>()?.CanGather ?? false);
-        }
-
-        public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
-        {
-            return t == pawn && (pawn?.GetComp<CompArachneSilk>()?.CanGather ?? false);
-        }
-
-        public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
-        {
-            return JobMaker.MakeJob(InsectDefOf.PMM_GatherArachneSilk, pawn);
-        }
+        protected override JobDef HarvestJob => InsectDefOf.PMM_GatherArachneSilk;
     }
 }
