@@ -11,11 +11,12 @@ the lower fists stay usable when the upper arms are destroyed. Everything else i
 copied verbatim, including B&S's own comments and their attributes.
 
 Run it as `python3 Tools/make_four_armed_winged_body.py [output.xml]`; with no
-argument it overwrites the committed def beside it. The source folder is looked up
-under the usual Steam roots - every workshop copy before any local `Mods/` folder,
-so a stale local copy cannot shadow the published one - and printed, because one
-machine can hold several copies of the framework at once. Set PMM_BS_RACES to a
-SimplyRaces/Defs/Races folder to choose one by hand.
+argument it overwrites the committed def beside it, but only once the body it built
+has passed its own checks, so a rejected body never reaches the disk. The source
+folder is looked up under the usual Steam roots - every workshop copy before any
+local `Mods/` folder, so a stale local copy cannot shadow the published one - and
+printed, because one machine can hold several copies of the framework at once. Set
+PMM_BS_RACES to a SimplyRaces/Defs/Races folder to choose one by hand.
 """
 
 import os
@@ -149,6 +150,55 @@ def serialize(node, depth, out):
     out.append("%s</%s>" % (pad, node.tagName))
 
 
+def document_for(body):
+    """The def's XML text: our header comment, then B&S's part tree."""
+    lines = []
+    strip_whitespace(body)
+    serialize(body, 1, lines)
+    text = ['<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n\t<!--\n']
+    for line in HEADER.splitlines():
+        text.append("\t\t%s\n" % line.strip() if line.strip() else "\n")
+    text.append("\t-->\n\n" + "\n".join(lines) + "\n\n</Defs>\n")
+    return "".join(text)
+
+
+def check_document(document, moved):
+    """Refuse a body RimWorld would not accept: every label the tools link to, and the
+    dev-mode coverage rule (`BodyDef.ConfigErrors`: no record's children at 100% or
+    more). Called before the document reaches the disk, so a rejected body cannot
+    replace a good one."""
+    check = md.parseString(document)
+    labels = [text_of(li, "customLabel") for li in check.getElementsByTagName("li")]
+    for want in ("left arm", "right arm", "left lower arm", "right lower arm",
+                 "left hand", "right hand", "left lower hand", "right lower hand",
+                 "left wing", "right wing"):
+        if want not in labels:
+            raise SystemExit("generated body is missing %s - nothing was written" % want)
+    groups = [li.firstChild.data.strip()
+              for li in check.getElementsByTagName("li")
+              if li.parentNode.tagName == "groups" and li.firstChild]
+    print("parts: %d labels, %d group entries" % (len(labels), len(groups)))
+    print("lower-hand groups moved: %d" % moved)
+    print("groups now in use:", sorted(set(groups)))
+
+    worst = 0.0
+    worst_owner = None
+    for parts in check.getElementsByTagName("parts"):
+        total = 0.0
+        for child in parts.childNodes:
+            if child.nodeType != child.ELEMENT_NODE:
+                continue
+            coverage = child.getElementsByTagName("coverage")
+            if coverage and coverage[0].firstChild:
+                total += float(coverage[0].firstChild.data)
+        if total > worst:
+            worst, worst_owner = total, parts.parentNode.getElementsByTagName("def")[0].firstChild.data
+    print("worst coverage sum: %.0f%% (%s)" % (worst * 100, worst_owner))
+    if worst >= 1.0:
+        raise SystemExit("a record's children exceed 100%% coverage - RimWorld would "
+                         "warn; nothing was written")
+
+
 def main():
     if len(sys.argv) > 2:
         raise SystemExit("usage: %s [output.xml]" % Path(sys.argv[0]).name)
@@ -197,50 +247,14 @@ def main():
                 group.firstChild.data = rename[name]
                 moved += 1
 
-    lines = []
-    strip_whitespace(body)
-    serialize(body, 1, lines)
-    with open(out, "w", encoding="utf-8") as fh:
-        fh.write('<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n\t<!--\n')
-        for line in HEADER.splitlines():
-            fh.write("\t\t%s\n" % line.strip() if line.strip() else "\n")
-        fh.write("\t-->\n\n" + "\n".join(lines) + "\n\n</Defs>\n")
     print("source: %s" % bs)
+    document = document_for(body)
+    # Checked before the file is touched. Running with no output argument replaces the
+    # committed def, and a rejected body must never land there.
+    check_document(document, moved)
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write(document)
     print("wrote:  %s" % out)
-
-    # Verify what we wrote.
-    check = md.parse(str(out))
-    labels = [text_of(li, "customLabel") for li in check.getElementsByTagName("li")]
-    for want in ("left arm", "right arm", "left lower arm", "right lower arm",
-                 "left hand", "right hand", "left lower hand", "right lower hand",
-                 "left wing", "right wing"):
-        if want not in labels:
-            raise SystemExit("written body is missing %s" % want)
-    groups = [li.firstChild.data.strip()
-              for li in check.getElementsByTagName("li")
-              if li.parentNode.tagName == "groups" and li.firstChild]
-    print("parts: %d labels, %d group entries" % (len(labels), len(groups)))
-    print("lower-hand groups moved: %d" % moved)
-    print("groups now in use:", sorted(set(groups)))
-
-    # The same rule RimWorld checks in dev mode (BodyDef.ConfigErrors): no record's
-    # children may total 100% coverage or more. The wings are what can cross it here,
-    # so the check guards the change above rather than trusting the arithmetic.
-    worst = 0.0
-    worst_owner = None
-    for parts in check.getElementsByTagName("parts"):
-        total = 0.0
-        for child in parts.childNodes:
-            if child.nodeType != child.ELEMENT_NODE:
-                continue
-            coverage = child.getElementsByTagName("coverage")
-            if coverage and coverage[0].firstChild:
-                total += float(coverage[0].firstChild.data)
-        if total > worst:
-            worst, worst_owner = total, parts.parentNode.getElementsByTagName("def")[0].firstChild.data
-    print("worst coverage sum: %.0f%% (%s)" % (worst * 100, worst_owner))
-    if worst >= 1.0:
-        raise SystemExit("a record's children exceed 100%% coverage - RimWorld would warn")
 
 
 if __name__ == "__main__":
