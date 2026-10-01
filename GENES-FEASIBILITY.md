@@ -1,7 +1,9 @@
 # New-gene feasibility study
 
 Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **The two new genes at §4 and §5 are built
-(2026-09-30); the castes that carry them are not.** This file resolves every gene the mockups name to
+(2026-09-30), and the castes that carry them are built too** - the quarrel gene is on the hornet and
+the light gene on the mothman, both 2026-10-01. What is left of the plan is its phase 5, the soldier
+beetle's second pass. This file resolves every gene the mockups name to
 a real def or marks it new, and works the new ones out against the 1.6 assembly.
 
 The plan that uses this study is `CASTES-PLAN.md`.

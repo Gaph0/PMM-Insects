@@ -558,4 +558,39 @@
 		</skillGains>
 	</BackstoryDef>
 
+	<!--
+		Mantis (2026-10-01): raised in the swarm's deep cells to kill, and given nothing else.
+		Melee, then Melee + a little Shooting - she is a blade, not a marksman.
+	-->
+	<BackstoryDef>
+		<defName>PMM_MantisChild</defName>
+		<title>praying grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched in the swarm's deep cells and learned to hold still for hours before {PAWN_possessive} keepers judged {PAWN_objective} ready.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_MantisSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_MantisAdult</defName>
+		<title>swarm reaper</title>
+		<titleShort>mantis</titleShort>
+		<description>{PAWN_nameDef} walks from one fight to the next with {PAWN_possessive} blades folded, and opens them only to take a life.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_MantisSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>4</Melee>
+			<Shooting>2</Shooting>
+		</skillGains>
+	</BackstoryDef>
+
 </Defs>

@@ -4,9 +4,9 @@ Drafted 2026-09-30 from the five draw.io mockups in `MGEWiki/`
 (`hornetxenotypemockup.xml`, `mantismockup.xml`, `mothmanmockup.xml`, `papillonmockup.xml`,
 `soldierbeetlemockup.xml`).
 
-**Phase 1 is built** - the two genes, defs, classes and placeholder icons, 2026-09-30. The four
-castes are not, and nothing in the mod carries either gene yet. The gene work is costed in
-`GENES-FEASIBILITY.md`; read the two together.
+**Phases 1 to 4 are built** - the two genes on 2026-09-30, and the mothman, papillon, hornet and
+mantis on 2026-10-01. Phase 5, the soldier beetle's second pass, is the work left. The gene work is
+costed in `GENES-FEASIBILITY.md`; read the two together.
 
 **Decisions taken 2026-09-30** are recorded in §0, and everything below is written for them.
 
@@ -101,6 +101,8 @@ touches the same list:
 ant arachne 0.12, honey bee 0.12; the swarm carries the arachne, the beelzebub, the girtablilu, the
 queen and the vamp mosquito. The hive's list now holds the mothman, the papillon and the hornet at 0.03
 each, taken off the devil bug and the giant ant, and the hornet gave the hive a second `Combat` group.
+The swarm's own list, the mod's shared base, holds the mantis at 0.06 off the same two, and she fights
+in both of its `Combat` groups, stands in both `Settlement` garrisons and is one of its `Hunters`.
 It used to say "the hive keeps no flier", which was never a decision - just a note about the roster as
 it stood (user, 2026-10-01: "that 'hive keeps no flier' is bunk, remove it, it is not design
 intention").
@@ -197,7 +199,7 @@ done. Her live gene list is: `PMM_Gene_Insect`, `Robust`, `PMM_Gene_FlightWeak`,
 | Mockup asks for | Today | Proposal |
 |---|---|---|
 | hardened chitin | already hers | nothing to do |
-| one of ripper blades / charger claw / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. The mod already answers who owns the tools - the girtablilu's race has **none**, and `VRE_ChargerClaws` is her weapon - so the clean shape is to move the beetle's tools onto the gene and keep one (`GENES-FEASIBILITY.md` §6) |
+| one of ripper blades / charger claw / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. Both shapes already exist here: the girtablilu keeps pincers on her race *and* carries `VRE_ChargerClaws`, so she fights with two sets of tools, while the mantis keeps only her fists and lets `VRE_RipperBlades` be her weapon (2026-10-01). The mantis's shape is the one the beetle should copy - her tools move onto the gene and she keeps one (`GENES-FEASIBILITY.md` §6) |
 | antimicrobial chitin | not hers | add `VRE_AntimicrobialPeptides` |
 | hard locked joints | not hers | add `VRE_HardLockedJoints` (she is already "slow"; this makes it a real cost) |
 | vocal chitters | not hers | **out, decided 2026-09-30** - it silences her. Swapped for `VRE_LowOctopamine`, which keeps her voice and doubles her lovin' cooldown |
@@ -221,9 +223,11 @@ she loses six genes she carries today:
 | `PMM_Gene_LargeFrame` | the caravan frame, same note |
 
 Her weapon also changes owner, decided 2026-09-30: her race's tool list is **emptied** and one of the
-three VRE weapon genes becomes her weapon, which is the girtablilu's shape (that race has **no** melee
-tools at all). Her damage then follows VRE's tuning rather than the megaspider's exact numbers, so
-`archive/PLAN.md` §3's "exact DPS parity" stops describing her.
+three VRE weapon genes becomes her weapon. The mantis (phase 4, 2026-10-01) is that shape already built
+- her race carries her fists and her head, and `VRE_RipperBlades` is her weapon - so phase 5 has a
+working example to copy instead of a race to go and measure. Her damage then follows VRE's tuning
+rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
+describing her.
 
 ---
 
@@ -237,7 +241,7 @@ can still change cheaply.
 | 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. Left to check in game: give the genes to pawns in the dev gene editor, then look for "quarrelsome kin -50" between two carriers and "giddy in the light" in a lamp-lit room |
 | 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn |
 | 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
-| 4 | Mantis: wiring plus swarm rosters | boot clean; she appears in a swarm raid, cannot speak, and her KillThirst fires |
+| 4 | Mantis: wiring plus swarm rosters | **Built 2026-10-01** - boot clean; she appears in a swarm raid, keeps her voice (decision 3), and her KillThirst fires |
 | 5 | Soldier beetle second pass | boot clean; the roll lands one of the three weapons; her opinion of her sisters reads -50 |
 | 6 | Docs: one `HANDOFF.md` section per caste change, one changelog line each | `changelog-check.sh` passes |
 

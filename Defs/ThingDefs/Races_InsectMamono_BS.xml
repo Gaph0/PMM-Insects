@@ -789,6 +789,10 @@
 					<li><pawnKind>PMM_InsectMothman</pawnKind></li>
 					<li><pawnKind>PMM_InsectPapillon</pawnKind></li>
 					<li><pawnKind>PMM_InsectHornet</pawnKind></li>
+					<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A swarm caste, but still a
+					     daughter the queen can lay on purpose and one the random draw can hand back -
+					     which is the decision that put all four new castes in this list. -->
+					<li><pawnKind>PMM_InsectMantis</pawnKind></li>
 					<li>
 						<randomMamono>true</randomMamono>
 						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
@@ -1973,6 +1977,111 @@
 				<statOffsets>
 					<ArmorRating_Sharp>0.15</ArmorRating_Sharp>
 					<ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+				</statOffsets>
+			</li>
+		</stages>
+		<comps>
+			<li Class="BigAndSmall.CompProperties_Race">
+				<canSwapAwayFrom>true</canSwapAwayFrom>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A plain Human body on purpose: unlike
+	     her winged sisters she has no flight gene, so she carries no winged tracker and no <body>
+	     line - the Human parent's own body is the one she draws.
+
+	     Her race carries no weapon either. VRE_RipperBlades is what she kills with, and a blade of
+	     her own on the race would leave her with two sets of tools (CASTES-PLAN.md §3.2: "one set
+	     of tools, not two"). So she keeps the family's block less its species weapon: her two
+	     fists and her head. -->
+	<ThingDef ParentName="Human">
+		<defName>PMM_Race_Mantis</defName>
+		<label>mantis</label>
+		<description>A mantis mamono of the insector swarm: a woman's frame with a mantis's folded blades, built to kill in one pass and never to trade blows.</description>
+		<statBases>
+			<!-- Fast, and the fastest of the swarm's walkers: 3.9 against the soldier beetle's
+			     3.60, and under the hornet's 4.0, which is flight. -->
+			<MoveSpeed>3.9</MoveSpeed>
+			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<MarketValue>170</MarketValue>
+			<LeatherAmount>30</LeatherAmount>
+			<ToxicResistance>1</ToxicResistance>
+			<ToxicEnvironmentResistance>0.8</ToxicEnvironmentResistance>
+			<VacuumResistance>1</VacuumResistance>
+			<FilthRate>1</FilthRate>
+		</statBases>
+		<tools>
+			<li>
+				<label>left fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>right fist</label>
+				<labelNoLocation>fist</labelNoLocation>
+				<capacities><li>Blunt</li></capacities>
+				<power>8.2</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+			</li>
+			<li>
+				<label>head</label>
+				<capacities><li>Blunt</li></capacities>
+				<power>4</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
+			</li>
+		</tools>
+		<race>
+			<fleshType>Insectoid</fleshType>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<useMeatFrom>Megaspider</useMeatFrom>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
+			<leatherDef>VFEI2_Chitin</leatherDef>
+			<baseBodySize>1.0</baseBodySize>
+			<!-- 0.4 x HealthScalePatch's 1.75 = 0.7 effective (CASTES-PLAN.md §0 decision 10).
+			     What the plan calls glass: VRE_WeakenedChitin then takes x1.5 of whatever gets
+			     through, so the number here is the last thing standing between her and a
+			     missing limb. -->
+			<baseHealthScale>0.4</baseHealthScale>
+			<baseHungerRate>0.15</baseHungerRate>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+		</race>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_HiveNourishment">
+				<radius>12</radius>
+				<intervalTicks>600</intervalTicks>
+			</li>
+		</comps>
+		<modExtensions>
+			<li Class="BigAndSmall.RaceExtension">
+				<raceHediff>PMM_RaceTracker_Mantis</raceHediff>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- Mantis race tracker. Lighter armour than the hornet's 0.15/0.08 (2026-10-01): the plan's
+	     glass cannon takes the lightest shell of any fighting caste here, and VRE_WeakenedChitin
+	     makes up the rest of the difference. Auto-applies on spawn via RaceExtension, and armour
+	     lives here rather than on race statBases, which would STACK. -->
+	<HediffDef ParentName="BS_DefaultRaceTracker">
+		<defName>PMM_RaceTracker_Mantis</defName>
+		<label>mantis</label>
+		<description>A mantis mamono of the insector swarm.</description>
+		<stages Inherit="False">
+			<li>
+				<statOffsets>
+					<ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+					<ArmorRating_Blunt>0.05</ArmorRating_Blunt>
 				</statOffsets>
 			</li>
 		</stages>

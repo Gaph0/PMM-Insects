@@ -41,7 +41,11 @@ namespace PMM_Insects
                 "PMM_Race_Mothman",
                 "PMM_Race_Papillon",
                 // The hornet, built with them 2026-10-01 (CASTES-PLAN.md phase 3).
-                "PMM_Race_Hornet");
+                "PMM_Race_Hornet",
+                // The mantis, 2026-10-01 (CASTES-PLAN.md phase 4): a swarm caste, filed with her
+                // sisters all the same - the list is every race this mod ships, not every friendly
+                // one.
+                "PMM_Race_Mantis");
         }
     }
 }
