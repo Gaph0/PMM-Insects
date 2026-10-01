@@ -8,8 +8,8 @@ namespace PMM_Insects
     /// An arachne's caffeine is alcohol (user's calls 2026-09-27: "just arachne", "all beverages with
     /// caffeine; tea, coffee, iced coffee, every beverage from the coffees and tea VBE mod", "as drunk as
     /// the caffeine severity grants", and an addiction she already has is *not* forgiven; widened
-    /// 2026-10-01 to both arachnes, the weaver and her ant mimic, on a review that found the mimic left
-    /// out of a reaction meant for her kind).
+    /// 2026-10-01 to every caste with an arachnid body - the weaver, her ant mimic and the girtablilu -
+    /// on the user's rule: "anything with an arachnid body is a spider").
     ///
     /// `Patches/ArachneCoffee_VBE.xml` appends this doer to the end of a caffeinated drink's
     /// `ingestible.outcomeDoers`. Ingestible doers run in list order, so by the time this one fires the

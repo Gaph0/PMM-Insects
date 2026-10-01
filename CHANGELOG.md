@@ -2,7 +2,7 @@
 
 ## Player-facing
 
-- 2026-10-01: Changed caffeine to make the ant arachne drunk too, the way it already did for the arachne. One coffee is about one beer for her as well.
+- 2026-10-01: Changed caffeine to make every spider-bodied momo drunk, not just the arachne. The ant arachne and the girtablilu get about one beer's worth per coffee too.
 - 2026-10-01: Fixed the arachne's body, whose arms and legs were far more fragile than they should be - fragile enough for a single punch to take a limb off.
 - 2026-10-01: Changed the arachne, the beelzebub, the girtablilu, the ant arachne and the honey bee to remember their own childhood and adult life, instead of being handed a random story from somewhere else.
 - 2026-10-01: Changed the insector tribes so you can set up as many of them as you like when you make a world. The neutral tribe was capped at ten.
@@ -152,7 +152,7 @@
 
 ## Internal
 
-- 2026-10-01: Changed the arachne's coffee patch to cover the ant arachne as well, and cut the coffees mod's name from its gate: VBE defines the caffeine chemical and every caffeinated drink.
+- 2026-10-01: Changed the arachne's coffee patch to cover the ant arachne and the girtablilu as well, and cut the coffees mod's name from its gate: VBE defines the caffeine chemical and every caffeinated drink.
 - 2026-10-01: Fixed the insect faction patch to skip instead of logging a failed patch when VFEI2 is absent.
 - 2026-10-01: Removed the run-specific generator counts from the arachne silk patch's comment, and the stale op numbers that went with them.
 - 2026-10-01: Added the arachne to the health-scale patch, which her own race def already claimed was handling her.
