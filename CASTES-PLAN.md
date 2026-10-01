@@ -25,7 +25,7 @@ castes are not, and nothing in the mod carries either gene yet. The gene work is
 | 9 | The caravan slot | **their own trader kinds** - the mothman and the papillon *lead* caravans |
 | 10 | Health scale and `combatPower` | **confirmed as proposed** (0.8 / 0.7 / 0.8 / 0.5) |
 | 11 | The beetle's race tools | **emptied** - the gene owns her weapon |
-| 12 | Art | **placeholders first** from `Tools/mktex.py`, hand art later |
+| 12 | Art | **hand art**, dropped in `Project Mamono Textures/` and copied into the mod |
 | 13 | The queen's brood list | **all four** - the abaddon can lay any of the new castes |
 
 What each one changes, in a line each:
@@ -45,8 +45,8 @@ What each one changes, in a line each:
   escort.
 - **10** keeps the health scales and `combatPower` figures as drafted, and **11** empties
   `PMM_Race_SoldierBeetle`'s tool list.
-- **12** means four 128x128 icons from `mktex.py` (its `SPECIES` dict needs the four names) and hand
-  art whenever you want it.
+- **12** means four hand-drawn icons at 64x64, the size the mod's real xenotype icons use, dropped
+  in `Project Mamono Textures/` and copied to `Textures/UI/Icons/Xenotypes/<Name>.png`.
 - **13** puts all four in the queen's brood list. That list feeds both "choose the caste" and "a
   random mamono", so each new caste also becomes something a queen can hatch by chance.
 
@@ -94,7 +94,7 @@ touches the same list:
 | 5 | `Source/Insects/HealthScalePatch.cs` | a factor only if her race base is small. The patch multiplies `Pawn.HealthScale`; races whose base already meets a human's are deliberately absent from its switch (the beetle's 2.5, the ant's 1.7, the abaddon's 9.8) |
 | 6 | `Source/Insects/InsectMamonoCorpses.cs` | so her corpse files with the mamonos, not with humans |
 | 7 | `Source/Insects/BroodOrder.cs` + the queen's race | **yes, all four castes** (decided 2026-09-30) - and note the same list also feeds her "a random mamono" draw |
-| 8 | `Textures/UI/Icons/Xenotypes/<Name>.png` | a 128x128 placeholder from `Tools/mktex.py` first (decided 2026-09-30, which means adding the four names to its `SPECIES` dict); hand art whenever you want it |
+| 8 | `Textures/UI/Icons/Xenotypes/<Name>.png` | hand art at 64x64, the size the shipped castes' icons use (decided 2026-10-01) |
 | 9 | `CHANGELOG.md`, `HANDOFF.md` | one line each, in this project's formats |
 
 **The rosters today.** The hive fields no flier at all - its Combat group says so in its own comment
@@ -266,7 +266,7 @@ What is left is work, not questions: phase 1 of §4 - the two new genes - and th
 | New gene defs | 3 (the light gene, its hidden hediff, the quarrelsome gene) |
 | New thought defs | 2 (the light thought, the quarrel thought) |
 | New C# files | ~3 small ones (light gene class + worker, quarrel worker, weapon roll) |
-| New icons | 4, generated placeholders from `Tools/mktex.py` with the four names added to its `SPECIES` dict |
+| New icons | 4, hand-drawn at 64x64 like the shipped xenotype icons |
 | Rosters touched | 2 factions |
 | Docs | 1 `HANDOFF.md` section per caste, 1 changelog line per change, this file and the feasibility study |
 
