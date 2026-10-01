@@ -121,9 +121,8 @@ numbers exactly once (no doubling), and hive nourishment works.
 
 ## 8. Out of scope
 
-Custom pawn art (antennae/carapace overlays - the castes use human rendering, and
-`mktex.py` gene icons except the shared insectoid gene's, which is hand art since
-2026-09-30), Greenworm -> Papillon maturation (planned in its own
+Custom pawn art (antennae/carapace overlays - the castes use human rendering - and the
+gene icons, which are hand art), Greenworm -> Papillon maturation (planned in its own
 section below), and DLC lair-boss loop polish. The settlements, the RulePack namers
 and the jelly economy this section used to list all shipped with the tribes - see
 `HANDOFF.md` §4.

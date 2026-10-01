@@ -152,6 +152,7 @@
 
 - 2026-10-01: Added a childhood and an adult history to the five castes that had none, so no insector mamono is handed a random one from another walk of life.
 - 2026-10-01: Removed the old claim that the castes' combat power matches the vanilla insects', and the replacement-era wording in the race defs that went with it.
+- 2026-10-01: Removed the two placeholder-art generators, now that every icon is hand art or a final placeholder. The four-armed body tool stays: it is the only way to re-derive that body def from Big & Small, and the check that shows the def has not drifted.
 - 2026-10-01: Changed the arachne's silk and the bee's honey to share one harvest chain: one right-click order, one job driver and one self-gathering work giver, with each feature supplying only where its state lives. No behaviour change, and it dropped an unused member from the honey gene.
 - 2026-10-01: Changed the two self-gathering work givers to hand the pawn to the work search directly, the way the base game's self-tend giver does, instead of asking for every pawn on the map to be looked through.
 - 2026-10-01: Fixed the silk gather being able to run on a silk def that resolved to nothing, which the Medieval Overhaul compat patch could leave behind. It now refuses to gather, as honey already did.
@@ -185,7 +186,7 @@
 - 2026-09-20: Added the finding that Core's CompSpawnPawnOnDestroyed cannot hatch a humanlike pawn: it asks for fixedBiologicalAge 0 while refusing downed pawns, and a newborn humanlike is always downed, so it returns null and PawnGenerator throws.
 - 2026-09-20: Changed nothing in code for the brood's faction: Projectile_SpawnsThing gives the sac the launcher's faction, and CompSpawnPawnOnDestroyed passes it on to the pawn.
 - 2026-09-20: Changed CompHiveNourishment to resolve a list of hive-like defs once (thingClass is Hive, plus the ArtificialHive class family) instead of caching ThingDef.Named("Hive").
-- 2026-09-20: Added egg sac, egg sac projectile and egg spew icon textures to Tools/mktex.py.
+- 2026-09-20: Added the egg sac, its projectile and the egg spew ability's icon art.
 - 2026-09-20: Changed the momo corpse grouping to the shared version in the core mod.
 - 2026-09-20: Changed the insectoid gene to carry the insect pheromone effect itself, so the momos no longer need Vanilla Races Expanded's pheromone gene.
 - 2026-09-20: Added the four work groups vanilla tribes carry.
