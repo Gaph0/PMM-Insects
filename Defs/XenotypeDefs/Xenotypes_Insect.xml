@@ -150,34 +150,65 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Soldier Beetle (megaspider): heavy armour, ripper blades, hidden wings -->
+	<!-- Soldier Beetle (megaspider): the tank - heavy armour, one of three grown weapons, an
+	     abdomen and no wings -->
 	<XenotypeDef>
 		<defName>PMM_InsectSoldierBeetle</defName>
 		<label>soldier beetle</label>
-		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, her claws are ripper-blades, and hidden beneath the carapace on her back are wings for short bursts of flight. Calm, obedient and nearly expressionless - until she chooses a man to escort.</description>
-		<descriptionShort>An armoured, obedient insect mamono with ripper claws and hidden wings.</descriptionShort>
+		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, and her carapace grows one of three killing tools - ripper-blades, charger claws or a megaspider horn. Calm, obedient and nearly expressionless - until she chooses a man to escort.</description>
+		<descriptionShort>An armoured, obedient insect mamono, slow and hard to hurt, who grows one of three weapons.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_SoldierBeetle</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
 		<genes>
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
-			<li>Robust</li>
-			<li>PMM_Gene_FlightWeak</li>
-			<!-- Large frame (core): the heavy cavalry frame that carries more. She
-			     is a weak flyer, not a strong one, so the two genes do not clash. -->
-			<li>PMM_Gene_LargeFrame</li>
+			<!-- Rebuilt to the mockup's list (2026-10-01, CASTES-PLAN.md phase 5), which drops six
+			     genes she used to carry: Robust, PMM_Gene_FlightWeak, PMM_Gene_LargeFrame,
+			     VRE_CuticleShell, VRE_InefficientMidgut and VRE_Stenothermic. Her wings still draw -
+			     they are race-level art, not a gene - but nothing lifts her any more.
+
+			     MeleeDamage_Strong stays: the mockup neither lists it nor asks for its removal,
+			     and she is the caste that leans on melee. -->
 			<li>MeleeDamage_Strong</li>
-			<!-- VRE Insector (HANDOFF §5.3): HardenedChitin turns aside a quarter of
-			     all incoming damage and CuticleShell shrugs off common disease. That
-			     much body costs her: InefficientMidgut means she must eat far more,
-			     and Stenothermic means she only thrives in her own climate. Two and
-			     two. -->
+			<!-- The weapon roll: one of ripper-blades, charger claws or a megaspider horn, picked
+			     by BeetleArmament.Roll when the gene lands. Her race carries no tools of its own
+			     any more - the gene owns the weapon (CASTES-PLAN.md §0 decision 11). -->
+			<li>PMM_Gene_BeetleArmament</li>
+			<!-- VRE Insector: HardenedChitin turns aside a quarter of all incoming damage and
+			     AntimicrobialPeptides doubles her healing and her immunity gain. That pair is the
+			     shell the mockup asks for, and the costs are elsewhere on this list. -->
 			<li>VRE_HardenedChitin</li>
-			<li>VRE_CuticleShell</li>
-			<li>VRE_InefficientMidgut</li>
-			<li>VRE_Stenothermic</li>
+			<li>VRE_AntimicrobialPeptides</li>
+			<!-- HardLockedJoints is the price of the shell (MoveSpeed -0.4). LowOctopamine is the
+			     2026-09-30 swap for VocalChitters: she keeps her voice and pays with a doubled
+			     lovin' cooldown instead of silence, and its fertility half does nothing on a
+			     mamono (core's MamonoFertilityPatch floors Fertility at 1.0). EcdysoneOverdrive
+			     is the mockup's ecdysonal overdrive, and it gives her the kill thirst. -->
+			<li>VRE_HardLockedJoints</li>
+			<li>VRE_LowOctopamine</li>
+			<li>VRE_EcdysoneOverdrive</li>
 			<li>VRE_InsectJellyDependency</li>
+			<!-- The mockup's quarrel: -50 opinion toward every other carrier, which among the
+			     castes means every other beetle. The gene is aimed at itself on its own def
+			     (Defs/GeneDefs/Genes_Quarrel.xml), so the grudge runs both ways. -->
+			<li>PMM_Gene_Quarrelsome</li>
+			<!-- Great melee is the one aptitude left of the mockup's five (2026-10-01, user's call):
+			     the four drawbacks came off with the three genes below. "Great" is
+			     AptitudeRemarkable in this family's vocabulary (GENES-FEASIBILITY.md §3.1). -->
+			<li>AptitudeRemarkable_Melee</li>
+			<!-- The tank package (user's call, 2026-10-01), which is the mockup's "tanky, slow,
+			     dangerous" read literally. Robust takes a quarter off every hit, and it stacks with
+			     VRE_HardenedChitin's own 0.75 - so she takes 56% of incoming damage, the very stack
+			     the rebuild was asked to remove and is now asked back on. Unstoppable zeroes the
+			     stagger from taking a hit (StaggerDurationFactor 0), and vanilla's slow runner pays
+			     3 metabolic points for MoveSpeed -0.2. With VRE_HardLockedJoints' -0.4 already on
+			     her, she walks at 3.0 against the giant ant's 3.2 and the girtablilu's 3.7.
+			     Nothing clashes: HardLockedJoints carries VRE's own InsectorMovement tag, not
+			     vanilla's MoveSpeed one, and Robust's Pain tag is carried by no gene of hers. -->
+			<li>Robust</li>
+			<li>Unstoppable</li>
+			<li>MoveSpeed_Slow</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -458,7 +489,7 @@
 			     shares its Antenna tags, so it simply stays. -->
 			<li>VRE_InsectSkin</li>
 			<li>VRE_InsectAntennae</li>
-			<!-- Weak flight, the same gene the soldier beetle and the vamp mosquito
+			<!-- Weak flight, the same gene the vamp mosquito and the other fliers
 			     carry: she flies in short bursts, so she is no caravan mount and carries
 			     no passenger. -->
 			<li>PMM_Gene_FlightWeak</li>

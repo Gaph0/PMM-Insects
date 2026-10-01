@@ -314,7 +314,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_SoldierBeetle</defName>
 		<label>soldier beetle</label>
-		<description>An insect mamono born of the megaspider. Her exoskeleton is armour from birth, her claws ripper-blades; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
+		<description>An insect mamono born of the megaspider. Her exoskeleton is armour from birth, and the weapon she grows out of it is her own; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
 		<statBases>
 			<MoveSpeed>3.60</MoveSpeed>
 			<SM_BodySizeMultiplier>1.2</SM_BodySizeMultiplier>
@@ -327,40 +327,18 @@
 			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
-		<tools>
-			<li>
-				<label>left fist</label>
-				<labelNoLocation>fist</labelNoLocation>
-				<capacities><li>Blunt</li></capacities>
-				<power>8.2</power>
-				<cooldownTime>2</cooldownTime>
-				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-			</li>
-			<li>
-				<label>right fist</label>
-				<labelNoLocation>fist</labelNoLocation>
-				<capacities><li>Blunt</li></capacities>
-				<power>8.2</power>
-				<cooldownTime>2</cooldownTime>
-				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-			</li>
-			<li>
-				<label>ripper claws</label>
-				<capacities><li>Cut</li></capacities>
-				<power>12</power>
-				<cooldownTime>2.6</cooldownTime>
-				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-			</li>
-			<li>
-				<label>head</label>
-				<capacities><li>Blunt</li></capacities>
-				<power>7</power>
-				<cooldownTime>2</cooldownTime>
-				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
-				<chanceFactor>0.2</chanceFactor>
-			</li>
-		</tools>
+		<!-- No tool list of her own since 2026-10-01 (CASTES-PLAN.md §0 decision 11): the armament
+		     gene owns her weapon. `Inherit="False"` is what makes that true - without it she would
+		     keep the Human parent's fists, which is exactly the "two sets of tools" the plan set
+		     out to avoid.
+
+		     Nothing is lost by it. `Pawn_MeleeVerbs` builds its list from
+		     `pawn.verbTracker.AllVerbs`, not from this list, and VRE's three weapon genes each grant
+		     a hediff carrying a `HediffCompProperties_VerbGiver` - so her ripper-blades, charger
+		     claws or megaspider horn are real melee attacks with no race tool behind them. The one
+		     thing this trades away is a fallback: a beetle who loses the body part her weapon hangs
+		     on has nothing left to swing. Her own "ripper claws" tool went the same way. -->
+		<tools Inherit="False" />
 		<race>
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>
@@ -376,9 +354,12 @@
 			<baseHealthScale>2.5</baseHealthScale>
 			<baseHungerRate>0.35</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
-			<!-- Race-level wings, same reason as the vamp mosquito: the flight
-			     gene cannot swap the body of a pawn with her own race def. -->
-			<body>BS_HumanoidWithWings_Body</body>
+			<!-- A beetle's low body (user's call, 2026-10-01): BS_SpiderHybrid, the body the arachne,
+			     the ant arachne and the girtablilu wear, so her abdomen draws and - because our copy of
+			     the tracker is the one that paints it - takes her caste colour with her legs
+			     (HANDOFF.md §5.17). The wings came off with the flight gene: she is born of the
+			     megaspider, and the wings she had were the only part of her that did nothing. -->
+			<body>BS_SpiderHybrid</body>
 		</race>
 		<comps>
 			<li Class="PMM_Insects.CompProperties_HiveNourishment">
@@ -389,9 +370,11 @@
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_SoldierBeetle</raceHediff>
-				<!-- Wing renderer, same as the vamp mosquito's. -->
+				<!-- The spider-body tracker, as on the three eight-legged castes: it is what draws the
+				     legs and the abdomen, and our own copy of it is what paints them in her hair colour
+				     (HANDOFF.md §5.17). B&S's winged tracker is gone from this def with the wings. -->
 				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
+					<li>PMM_RaceTracker_SpiderBody</li>
 				</raceHediffList>
 			</li>
 		</modExtensions>
