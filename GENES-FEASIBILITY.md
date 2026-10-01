@@ -286,7 +286,7 @@ The soldier beetle mockup asks how to give a caste one of ripper blades, charger
 horn. All three exist (`VRE_RipperBlades`, `VRE_ChargerClaws`, `VRE_MegaspiderHorns`).
 
 **The pattern is already in this mod, and it was built for exactly this shape of question.** The
-body colour roll (`Source/Insects/InsectChitin.cs`, `HANDOFF.md` §5.13): the shared insect gene
+body colour roll (`Source/Insects/InsectColours.cs`, `HANDOFF.md` §5.13): the shared insect gene
 carries a class that picks one of her caste's three when the gene lands, and a
 `PawnGenerator.GeneratePawn` postfix re-rolls at the end of generation so a daughter gets a fresh
 pick rather than her mother's. A weapon gene works the same way: one class, one list of three, one

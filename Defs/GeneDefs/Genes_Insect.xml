@@ -13,17 +13,16 @@
              chitin skin, feelers, full toxin immunity, the pheromone effect in
              InsectPheromones.cs, and insect flesh.
 
-             skinColorBase sets the BASE skin colour, the one under her real colour
-             and the one that shows if she has none: a caste with no palette of her
-             own (the four castes still to be built), or a woman carrying this gene
-             without one of the caste xenotypes. Every caste's real colour is her
-             own three, listed on her xenotype (a PMM_Insects.InsectSkinColours
-             extension) and defined next door in Genes_InsectSkin.xml.
+             No skin colour lives here any more. Every caste's colours are her hair
+             and her wings (2026-10-01, user's call: "the skin should be left to
+             vanilla's skin colours entirely"), listed on her xenotype as a
+             PMM_Insects.InsectHairColours extension of plain colours; her skin is the
+             melanin gene she rolls like any other pawn.
 
-             That class, `PMM_Insects.Gene_InsectChitin`, is also why the shared
+             That class, `PMM_Insects.Gene_InsectColours`, is also why the shared
              gene is the place the roll lives: it is the one gene every insect
              caste carries, so a caste's colour needs nothing added anywhere but
-             her own three defs and her list, and a woman transformed into one
+             her own list, and a woman transformed into one
              rolls hers when her genes land. Uses vanilla Biotech fields, so it all
              renders through the normal skin pipeline with no custom art.
 
@@ -53,7 +52,7 @@
              </exclusionTags>
              <label>insectoid</label>
              <description>This woman's flesh hides chitin beneath the skin, and a pair of fine feelers drinks in the air around her - every scent, every thread of mana. She was born of the hives.</description>
-             <geneClass>PMM_Insects.Gene_InsectChitin</geneClass>
+             <geneClass>PMM_Insects.Gene_InsectColours</geneClass>
              <iconPath>UI/Icons/Genes/Gene_Insect</iconPath>
              <!-- Explicit white, and it is not decoration. `GeneDef.IconColor` falls back to
                   `skinColorBase` below when no `iconColor` is set, and the icon is drawn with
