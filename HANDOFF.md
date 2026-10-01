@@ -216,14 +216,14 @@ Fields to set, with why:
 | `leaderTitle` | "hive queen" | Reptiles sets `leaderTitle` on both its factions. Fits the Abaddon. |
 | `settlementGenerationWeight` | `1` | Inherited from `TribeBase`. Keeps villages on the map. |
 | `factionNameMaker` | `PMM_NamerFactionInsectorHive` (neutral), `PMM_NamerFactionInsectorSwarm` (hostile) - §4.5 | |
-| `settlementNameMaker` | `NamerSettlementTribal` | Vanilla tribal namer, ruled. |
-| `factionIconPath` | neutral `World/WorldObjects/Expanding/Insects` (vanilla), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | The neutral icon is still a placeholder. |
-| `settlementTexturePath` | neutral `UI/InsectoidHive` (VFEI2), hostile `World/WorldObjects/Expanding/PMM_InsectorSwarm` (own art) | Mandatory: leaving it unset throws on every settlement draw. It is what draws the village on the world map, not `factionIconPath`. |
+| `settlementNameMaker` | `NamerSettlementTribal` | Vanilla tribal namer, ruled. Inherited from `TribeBase`; the def no longer repeats it. |
+| `factionIconPath` | own art for both: `World/WorldObjects/Expanding/PMM_InsectorHive` (neutral, the user's crest, 2026-10-01), `.../PMM_InsectorSwarm` (hostile, 2026-09-20) | The neutral one used to be vanilla's - the hidden insect faction declares that path, `Core/Defs/FactionDefs/Factions_Hidden.xml`. Vanilla Textures Expanded only re-ships a retouched copy at that path; nothing points there now. |
+| `settlementTexturePath` | own art for both: `World/WorldObjects/Expanding/PMM_InsectorHive` (neutral), `.../PMM_InsectorSwarm` (hostile) | Mandatory: leaving it unset throws on every settlement draw. It is what draws the village on the world map, not `factionIconPath`. The neutral one was VFEI2's `UI/InsectoidHive` until 2026-10-01. |
 | `canStageAttacks` | `true` | Inherited. See the note below. |
-| `raidLootMaker` | `TribeRaidLootMaker` | Vanilla def. The Broods use it too. |
+| `raidLootMaker` | `TribeRaidLootMaker` | Vanilla def, inherited from `TribeBase` (the def no longer repeats it). The Broods use it too. |
 | `requiredCountAtGameStart` | `1` | House pattern. The world always gets one tribe. |
 | `startingCountAtWorldCreation` | `1` | **This is faction instances, not settlements.** In Reptiles, 4 produced four duplicate Dragonias. |
-| `maxConfigurableAtWorldCreation` | `10` | House pattern. |
+| `maxConfigurableAtWorldCreation` | `9999` | **Changed 2026-10-01.** Vanilla's own number for every tribe faction (`TribeCivil` carries it, and both tribal bases do too) - an uncapped slider. It read `10` before: a house number, not a decision. |
 | `allowedCultures` | `Corunan` | House pattern. |
 | `backstoryFilters` | `Tribal` | House pattern. |
 | `xenotypeSet` | `Inherit="False"`, the six mamono xenotypes | Keeps random pawns inside the mod. |
@@ -321,11 +321,31 @@ Usable `CustomGenOption` fields: `chooseFromSettlements`, `chooseFromlayouts`,
   it, the Dragonia pattern. Two fields, two jobs: the icon shows in the faction
   list and world creation, the settlement texture draws each village on the world
   map. Split them if a separate village shape is wanted later.
-- Neutral tribe: still placeholders - VFEI2's `UI/InsectoidHive` for its villages
-  and the vanilla `World/WorldObjects/Expanding/Insects` for its icon.
-- The art convention is single-colour line art on transparent, 128x128, drawn
-  tinted by the faction colour. The user's crest follows it. Reference copies of
-  the vanilla shapes live in `Tools/icon-refs/` (excluded from the game copy).
+- Neutral tribe: own art as of 2026-10-01, one crest for both fields
+  (`PMM_InsectorHive`, from the user's `insectsvillage.png`). It used to borrow
+  VFEI2's `UI/InsectoidHive` for its villages and vanilla's
+  `World/WorldObjects/Expanding/Insects` for its icon, which is the hidden insect
+  faction's own. (Corrected 2026-10-01: an earlier revision of this note called the
+  icon missing without Vanilla Textures Expanded. That mod ships a retouched copy at
+  the same path, so with it loaded the game draws that version, but the icon is
+  vanilla's and needed no dependency. Both borrowings are gone.)
+- The art convention is 128x128 on a transparent background, white fill, black
+  outline, drawn tinted by the faction colour - which is exactly how vanilla builds
+  its own village markers (checked 2026-10-01 against `Village.png`: the same white
+  and black pixel counts on a transparent field). Both crests follow it, so no art
+  needed redoing. Two things to know before the next count of borrowed art: the game
+  ships no loose vanilla textures, so a texture path with no file on disk anywhere is
+  vanilla's, from the Unity bundle; and Vanilla Textures Expanded re-ships the vanilla
+  icon set at vanilla paths, so "our copy matched that mod's file" never proves a path
+  belongs to that mod.
+- No borrowed art, audited 2026-10-01: not one file we ship matches a file in
+  vanilla or in any workshop mod, byte for byte. Two references still point outside
+  the mod - both deliberate, both explained where they appear, and both left alone by
+  the user's call of 2026-10-01 ("referencing other mods is OK"): the arachne silk
+  item wears vanilla's `Things/Item/Resource/Cloth` with its own tint
+  (`Things_ArachneSilk.xml`), and the web trap wears Alpha Animals' `UI/Abilities/AA_Web`
+  in a def that is entirely `MayRequire="sarg.alphaanimals"`, so that icon's owner
+  is always loaded whenever the def exists.
 - `Tools/mktex.py` can generate placeholder art if needed; the Reptiles mod uses
   it for its faction art.
 - Culture: with Ideology on, allow the vanilla `Corunan` culture, the house

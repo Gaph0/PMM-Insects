@@ -26,10 +26,11 @@
 		Deliberately not set:
 		  * backstoryFilters - every mamono pawn kind carries its own per-species
 		    spawn category, and a faction-level pool would fight it.
-		  * basicMemberKind - inherited from TribeBase (Tribesperson). The faction
-		    leader is generated from that kind plus the xenotypeSet below, so she
-		    should come out an insect mamono. Check her in game; if she is a
-		    baseliner, point basicMemberKind at one of the mamono kinds.
+		  * basicMemberKind - left unset, which is what every NPC faction in vanilla
+		    does; only player factions name one (PlayerColony Colonist, PlayerTribe
+		    Tribesperson). Nothing here needs it: its readers are player-faction code
+		    paths plus a quest node that null-checks, and the leader does not come
+		    from it - she comes from fixedLeaderKinds, so she is an abaddon.
 		  * caravanTraderKinds, disallowedMemes - later phases.
 	-->
 	<FactionDef ParentName="TribeBase" Name="PMM_InsectorTribeBase" Abstract="True">
@@ -39,11 +40,16 @@
 		<listOrderPriority>25</listOrderPriority>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
-		<maxConfigurableAtWorldCreation>10</maxConfigurableAtWorldCreation>
+		<!-- 9999, the number every vanilla tribe faction carries (TribeCivil, and
+		     both tribal bases), i.e. an uncapped slider. It read 10 until the user's
+		     call of 2026-10-01 - a house number, not a decision. -->
+		<maxConfigurableAtWorldCreation>9999</maxConfigurableAtWorldCreation>
 		<configurationListOrderPriority>25</configurationListOrderPriority>
-		<canStageAttacks>true</canStageAttacks>
+		<!-- `canStageAttacks true` and `raidLootMaker TribeRaidLootMaker` are not
+		     repeated here any more: vanilla's TribeBase, this def's parent, already
+		     sets both, and this file carries only what it changes. autoFlee does
+		     differ from vanilla's default of true. (2026-10-01) -->
 		<autoFlee>false</autoFlee>
-		<raidLootMaker>TribeRaidLootMaker</raidLootMaker>
 
 		<!-- Leader. Faction.TryGenerateNewLeader only looks at kinds listed in a
 		     COMBAT group that carry <factionLeader>true</factionLeader>, so a queen
@@ -76,7 +82,9 @@
 
 		<!-- Roster for any pawn generated without a kind of its own, the faction
 		     leader included. Fractions, the outlander pattern. Nothing here is
-		     conditional: this mod needs no DLC, so every caste is always defined. -->
+		     conditional: every caste is always defined, and the one piece of this mod
+		     that does need a DLC is the greenworm's sludge ability, gated on Odyssey in
+		     Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
 				<PMM_InsectDevilBug>0.30</PMM_InsectDevilBug>
@@ -254,19 +262,26 @@
 		<label>insector hive</label>
 		<description>These women raise their young among insect nests, in villages grown from hive walls and jelly. They keep to their own valleys and are slow to trust outsiders, but they will trade insect jelly and chitin with anyone who comes in peace.\n\nTheir villages are still hives. Cross them, and the swarm answers.</description>
 		<factionNameMaker>PMM_NamerFactionInsectorHive</factionNameMaker>
-		<settlementNameMaker>NamerSettlementTribal</settlementNameMaker>
-		<!-- factionIconPath is the world-creation and faction-list icon.
-		     settlementTexturePath is what the world map draws for each village;
-		     leaving it unset throws on every settlement draw. -->
-		<factionIconPath>World/WorldObjects/Expanding/Insects</factionIconPath>
-		<settlementTexturePath>UI/InsectoidHive</settlementTexturePath>
+		<!-- No settlementNameMaker here: TribeBase already sets NamerSettlementTribal. -->
+		<!-- Both fields are our own art now (2026-10-01): the neutral tribe used to
+		     borrow vanilla's `World/WorldObjects/Expanding/Insects` for its icon and
+		     VFEI2's `UI/InsectoidHive` for its villages. factionIconPath is the
+		     world-creation and faction-list icon; settlementTexturePath is what the
+		     world map draws for each village, and leaving it unset throws on every
+		     settlement draw. One crest serves both fields, the same way the swarm's
+		     does; split them if a separate village shape is wanted later. -->
+		<factionIconPath>World/WorldObjects/Expanding/PMM_InsectorHive</factionIconPath>
+		<settlementTexturePath>World/WorldObjects/Expanding/PMM_InsectorHive</settlementTexturePath>
 		<!-- The hive's own rosters (2026-09-27). Inherit="False" replaces the base's, and
 		     that is the only way one caste can belong to a single tribe: both tribes
 		     inherit the base's list otherwise, which put every caste in both tribes at
 		     once. The three hostile castes - the arachne, the beelzebub and the girtablilu
 		     - are absent on purpose; the swarm never fields the ant arachne. No option here
 		     names a DLC species, needs no MayRequire anywhere, and the queen and the
-		     vamp mosquito are the swarm's, not the hive's. The honey bee (2026-09-27) is
+		     vamp mosquito are the swarm's, not the hive's - in these rosters and in the
+		     xenotype set below, that is. The hive still gets an abaddon queen as its
+		     leader, because fixedLeaderKinds sits on the shared base and she is the only
+		     leader kind either tribe has. The honey bee (2026-09-27) is
 		     the hive's alone, in `Peaceful`, in the small `Settlement` garrison and in the
 		     `Farmers` role group - never in a Combat group. Keep it in step with the base's list: a group kind added there
 		     belongs here too, or a pawn generated for that kind throws "no usable
@@ -357,14 +372,9 @@
 					<PMM_InsectSoldierBeetle>1</PMM_InsectSoldierBeetle>
 				</options>
 			</li>
-			<li MayRequire="Ludeon.RimWorld.Ideology">
-				<kindDef>Farmers</kindDef>
-				<commonality>1</commonality>
-				<options>
-					<PMM_InsectGiantAnt>1</PMM_InsectGiantAnt>
-					<PMM_InsectAntArachne>1</PMM_InsectAntArachne>
-				</options>
-			</li>
+			<!-- One Farmers group, not two (2026-10-01): the engine picks among makers
+			     of the same kind by commonality, so a second, honey-bee-less Farmers
+			     entry would have halved the honey bee's weight among farmers. -->
 			<li>
 				<!-- Trader group. Every group kind the game can ask for must exist in this
 				     list, traders included: a faction with no Trader maker throws "no
@@ -385,14 +395,14 @@
 			</li>
 		</pawnGroupMakers>
 		<!-- Base trading (added 2026-09-22): a player caravan that reaches a hive
-		     village can trade there. Without this list Settlement_TraderTracker returns
-		     no trader kind at all, so the trade option never appears even though the
-		     tribe is at peace. Vanilla's neolithic base kind fits their tech level, and
-		     the field is read live off the faction def, so it works in existing saves
-		     too. The hostile swarm deliberately has no trader lists. -->
-		<baseTraderKinds>
-			<li>Base_Neolithic_Standard</li>
-		</baseTraderKinds>
+		     village can trade there. No list is needed for it - TribeBase already sets
+		     `baseTraderKinds` (Base_Neolithic_Standard), `caravanTraderKinds` and
+		     `visitorTraderKinds`, and the `Trader` group above supplies the pawns for
+		     all three - but the reason is worth writing down: those lists are read live
+		     off the faction def, so it holds in existing saves too, and the neolithic
+		     kinds fit their tech level. The swarm inherits the same lists and never
+		     trades, being a permanent enemy. (Corrected 2026-10-01: this def used to
+		     repeat `baseTraderKinds` with the value it already inherited.) -->
 		<colorSpectrum>
 			<li>(0.62, 0.60, 0.45)</li>
 			<li>(0.45, 0.42, 0.30)</li>

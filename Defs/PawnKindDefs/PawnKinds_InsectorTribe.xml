@@ -15,6 +15,14 @@
 		xenotype pinned per kind, and each carries its own per-species backstory
 		category.
 
+		"Pinned per kind" is a strong pin rather than an exact one: each kind declares
+		its own caste at chance 100 in its `xenotypeSet`, the faction's roster set (the
+		same list the villages roll from, totalling 1.0) is added to it because
+		`PawnKindDef.useFactionXenotypes` defaults true, and a weighted roll decides.
+		A slot comes out as its own caste about 99 times in 100, with the faction's
+		list making up the rest; `useFactionXenotypes false` on a kind is what makes
+		its slot exact.
+
 		Where the six appear is decided in Defs/FactionDefs/Factions_InsectorTribes.xml,
 		not here.
 
@@ -131,7 +139,12 @@
 			</li>
 		</backstoryFilters>
 		<abilities>
-			<li>SludgeSpew</li>
+			<!-- Odyssey's acid spit, the one vanilla's own insect race carries
+			     (Odyssey/Defs/ThingDefs_Races/Races_Animal_Insect.xml). Gated because
+			     this mod requires Biotech and not Odyssey: ungated, the reference is
+			     unresolved without Odyssey and the ability is quietly dropped from her
+			     list. -->
+			<li MayRequire="Ludeon.RimWorld.Odyssey">SludgeSpew</li>
 		</abilities>
 		<xenotypeSet><xenotypeChances><PMM_InsectGreenworm>100</PMM_InsectGreenworm></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
