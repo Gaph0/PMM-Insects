@@ -13,7 +13,7 @@ the tribe trades with player caravans that reach a village.
 | Megascarab | Devil Bug | 72% sharp chitin, 3.75 c/s, full-grown before her small gene |
 | Spelopede | Giant Ant | 170% HP, digging claws, great strength |
 | Megaspider | Soldier Beetle | 250% HP, sturdy exoskeleton, slower than her sisters, one of three grown weapons |
-| Larva | Greenworm | acid sludge spew, frail frame |
+| Larva | Greenworm | frail frame, always hungry, matures into a papillon |
 | Locust | Vamp Mosquito | small weak wings, no caravan speed, 3.0 c/s |
 | HiveQueen | Abaddon | four arms, 980% HP, never sleeps, beautiful voice, egg-spew |
 

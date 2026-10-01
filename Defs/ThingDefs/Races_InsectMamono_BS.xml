@@ -403,7 +403,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
-		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
+		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels and eats far more than her sisters - and one day she spins a cocoon and comes out a papillon.</description>
 		<statBases>
 			<MoveSpeed>2.0</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
@@ -480,16 +480,6 @@
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 		</race>
 		<comps>
-			<!-- Gated on Odyssey, comp and ability together: `CompProperties_SpreadSludge`
-			     and `SludgeSpew` exist for Odyssey's sludge insects and vanilla uses them
-			     nowhere else (Data/Odyssey). Ungated, a game without Odyssey gets an
-			     unresolved ability reference and a comp built for that DLC's terrain.
-			     This mod requires Biotech only, so the gate belongs here. -->
-			<li Class="CompProperties_SpreadSludge" MayRequire="Ludeon.RimWorld.Odyssey">
-				<mtbTicks>15000</mtbTicks>
-				<abilityDef>SludgeSpew</abilityDef>
-				<tryAvoidSludge>true</tryAvoidSludge>
-			</li>
 			<li Class="PMM_Insects.CompProperties_HiveNourishment">
 				<radius>12</radius>
 				<intervalTicks>600</intervalTicks>
@@ -741,8 +731,8 @@
 			     `CompSpreadSludge.CompTick` casts straight through
 			     `ability.verb.TryStartCastOn` with no faction and no `aiCanUse` check, so
 			     leaving it on would have had every nest queen laying brood on her own forever.
-			     The greenworm's identically shaped comp above stays - it points at SludgeSpew,
-			     which lays no eggs. See §5.11. -->
+			     The greenworm's identically shaped comp went with her sludge on 2026-10-02
+			     (user's call), so nothing in the mod uses that comp class now. See §5.11. -->
 			<li Class="CompProperties_LetterOnRevealed">
 				<label>Hive queen</label>
 				<text>You've discovered the center of the nest. It's guarded by a massive insect queen!</text>

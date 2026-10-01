@@ -82,9 +82,8 @@
 
 		<!-- Roster for any pawn generated without a kind of its own, the faction
 		     leader included. Fractions, the outlander pattern. Nothing here is
-		     conditional: every caste is always defined, and the one piece of this mod
-		     that does need a DLC is the greenworm's sludge ability, gated on Odyssey in
-		     Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml. -->
+		     conditional, and nothing in this mod needs a DLC: the greenworm's sludge
+		     ability, the last of it, went on 2026-10-02 at the user's call. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
 				<PMM_InsectDevilBug>0.27</PMM_InsectDevilBug>

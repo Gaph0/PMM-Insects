@@ -225,12 +225,12 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Greenworm (larva): soft, gentle, slow, acid secretion -->
+	<!-- Greenworm (larva): soft, gentle, slow, and always hungry -->
 	<XenotypeDef>
 		<defName>PMM_InsectGreenworm</defName>
 		<label>greenworm</label>
-		<description>A soft-bodied, gentle mamono who loves nothing more than eating. Her antennae secrete a strange-smelling substance that saps the strength of anything that threatens her - and she spits the same sludge in fright.</description>
-		<descriptionShort>A soft, gentle insect mamono who spits acidic sludge.</descriptionShort>
+		<description>A soft-bodied, gentle mamono who loves nothing more than eating. She eats her hive out of house and home, and one day she spins a cocoon and comes out a papillon.</description>
+		<descriptionShort>A soft, gentle insect mamono who eats far more than her sisters.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_Greenworm</iconPath>
 		<inheritable>true</inheritable>
 		<factionlessGenerationWeight>0</factionlessGenerationWeight>
