@@ -8,15 +8,95 @@ Source: Big and Small - Framework 1.6
 The result is B&S's four-armed humanlike with wings added, and the lower pair of
 hands moved into two groups of our own (PMM_LowerLeftHand / PMM_LowerRightHand) so
 the lower fists stay usable when the upper arms are destroyed. Everything else is
-copied verbatim, including B&S's comments and MayRequire attributes.
+copied verbatim, including B&S's own comments and their attributes.
+
+Run it as `python3 Tools/make_four_armed_winged_body.py [output.xml]`; with no
+argument it overwrites the committed def beside it, but only once the body it built
+has passed its own checks, so a rejected body never reaches the disk. The source
+folder is looked up under the usual Steam roots - every workshop copy before any
+local `Mods/` folder, so a stale local copy cannot shadow the published one - and a
+candidate also has to be the framework itself, by the packageId or the name its
+About.xml declares, so a patch pack that ships its own copy of these bodies is not
+mistaken for it. The folder read is printed, because one machine can hold several
+copies of the framework at once. Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder
+to choose one by hand; a folder named that way is taken as given.
 """
 
+import os
+import re
 import sys
 import xml.dom.minidom as md
+from pathlib import Path
 
-BS = ("/home/gapho/.steam/debian-installation/steamapps/common/RimWorld/Mods/"
-      "Big and Small - Framework/1.6/SimplyRaces/Defs/Races")
-OUT = "/home/gapho/Desktop/Project Mamono Insects/Defs/BodyDefs/Body_FourArmedWinged.xml"
+# Big and Small - Framework: workshop item 2925432336. Its About.xml has always
+# declared this legacy packageId, and it is what tells a copy of the framework from
+# anything else that ships the same folder shape.
+BS_WORKSHOP_ID = "2925432336"
+BS_PACKAGE_ID = "RedMattis.BetterPrerequisites"
+BS_NAME = "Big and Small - Framework"
+BS_RELATIVE = Path("1.6/SimplyRaces/Defs/Races")
+BS_NEEDED = ("FourArms/BodyDef_FourArms.xml", "WingedHuman/BodyDef_WingedHuman.xml")
+DEFAULT_OUT = Path(__file__).resolve().parent.parent / "Defs/BodyDefs/Body_FourArmedWinged.xml"
+
+
+def is_bs_framework(races_dir):
+    """True when this Races folder belongs to a copy of Big & Small - Framework.
+
+    Identity comes from the mod's own About.xml, three folders up, so a patch pack or
+    an unrelated mod carrying a copy of the same bodies is not used by mistake.
+    """
+    about = races_dir.parents[3] / "About/About.xml"
+    if not about.is_file():
+        return False
+    text = re.sub(r"\s+", "", about.read_text(encoding="utf-8", errors="replace"))
+    return ("<packageId>%s</packageId>" % BS_PACKAGE_ID in text
+            or "<name>%s</name>" % BS_NAME in text)
+
+
+def rejection(path, check_identity):
+    """Why this candidate cannot be read, or None when it can."""
+    missing = [name for name in BS_NEEDED if not (path / name).is_file()]
+    if missing:
+        return "no " + ", no ".join(missing)
+    if check_identity and not is_bs_framework(path):
+        return "not %s" % BS_NAME
+    return None
+
+
+def find_bs_races():
+    """The Races folder to read: the one PMM_BS_RACES names, or the first candidate
+    that holds both bodies and is the framework itself."""
+    override = os.environ.get("PMM_BS_RACES")
+    if override:
+        candidates = [Path(override).expanduser()]
+    else:
+        steamapps_dirs = (Path.home() / ".steam/steam/steamapps",
+                          Path.home() / ".steam/debian-installation/steamapps",
+                          Path.home() / ".local/share/Steam/steamapps")
+        # Two passes over the roots, so the workshop copy wins wherever it lives: a
+        # stale local copy under an earlier root must not shadow the published one
+        # under a later root.
+        candidates = [steamapps / "workshop/content/294100" / BS_WORKSHOP_ID / BS_RELATIVE
+                      for steamapps in steamapps_dirs]
+        for steamapps in steamapps_dirs:
+            candidates.extend(sorted((steamapps / "common/RimWorld/Mods").glob("*/" + str(BS_RELATIVE))))
+    rejected = []
+    for path in candidates:
+        reason = rejection(path, check_identity=not override)
+        if reason is None:
+            return path
+        rejected.append((path, reason))
+    raise SystemExit(
+        "Big and Small - Framework's bodies were not found. A usable copy holds\n"
+        "  %s\n"
+        "and is the framework itself. Rejected:\n%s\n"
+        "Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder to name one yourself, which\n"
+        "skips the identity check:\n"
+        "  PMM_BS_RACES=~/.steam/steam/steamapps/workshop/content/294100/%s/%s"
+        % (" and ".join(BS_NEEDED),
+           "\n".join("  %s  (%s)" % (path, reason) for path, reason in rejected),
+           BS_WORKSHOP_ID, BS_RELATIVE))
+
 
 HEADER = (
     "Body for the abaddon species - the queen and her soldier daughters alike:\n"
@@ -109,9 +189,62 @@ def serialize(node, depth, out):
     out.append("%s</%s>" % (pad, node.tagName))
 
 
+def document_for(body):
+    """The def's XML text: our header comment, then B&S's part tree."""
+    lines = []
+    strip_whitespace(body)
+    serialize(body, 1, lines)
+    text = ['<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n\t<!--\n']
+    for line in HEADER.splitlines():
+        text.append("\t\t%s\n" % line.strip() if line.strip() else "\n")
+    text.append("\t-->\n\n" + "\n".join(lines) + "\n\n</Defs>\n")
+    return "".join(text)
+
+
+def check_document(document, moved):
+    """Refuse a body RimWorld would not accept: every label the tools link to, and the
+    dev-mode coverage rule (`BodyDef.ConfigErrors`: no record's children at 100% or
+    more). Called before the document reaches the disk, so a rejected body cannot
+    replace a good one."""
+    check = md.parseString(document)
+    labels = [text_of(li, "customLabel") for li in check.getElementsByTagName("li")]
+    for want in ("left arm", "right arm", "left lower arm", "right lower arm",
+                 "left hand", "right hand", "left lower hand", "right lower hand",
+                 "left wing", "right wing"):
+        if want not in labels:
+            raise SystemExit("generated body is missing %s - nothing was written" % want)
+    groups = [li.firstChild.data.strip()
+              for li in check.getElementsByTagName("li")
+              if li.parentNode.tagName == "groups" and li.firstChild]
+    print("parts: %d labels, %d group entries" % (len(labels), len(groups)))
+    print("lower-hand groups moved: %d" % moved)
+    print("groups now in use:", sorted(set(groups)))
+
+    worst = 0.0
+    worst_owner = None
+    for parts in check.getElementsByTagName("parts"):
+        total = 0.0
+        for child in parts.childNodes:
+            if child.nodeType != child.ELEMENT_NODE:
+                continue
+            coverage = child.getElementsByTagName("coverage")
+            if coverage and coverage[0].firstChild:
+                total += float(coverage[0].firstChild.data)
+        if total > worst:
+            worst, worst_owner = total, parts.parentNode.getElementsByTagName("def")[0].firstChild.data
+    print("worst coverage sum: %.0f%% (%s)" % (worst * 100, worst_owner))
+    if worst >= 1.0:
+        raise SystemExit("a record's children exceed 100%% coverage - RimWorld would "
+                         "warn; nothing was written")
+
+
 def main():
-    four = md.parse("%s/FourArms/BodyDef_FourArms.xml" % BS)
-    winged = md.parse("%s/WingedHuman/BodyDef_WingedHuman.xml" % BS)
+    if len(sys.argv) > 2:
+        raise SystemExit("usage: %s [output.xml]" % Path(sys.argv[0]).name)
+    bs = find_bs_races()
+    out = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else DEFAULT_OUT
+    four = md.parse(str(bs / "FourArms/BodyDef_FourArms.xml"))
+    winged = md.parse(str(bs / "WingedHuman/BodyDef_WingedHuman.xml"))
     body = four.getElementsByTagName("BodyDef")[0]
 
     set_text(body, "defName", "PMM_Body_FourArmedWinged")
@@ -153,48 +286,14 @@ def main():
                 group.firstChild.data = rename[name]
                 moved += 1
 
-    lines = []
-    strip_whitespace(body)
-    serialize(body, 1, lines)
-    with open(OUT, "w", encoding="utf-8") as fh:
-        fh.write('<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n\t<!--\n')
-        for line in HEADER.splitlines():
-            fh.write("\t\t%s\n" % line.strip() if line.strip() else "\n")
-        fh.write("\t-->\n\n" + "\n".join(lines) + "\n\n</Defs>\n")
-
-    # Verify what we wrote.
-    check = md.parse(OUT)
-    labels = [text_of(li, "customLabel") for li in check.getElementsByTagName("li")]
-    for want in ("left arm", "right arm", "left lower arm", "right lower arm",
-                 "left hand", "right hand", "left lower hand", "right lower hand",
-                 "left wing", "right wing"):
-        if want not in labels:
-            raise SystemExit("written body is missing %s" % want)
-    groups = [li.firstChild.data.strip()
-              for li in check.getElementsByTagName("li")
-              if li.parentNode.tagName == "groups" and li.firstChild]
-    print("parts: %d labels, %d group entries" % (len(labels), len(groups)))
-    print("lower-hand groups moved: %d" % moved)
-    print("groups now in use:", sorted(set(groups)))
-
-    # The same rule RimWorld checks in dev mode (BodyDef.ConfigErrors): no record's
-    # children may total 100% coverage or more. The wings are what can cross it here,
-    # so the check guards the change above rather than trusting the arithmetic.
-    worst = 0.0
-    worst_owner = None
-    for parts in check.getElementsByTagName("parts"):
-        total = 0.0
-        for child in parts.childNodes:
-            if child.nodeType != child.ELEMENT_NODE:
-                continue
-            coverage = child.getElementsByTagName("coverage")
-            if coverage and coverage[0].firstChild:
-                total += float(coverage[0].firstChild.data)
-        if total > worst:
-            worst, worst_owner = total, parts.parentNode.getElementsByTagName("def")[0].firstChild.data
-    print("worst coverage sum: %.0f%% (%s)" % (worst * 100, worst_owner))
-    if worst >= 1.0:
-        raise SystemExit("a record's children exceed 100%% coverage - RimWorld would warn")
+    print("source: %s" % bs)
+    document = document_for(body)
+    # Checked before the file is touched. Running with no output argument replaces the
+    # committed def, and a rejected body must never land there.
+    check_document(document, moved)
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write(document)
+    print("wrote:  %s" % out)
 
 
 if __name__ == "__main__":

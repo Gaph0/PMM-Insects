@@ -985,7 +985,7 @@ The wiki gives her two pairs of arms. Built, in three layers:
 | Layer | Def |
 |---|---|
 | Body | `PMM_Body_FourArmedWinged` (`Defs/BodyDefs/Body_FourArmedWinged.xml`): B&S's four-armed humanlike with their two `BS_Wing` parts added, so she has four arms *and* keeps her wings. **Shared with the abaddon queen** since 2026-09-26 - one body def, both species |
-| Groups | `PMM_LowerLeftHand` / `PMM_LowerRightHand` (`Defs/BodyPartGroupDefs/BodyPartGroups_AbaddonFolk.xml`) |
+| Groups | `PMM_LowerLeftHand` / `PMM_LowerRightHand` (`Defs/BodyPartGroupDefs/BodyPartGroups_LowerHands.xml`) |
 | Tools | two more fist attacks, `lower left fist` / `lower right fist`, linked to those groups |
 
 **Why the body is a generated copy.** B&S ships `BS_FourArmedHuman` and
@@ -995,7 +995,9 @@ cannot merge them (the same trap that forced our trackers to be split, see the
 header of `Races_InsectMamono_BS.xml`). `Tools/make_four_armed_winged_body.py` therefore
 copies their part tree and inserts the wings, and the result is committed as plain
 XML. Re-run it if B&S ever changes their bodies; the copy will not follow on its
-own.
+own. The script finds the framework's own folder under Steam (the workshop copy
+first, then local `Mods/` folders) and prints which copy it read; set `PMM_BS_RACES`
+to choose one by hand.
 
 **Why the lower hands got groups of their own.** Big & Small leaves both pairs in
 vanilla's `LeftHand` / `RightHand`, and vanilla decides whether a melee tool works
