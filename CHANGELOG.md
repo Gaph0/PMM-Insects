@@ -140,6 +140,9 @@
 
 ## Internal
 
+- 2026-10-01: Changed the four-armed body tool to find Big & Small on its own, instead of one hard-coded folder that need not exist.
+- 2026-10-01: Changed the lower-fist body part groups to sort beside vanilla's hand groups.
+
 - 2026-10-01: Changed the abaddon folk's lower-arms render node from layer 2 to 93 (north still -1) so the arms draw above Big & Small's wing nodes, which put their front faces at 92. Anything above the wings is above clothing too; the two cannot be separated without copying B&S's winged tracker.
 - 2026-10-01: Added our own copy of Big & Small's two spider graphic sets and its spider tracker, drawing the lower body in skin colour instead of hair, and pointed the three spider castes' raceHediffList at it. B&S's own defs are untouched; the copy drops the abdomen colour tag and the taur alts, which could never fire here.
 - 2026-09-30: Changed the chitin tones into per-caste body colours: 33 colour genes listed on each caste's xenotype, and the roll now draws from her own list. A save made before this loses the removed tone once per mamono and is handed a colour from her caste's palette on load.

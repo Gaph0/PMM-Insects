@@ -8,15 +8,50 @@ Source: Big and Small - Framework 1.6
 The result is B&S's four-armed humanlike with wings added, and the lower pair of
 hands moved into two groups of our own (PMM_LowerLeftHand / PMM_LowerRightHand) so
 the lower fists stay usable when the upper arms are destroyed. Everything else is
-copied verbatim, including B&S's comments and MayRequire attributes.
+copied verbatim, including B&S's own comments and their attributes.
+
+Run it as `python3 Tools/make_four_armed_winged_body.py [output.xml]`; with no
+argument it overwrites the committed def beside it. The source folder is looked up
+under the usual Steam locations (the workshop copy first, then local Mods folders)
+and printed, because one machine can hold several copies of the framework at once.
+Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder to choose one by hand.
 """
 
+import os
 import sys
 import xml.dom.minidom as md
+from pathlib import Path
 
-BS = ("/home/gapho/.steam/debian-installation/steamapps/common/RimWorld/Mods/"
-      "Big and Small - Framework/1.6/SimplyRaces/Defs/Races")
-OUT = "/home/gapho/Desktop/Project Mamono Insects/Defs/BodyDefs/Body_FourArmedWinged.xml"
+# Big and Small - Framework: workshop item 2925432336.
+BS_WORKSHOP_ID = "2925432336"
+BS_RELATIVE = Path("1.6/SimplyRaces/Defs/Races")
+BS_NEEDED = ("FourArms/BodyDef_FourArms.xml", "WingedHuman/BodyDef_WingedHuman.xml")
+DEFAULT_OUT = Path(__file__).resolve().parent.parent / "Defs/BodyDefs/Body_FourArmedWinged.xml"
+
+
+def find_bs_races():
+    """B&S's Races folder to read: the one PMM_BS_RACES names, or the first found."""
+    override = os.environ.get("PMM_BS_RACES")
+    if override:
+        candidates = [Path(override).expanduser()]
+    else:
+        candidates = []
+        for steamapps in (Path.home() / ".steam/steam/steamapps",
+                          Path.home() / ".steam/debian-installation/steamapps",
+                          Path.home() / ".local/share/Steam/steamapps"):
+            candidates.append(steamapps / "workshop/content/294100" / BS_WORKSHOP_ID / BS_RELATIVE)
+            candidates.extend(sorted((steamapps / "common/RimWorld/Mods").glob("*/" + str(BS_RELATIVE))))
+    tried = []
+    for path in candidates:
+        if all((path / name).is_file() for name in BS_NEEDED):
+            return path
+        tried.append(path)
+    raise SystemExit(
+        "Big and Small - Framework's bodies were not found. Looked for %s in:\n  %s\n"
+        "Set PMM_BS_RACES to the SimplyRaces/Defs/Races folder of the copy you want:\n"
+        "  PMM_BS_RACES=~/.steam/steam/steamapps/workshop/content/294100/%s/%s"
+        % (BS_NEEDED[0], "\n  ".join(str(path) for path in tried), BS_WORKSHOP_ID, BS_RELATIVE))
+
 
 HEADER = (
     "Body for the abaddon species - the queen and her soldier daughters alike:\n"
@@ -110,8 +145,12 @@ def serialize(node, depth, out):
 
 
 def main():
-    four = md.parse("%s/FourArms/BodyDef_FourArms.xml" % BS)
-    winged = md.parse("%s/WingedHuman/BodyDef_WingedHuman.xml" % BS)
+    if len(sys.argv) > 2:
+        raise SystemExit("usage: %s [output.xml]" % Path(sys.argv[0]).name)
+    bs = find_bs_races()
+    out = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else DEFAULT_OUT
+    four = md.parse(str(bs / "FourArms/BodyDef_FourArms.xml"))
+    winged = md.parse(str(bs / "WingedHuman/BodyDef_WingedHuman.xml"))
     body = four.getElementsByTagName("BodyDef")[0]
 
     set_text(body, "defName", "PMM_Body_FourArmedWinged")
@@ -156,14 +195,16 @@ def main():
     lines = []
     strip_whitespace(body)
     serialize(body, 1, lines)
-    with open(OUT, "w", encoding="utf-8") as fh:
+    with open(out, "w", encoding="utf-8") as fh:
         fh.write('<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n\t<!--\n')
         for line in HEADER.splitlines():
             fh.write("\t\t%s\n" % line.strip() if line.strip() else "\n")
         fh.write("\t-->\n\n" + "\n".join(lines) + "\n\n</Defs>\n")
+    print("source: %s" % bs)
+    print("wrote:  %s" % out)
 
     # Verify what we wrote.
-    check = md.parse(OUT)
+    check = md.parse(str(out))
     labels = [text_of(li, "customLabel") for li in check.getElementsByTagName("li")]
     for want in ("left arm", "right arm", "left lower arm", "right lower arm",
                  "left hand", "right hand", "left lower hand", "right lower hand",

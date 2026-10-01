@@ -17,19 +17,24 @@
 		vanilla, and PMM_Body_FourArmedWinged is the only body that uses them. The queen
 		has no lower fists linked here (her second pair is structural, by the user's
 		call), so for her the groups are only about where a lower hand can be hit.
+
+		listOrder keeps the pair beside vanilla's hand groups (RightHand 78, LeftHand
+		79, Hands 80). Its one reader sorts a pawn's apparel in the gear tab by the
+		group the apparel covers, and no apparel covers a lower fist, so nothing reads
+		these two numbers today.
 	-->
 	<BodyPartGroupDef>
 		<defName>PMM_LowerLeftHand</defName>
 		<label>lower left fist</label>
 		<labelShort>lower fist</labelShort>
-		<listOrder>77</listOrder>
+		<listOrder>82</listOrder>
 	</BodyPartGroupDef>
 
 	<BodyPartGroupDef>
 		<defName>PMM_LowerRightHand</defName>
 		<label>lower right fist</label>
 		<labelShort>lower fist</labelShort>
-		<listOrder>76</listOrder>
+		<listOrder>81</listOrder>
 	</BodyPartGroupDef>
 
 </Defs>
