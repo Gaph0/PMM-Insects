@@ -48,9 +48,12 @@ namespace PMM_Insects
                 // Giant Ant (1.7), Soldier Beetle (2.5), Abaddon (9.8) and Abaddon
                 // Folk (1.0) need no help: B&S scales big races' health itself, and
                 // those bases already meet or exceed human norms.
-                // Vamp Mosquito (0.7) and Beelzebub (0.7) are left alone on purpose.
-                // Both are meant to be fragile - the swarm's fliers, not its brawlers
-                // (user's word, 2026-10-01: "both are meant to be fragile").
+                // Vamp Mosquito (0.7) and Beelzebub (0.7) are left alone on purpose. Both are meant
+                // to be fragile - the swarm's fliers, not its brawlers (user's word, 2026-10-01:
+                // "both are meant to be fragile"). Named rather than merely absent, so the default
+                // arm below cannot read them as an omission.
+                "PMM_Race_VampMosquito" => 1f,
+                "PMM_Race_Beelzebub" => 1f,
                 // Girtablilu: 0.44 base x 2.5 = 1.1 effective. A plated scorpion
                 // body sits a tenth above a human's where the arachne sits on one.
                 "PMM_Race_Girtablilu" => 2.5f,
@@ -66,13 +69,33 @@ namespace PMM_Insects
                 // Papillon: 0.4 base x 1.25 = 0.5 effective, the frailest caste in the mod
                 // (CASTES-PLAN.md 0 decision 10). Her limbs are meant to be a liability.
                 "PMM_Race_Papillon" => 1.25f,
-                _ => 1f,
+                // Hornet: 0.4 base x 2.0 = 0.8 effective, the mothman's frame. She is a
+                // fighter, but her venom is what makes her dangerous, not her shell.
+                "PMM_Race_Hornet" => 2.0f,
+                _ => WarnIfUnscaled(__instance.def),
             };
 
             if (factor != 1f)
             {
                 __result *= factor;
             }
+        }
+
+        /// <summary>
+        /// The default arm, and the only place this patch looks at anything but a name: a race of ours
+        /// with a base scale under a human's is either handled above or is the next omission - exactly
+        /// the failure this patch was written for (the arachne sat at 0.4 while her own def claimed
+        /// otherwise). Once per race, so a shipped mod says it in the log rather than never.
+        /// </summary>
+        private static float WarnIfUnscaled(ThingDef def)
+        {
+            if (def.defName.StartsWith("PMM_Race_") && def.race != null && def.race.baseHealthScale < 1f)
+            {
+                Log.WarningOnce($"[PMM Insects] {def.defName} has baseHealthScale "
+                    + $"{def.race.baseHealthScale} and no line in HealthScalePatch; her body parts "
+                    + "stay that thin.", def.shortHash);
+            }
+            return 1f;
         }
     }
 }

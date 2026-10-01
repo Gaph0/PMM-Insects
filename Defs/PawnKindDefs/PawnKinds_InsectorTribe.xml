@@ -369,4 +369,23 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectPapillon>100</PMM_InsectPapillon></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
+	<!-- The hornet (2026-10-01, CASTES-PLAN.md phase 3): the hive's fighter, and its only flier.
+	     Combat power 110, between the giant ant's 75 and the soldier beetle's 150. No forced
+	     traits: her temper is a gene (VRE_InsectVolatile) and her grudge is a gene. No caravan
+	     kind either - she is not the sort of woman a hive sends to talk. -->
+	<PawnKindDef ParentName="PMM_InsectKindBase">
+		<defName>PMM_InsectHornet</defName>
+		<label>hornet</label>
+		<race>PMM_Race_Hornet</race>
+		<combatPower>110</combatPower>
+		<backstoryFilters>
+			<li>
+				<categories>
+					<li>PMM_HornetSpawn</li>
+				</categories>
+			</li>
+		</backstoryFilters>
+		<xenotypeSet><xenotypeChances><PMM_InsectHornet>100</PMM_InsectHornet></xenotypeChances></xenotypeSet>
+	</PawnKindDef>
+
 </Defs>

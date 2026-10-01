@@ -97,12 +97,13 @@ touches the same list:
 | 8 | `Textures/UI/Icons/Xenotypes/<Name>.png` | hand art at 64x64, the size the shipped castes' icons use (decided 2026-10-01) |
 | 9 | `CHANGELOG.md`, `HANDOFF.md` | one line each, in this project's formats |
 
-**The rosters today.** The hive fields no flier at all - its Combat group says so in its own comment
-("The hive keeps no flier, so there is one Combat group here and not the swarm's two"), and its
-`xenotypeSet` is devil bug 0.28, giant ant 0.28, soldier beetle 0.20, ant arachne 0.12, honey bee
-0.12. The swarm carries the arachne, the beelzebub, the girtablilu, the queen and the vamp mosquito,
-and its Combat groups do include a flier. **A hornet in the hive changes a standing decision**, so it
-is question 2 below.
+**The rosters today.** The hive's `xenotypeSet` was devil bug 0.28, giant ant 0.28, soldier beetle 0.20,
+ant arachne 0.12, honey bee 0.12; the swarm carries the arachne, the beelzebub, the girtablilu, the
+queen and the vamp mosquito. The hive's list now holds the mothman, the papillon and the hornet at 0.03
+each, taken off the devil bug and the giant ant, and the hornet gave the hive a second `Combat` group.
+It used to say "the hive keeps no flier", which was never a decision - just a note about the roster as
+it stood (user, 2026-10-01: "that 'hive keeps no flier' is bunk, remove it, it is not design
+intention").
 
 **Two rules that bite.** Genelines cannot be put on NPC pawns (`HANDOFF.md` §6.1) - individual genes
 can, which is how every existing caste works. And a `[DefOf]` field whose def is missing is a load
@@ -234,8 +235,8 @@ can still change cheaply.
 | Phase | Work | Gate before moving on |
 |---|---|---|
 | 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. Left to check in game: give the genes to pawns in the dev gene editor, then look for "quarrelsome kin -50" between two carriers and "giddy in the light" in a lamp-lit room |
-| 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | boot with zero red errors, spawn each in dev mode, check her graphics, her gene page and her place in a hive |
-| 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
+| 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn |
+| 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
 | 4 | Mantis: wiring plus swarm rosters | boot clean; she appears in a swarm raid, cannot speak, and her KillThirst fires |
 | 5 | Soldier beetle second pass | boot clean; the roll lands one of the three weapons; her opinion of her sisters reads -50 |
 | 6 | Docs: one `HANDOFF.md` section per caste change, one changelog line each | `changelog-check.sh` passes |
