@@ -141,7 +141,6 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
   file. Change `defaultFactionDef` from `Insect` to the new faction. Drop the
   `ecoSystemWeight` lines: they only count for factionless pawns, so they do
   nothing here. Rename the file to `PawnKinds_InsectorTribe.xml` if you like.
-  Keep `combatPower` at the vanilla bug's value.
 ### Add
 
 Landed already:
@@ -555,8 +554,7 @@ Layer 3 is what makes a caste feel different, because raid points buy pawns at
 These numbers come from `PLAN.md` §3, with one change: four castes now start
 full-grown so that `VRE_Microsized` shrinks them from there rather than shrinking
 them twice over - the Devil Bug (0.2 -> 0.6 -> 1.0), the mosquito, the Giant Ant and
-the Greenworm (0.8 and 0.6 -> 1.0), all on 2026-09-27. Keep `combatPower` at
-the vanilla bug's value: infestation and raid point budgets were tuned for it.
+the Greenworm (0.8 and 0.6 -> 1.0), all on 2026-09-27.
 
 ### 5.3 The VRE gene package per caste (write-up for review, 2026-09-20)
 
@@ -2014,18 +2012,7 @@ Worth asking later, not now:
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
    body part, no gut and no art of ours were needed. The folk still has none, and the
    spider stays the reference if she ever gets one.
-11. **Five of the newest castes have no backstories (2026-09-27).** The arachne,
-    the beelzebub, the girtablilu, the ant arachne and the honey bee are the only
-    concrete kinds in `PawnKinds_InsectorTribe.xml` without `<backstoryFilters>`, so
-    pawn generation logs "no backstoryCategories in either" for them and rolls them
-    a random vanilla backstory - a hive assassin with a childhood on a glitterworld.
-    Every older caste names its own `PMM_<Species>Spawn` category, defined in
-    `Backstories_Insect.xml` as one child and one adult story. The fix is one
-    category pair per species plus one `<backstoryFilters>` block on the kind; it was
-    left out of the beelzebub's, the girtablilu's and the ant arachne's passes
-    because the arachne set the precedent, and five castes are one job rather than
-    five. The honey bee was built after that precedent was set, so she follows it.
-12. **Should the abaddon be able to lay a honey bee?** Her brood list (§5.11) was not
+11. **Should the abaddon be able to lay a honey bee?** Her brood list (§5.11) was not
     touched by the honey pass (2026-09-27), so the bee is not among the castes the
     queen can choose. One entry in that list if she should be - no code change.
 
