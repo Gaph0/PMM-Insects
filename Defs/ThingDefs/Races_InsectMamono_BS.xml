@@ -8,8 +8,8 @@
 		1. A ThingDef on ParentName="Human" carrying BigAndSmall.RaceExtension ->
 		   its race-tracker hediff. Stats that must live race-level (baseBodySize,
 		   baseHealthScale, baseHungerRate, insect flesh/blood/meat, melee tools)
-		   stay on the ThingDef, overlaid 1:1 from the bug it replaces - same as
-		   the old BasePawn clones.
+		   stay on the ThingDef, carrying the numbers of the bug that species is
+		   modelled on.
 		2. A race-tracker HediffDef (ParentName="BS_DefaultRaceTracker") holding
 		   the pawn-level statBases as a stat stage, plus the RaceExtension for
 		   B&S race handling (romance tags, size scaling).
@@ -23,9 +23,11 @@
 		find parent node named BS_HumanoidWithWings_Race" and the tracker loads with
 		no art and no comps. One row would mean our tracker declaring its own copy of
 		the wing render nodes (referencing B&S's GraphicSetDefs by name); that waits on
-		a decision. Never declare <comps> on a tracker whose parent is B&S's own
-		tracker either: child list nodes merge into the parent's, so the pawn ends up
-		with two race comps.
+		a decision. Never ADD <comps> to a tracker whose parent already declares its own
+		- B&S's spider and winged trackers do: child list nodes merge into the parent's,
+		so the pawn ends up with two race comps. The bare `BS_DefaultRaceTracker` carries
+		them commented out, so a tracker built on it - all twelve of ours - must declare
+		one, and does.
 
 		What Route A buys over the old BasePawn clones:
 		- B&S's scaler reads baseBodySize and renders bug girls at their real size
@@ -44,8 +46,8 @@
 		sits far below HumanlikeAdult's minAge of 18, so PawnGenerator's age curve
 		could not roll a valid adult age -> "Tried 300 times to generate age".
 		Mamono are functionally ageless anyway (core's Mamono gene stops fertility
-		decline and old-age ailments). This is the ONE stat not copied 1:1 from
-		the bugs - not even the queen's 75. Re-adding it breaks age generation.
+		decline and old-age ailments). This is the one stat not taken from the bugs'
+		numbers - not even the queen's 75. Re-adding it breaks age generation.
 	-->
 
 	<!-- ===================== Devil Bug (from the Megascarab, Core) ===================== -->
@@ -117,10 +119,10 @@
 			</li>
 		</tools>
 		<race>
-			<!-- Race-level insect identity, copied 1:1 from the old BasePawn clone:
-			     insect flesh and ichor, bug meat when butchered, and the bug's size
-			     package. B&S reads baseBodySize for render scaling; large races get
-			     renderCacheOff automatically in the scaler.
+			<!-- Race-level insect identity: insect flesh and ichor, bug meat when
+			     butchered, and the bug's size package. B&S reads baseBodySize for
+			     render scaling; large races get renderCacheOff automatically in the
+			     scaler.
 			     baseBodySize raised 0.2 -> 0.6 on 2026-09-19 (0.2 was the megascarab's
 			     literal size and rendered her doll-small) and 0.6 -> 1.0 on 2026-09-27,
 			     so she is a full-grown woman before VRE_Microsized takes its flat 0.45.
@@ -1523,7 +1525,7 @@
 			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>1.0</baseBodySize>
 			<!-- 0.36 x HealthScalePatch's 2.5 = 0.9: a worker's frame, a tenth under
-			     a human, in a body her size. The patch needs an entry for her. -->
+			     a human, in a body her size. -->
 			<baseHealthScale>0.36</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
@@ -1607,10 +1609,10 @@
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<!-- Her sisters' standard worker set, and deliberately no sting: her genes are
-		     the user's list and nothing here adds a weapon of its own. There is no bee
-		     in vanilla or in VFEI2 to overlay 1:1, so these are the devil bug's numbers
-		     rather than a copied bug's - the one caste in the family whose numbers are
-		     chosen by comparison instead. -->
+		     the user's list and nothing here adds a weapon of its own. She has no bug of
+		     her own to be modelled on - there is no bee in vanilla or in VFEI2 - so
+		     these are the devil bug's numbers rather than a bug's own: the one caste in
+		     the family whose numbers are chosen by comparison instead. -->
 		<tools>
 			<li>
 				<label>left fist</label>

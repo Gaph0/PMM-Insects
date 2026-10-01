@@ -64,13 +64,13 @@ namespace PMM_Insects
     public class CompProperties_EggSacBrood : CompProperties_SpawnPawnOnDestroyed
     {
         /// <summary>
-        /// How old the hatched mamono is, in biological years. A def field rather than a constant
-        /// because it is the one number here worth trying: 3 is the agreed value (a child who
-        /// walks and works), 0 makes her a newborn and is what the user asked for on 2026-09-26
-        /// while testing the hatch itself. Vanilla has no such field - it hardcodes 0 - which is
-        /// half the reason this comp exists at all.
+        /// How old the hatched mamono is, in biological years, and 0 is the answer the mod settled
+        /// on: the abaddon raises her brood from 0, so a daughter comes out of the sac a newborn
+        /// (user's ruling 2026-10-01). A def field rather than a constant because it is the one
+        /// number here worth trying - it read 3, a child who walks and works, for a while. Vanilla
+        /// has no such field at all, which is half the reason this comp exists.
         /// </summary>
-        public float biologicalAge = 3f;
+        public float biologicalAge = 0f;
 
         public CompProperties_EggSacBrood()
         {
@@ -136,8 +136,8 @@ namespace PMM_Insects
             AddFatherRelation(pawn);
             OfferName(pawn, mother);
             // Then nothing. No PawnFlyer_Stun hop and no lord: LordJob_WanderNest is written for
-            // insects wandering a hive, and a three year old mamono thrown five cells would only
-            // look like a bug. She simply stands up where the sac was. The wake-up call to
+            // insects wandering a hive, and a newborn mamono thrown five cells would only look
+            // like a bug. She simply stands up where the sac was. The wake-up call to
             // CompCanBeDormant is skipped with them - that is an insect comp she does not have.
         }
         /// <summary>

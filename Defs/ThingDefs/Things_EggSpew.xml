@@ -94,9 +94,10 @@
 			<li Class="PMM_Insects.CompProperties_EggSacBrood">
 				<pawnKind>VFEI2_Swarmling</pawnKind>
 				<lordJob>LordJob_WanderNest</lordJob>
-				<!-- How old a hatched mamono is. 0 = a newborn, and that is the ruling rather than a
-				     test value: the user confirmed on 2026-09-27 that egg sacs are fine hatching
-				     newborns. Nothing else in the hatch depends on it. -->
+				<!-- How old a hatched mamono is. 0 = a newborn, and that is the ruling rather
+				     than a test value: the abaddon raises her brood from 0 (user's ruling
+				     2026-10-01), and it is the C# default as well now, so a sac that lost this
+				     line would still hatch a newborn. -->
 				<biologicalAge>0</biologicalAge>
 			</li>
 			<li Class="CompProperties_SpawnEffecterOnDestroy">
