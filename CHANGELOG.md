@@ -153,7 +153,7 @@
 
 - 2026-10-01: Added the arachne to the health-scale patch, which her own race def already claimed was handling her.
 - 2026-10-01: Added a line to the health-scale patch saying the beelzebub's and the vamp mosquito's low health is deliberate, and rewrote the race file's remaining replacement-era comments.
-- 2026-10-01: Changed the hatched mamono's age to 0 in code as well as in the def, now that the abaddon raises her brood from newborn.
+- 2026-10-01: Aligned the hatched mamono's C# default age with the def's existing age of 0, so a sac without an explicit age still hatches a newborn.
 - 2026-10-01: Added a childhood and an adult history to the five castes that had none, so no insector mamono is handed a random one from another walk of life.
 - 2026-10-01: Removed the old claim that the castes' combat power matches the vanilla insects', and the replacement-era wording in the race defs that went with it.
 - 2026-10-01: Removed the two placeholder-art generators, now that every icon is hand art or a final placeholder. The four-armed body tool stays: it is the only way to re-derive that body def from Big & Small, and the check that shows the def has not drifted.
