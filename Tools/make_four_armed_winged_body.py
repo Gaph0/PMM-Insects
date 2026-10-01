@@ -14,25 +14,58 @@ Run it as `python3 Tools/make_four_armed_winged_body.py [output.xml]`; with no
 argument it overwrites the committed def beside it, but only once the body it built
 has passed its own checks, so a rejected body never reaches the disk. The source
 folder is looked up under the usual Steam roots - every workshop copy before any
-local `Mods/` folder, so a stale local copy cannot shadow the published one - and
-printed, because one machine can hold several copies of the framework at once. Set
-PMM_BS_RACES to a SimplyRaces/Defs/Races folder to choose one by hand.
+local `Mods/` folder, so a stale local copy cannot shadow the published one - and a
+candidate also has to be the framework itself, by the packageId or the name its
+About.xml declares, so a patch pack that ships its own copy of these bodies is not
+mistaken for it. The folder read is printed, because one machine can hold several
+copies of the framework at once. Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder
+to choose one by hand; a folder named that way is taken as given.
 """
 
 import os
+import re
 import sys
 import xml.dom.minidom as md
 from pathlib import Path
 
-# Big and Small - Framework: workshop item 2925432336.
+# Big and Small - Framework: workshop item 2925432336. Its About.xml has always
+# declared this legacy packageId, and it is what tells a copy of the framework from
+# anything else that ships the same folder shape.
 BS_WORKSHOP_ID = "2925432336"
+BS_PACKAGE_ID = "RedMattis.BetterPrerequisites"
+BS_NAME = "Big and Small - Framework"
 BS_RELATIVE = Path("1.6/SimplyRaces/Defs/Races")
 BS_NEEDED = ("FourArms/BodyDef_FourArms.xml", "WingedHuman/BodyDef_WingedHuman.xml")
 DEFAULT_OUT = Path(__file__).resolve().parent.parent / "Defs/BodyDefs/Body_FourArmedWinged.xml"
 
 
+def is_bs_framework(races_dir):
+    """True when this Races folder belongs to a copy of Big & Small - Framework.
+
+    Identity comes from the mod's own About.xml, three folders up, so a patch pack or
+    an unrelated mod carrying a copy of the same bodies is not used by mistake.
+    """
+    about = races_dir.parents[3] / "About/About.xml"
+    if not about.is_file():
+        return False
+    text = re.sub(r"\s+", "", about.read_text(encoding="utf-8", errors="replace"))
+    return ("<packageId>%s</packageId>" % BS_PACKAGE_ID in text
+            or "<name>%s</name>" % BS_NAME in text)
+
+
+def rejection(path, check_identity):
+    """Why this candidate cannot be read, or None when it can."""
+    missing = [name for name in BS_NEEDED if not (path / name).is_file()]
+    if missing:
+        return "no " + ", no ".join(missing)
+    if check_identity and not is_bs_framework(path):
+        return "not %s" % BS_NAME
+    return None
+
+
 def find_bs_races():
-    """B&S's Races folder to read: the one PMM_BS_RACES names, or the first found."""
+    """The Races folder to read: the one PMM_BS_RACES names, or the first candidate
+    that holds both bodies and is the framework itself."""
     override = os.environ.get("PMM_BS_RACES")
     if override:
         candidates = [Path(override).expanduser()]
@@ -47,16 +80,22 @@ def find_bs_races():
                       for steamapps in steamapps_dirs]
         for steamapps in steamapps_dirs:
             candidates.extend(sorted((steamapps / "common/RimWorld/Mods").glob("*/" + str(BS_RELATIVE))))
-    tried = []
+    rejected = []
     for path in candidates:
-        if all((path / name).is_file() for name in BS_NEEDED):
+        reason = rejection(path, check_identity=not override)
+        if reason is None:
             return path
-        tried.append(path)
+        rejected.append((path, reason))
     raise SystemExit(
-        "Big and Small - Framework's bodies were not found. Looked for %s in:\n  %s\n"
-        "Set PMM_BS_RACES to the SimplyRaces/Defs/Races folder of the copy you want:\n"
+        "Big and Small - Framework's bodies were not found. A usable copy holds\n"
+        "  %s\n"
+        "and is the framework itself. Rejected:\n%s\n"
+        "Set PMM_BS_RACES to a SimplyRaces/Defs/Races folder to name one yourself, which\n"
+        "skips the identity check:\n"
         "  PMM_BS_RACES=~/.steam/steam/steamapps/workshop/content/294100/%s/%s"
-        % (BS_NEEDED[0], "\n  ".join(str(path) for path in tried), BS_WORKSHOP_ID, BS_RELATIVE))
+        % (" and ".join(BS_NEEDED),
+           "\n".join("  %s  (%s)" % (path, reason) for path, reason in rejected),
+           BS_WORKSHOP_ID, BS_RELATIVE))
 
 
 HEADER = (
