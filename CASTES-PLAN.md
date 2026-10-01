@@ -222,7 +222,7 @@ she loses six genes she carries today:
 Her weapon also changes owner, decided 2026-09-30: her race's tool list is **emptied** and one of the
 three VRE weapon genes becomes her weapon, which is the girtablilu's shape (that race has **no** melee
 tools at all). Her damage then follows VRE's tuning rather than the megaspider's exact numbers, so
-`PLAN.md` §3's "exact DPS parity" stops describing her.
+`archive/PLAN.md` §3's "exact DPS parity" stops describing her.
 
 ---
 
@@ -272,3 +272,53 @@ What is left is work, not questions: phase 1 of §4 - the two new genes - and th
 
 The risk sits almost entirely in phase 1. Phases 2 to 5 are the work the honey bee's pass already
 proved: def wiring, rosters, and an in-game check.
+
+---
+
+## 7. Papillon maturation (moved here from `archive/PLAN.md`, 2026-10-01)
+
+The greenworm is the larval form: with enough mana she pupates into a papillon. The lore is already
+in the mod - `Defs/BackstoryDefs/Backstories_Insect.xml` says a greenworm matures into a papillon -
+and the machinery to do it already exists. **Nothing in this section is built**, and it is not one of
+the phases above: it depends on phase 2, which is what gives it a papillon (`PMM_InsectPapillon`) to
+turn into.
+
+**The swap is already built and never used.** `MamonoTransformation.ConvertXenotype` in core is the
+mamono-to-mamono path, written for exactly this case: it strips the old xenotype's signature endogenes,
+adds the new set, swaps the B&S race (`ApplyXenotypeRace`), refreshes an unborn baby's pregnancy
+snapshot and dirties the graphics. Nothing calls it yet, which is why step 0 below is a test and not a
+formality.
+
+**Locked decisions (user, 2026-09-27)**
+
+1. One way. A papillon never goes back to a greenworm.
+2. Mana is the fuel, and spent mana becomes charges. The comp watches the mana bar and counts every
+   *fall* as mana spent; refills never subtract. That one rule covers both spenders - her passive
+   drain, and giving essence away - and it also means a nest keeps her a grub:
+   `CompHiveNourishment` tops her up at 1.5 bars a day, so charges do not accrue while she sits in a
+   hive.
+3. Colony greenworms only. Off-map village pawns never tick, so they are already safe, and spawned
+   raiders are too: the greenworm is listed under `Peaceful` alone and in no raid group (verified
+   2026-09-27 - the `Combat` groups list the devil bug, the giant ant, the soldier beetle and the
+   mosquito, never her).
+4. A cocoon, 15 days, reusing the abaddon egg sac's own art (`Things/Building/PMM_EggSac`). A hediff
+   cannot render on its own, so the cocoon is a building spawned on her tile - the sac def is
+   `PassThroughOnly`, so she can share the tile - with an immobility hediff holding her still for the
+   duration.
+5. The papillon's own genes, abilities and size are hers now (phase 2); what is left deferred is any
+   ability the maturation itself needs. The comp reads its target xenotype as a defName from XML and
+   looks it up with `GetNamedSilentFail`, so it ships dormant and harmless.
+
+**Steps**
+
+0. Prove `ConvertXenotype` on a dev-spawned greenworm: race, genes, graphics and corpse category must
+   all follow. If it misbehaves, the plan changes here.
+1. `Source/Insects/PapillonMaturation.cs`: `CompProperties_PapillonMaturation` (`chargesNeeded`,
+   `manaPerCharge`, `cocoonDays`, `requireColonist`, `targetXenotype`) on the greenworm race. The
+   charge accumulator is scribed, so a reload cannot lose progress. One `PMMLog.Message` line in dev
+   mode.
+2. The cocoon: a `PMM_Cocoon` ThingDef (sac texPath, its own comp), the immobility hediff, and the
+   hatch on expiry. Open question: what a killed cocoon means - losing her, or hatching early.
+3. The papillon herself: `CASTES-PLAN.md` phase 2 builds her.
+4. Paperwork: a `HANDOFF.md` section, changelog lines, and the backstory note that still says the
+   in-game mamono keeps the worm body.

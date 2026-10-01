@@ -1,8 +1,8 @@
 # New-gene feasibility study
 
-Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **Nothing here is built.** This is the
-review copy: every gene the mockups name, resolved to a real def or marked new, and the new ones
-worked out against the 1.6 assembly.
+Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **The two new genes at §4 and §5 are built
+(2026-09-30); the castes that carry them are not.** This file resolves every gene the mockups name to
+a real def or marks it new, and works the new ones out against the 1.6 assembly.
 
 The plan that uses this study is `CASTES-PLAN.md`.
 
@@ -298,7 +298,7 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 1. **Settled 2026-09-30, and confirmed: her race tool list is emptied and the gene owns the weapon.**
    The girtablilu is the precedent - that race def carries **zero** melee tools and
    `VRE_ChargerClaws` is its weapon. Expect a balance change: the beetle's damage then follows VRE's
-   tuning rather than the megaspider's exact numbers, so `PLAN.md` §3's "exact DPS parity" stops
+   tuning rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
    describing her.
 2. **The three genes exclude things.** `VRE_MegaspiderHorns` excludes the `Headbone` cosmetic tag,
    and the others have their own lists. Adding exactly one is fine; adding two is not. The roll must
@@ -334,8 +334,6 @@ body colours, so the postfix is a second entry in one existing patch).
    The family's convention is one PNG per gene in `Textures/UI/Icons/Genes/`, hand-drawn.
 
 ---
-
-## 8. What I need from you
 
 ## 8. What is settled, and what is left
 

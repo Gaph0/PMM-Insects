@@ -13,6 +13,10 @@ they replace. Named after their MGE counterparts (`MGEWiki/Insects/`).
 > above, the stat table in §3 and §7 on the Big & Small conversion. §2 (the swap),
 > §5 (the wild layer) and §6 (their risk list) were deleted on 2026-09-24.
 
+**Archived 2026-10-01.** Every live part of this file has moved on: the papillon maturation is
+`CASTES-PLAN.md` §7, and the castes it describes are in `HANDOFF.md`. Nothing here is pending work -
+the species and stat tables and the Big & Small conversion notes are kept as the design reference.
+
 | RimWorld insect | MGE mamono      | Source DLC        |
 |-----------------|---------------|-------------------|
 | Megascarab      | Devil Bug     | Core              |

@@ -19,10 +19,11 @@ deleting the hive bond rule and its vanish rather than repointing them (§8), an
 phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
 art and tuning in §11.
 
-`PLAN.md` holds the old design: a total spawn swap, plus tameable wild mamonos.
-Where the two files disagree, this one wins. `PLAN.md` §2 (the swap), §5 (the
-wild-man recipe) and §6 (their risk list) were deleted on 2026-09-24; what is left
-there is the design reference.
+`archive/PLAN.md` holds the old design: a total spawn swap, plus tameable wild
+mamonos. It was archived on 2026-10-01, once the mod had shipped as two tribes and its
+one live section - the papillon maturation - moved into `CASTES-PLAN.md` §7. Where the
+two files disagree, this one wins. What is left there is the design reference, with §2
+(the swap), §5 (the wild-man recipe) and §6 (their risk list) deleted on 2026-09-24.
 
 ---
 
@@ -549,7 +550,7 @@ Layer 3 is what makes a caste feel different, because raid points buy pawns at
 | Vamp Mosquito | Locust | 55 | 0.7 | 0.6 | Fast flyer. Ranged slot only if she has an ability. |
 | Abaddon | Hive Queen | 500 | 9.8 | 4.5 | The queen. `Settlement` and `leaders`. The reason to raid a village. |
 
-These numbers come from `PLAN.md` §3, with one change: four castes now start
+These numbers come from `archive/PLAN.md` §3, with one change: four castes now start
 full-grown so that `VRE_Microsized` shrinks them from there rather than shrinking
 them twice over - the Devil Bug (0.2 -> 0.6 -> 1.0), the mosquito, the Giant Ant and
 the Greenworm (0.8 and 0.6 -> 1.0), all on 2026-09-27.
