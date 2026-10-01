@@ -80,6 +80,11 @@ namespace PMM_Insects
     ///
     /// Ticks rarely (every 250 ticks), like the hive feeder beside it on the race, and it reads one
     /// need and writes two floats, so a colony of grubs costs nothing.
+    ///
+    /// Nothing it counts is shown to the player. The counter is deliberately invisible (user's call,
+    /// 2026-10-02): the maturation should surprise a player, not fill a bar. Nothing reads the
+    /// charges but this file either, so hiding it cost one method and no mechanics - and the cocoon
+    /// still shows its own days left once it exists, because that is the building talking, not her.
     /// </summary>
     public class CompPapillonMaturation : ThingComp
     {
@@ -105,17 +110,6 @@ namespace PMM_Insects
             base.PostExposeData();
             Scribe_Values.Look(ref charges, "charges", 0f);
             Scribe_Values.Look(ref lastMana, "lastMana", -1f);
-        }
-
-        public override string CompInspectStringExtra()
-        {
-            // A player who is watching her deserves the number, and it is the only place the mod
-            // says how far along she is before the cocoon appears.
-            if (!(parent is Pawn pawn) || !pawn.IsColonist || Puppating)
-            {
-                return null;
-            }
-            return "PMM_PapillonCharges".Translate(charges.ToString("0"), Props.chargesNeeded.ToString("0"));
         }
 
         public override void CompTickRare()

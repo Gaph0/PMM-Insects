@@ -2,12 +2,12 @@
 <LanguageData>
 
     <!--
-        The papillon maturation (CASTES-PLAN.md §7). Both lines are read by
-        Source/Insects/PapillonMaturation.cs: the first on the grub's own inspect string while she
-        is still counting, the second on the cocoon while she is inside it.
+        The papillon maturation (CASTES-PLAN.md §7). One line, read by
+        Source/Insects/PapillonMaturation.cs: the cocoon's own inspect string while she is inside
+        it. The grub herself shows nothing - the charge counter is invisible on purpose, so there
+        is no key for it.
     -->
 
-    <PMM_PapillonCharges>Mana spent: {0} of {1}</PMM_PapillonCharges>
     <PMM_CocoonDaysLeft>Emerges in {0} days</PMM_CocoonDaysLeft>
 
 </LanguageData>

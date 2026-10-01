@@ -1851,6 +1851,11 @@ alive on purpose: that is bookkeeping, not a player destroying anything.
 the in-game mamono keeps the worm body and never gets wings, and the cocoon's own description in
 `CASTES-PLAN.md` §7 called the whole section unbuilt.
 
+**Nothing shows her progress.** The counter is invisible on purpose (user's call, 2026-10-02): a
+pupation should surprise the player rather than fill a bar. Nothing read the charges but the comp
+itself, so hiding it cost one method and no mechanics - and the cocoon still shows its own days left
+once it exists, because that is the building talking, not her.
+
 **What is deliberately not built:** no new ability, no new art beyond reusing the sac's, and nothing on
 the papillon's side - her genes, abilities and size came with phase 2, which is what this depended on.
 
