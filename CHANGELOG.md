@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-01: Fixed the insector hive's farming groups, where the honey bee was in only half of them.
+
 - 2026-10-01: Fixed genepacks found as loot or sold by traders being able to contain this mod's genes. A pack could hand a stranger the chitin skin, the honey or a grudge meant for one caste.
 - 2026-10-01: Changed the mod's genes to cost gene complexity in the xenotype editor and the gene assembler, instead of being free.
 
@@ -143,6 +145,9 @@
 - 2026-09-06: Changed Odyssey to an optional dependency. Without it only the three base-game insects change.
 
 ## Internal
+
+- 2026-10-01: Removed four faction settings that only repeated what vanilla's tribal base already sets.
+- 2026-10-01: Changed the greenworm's sludge ability and its sludge comp to be gated on Odyssey, like the rest of the mod's DLC content.
 
 - 2026-10-01: Changed the four-armed body tool to find Big & Small on its own, instead of one hard-coded folder that need not exist.
 - 2026-10-01: Changed the lower-fist body part groups to sort beside vanilla's hand groups.

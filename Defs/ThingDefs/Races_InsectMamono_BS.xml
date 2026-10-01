@@ -495,7 +495,12 @@
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 		</race>
 		<comps>
-			<li Class="CompProperties_SpreadSludge">
+			<!-- Gated on Odyssey, comp and ability together: `CompProperties_SpreadSludge`
+			     and `SludgeSpew` exist for Odyssey's sludge insects and vanilla uses them
+			     nowhere else (Data/Odyssey). Ungated, a game without Odyssey gets an
+			     unresolved ability reference and a comp built for that DLC's terrain.
+			     This mod requires Biotech only, so the gate belongs here. -->
+			<li Class="CompProperties_SpreadSludge" MayRequire="Ludeon.RimWorld.Odyssey">
 				<mtbTicks>15000</mtbTicks>
 				<abilityDef>SludgeSpew</abilityDef>
 				<tryAvoidSludge>true</tryAvoidSludge>
