@@ -1427,16 +1427,30 @@ is 0.03 over 1.25. The two multiply: honey per tracked action falls to about 38%
 (the fill rate 80% times the yield 48%), so a jar costs roughly 2.7 times the work it did. Nothing
 else moved - the item, its stack of 25 and its value are MO's numbers and unchanged.
 
-**The chain mirrors silk one for one**: a `PMM_MilkHoney` job (`JobDriver_MilkHoney`), a matching
+**The chain is silk's chain**: a `PMM_MilkHoney` job (`JobDriver_MilkHoney`), a matching
 `PMM_MilkHoney` work giver (`WorkGiver_MilkHoney`, self-only like the silk giver, so she takes her
 own and the player's right-click covers everyone else), a right-click order
-(`HoneyFloatMenuPatch`, the silk patch's hook and decoration) and a gizmo. The gizmo is the one
+(`HoneyFloatMenuPatch`) and a gizmo. **Since 2026-10-01 the two features share that whole chain**:
+the order, the driver and the work giver are written once in `Source/Insects/PawnHarvest.cs`, and
+all a feature supplies is an `IPawnHarvest` implementation - the comp for silk, the gene for honey
+- plus which job to start. The shared work giver also hands the pawn to the scan itself through
+`PotentialWorkThingsGlobal`, with a request group of `Undefined`, which is vanilla's own shape for a
+self-only giver (`WorkGiver_TendSelf`, behind the `DoctorTendToSelf` def); the version before that
+asked for `ThingRequestGroup.Pawn` instead, which worked but made every scan walk the pawns of the
+map to find her. The gizmo is the one
 thing silk does not have: `Verse.Gene.GetGizmos` is the engine's own hook, so the order sits on
 her own bar with no patch - note that its base implementation returns **null** rather than an
 empty list, so nothing calls base. Work type `Handling` rather than the silk giver's `Hauling`:
 vanilla files the milking of animals under Handling, and this is the caste the user gave the
 animal talent to. `InsectDefOf` moved to its own file (`Source/Insects/InsectDefOf.cs`) because it
 now holds two job defs and stopped belonging in the silk file.
+
+**Translation, both chains.** The C# strings live in `Languages/English/Keyed/Silk.xml` and
+`Honey.xml` - three keys each: the order's label, the "none yet" suffix, and the fullness reading.
+The job's report string and the work giver's label, verb and gerund are def fields, so they live
+inline in the defs, as every other def string in this mod does: no mod in the family ships a
+`DefInjected` folder. A translation therefore adds `Languages/<language>/DefInjected/JobDef/` and
+`.../WorkGiverDef/` files for the def-side text, and Keyed files for the C# side.
 
 **The item.** `PMM_Honey` (`Defs/ThingDefs/Things_Honey.xml`): vanilla insect jelly's parent and
 shape, with market value 7, mass 0.025, nutrition 0.05, a stack of 25, the `AnimalProductRaw`
