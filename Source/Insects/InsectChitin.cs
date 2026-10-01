@@ -31,7 +31,8 @@ namespace PMM_Insects
         /// <summary>
         /// The colours her caste rolls between, or null when her caste names none - a caste still
         /// to be built, or a woman carrying the insect gene without one of the caste xenotypes.
-        /// She keeps the shared chitin base tone on `PMM_Gene_Insect` in that case.
+        /// Her skin is vanilla in that case: the insect gene carries no `skinColorBase` (2026-10-01),
+        /// so nothing of ours competes with the melanin gene she rolls.
         /// </summary>
         public static List<GeneDef> Palette(Pawn pawn)
         {
@@ -46,8 +47,8 @@ namespace PMM_Insects
 
         /// <summary>
         /// Gives her freshly rolled colours from her caste, replacing whatever she was wearing.
-        /// A caste with no palette is left alone: she keeps the shared base tone instead of
-        /// taking a colour from somebody else's list.
+        /// A caste with no palette is left alone: she keeps vanilla skin rather than taking a
+        /// colour from somebody else's list.
         /// </summary>
         public static void Roll(Pawn pawn)
         {
@@ -108,7 +109,7 @@ namespace PMM_Insects
             return pawn?.genes?.Xenotype?.GetModExtension<InsectHairColours>()?.colours;
         }
 
-        /// <summary>Takes every colour of ours off her, leaving the shared gene's base colour showing.</summary>
+        /// <summary>Takes every colour of ours off her, leaving her vanilla skin showing.</summary>
         public static void Strip(Pawn pawn)
         {
             foreach (Gene gene in Worn(pawn))

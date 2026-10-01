@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-01: Fixed the mothman's and the papillon's skin, which could come out in the family's chitin tone instead of a normal skin colour. Momos already spawned keep the tone they were born with.
 - 2026-10-01: Changed the mothman's and the papillon's colours so their hair and their wings carry the palette, and their skin is left alone.
 - 2026-10-01: Added the papillon, the hive's butterfly momo. She is the frailest of the castes, cannot fight at all, and learns faster than her sisters.
 - 2026-10-01: Added the mothman, a drowsy moth momo of the neutral hive. Lamp light leaves her a little dazed and happier, and she will not fight anyone.
@@ -155,6 +156,7 @@
 
 ## Internal
 
+- 2026-10-01: Removed `skinColorBase` and its `minMelanin` guard from `PMM_Gene_Insect`: `Notify_GenesChanged` picks one `skinColorBase` gene at random with `SelectGene`, so a mamono carrying both it and a vanilla melanin gene showed either tone, and a caste with no palette of her own had chitin skin half the time.
 - 2026-10-01: Changed the mothman's and the papillon's palettes to hair and wings rather than skin, and rolled as plain colours onto `Pawn.story.HairColor`: a hair-colour gene joins the pool `PawnHairColors` builds from every GeneDef with a `hairColorOverride`, and `PawnGenerator` hands one of those to any pawn it generates, so genes would have put this palette on strangers. Big & Small's wing colour settings all read `hairColor`, so one list is the hair and the wings.
 - 2026-10-01: Added the mothman and the papillon: races, trackers, xenotypes, three hair-and-wing colours each, pawn kinds, a caravan kind each, their backstories, and their places in the hive's rosters and the abaddon's brood list. Their xenotype icons are still to be drawn.
 - 2026-10-01: Removed the superseded `PLAN.md` from the working docs into `archive/PLAN.md`, after its one live section - the papillon maturation - moved into `CASTES-PLAN.md` §7, and repointed the three files that cited it.

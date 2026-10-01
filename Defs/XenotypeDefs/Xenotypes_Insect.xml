@@ -819,10 +819,9 @@
 				<forceRace>true</forceRace>
 			</li>
 			<!-- Her colours are the hair's, not the skin's (user's call 2026-10-01: "apply them as the
-			     possible colours of the wings and hair, can the skin colours spawn normally"). She keeps
-			     no skin palette at all, so her skin is the shared chitin tone every palette-less caste
-			     wears. Big & Small paints every wing colour setting from `hairColor`, so this one list
-			     is the hair AND the wings. Colours rather than genes on purpose: a hair-colour gene
+			     possible colours of the wings and hair, can the skin colours spawn normally"). She names
+			     no skin palette at all, so her skin is vanilla, like any palette-less caste's. Big &
+			     Small paints every wing colour setting from `hairColor`, so this one list is the hair
 			     joins the pool `PawnHairColors.HairColorGenes` builds from every GeneDef with a
 			     `hairColorOverride`, and `PawnGenerator` hands one of those to any generated pawn. -->
 			<li Class="PMM_Insects.InsectHairColours">
