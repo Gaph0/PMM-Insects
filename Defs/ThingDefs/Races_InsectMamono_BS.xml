@@ -1005,8 +1005,8 @@
 		     the template this was copied from). colorType Skin, so the sprite takes her
 		     chitin colour, and shader Cutout to match.
 
-		     The art is a PLACEHOLDER: Textures/RaceDefaults/PMM_AbaddonFolk/, written by
-		     Tools/mktex_arms.py. Replace those six PNGs with real art (same names, same
+		     The art is a PLACEHOLDER: Textures/RaceDefaults/PMM_AbaddonFolk/, six crude
+		     grey limbs. Replace those six PNGs with real art (same names, same
 		     512x512 canvas) and nothing here needs to change.
 
 		     Two knobs to tune in dev mode, because art cannot be judged in XML:

@@ -149,6 +149,7 @@
 
 ## Internal
 
+- 2026-10-01: Removed the two placeholder-art generators, now that every icon is hand art or a final placeholder. The four-armed body tool stays: it is the only way to re-derive that body def from Big & Small, and the check that shows the def has not drifted.
 - 2026-10-01: Changed the tribes' world-creation cap to vanilla's 9999, which means uncapped.
 - 2026-10-01: Removed the folder of other mods' icon copies, now that neither tribe borrows art.
 - 2026-10-01: Removed four faction settings that only repeated what vanilla's tribal base already sets.
@@ -178,7 +179,7 @@
 - 2026-09-20: Added the finding that Core's CompSpawnPawnOnDestroyed cannot hatch a humanlike pawn: it asks for fixedBiologicalAge 0 while refusing downed pawns, and a newborn humanlike is always downed, so it returns null and PawnGenerator throws.
 - 2026-09-20: Changed nothing in code for the brood's faction: Projectile_SpawnsThing gives the sac the launcher's faction, and CompSpawnPawnOnDestroyed passes it on to the pawn.
 - 2026-09-20: Changed CompHiveNourishment to resolve a list of hive-like defs once (thingClass is Hive, plus the ArtificialHive class family) instead of caching ThingDef.Named("Hive").
-- 2026-09-20: Added egg sac, egg sac projectile and egg spew icon textures to Tools/mktex.py.
+- 2026-09-20: Added the egg sac, its projectile and the egg spew ability's icon art.
 - 2026-09-20: Changed the momo corpse grouping to the shared version in the core mod.
 - 2026-09-20: Changed the insectoid gene to carry the insect pheromone effect itself, so the momos no longer need Vanilla Races Expanded's pheromone gene.
 - 2026-09-20: Added the four work groups vanilla tribes carry.
