@@ -47,7 +47,26 @@ namespace PMM_Insects
             {
                 return;
             }
-            __result = pawn.genes.GetGene(InsectDefOf.PMM_Gene_Insect);
+            __result = ActiveInsectGene(pawn);
+        }
+
+        /// <summary>
+        /// The insect gene, but only while it is her *active* family gene. `Pawn_GeneTracker.GetGene`
+        /// answers from the gene's def alone and would hand back a gene that another family's gene has
+        /// greyed out - `Gene.Active` is false for that one, and the whole point of the shared
+        /// `PMM_MamonoFamily` tag is that the greyed gene does nothing. Read off the list by hand so a
+        /// second copy of the gene cannot be missed either.
+        /// </summary>
+        private static Gene ActiveInsectGene(Pawn pawn)
+        {
+            foreach (Gene gene in pawn.genes.GenesListForReading)
+            {
+                if (gene.def == InsectDefOf.PMM_Gene_Insect && gene.Active)
+                {
+                    return gene;
+                }
+            }
+            return null;
         }
     }
 }

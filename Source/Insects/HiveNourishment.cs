@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace PMM_Insects
@@ -21,7 +22,11 @@ namespace PMM_Insects
         /// <summary>Radius (in cells) around a Hive within which a mamono is nourished.</summary>
         public float radius = 12f;
 
-        /// <summary>Interval between top-ups, in ticks.</summary>
+        /// <summary>
+        /// Interval between top-ups, in ticks. The countdown below runs in rare ticks, so anything
+        /// under 250 is raised to it - and the per-day amounts are scaled by that same value, so a
+        /// short number tops her up as often as the game can rather than paying less than it says.
+        /// </summary>
         public int intervalTicks = 600;
 
         /// <summary>
@@ -60,7 +65,12 @@ namespace PMM_Insects
         /// </summary>
         private static List<ThingDef> HiveDefs()
         {
-            if (hiveDefs != null)
+            // The list is kept, and one of its entries is looked up by name to tell whether the def
+            // database in front of us is still the one it was built from: defs compare by reference, so
+            // a list kept across a database rebuild matches nothing and the feeder would quietly stop
+            // finding hives. One lookup per call, against a scan of every ThingDef in the game.
+            if (hiveDefs != null && hiveDefs.Count > 0
+                && DefDatabase<ThingDef>.GetNamedSilentFail(hiveDefs[0].defName) == hiveDefs[0])
             {
                 return hiveDefs;
             }
@@ -80,20 +90,30 @@ namespace PMM_Insects
             return hiveDefs;
         }
 
+        /// <summary>The tick step the countdown below is written in: `CompTickRare`'s own interval.</summary>
+        private const int RareTickInterval = 250;
+
         // Countdown to the next top-up. CompTickRare fires every 250 ticks, and 600
         // is not a multiple of 250, so a "TicksGame % interval == 0" gate would almost
         // never fire. Count down in rare-tick steps instead.
         private int ticksUntilNext;
 
+        /// <summary>
+        /// The def's interval, floored at one rare tick. The countdown can only step in rare ticks, so
+        /// a shorter XML number would top her up every 250 ticks while paying the per-day amount of
+        /// the shorter one - quietly less than the def asks for.
+        /// </summary>
+        private int IntervalTicks => Mathf.Max(RareTickInterval, Props.intervalTicks);
+
         public override void CompTickRare()
         {
             base.CompTickRare();
-            ticksUntilNext -= 250; // CompTickRare interval
+            ticksUntilNext -= RareTickInterval;
             if (ticksUntilNext > 0)
             {
                 return;
             }
-            ticksUntilNext = Props.intervalTicks;
+            ticksUntilNext = IntervalTicks;
             if (!(parent is Pawn pawn) || pawn.Dead || !pawn.Spawned || pawn.Map == null)
             {
                 return;
@@ -117,7 +137,7 @@ namespace PMM_Insects
 
             // Both needs creep up instead of snapping to full, so lingering by the nest
             // is what pays. The props are rates per day, so scale one interval's worth.
-            float intervalDays = Props.intervalTicks / 60000f;
+            float intervalDays = IntervalTicks / 60000f;
             Refill(food, Props.foodPerDay * intervalDays);
             Refill(mana, Props.manaPerDay * intervalDays);
         }

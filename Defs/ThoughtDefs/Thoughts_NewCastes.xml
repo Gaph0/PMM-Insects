@@ -40,7 +40,7 @@
 			<li>
 				<label>quarrelsome kin</label>
 				<baseOpinionOffset>-50</baseOpinionOffset>
-				<description>The two of them cannot share a room. Her own kind grates on her, and she on them.</description>
+				<description>Soldier Beetles are constantly looking to spar with their own kind.</description>
 			</li>
 		</stages>
 	</ThoughtDef>
@@ -54,7 +54,7 @@
 			<li>
 				<label>smell of honey</label>
 				<baseOpinionOffset>-50</baseOpinionOffset>
-				<description>Hornets were built to fight bees, and the smell of honey is enough to set her teeth.</description>
+				<description>Hornets get along badly bees, even the smell of honey is enough to grit her teeth.</description>
 			</li>
 		</stages>
 	</ThoughtDef>

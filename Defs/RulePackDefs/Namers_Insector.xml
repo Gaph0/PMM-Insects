@@ -31,6 +31,7 @@
 			<rulesStrings>
 				<li>r_name->Abaddon Swarm</li>
 				<li>r_name->Abaddon Brood</li>
+				<li>r_name->Chittering Abaddons</li>
 			</rulesStrings>
 		</rulePack>
 	</RulePackDef>

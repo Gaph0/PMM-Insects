@@ -79,8 +79,6 @@ namespace PMM_Insects
         /// </summary>
         private static readonly string[] WorkRecordDefNames = { "PlantsSown", "PlantsHarvested", "AnimalsTamed" };
 
-        private static List<RecordDef> trackedRecords;
-
         private float fullness;
 
         /// <summary>
@@ -129,24 +127,24 @@ namespace PMM_Insects
             return null;
         }
 
-        private static List<RecordDef> TrackedRecords
+        /// <summary>
+        /// The record defs this load order actually has, read fresh at every poll: three dictionary
+        /// lookups an hour is nothing, and a kept def would have to be thrown away whenever the def
+        /// database is rebuilt - defs compare by reference, so a stale one matches no record and the
+        /// work she does would quietly stop counting.
+        /// </summary>
+        private static List<RecordDef> TrackedRecords()
         {
-            get
+            List<RecordDef> records = new List<RecordDef>(WorkRecordDefNames.Length);
+            foreach (string recordName in WorkRecordDefNames)
             {
-                if (trackedRecords == null)
+                RecordDef record = DefDatabase<RecordDef>.GetNamedSilentFail(recordName);
+                if (record != null)
                 {
-                    trackedRecords = new List<RecordDef>();
-                    foreach (string recordName in WorkRecordDefNames)
-                    {
-                        RecordDef record = DefDatabase<RecordDef>.GetNamedSilentFail(recordName);
-                        if (record != null)
-                        {
-                            trackedRecords.Add(record);
-                        }
-                    }
+                    records.Add(record);
                 }
-                return trackedRecords;
             }
+            return records;
         }
 
         public override void Tick()
@@ -171,7 +169,7 @@ namespace PMM_Insects
         private void PollWork()
         {
             int total = 0;
-            foreach (RecordDef record in TrackedRecords)
+            foreach (RecordDef record in TrackedRecords())
             {
                 total += pawn.records.GetAsInt(record);
             }

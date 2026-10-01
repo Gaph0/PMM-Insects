@@ -523,4 +523,39 @@
 		</skillGains>
 	</BackstoryDef>
 
+	<!--
+		Hornet (2026-10-01): raised in the hive's ranks to fight, and never far from the
+		honey she cannot make. Melee, then Melee + Shooting.
+	-->
+	<BackstoryDef>
+		<defName>PMM_HornetChild</defName>
+		<title>barracks grub</title>
+		<titleShort>grub</titleShort>
+		<description>{PAWN_nameDef} hatched in the hive's outer comb, where the fighters are raised, and spent {PAWN_possessive} early days watching the drills and picking fights with her sisters.</description>
+		<slot>Childhood</slot>
+		<spawnCategories>
+			<li>PMM_HornetSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Child</bodyTypeGlobal>
+		<skillGains>
+			<Melee>2</Melee>
+		</skillGains>
+	</BackstoryDef>
+
+	<BackstoryDef>
+		<defName>PMM_HornetAdult</defName>
+		<title>hive wasp</title>
+		<titleShort>hornet</titleShort>
+		<description>{PAWN_nameDef} stands in the hive's line, quick on her feet and quicker to sting, and quarrels with every honey bee she passes.</description>
+		<slot>Adulthood</slot>
+		<spawnCategories>
+			<li>PMM_HornetSpawn</li>
+		</spawnCategories>
+		<bodyTypeGlobal>Female</bodyTypeGlobal>
+		<skillGains>
+			<Melee>4</Melee>
+			<Shooting>3</Shooting>
+		</skillGains>
+	</BackstoryDef>
+
 </Defs>

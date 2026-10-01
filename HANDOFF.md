@@ -1631,10 +1631,11 @@ colour is always one of her own three, and the row above is the palette herself,
 These were skin colours until 2026-10-01, when the user moved them onto hair and wings and asked for
 the skin to be vanilla; §5.13 has the mechanism and §5.17 the legs of the three spider castes.
 
-**What is still missing.** The hornet, the mantis and the soldier beetle's rebuild - three of the
-mockup castes of `CASTES-PLAN.md` - have no colours yet. The mothman's and the papillon's arrived
-2026-10-01 (`a27499 684063 835079` and `cf5e92 7e4c6f cc4d62`). Until a caste has a palette she is
-simply uncoloured: her skin is vanilla and her hair is whatever she was born with.
+**What is still missing.** The mantis and the soldier beetle's rebuild - two of the mockup castes of
+`CASTES-PLAN.md` - have no colours yet. The mothman's and the papillon's arrived 2026-10-01
+(`a27499 684063 835079` and `cf5e92 7e4c6f cc4d62`), and the hornet's are the honey bee's
+(`F7DA41 FFD72D D9AF0F`, user's call: "copy her colours from the honey bee"). Until a caste has a
+palette she is simply uncoloured: her skin is vanilla and her hair is whatever she was born with.
 
 ---
 

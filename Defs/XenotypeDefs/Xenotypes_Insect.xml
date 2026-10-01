@@ -881,4 +881,64 @@
 		</modExtensions>
 	</XenotypeDef>
 
+	<!-- Hornet (built 2026-10-01, CASTES-PLAN.md phase 3): the hive's first fighter and its only
+	     flier. Her palette is the honey bee's (user's call: "copy her colours from the honey bee"),
+	     which fits - the bee is the woman her own genes cannot stand. -->
+	<XenotypeDef>
+		<defName>PMM_InsectHornet</defName>
+		<label>hornet</label>
+		<description>A hornet mamono, long-legged and banded in yellow and black, and angry in a way the rest of the hive is not. She fights for honey she cannot make and hates the bee who makes it - the smell of a honey bee is enough to set her off.</description>
+		<descriptionShort>A quick, bad-tempered wasp woman who fights for the hive and cannot stand honey bees.</descriptionShort>
+		<!-- No iconPath yet: hand art lands in Textures/UI/Icons/Xenotypes/PMM_Hornet, and a
+		     path with no file behind it is a red error, which is why it is absent. -->
+		<inheritable>true</inheritable>
+		<factionlessGenerationWeight>0</factionlessGenerationWeight>
+		<genes>
+			<li>ProjectMamono_Mamono</li>
+			<li>PMM_Gene_Insect</li>
+			<li>VRE_InsectAntennae</li>
+			<li>PMM_Gene_FlightWeak</li>
+			<!-- The user's list (CASTES-PLAN.md §3.1), each effect checked in
+			     GENES-FEASIBILITY.md §3: VRE_CompoundEyes is Sight +0.5,
+			     VRE_AntimicrobialPeptides is healing x2 and immunity x1.5, VRE_RapidLifeCycle
+			     is lifespan x0.325 (a real cost), and VRE_InsectVolatile doubles her
+			     social-fight chance - which is why no fight-chance gene goes on top of it. -->
+			<li>VRE_CompoundEyes</li>
+			<li>VRE_AntimicrobialPeptides</li>
+			<li>VRE_RapidLifeCycle</li>
+			<li>VRE_InsectVolatile</li>
+			<!-- A worker wasp does not breed: vanilla's Sterile, the lock the queen and the
+			     honey bee also carry. -->
+			<li>Sterile</li>
+			<!-- The mockup's four poor aptitudes and two great ones, in its own vocabulary
+			     (GENES-FEASIBILITY.md §3.1): "great" is AptitudeRemarkable. -->
+			<li>AptitudePoor_Plants</li>
+			<li>AptitudePoor_Animals</li>
+			<li>AptitudePoor_Intellectual</li>
+			<li>AptitudePoor_Social</li>
+			<li>AptitudeRemarkable_Melee</li>
+			<li>AptitudeRemarkable_Shooting</li>
+			<!-- Her grudge, built in phase 1 and aimed at the honey gene only: the bee feels
+			     nothing back (CASTES-PLAN.md §0 decision 2). -->
+			<li>PMM_Gene_HoneyHatred</li>
+			<!-- Not a def of ours: core's own venom gene, which is the girtablilu's setup. Core's
+			     VenomDamagePatch keys on the gene rather than on a verb, so every melee hit she
+			     lands injects venom and her sting needs no weapon def of its own. -->
+			<li>ProjectMamono_MamonoVenom</li>
+		</genes>
+		<modExtensions>
+			<li Class="BigAndSmall.XenotypeExtension">
+				<setRace>PMM_Race_Hornet</setRace>
+				<forceRace>true</forceRace>
+			</li>
+			<li Class="PMM_Insects.InsectHairColours">
+				<colours>
+					<li>(247, 218, 65)</li>
+					<li>(255, 215, 45)</li>
+					<li>(217, 175, 15)</li>
+				</colours>
+			</li>
+		</modExtensions>
+	</XenotypeDef>
+
 </Defs>

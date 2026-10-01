@@ -289,16 +289,18 @@
 		     steered KCSG's defenders and left base populations shared. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
-				<!-- The mothman and the papillon (2026-10-01) took their 0.03 each off the devil bug
-				     and the giant ant, at CASTES-PLAN.md §0 decision 4 - a low natural rate for the two
-				     passive castes. The list still totals 1. -->
-				<PMM_InsectDevilBug>0.25</PMM_InsectDevilBug>
-				<PMM_InsectGiantAnt>0.25</PMM_InsectGiantAnt>
+				<!-- The mothman, the papillon and the hornet (2026-10-01) took their 0.03 each off
+				     the devil bug and the giant ant, at CASTES-PLAN.md §0 decision 4 - a low natural
+				     rate for the two passive castes, and one for the fighter. The list still totals
+				     1. -->
+				<PMM_InsectDevilBug>0.24</PMM_InsectDevilBug>
+				<PMM_InsectGiantAnt>0.23</PMM_InsectGiantAnt>
 				<PMM_InsectSoldierBeetle>0.20</PMM_InsectSoldierBeetle>
 				<PMM_InsectAntArachne>0.12</PMM_InsectAntArachne>
 				<PMM_InsectHoneyBee>0.12</PMM_InsectHoneyBee>
 				<PMM_InsectMothman>0.03</PMM_InsectMothman>
 				<PMM_InsectPapillon>0.03</PMM_InsectPapillon>
+				<PMM_InsectHornet>0.03</PMM_InsectHornet>
 			</xenotypeChances>
 		</xenotypeSet>
 		<pawnGroupMakers Inherit="False">
@@ -313,8 +315,7 @@
 				</options>
 			</li>
 			<li>
-				<!-- Close quarters: more heavies. The hive keeps no flier, so there is one
-				     Combat group here and not the swarm's two. -->
+				<!-- Close quarters: more heavies. -->
 				<kindDef>Combat</kindDef>
 				<commonality>60</commonality>
 				<options>
@@ -322,6 +323,19 @@
 					<PMM_InsectGiantAnt>10</PMM_InsectGiantAnt>
 					<PMM_InsectSoldierBeetle>4</PMM_InsectSoldierBeetle>
 					<PMM_InsectAntArachne>2</PMM_InsectAntArachne>
+				</options>
+			</li>
+			<li>
+				<!-- The same fight with the hornet's flight in the mix (2026-10-01). She is the
+				     hive's first flier, so the hive carries two Combat groups now, the way the
+				     swarm has carried one for the mosquito all along. -->
+				<kindDef>Combat</kindDef>
+				<commonality>100</commonality>
+				<options>
+					<PMM_InsectDevilBug>10</PMM_InsectDevilBug>
+					<PMM_InsectGiantAnt>8</PMM_InsectGiantAnt>
+					<PMM_InsectSoldierBeetle>2</PMM_InsectSoldierBeetle>
+					<PMM_InsectHornet>3</PMM_InsectHornet>
 				</options>
 			</li>
 			<li>
@@ -352,6 +366,9 @@
 					<PMM_InsectSoldierBeetle>7</PMM_InsectSoldierBeetle>
 					<PMM_InsectAntArachne>4</PMM_InsectAntArachne>
 					<PMM_InsectHoneyBee>3</PMM_InsectHoneyBee>
+					<!-- The hive's only fighter (2026-10-01) keeps a small place in the
+					     garrison, behind the beetle. -->
+					<PMM_InsectHornet>3</PMM_InsectHornet>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">
@@ -368,10 +385,13 @@
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">
+				<!-- The hornet hunts (2026-10-01): she is the hive's shooter, and the one
+				     caste here with a reason to be out after game. -->
 				<kindDef>Hunters</kindDef>
 				<commonality>1</commonality>
 				<options>
 					<PMM_InsectDevilBug>1</PMM_InsectDevilBug>
+					<PMM_InsectHornet>1</PMM_InsectHornet>
 				</options>
 			</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">

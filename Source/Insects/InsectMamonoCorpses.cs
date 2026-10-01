@@ -39,7 +39,9 @@ namespace PMM_Insects
                 // The two built 2026-10-01 (CASTES-PLAN.md phase 2), for the same reason as the
                 // five above: a caste added without a line here files her corpse with the humans.
                 "PMM_Race_Mothman",
-                "PMM_Race_Papillon");
+                "PMM_Race_Papillon",
+                // The hornet, built with them 2026-10-01 (CASTES-PLAN.md phase 3).
+                "PMM_Race_Hornet");
         }
     }
 }
