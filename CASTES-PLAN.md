@@ -87,7 +87,7 @@ touches the same list:
 
 | # | File | What goes in it |
 |---|---|---|
-| 1 | `Defs/XenotypeDefs/Xenotypes_Insect.xml` | the xenotype: genes, `setRace` + `forceRace` to her own race, `factionlessGenerationWeight 0`, her icon path, **and her three body colours** as a `PMM_Insects.InsectSkinColours` list - three new defs in `Genes_InsectSkin.xml`, one of them rolled for her when she is generated (`HANDOFF.md` §5.13) |
+| 1 | `Defs/XenotypeDefs/Xenotypes_Insect.xml` | the xenotype: genes, `setRace` + `forceRace` to her own race, `factionlessGenerationWeight 0`, her icon path, **and her colours** - three body colours as a `PMM_Insects.InsectSkinColours` list (three new defs in `Genes_InsectSkin.xml`, one of them rolled for her when she is generated, `HANDOFF.md` §5.13), or three hair-and-wing colours as a `PMM_Insects.InsectHairColours` list, which is plain colours rather than defs because Big & Small paints the wings from `hairColor` (the mothman and the papillon, 2026-10-01) |
 | 2 | `Defs/ThingDefs/Races_InsectMamono_BS.xml` | the race (body, sizes, armour, melee tools, meat/leather) **and** her race tracker hediff (`PMM_RaceTracker_*`) |
 | 3 | `Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml` | the pawn kind, `combatPower`, forced traits - and, for the two social castes, a second kind with `<trader>true</trader>` modelled on `PMM_InsectTrader` |
 | 4 | `Defs/FactionDefs/Factions_InsectorTribes.xml` | her row in the tribe's `xenotypeSet` (weights must sum to 1) and in each group she belongs to |

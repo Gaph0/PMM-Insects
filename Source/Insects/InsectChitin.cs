@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace PMM_Insects
@@ -44,7 +45,7 @@ namespace PMM_Insects
         }
 
         /// <summary>
-        /// Gives her a freshly rolled colour from her caste, replacing whatever she was wearing.
+        /// Gives her freshly rolled colours from her caste, replacing whatever she was wearing.
         /// A caste with no palette is left alone: she keeps the shared base tone instead of
         /// taking a colour from somebody else's list.
         /// </summary>
@@ -55,6 +56,13 @@ namespace PMM_Insects
                 return;
             }
 
+            RollBody(pawn);
+            RollHair(pawn);
+        }
+
+        /// <summary>One body colour from her caste's list.</summary>
+        private static void RollBody(Pawn pawn)
+        {
             List<GeneDef> palette = Palette(pawn);
             if (palette == null || palette.Count == 0)
             {
@@ -67,6 +75,37 @@ namespace PMM_Insects
             {
                 pawn.genes.AddGene(colour, xenogene: false);
             }
+        }
+
+        /// <summary>
+        /// One hair colour from her caste's list - and the wings come with it, because Big & Small
+        /// paints every wing colour setting from `hairColor` (`BS_WingClr_A`/`_B` and their dark
+        /// and saturated variants all say so).
+        ///
+        /// Colours rather than genes, and that is the one place this file does what vanilla does
+        /// differently. A hair-colour gene joins the pool `PawnHairColors.HairColorGenes` builds
+        /// from every GeneDef carrying a `hairColorOverride`, and `PawnGenerator` hands one of those
+        /// to *any* pawn it generates - so genes of ours would have put mauve and rose hair on
+        /// strangers. Setting `Pawn.story.HairColor` keeps the palette to the castes that name it,
+        /// leaves the hair styler working (a player's restyle is just a different colour on the same
+        /// field), and needs no row on her gene page. Nothing re-asserts it on load: it saves with
+        /// her.
+        /// </summary>
+        private static void RollHair(Pawn pawn)
+        {
+            List<Color> palette = HairPalette(pawn);
+            if (palette == null || palette.Count == 0 || pawn?.story == null)
+            {
+                return;
+            }
+
+            pawn.story.HairColor = palette.RandomElement();
+        }
+
+        /// <summary>Her caste's own hair colours, or null when it names none.</summary>
+        private static List<Color> HairPalette(Pawn pawn)
+        {
+            return pawn?.genes?.Xenotype?.GetModExtension<InsectHairColours>()?.colours;
         }
 
         /// <summary>Takes every colour of ours off her, leaving the shared gene's base colour showing.</summary>
@@ -185,6 +224,16 @@ namespace PMM_Insects
     public class InsectSkinColours : DefModExtension
     {
         public List<GeneDef> colours;
+    }
+
+    /// <summary>
+    /// A caste's hair and wing colours, declared on her own XenotypeDef beside her body palette.
+    /// Plain colours rather than gene defs, and `InsectChitin.RollHair` carries the reasoning for
+    /// that difference.
+    /// </summary>
+    public class InsectHairColours : DefModExtension
+    {
+        public List<Color> colours;
     }
 
     /// <summary>

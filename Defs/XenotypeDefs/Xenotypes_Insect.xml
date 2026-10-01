@@ -818,11 +818,18 @@
 				<setRace>PMM_Race_Mothman</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<!-- Her colours are the hair's, not the skin's (user's call 2026-10-01: "apply them as the
+			     possible colours of the wings and hair, can the skin colours spawn normally"). She keeps
+			     no skin palette at all, so her skin is the shared chitin tone every palette-less caste
+			     wears. Big & Small paints every wing colour setting from `hairColor`, so this one list
+			     is the hair AND the wings. Colours rather than genes on purpose: a hair-colour gene
+			     joins the pool `PawnHairColors.HairColorGenes` builds from every GeneDef with a
+			     `hairColorOverride`, and `PawnGenerator` hands one of those to any generated pawn. -->
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_MothCream</li>
-					<li>PMM_Skin_MothTan</li>
-					<li>PMM_Skin_MothDust</li>
+					<li>(162, 116, 153)</li>
+					<li>(104, 64, 99)</li>
+					<li>(131, 80, 121)</li>
 				</colours>
 			</li>
 		</modExtensions>
@@ -862,11 +869,13 @@
 				<setRace>PMM_Race_Papillon</setRace>
 				<forceRace>true</forceRace>
 			</li>
-			<li Class="PMM_Insects.InsectSkinColours">
+			<!-- Her hair and wings, the same rule as the mothman's above: no skin palette, a hair
+			     palette, and the wings follow the hair. -->
+			<li Class="PMM_Insects.InsectHairColours">
 				<colours>
-					<li>PMM_Skin_PapillonApricot</li>
-					<li>PMM_Skin_PapillonRose</li>
-					<li>PMM_Skin_PapillonViolet</li>
+					<li>(207, 94, 146)</li>
+					<li>(126, 76, 111)</li>
+					<li>(204, 77, 98)</li>
 				</colours>
 			</li>
 		</modExtensions>
