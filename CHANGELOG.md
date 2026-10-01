@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the insector tribes so you can set up as many of them as you like when you make a world. The neutral tribe was capped at ten.
 - 2026-10-01: Changed the neutral insector tribe to wear our own picture for its villages and for its icon in the faction list, instead of the base game's and another mod's.
 
 - 2026-10-01: Fixed the insector hive's farming groups, where the honey bee was in only half of them.
@@ -148,6 +149,8 @@
 
 ## Internal
 
+- 2026-10-01: Changed the tribes' world-creation cap to vanilla's 9999, which means uncapped.
+- 2026-10-01: Removed the folder of other mods' icon copies, now that neither tribe borrows art.
 - 2026-10-01: Removed four faction settings that only repeated what vanilla's tribal base already sets.
 - 2026-10-01: Changed the greenworm's sludge ability and its sludge comp to be gated on Odyssey, like the rest of the mod's DLC content.
 

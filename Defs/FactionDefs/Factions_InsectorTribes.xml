@@ -40,7 +40,10 @@
 		<listOrderPriority>25</listOrderPriority>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<startingCountAtWorldCreation>1</startingCountAtWorldCreation>
-		<maxConfigurableAtWorldCreation>10</maxConfigurableAtWorldCreation>
+		<!-- 9999, the number every vanilla tribe faction carries (TribeCivil, and
+		     both tribal bases), i.e. an uncapped slider. It read 10 until the user's
+		     call of 2026-10-01 - a house number, not a decision. -->
+		<maxConfigurableAtWorldCreation>9999</maxConfigurableAtWorldCreation>
 		<configurationListOrderPriority>25</configurationListOrderPriority>
 		<!-- `canStageAttacks true` and `raidLootMaker TribeRaidLootMaker` are not
 		     repeated here any more: vanilla's TribeBase, this def's parent, already

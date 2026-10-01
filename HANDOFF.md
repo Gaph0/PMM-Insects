@@ -223,7 +223,7 @@ Fields to set, with why:
 | `raidLootMaker` | `TribeRaidLootMaker` | Vanilla def, inherited from `TribeBase` (the def no longer repeats it). The Broods use it too. |
 | `requiredCountAtGameStart` | `1` | House pattern. The world always gets one tribe. |
 | `startingCountAtWorldCreation` | `1` | **This is faction instances, not settlements.** In Reptiles, 4 produced four duplicate Dragonias. |
-| `maxConfigurableAtWorldCreation` | `10` | House pattern. |
+| `maxConfigurableAtWorldCreation` | `9999` | **Changed 2026-10-01.** Vanilla's own number for every tribe faction (`TribeCivil` carries it, and both tribal bases do too) - an uncapped slider. It read `10` before: a house number, not a decision. |
 | `allowedCultures` | `Corunan` | House pattern. |
 | `backstoryFilters` | `Tribal` | House pattern. |
 | `xenotypeSet` | `Inherit="False"`, the six mamono xenotypes | Keeps random pawns inside the mod. |
@@ -333,13 +333,15 @@ Usable `CustomGenOption` fields: `chooseFromSettlements`, `chooseFromlayouts`,
   outline, drawn tinted by the faction colour - which is exactly how vanilla builds
   its own village markers (checked 2026-10-01 against `Village.png`: the same white
   and black pixel counts on a transparent field). Both crests follow it, so no art
-  needed redoing. Reference copies live in `Tools/icon-refs/` (excluded from the game
-  copy), and the `vanilla-*` ones are in fact Vanilla Textures Expanded's retouches,
-  byte-identical to its files - the game ships no loose vanilla textures to copy
-  from, which is how they came to be named vanilla.
+  needed redoing. Two things to know before the next count of borrowed art: the game
+  ships no loose vanilla textures, so a texture path with no file on disk anywhere is
+  vanilla's, from the Unity bundle; and Vanilla Textures Expanded re-ships the vanilla
+  icon set at vanilla paths, so "our copy matched that mod's file" never proves a path
+  belongs to that mod.
 - No borrowed art, audited 2026-10-01: not one file we ship matches a file in
   vanilla or in any workshop mod, byte for byte. Two references still point outside
-  the mod, both deliberate and both explained where they appear: the arachne silk
+  the mod - both deliberate, both explained where they appear, and both left alone by
+  the user's call of 2026-10-01 ("referencing other mods is OK"): the arachne silk
   item wears vanilla's `Things/Item/Resource/Cloth` with its own tint
   (`Things_ArachneSilk.xml`), and the web trap wears Alpha Animals' `UI/Abilities/AA_Web`
   in a def that is entirely `MayRequire="sarg.alphaanimals"`, so that icon's owner
