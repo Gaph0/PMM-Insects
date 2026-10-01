@@ -485,15 +485,16 @@
 				<intervalTicks>600</intervalTicks>
 			</li>
 			<!-- The maturation (2026-10-02, CASTES-PLAN.md §7). She counts the mana she spends -
-			     a fall of the bar, never a refill - and spins a cocoon once she has spent three
-			     bars' worth. `manaPerCharge 0.05` is one charge per twentieth of a bar, so
-			     `chargesNeeded 60` is three bars; at `Need_Mana`'s own drain that is about six
-			     days away from a hive, and it never happens beside one, because
-			     CompHiveNourishment above refills her there. All four numbers are XML, so tuning
-			     her is not a code change. -->
+			     a fall of the bar, never a refill - and spins a cocoon once she has spent enough.
+			     `manaPerCharge 0.05` is one charge per twentieth of a bar, so `chargesNeeded 600`
+			     is thirty full bars (user's call, 2026-10-02: 600, where it was 60). At
+			     `Need_Mana`'s own drain of about half a bar a day away from a hive, that is around
+			     60 days; sooner if she is also giving essence away. It never happens beside a
+			     hive, because CompHiveNourishment above refills her there - which is the design,
+			     not a bug. All the numbers are XML, so tuning her is not a code change. -->
 			<li Class="PMM_Insects.CompProperties_PapillonMaturation">
 				<manaPerCharge>0.05</manaPerCharge>
-				<chargesNeeded>60</chargesNeeded>
+				<chargesNeeded>600</chargesNeeded>
 				<cocoonDays>15</cocoonDays>
 				<requireColonist>true</requireColonist>
 				<targetXenotype>PMM_InsectPapillon</targetXenotype>

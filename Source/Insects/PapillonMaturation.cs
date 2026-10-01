@@ -43,9 +43,9 @@ namespace PMM_Insects
         public float manaPerCharge = 0.05f;
 
         /// <summary>
-        /// Charges she needs before the cocoon starts. At the defaults that is three full bars of
-        /// spent mana - roughly six days away from a hive at her own drain rate, sooner if she is
-        /// also giving essence away.
+        /// Charges she needs before the cocoon starts. At the defaults that is thirty full bars of
+        /// spent mana - around sixty days away from a hive at her own drain rate of about half a
+        /// bar a day, sooner if she is also giving essence away (user's call, 2026-10-02: 600).
         /// </summary>
         public float chargesNeeded = 60f;
 

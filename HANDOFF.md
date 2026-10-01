@@ -1833,7 +1833,7 @@ papillon. The four decisions locked on 2026-09-27, and how each one is built:
 |---|---|
 | One way | Only the greenworm's race carries `CompProperties_PapillonMaturation`. Nothing on the papillon points back. |
 | Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
-| A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want three bars spent, which is about six days away from one. |
+| A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want thirty bars spent (`chargesNeeded 600` against `manaPerCharge 0.05`), which is around sixty days away from one - the user raised it from three bars the same day. |
 | Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
 | A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0. |
 
