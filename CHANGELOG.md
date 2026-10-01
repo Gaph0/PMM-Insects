@@ -2,6 +2,11 @@
 
 ## Player-facing
 
+- 2026-10-01: Changed the soldier beetle to shrug off more damage, and to keep her footing when she is hit.
+- 2026-10-01: Changed the soldier beetle to walk more slowly, and removed the four things she used to be bad at.
+- 2026-10-01: Changed the soldier beetle's body: an abdomen and no wings, instead of the wings she could not use.
+- 2026-10-01: Changed the soldier beetle to grow one of three weapons - ripper-blades, charger claws or a megaspider horn - instead of the claws she was born with.
+- 2026-10-01: Changed the soldier beetle's genes to the ones her design asks for. She quarrels with her own kind, hungers for kills, and no longer shrugs off disease or eats more than her sisters.
 - 2026-10-01: Added the mantis, the swarm's killer. She is fast and thin-shelled, feels nothing for the woman in front of her, and hunts only to kill.
 - 2026-10-01: Changed the wording of the soldier beetle's and the hornet's dislike thoughts.
 - 2026-10-01: Added one more name the abaddon swarm can be given: "Chittering Abaddons".

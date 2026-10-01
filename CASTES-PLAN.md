@@ -4,9 +4,10 @@ Drafted 2026-09-30 from the five draw.io mockups in `MGEWiki/`
 (`hornetxenotypemockup.xml`, `mantismockup.xml`, `mothmanmockup.xml`, `papillonmockup.xml`,
 `soldierbeetlemockup.xml`).
 
-**Phases 1 to 4 are built** - the two genes on 2026-09-30, and the mothman, papillon, hornet and
-mantis on 2026-10-01. Phase 5, the soldier beetle's second pass, is the work left. The gene work is
-costed in `GENES-FEASIBILITY.md`; read the two together.
+**Phases 1 to 5 are built** - the two genes on 2026-09-30, the mothman, papillon, hornet and mantis on
+2026-10-01, and the soldier beetle's rebuild the same day. What is left is each phase's playtest and
+the hand art the icons still want. The gene work is costed in `GENES-FEASIBILITY.md`; read the two
+together.
 
 **Decisions taken 2026-09-30** are recorded in §0, and everything below is written for them.
 
@@ -229,6 +230,18 @@ working example to copy instead of a race to go and measure. Her damage then fol
 rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
 describing her.
 
+**Built 2026-10-01.** Everything above is in the mod, plus one change the mockup did not ask for: with
+the flight gene gone she had wings she could not use, so she now wears the family's abdomen body
+(`BS_SpiderHybrid`, the arachne's) and carries no wings at all. She also did **not** take
+`VRE_InsectAntennae`: her own art shows horns and no antennae, and the mockup's line about them ends
+"check her art first".
+
+**Two gene changes after the build, both the user's call the same day.** The four aptitude drawbacks
+came off - `AptitudeTerrible_Social` and the three `AptitudePoor` work aptitudes - and `Robust`,
+`Unstoppable` and vanilla's `MoveSpeed_Slow` ("slow runner") went on. That is the mockup's "tanky,
+slow, dangerous" read literally: the `Robust` x `VRE_HardenedChitin` damage stack is back on at 56%,
+she no longer staggers when hit, and she walks at 3.0 against the giant ant's 3.2.
+
 ---
 
 ## 4. The order of work, with gates
@@ -242,7 +255,7 @@ can still change cheaply.
 | 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn |
 | 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
 | 4 | Mantis: wiring plus swarm rosters | **Built 2026-10-01** - boot clean; she appears in a swarm raid, keeps her voice (decision 3), and her KillThirst fires |
-| 5 | Soldier beetle second pass | boot clean; the roll lands one of the three weapons; her opinion of her sisters reads -50 |
+| 5 | Soldier beetle second pass | **Built 2026-10-01** - boot clean; the roll lands one of the three weapons; her opinion of her sisters reads -50 |
 | 6 | Docs: one `HANDOFF.md` section per caste change, one changelog line each | `changelog-check.sh` passes |
 
 Each phase is one `build.sh` + `sync.sh` + an in-game check, the way the 2026-09-27 honey pass was

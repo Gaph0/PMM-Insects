@@ -1728,6 +1728,100 @@ Hand art at 64x64 in `Textures/UI/Icons/Xenotypes/` clears all eight; nothing el
 
 ---
 
+### 5.19 The soldier beetle's rebuild, and the tool rule finished (2026-10-01, CASTES-PLAN.md phase 5)
+
+The last mockup caste, and the only one already shipped when her mockup arrived: a rebuild rather than
+a new caste, so it touched four files instead of the usual nine.
+
+**Her gene list, rebuilt to the mockup** (`Defs/XenotypeDefs/Xenotypes_Insect.xml`). She loses six
+genes - `Robust`, `PMM_Gene_FlightWeak`, `PMM_Gene_LargeFrame`, `VRE_CuticleShell`,
+`VRE_InefficientMidgut`, `VRE_Stenothermic` - and gains the mockup's: `VRE_AntimicrobialPeptides`,
+`VRE_HardLockedJoints`, `VRE_LowOctopamine` (the 2026-09-30 swap for `VRE_VocalChitters`, so she keeps
+her voice and pays with a doubled lovin' cooldown), `VRE_EcdysoneOverdrive` (the kill thirst),
+`PMM_Gene_Quarrelsome`, and five aptitudes - great melee, awful social, poor crafting, construction and
+intellect. `VRE_HardenedChitin`, `MeleeDamage_Strong` and `VRE_InsectJellyDependency` stay: the mockup
+neither lists them nor asks for their removal.
+
+The two costs worth remembering are in `CASTES-PLAN.md` §3.5 and both are real: she takes a third more
+hurt, because `Robust` and `VRE_HardenedChitin` used to stack (0.75 x 0.75, 56% of incoming damage,
+against 75% now), and with `VRE_CuticleShell` gone she catches Flu, Malaria and Sleeping Sickness
+again.
+
+**The quarrel is aimed at itself.** `PMM_Gene_Quarrelsome` names its own def as its `dislikedGene`
+(`Defs/GeneDefs/Genes_Quarrel.xml`), so every carrier dislikes every other carrier and the -50 runs
+both ways - which is exactly what the mockup asked for, and why no new gene was needed: it was built
+in phase 1 for this.
+
+**The armament roll.** One new gene, `PMM_Gene_BeetleArmament` (`Defs/GeneDefs/Genes_Armament.xml`),
+carrying the list of the three VRE weapons on its own mod extension, plus one class,
+`Source/Insects/BeetleArmament.cs`, that picks one when the gene lands and again at the end of
+generation - the body-colour pattern (§5.13) applied to a gene instead of a colour. She carries the
+roll, her gene page shows what it gave her, and a save keeps it. Three checked facts decide the shape:
+
+- `Pawn_GeneTracker.AddGene` ends in `PostAdd()`, so a transformed or genepacked beetle rolls too;
+- `Pawn_MeleeVerbs` builds its verb list from `pawn.verbTracker.AllVerbs`, **not** from the race's
+  tool list, which is what makes the tool change below safe;
+- VRE's three weapons are hediffs carrying a `HediffCompProperties_VerbGiver` (`VRE_RipperBlades`:
+  Cut, power 18, armour penetration 0.27), so the weapon never went through `ThingDef.tools` at all.
+
+**The tool rule, finished.** Her race's block is now `<tools Inherit="False" />` - empty, and not
+inheriting the Human parent's fists - so the gene owns the weapon, which is §0 decision 11. This is
+where `CASTES-PLAN.md` §3.5 was wrong until today: the girtablilu was never the empty-handed example,
+the beetle is. What it trades away is a fallback: there are no fists under the blades, so a beetle who
+loses the body part her weapon hangs on has nothing left to swing.
+
+**One nuance on the new gene's icon.** It has no `iconPath`, and that is quieter than the xenotypes'
+case: `GeneDef.ConfigErrors` does not check for a missing icon the way `XenotypeDef` does (both read
+2026-10-01), so she simply shows a blank gene icon until hand art lands in
+`Textures/UI/Icons/Genes/Gene_BeetleArmament`.
+
+**Her body changed too (user's call, 2026-10-01).** Losing the flight gene left her with wings she
+could not use, so the wings went and an abdomen arrived: her race is on `BS_SpiderHybrid` now, the body
+the arachne, the ant arachne and the girtablilu wear, with `PMM_RaceTracker_SpiderBody` in her
+`raceHediffList` in place of B&S's winged tracker. That is what draws the abdomen - and because the
+tracker is our own copy, it paints her legs and abdomen in her caste colour like her sisters' (§5.17).
+B&S's winged body and its tracker are gone from this def entirely.
+
+The one caveat is the art: the spider-hybrid body is the family's only abdomen, and it draws eight
+spider legs where a beetle has six. A beetle's own low body would be new art, not a config change.
+
+Her `combatPower` (150), pawn kind, backstories, rosters and colours are untouched - none of them was
+part of the rebuild.
+
+**One bug the field found the same day, and its cause.** Her gene page showed the roll gene wearing the
+missing-texture badge with no evolution beside it, while the head or arm graphics were drawing
+correctly: the roll had added the weapon as a *xenogene*. `Pawn_GeneTracker.SetXenotype` adds a
+xenotype's genes with `AddGene(xenotype.genes[i], !xenotype.inheritable)`, so an inheritable xenotype -
+every caste here - gets **endogenes**, and they are what the gene page's "Germline genes" list shows. A
+xenogene goes to `Xenogenes`, which is the xenogerm's panel: with no xenogerm implanted that panel says
+"(no xenogerm implanted)", so the gene worked (hediff, graphics and all) and was invisible where the
+player was looking. The pick is added as an endogene now. The same report showed the roll gene's own
+missing-texture badge, because it had no `iconPath` - `GeneDef` does not log a config error for that,
+it just draws the badge - so it borrows core's claw art until hand art exists.
+
+**The tank package, the user's call the same day (2026-10-01).** Her four aptitude drawbacks came off
+(`AptitudeTerrible_Social`, `AptitudePoor_Crafting`, `AptitudePoor_Construction`,
+`AptitudePoor_Intellectual`) - great melee is the one aptitude of the mockup's five left - and three
+vanilla genes went on:
+
+- `Robust` - `IncomingDamageFactor` 0.75, which stacks with `VRE_HardenedChitin` to 56% of incoming
+damage. This is the stack §3.5's rebuild removed on purpose, asked back on because the mockup reads
+"tanky" first;
+- `Unstoppable` - `StaggerDurationFactor` 0, so nothing knocks her off her feet mid-swing;
+- `MoveSpeed_Slow`, vanilla's "slow runner" - `MoveSpeed` -0.2 for +3 metabolic points.
+
+With `VRE_HardLockedJoints` already on her (-0.4), she walks at **3.0** against the giant ant's 3.2 and
+the girtablilu's 3.7. No exclusion clash: `VRE_HardLockedJoints` carries VRE's own `InsectorMovement`
+tag rather than vanilla's `MoveSpeed` one, and no gene of hers carries `Robust`'s `Pain` tag.
+
+One balance note worth keeping, with the numbers: the four drawbacks were worth **+5** metabolic points
+between them (`AptitudeTerrible` is +2 and each `AptitudePoor` is +1, out of vanilla's own
+`GeneTemplateDefs.xml`), and the three genes that replaced them are worth **-1** net (`Robust` -2,
+`Unstoppable` -2, slow runner +3). Her metabolic total therefore drops by six - the "+6" her gene page
+showed becomes 0 - which is what buying a tank costs her in food.
+
+---
+
 ## 6. VRE Insector wiring - what works, what does not
 
 ### 6.1 Genelines cannot be put on NPC pawns
