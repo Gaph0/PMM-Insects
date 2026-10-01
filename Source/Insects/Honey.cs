@@ -61,8 +61,11 @@ namespace PMM_Insects
     ///
     /// Milking empties her, and the yield scales with what had built up, so taking it early is a
     /// shorter wait for less honey and never a loss - the same bargain the silk comp makes.
+    ///
+    /// It implements `IPawnHarvest`, the shape both harvest chains share, so the right-click order,
+    /// the job driver and the self-only work giver live once in Source/Insects/PawnHarvest.cs.
     /// </summary>
-    public class Gene_Honey : Gene
+    public class Gene_Honey : Gene, IPawnHarvest
     {
         /// <summary>One in-game hour. Records only change when she finishes work, so this is often enough.</summary>
         private const int PollIntervalTicks = 2500;
@@ -92,9 +95,7 @@ namespace PMM_Insects
         /// What she makes. Falls back to the extension's own defaults when the extension is
         /// missing, so a half-written gene def cannot throw on the pawn's tick.
         /// </summary>
-        public ThingDef HoneyDef => Dials != null ? Dials.honeyDef : null;
-
-        public float Fullness => fullness;
+        public ThingDef YieldDef => Dials != null ? Dials.honeyDef : null;
 
         public float MinFullness => Dials != null ? Dials.minFullness : 0.75f;
 
@@ -102,8 +103,11 @@ namespace PMM_Insects
 
         private float FullnessPerAction => Dials != null ? Dials.fullnessPerAction : 0.024f;
 
-        /// <summary>True when there is honey to take.</summary>
-        public bool CanMilk => fullness >= MinFullness && HoneyDef != null;
+        /// <summary>
+        /// True when there is honey to take. The def check is not decoration: `honeyDef` is what the
+        /// Medieval Overhaul patch rewrites, and the extension itself can be missing.
+        /// </summary>
+        public bool CanHarvest => fullness >= MinFullness && YieldDef != null;
 
         /// <summary>
         /// The honey gene on this pawn, or null. Every order path finds her this way, so a new
@@ -189,9 +193,9 @@ namespace PMM_Insects
 
         /// <summary>
         /// Takes everything that has built up and empties her. Returns at least one unit, because
-        /// every caller checks <see cref="CanMilk"/> first.
+        /// every caller checks <see cref="CanHarvest"/> first.
         /// </summary>
-        public int MilkNow()
+        public int HarvestNow()
         {
             int amount = Mathf.Max(1, Mathf.RoundToInt(HoneyPerMilking * fullness));
             fullness = 0f;
@@ -221,7 +225,7 @@ namespace PMM_Insects
                     pawn.jobs.TryTakeOrderedJob(
                         JobMaker.MakeJob(InsectDefOf.PMM_MilkHoney, pawn), JobTag.Misc);
                 },
-                Disabled = !CanMilk,
+                Disabled = !CanHarvest,
                 disabledReason = "PMM_HoneyNoneYet".Translate().Resolve(),
             };
         }
@@ -231,7 +235,7 @@ namespace PMM_Insects
         /// actually in play, so a load order with Medieval Overhaul gets MO's honey picture on the
         /// button along with MO's honey in her hands.
         /// </summary>
-        private Texture2D HoneyGizmoIcon => HoneyDef?.uiIcon;
+        private Texture2D HoneyGizmoIcon => YieldDef?.uiIcon;
 
         public override void ExposeData()
         {
@@ -242,10 +246,9 @@ namespace PMM_Insects
     }
 
     /// <summary>
-    /// Puts "Milk honey" on the right-click menu of a honey-making mamono for any of the player's
-    /// pawns - including the bee herself, who is perfectly able to do it with her own hands.
-    /// Mirrors the arachne's silk order: same hook, same decoration, and greyed with a reason
-    /// rather than hidden when there is nothing to take yet.
+    /// Puts "Milk honey" on the right-click menu of a honey-making mamono - for any of the player's
+    /// pawns, including the bee herself, who is perfectly able to do it with her own hands. The
+    /// option itself is built once for both harvest chains, in `PawnHarvestOrder`.
     /// </summary>
     [HarmonyPatch(typeof(Pawn), nameof(Pawn.GetFloatMenuOptions))]
     public static class HoneyFloatMenuPatch
@@ -257,123 +260,41 @@ namespace PMM_Insects
                 yield return option;
             }
 
-            FloatMenuOption milk = BuildOption(__instance, selPawn);
+            FloatMenuOption milk = PawnHarvestOrder.BuildOption(__instance, selPawn,
+                InsectDefOf.PMM_MilkHoney, "PMM_HoneyMilkLabel", "PMM_HoneyNoneYet",
+                target => Gene_Honey.Get(target));
             if (milk != null)
             {
                 yield return milk;
             }
         }
+    }
 
-        private static FloatMenuOption BuildOption(Pawn target, Pawn worker)
+    /// <summary>
+    /// The milking itself. The walk, the wait and the drop are shared with silk
+    /// (`JobDriver_HarvestFromPawn`); this class says only where the honey lives.
+    /// </summary>
+    public class JobDriver_MilkHoney : JobDriver_HarvestFromPawn
+    {
+        protected override IPawnHarvest StateOn(Pawn pawn)
         {
-            if (target == null || worker == null || !worker.Spawned || !target.Spawned || worker.Map != target.Map)
-            {
-                return null;
-            }
-            // Yours at both ends: your own hand, and a mamono of yours. A hive bee has no reason to
-            // stand still for it.
-            if (worker.Faction != Faction.OfPlayer || !worker.IsColonistPlayerControlled)
-            {
-                return null;
-            }
-            if (target.Faction != Faction.OfPlayer)
-            {
-                return null;
-            }
-            if (!(Gene_Honey.Get(target) is Gene_Honey honey))
-            {
-                return null;
-            }
-
-            string label = "PMM_HoneyMilkLabel".Translate().Resolve();
-            if (!honey.CanMilk)
-            {
-                return new FloatMenuOption(label + " (" + "PMM_HoneyNoneYet".Translate().Resolve() + ")", null);
-            }
-
-            return FloatMenuUtility.DecoratePrioritizedTask(
-                new FloatMenuOption(label, delegate
-                {
-                    // Re-checked on click: someone may have milked her since the menu was built.
-                    if (honey.CanMilk)
-                    {
-                        worker.jobs.TryTakeOrderedJob(JobMaker.MakeJob(InsectDefOf.PMM_MilkHoney, target), JobTag.Misc);
-                    }
-                }),
-                worker,
-                target);
+            return Gene_Honey.Get(pawn);
         }
     }
 
     /// <summary>
-    /// The milking itself: a short wait with a progress bar, then the honey lands on the ground
-    /// beside her. One driver for both paths - a handler taking it, and the bee doing her own.
+    /// She takes her own honey. The scan, the skip and the job start are shared with silk
+    /// (`WorkGiver_HarvestFromSelf`); this class says only where the honey lives and which job to
+    /// start. The player's right-click order covers every other case, including a handler doing it
+    /// for her.
     /// </summary>
-    public class JobDriver_MilkHoney : JobDriver
+    public class WorkGiver_MilkHoney : WorkGiver_HarvestFromSelf
     {
-        private const int MilkTicks = 400;
-
-        private Pawn Target => TargetA.Thing as Pawn;
-
-        private Gene_Honey Honey => Gene_Honey.Get(Target);
-
-        public override bool TryMakePreToilReservations(bool errorOnFailed)
+        protected override IPawnHarvest StateOn(Pawn pawn)
         {
-            return true;
+            return Gene_Honey.Get(pawn);
         }
 
-        protected override IEnumerable<Toil> MakeNewToils()
-        {
-            this.FailOn(() => Honey == null || !Honey.CanMilk);
-
-            // Nothing to walk to when she is doing it herself.
-            if (pawn != Target)
-            {
-                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-            }
-
-            Toil wait = Toils_General.Wait(MilkTicks, TargetIndex.A);
-            wait.WithProgressBarToilDelay(TargetIndex.A);
-            yield return wait;
-
-            yield return Toils_General.Do(delegate
-            {
-                Gene_Honey honey = Honey;
-                Pawn target = Target;
-                if (honey == null || target == null || !honey.CanMilk)
-                {
-                    return;
-                }
-
-                Thing jar = ThingMaker.MakeThing(honey.HoneyDef);
-                jar.stackCount = honey.MilkNow();
-                GenPlace.TryPlaceThing(jar, target.Position, target.Map, ThingPlaceMode.Near);
-            });
-        }
-    }
-
-    /// <summary>
-    /// She takes her own honey, on the model of vanilla's SelfTend: a work giver whose only
-    /// possible target is the pawn herself. The player's right-click order covers every other
-    /// case, including a handler doing it for her.
-    /// </summary>
-    public class WorkGiver_MilkHoney : WorkGiver_Scanner
-    {
-        public override ThingRequest PotentialWorkThingRequest => ThingRequest.ForGroup(ThingRequestGroup.Pawn);
-
-        public override bool ShouldSkip(Pawn pawn, bool forced = false)
-        {
-            return !(Gene_Honey.Get(pawn)?.CanMilk ?? false);
-        }
-
-        public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
-        {
-            return t == pawn && (Gene_Honey.Get(pawn)?.CanMilk ?? false);
-        }
-
-        public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
-        {
-            return JobMaker.MakeJob(InsectDefOf.PMM_MilkHoney, pawn);
-        }
+        protected override JobDef HarvestJob => InsectDefOf.PMM_MilkHoney;
     }
 }
