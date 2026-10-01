@@ -1822,6 +1822,38 @@ showed becomes 0 - which is what buying a tank costs her in food.
 
 ---
 
+### 5.20 The greenworm's maturation into a papillon (2026-10-02, CASTES-PLAN.md §7)
+
+The lore was in the mod before the machinery was: a grub who takes in enough mana pupates into a
+papillon. The four decisions locked on 2026-09-27, and how each one is built:
+
+| Decision | How it is built |
+|---|---|
+| One way | Only the greenworm's race carries `CompProperties_PapillonMaturation`. Nothing on the papillon points back. |
+| Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
+| A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want three bars spent, which is about six days away from one. |
+| Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
+| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0. |
+
+**The swap is core's, and it had never been called.** `MamonoTransformation.ConvertXenotype` is the
+mamono-to-mamono path: it strips the old xenotype's signature endogenes, adds the new set, swaps the
+B&S race, refreshes a pregnancy snapshot and dirties the graphics - and it notifies the player itself,
+which is why nothing here posts a message. All that was missing was a caller.
+
+**Destroyed early, she dies with it** (user's ruling, 2026-10-02). `CompPapillonCocoon.PostDestroy`
+kills her for every destruction mode except `Vanish` - and `Vanish` is exactly the mode the hatch uses
+on itself, so hatching never kills the woman it just released. A dev-tool deletion therefore leaves her
+alive on purpose: that is bookkeeping, not a player destroying anything.
+
+**Two of the mod's own texts were wrong and are fixed with it.** Both greenworm backstory notes said
+the in-game mamono keeps the worm body and never gets wings, and the cocoon's own description in
+`CASTES-PLAN.md` §7 called the whole section unbuilt.
+
+**What is deliberately not built:** no new ability, no new art beyond reusing the sac's, and nothing on
+the papillon's side - her genes, abilities and size came with phase 2, which is what this depended on.
+
+---
+
 ## 6. VRE Insector wiring - what works, what does not
 
 ### 6.1 Genelines cannot be put on NPC pawns

@@ -18,9 +18,10 @@
 		and their own categories (HANDOFF.md §5.5).
 
 		Larva is the one pairing that stays inside a single body: a greenworm childhood
-		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn. The wiki
-		greenworm matures into a papillon, but the mamono in game keeps the worm body and
-		never gets wings, so she does not.
+		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn - and that body can
+		still be left behind, because a grub who has spent enough mana cocoons into a
+		papillon (2026-10-02, Source/Insects/PapillonMaturation.cs). No backstory changes
+		with her when it happens: both of her stories are still the worm's.
 	-->
 	<!--
 		Devil bug (megascarab): hatches under floors, lives by instinct in the dark,
@@ -131,7 +132,9 @@
 	<!--
 		Greenworm (larva): a grub childhood and a grown-worm adulthood, both in
 		PMM_GreenwormSpawn, which is the whole pool for the Larva kinds. No butterfly
-		stage here - the mamono in game keeps the worm body and never gets wings.
+		stage in the backstories on purpose - a grub who matures becomes a papillon as a
+		living pawn (Source/Insects/PapillonMaturation.cs), and a backstory is not re-rolled
+		when that happens.
 	-->
 	<BackstoryDef>
 		<defName>PMM_GreenwormChild</defName>

@@ -2,6 +2,8 @@
 
 ## Player-facing
 
+- 2026-10-02: Added the greenworm's maturation: a grub who has spent enough mana spins a cocoon, and a papillon comes out of it fifteen days later.
+- 2026-10-02: Added the cocoon she spins. She cannot move until it opens, and breaking it before then kills her.
 - 2026-10-01: Changed the soldier beetle to shrug off more damage, and to keep her footing when she is hit.
 - 2026-10-01: Changed the soldier beetle to walk more slowly, and removed the four things she used to be bad at.
 - 2026-10-01: Changed the soldier beetle's body: an abdomen and no wings, instead of the wings she could not use.

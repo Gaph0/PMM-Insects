@@ -293,13 +293,14 @@ proved: def wiring, rosters, and an in-game check.
 
 ---
 
-## 7. Papillon maturation (moved here from `archive/PLAN.md`, 2026-10-01)
+## 7. Papillon maturation (moved here from `archive/PLAN.md`, 2026-10-01; **built 2026-10-02**)
 
 The greenworm is the larval form: with enough mana she pupates into a papillon. The lore is already
 in the mod - `Defs/BackstoryDefs/Backstories_Insect.xml` says a greenworm matures into a papillon -
-and the machinery to do it already exists. **Nothing in this section is built**, and it is not one of
-the phases above: it depends on phase 2, which is what gives it a papillon (`PMM_InsectPapillon`) to
-turn into.
+and the machinery to do it already existed. It is not one of the phases above because it depends on
+phase 2 for a papillon (`PMM_InsectPapillon`) to turn into, and phase 2 is built. Everything below is
+in the mod now, including the one question this section left open; `HANDOFF.md` §5.20 has the built
+version.
 
 **The swap is already built and never used.** `MamonoTransformation.ConvertXenotype` in core is the
 mamono-to-mamono path, written for exactly this case: it strips the old xenotype's signature endogenes,

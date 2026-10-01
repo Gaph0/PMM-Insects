@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+    <!--
+        The papillon maturation (CASTES-PLAN.md §7). Both lines are read by
+        Source/Insects/PapillonMaturation.cs: the first on the grub's own inspect string while she
+        is still counting, the second on the cocoon while she is inside it.
+    -->
+
+    <PMM_PapillonCharges>Mana spent: {0} of {1}</PMM_PapillonCharges>
+    <PMM_CocoonDaysLeft>Emerges in {0} days</PMM_CocoonDaysLeft>
+
+</LanguageData>
