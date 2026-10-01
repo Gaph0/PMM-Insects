@@ -36,6 +36,11 @@
 		<!-- A drawback pays a little back, the vanilla convention (Sleepy and Sterile both
 		     give a point). -50 opinion toward her own kind is worth one. -->
 		<biostatMet>1</biostatMet>
+		<!-- Complexity 1, and out of the random gene sets (2026-10-01): priced with
+		     the vanilla drawback, and a grudge is not something a trader's genepack
+		     should hand to a stranger - Genes_Insect.xml carries the mechanism. -->
+		<biostatCpx>1</biostatCpx>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<modExtensions>
 			<li Class="PMM_Insects.QuarrelGeneExtension">
 				<!-- Aimed at itself: every carrier dislikes every other carrier. -->
@@ -54,6 +59,9 @@
 		<displayOrderInCategory>1004</displayOrderInCategory>
 		<!-- Same reasoning as the quarrel above: one point back for a one-way grudge. -->
 		<biostatMet>1</biostatMet>
+		<!-- Same reasoning as the quarrel above, complexity and gene sets included. -->
+		<biostatCpx>1</biostatCpx>
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<modExtensions>
 			<li Class="PMM_Insects.QuarrelGeneExtension">
 				<!-- Aimed at the honey gene, and only that way round: the bee never notices. -->
