@@ -18,7 +18,7 @@ together.
 | 1 | The light gene's condition | **exactly 50%** - the level a man-made light gives - and **not** the growing lamps |
 | 2 | The quarrel | **one way** for the hornet (she hates bees, they do not care), **mutual** for the beetle, **-50** |
 | 3 | The mantis's voice, the beetle's hunger | `VRE_VocalChitters` **out**, `VRE_LowOctopamine` **in**; the kill thirst **stays** |
-| 4 | The two passive castes | spawn naturally at a **low rate**, and be **much more likely to be in a trade caravan** |
+| 4 | The two passive castes | spawn naturally at a **low rate**, and be **much more likely to be in a trade caravan** — *the low rate cannot be built: a faction group cannot generate a woman who cannot fight (2026-10-02, §3.3)* |
 | 5 | Sizes | **body size 1** for all four |
 | 6 | The soldier beetle | **rebuild** her gene list to the mockup |
 | 7 | The growing lamp's outer ring | **my call: leave it.** Its bright core is out; the ring reads 0.5 like any other lamp (§3.3) |
@@ -36,7 +36,11 @@ What each one changes, in a line each:
 - **2** makes the *disliked* gene the dial: `PMM_Gene_Honey` for the hornet, her own gene for the beetle.
 - **3** keeps both castes able to speak, and pays with a doubled lovin' cooldown instead.
 - **4** means no Combat or Settlement weight for the mothman and the papillon, a small roll wherever
-  the hive spawns people, and a trader pawn kind each (§3.3, §3.4).
+  the hive spawns people, and a trader pawn kind each (§3.3, §3.4). **The small roll is gone,
+  2026-10-02:** every group a faction generates from demands a pawn capable of violence - Peaceful
+  and Settlement included, not just Combat - so neither passive caste can be generated from a group at
+  all, and the attempt used to take the whole group down with it. Only the caravan half of this
+  decision stands (§3.3).
 - **5** removes the per-caste size differences this plan had proposed.
 - **6** is the biggest change: she loses six genes she carries today, and the mockup's list has no
   flight and no large frame (§3.5).
@@ -175,6 +179,15 @@ the honey bee was set (she is the one caste with no bug to copy).
   rate**, and she is **much more likely than her sisters to lead a trade caravan**. So: no Combat
   weight, a small `Peaceful` weight, and her own `<trader>true</trader>` pawn kind in the hive's
   Trader group.
+  **Corrected 2026-10-02 - she is out of every roster.** The `Peaceful` weight sat in the mod for a
+  day and could never have worked: `PawnGroupKindWorker_Normal` builds every request with
+  `mustBeCapableOfViolence: true`, and it serves Peaceful and Settlement as well as Combat, while
+  `VRE_PassiveInsect` makes her incapable of violence. Generation could only fail - 120 tries, a null
+  pawn, a NullReferenceException inside vanilla's own `GeneratePawn`, and then
+  `PawnGroupKindWorker.GeneratePawns` discarding the whole group, so a village lost every inhabitant
+  of that group rather than one woman. What stands is the caravan half of decision 4, and it works:
+  `PawnGroupKindWorker_Trader.GenerateTrader` asks for no violence, so her trader kind spawns as
+  intended. See `HANDOFF.md` §5.21.
 - **Cost.** The usual wiring plus the one new gene (gene def, hidden hediff def, thought def, one
   class) and two language keys.
 
@@ -188,6 +201,8 @@ the honey bee was set (she is the one caste with no bug to copy).
   0.5 (the most fragile caste in the mod), no weapons, `combatPower` ~30.
 - **Placement.** Decided 2026-09-30: the mothman's rule exactly - natural spawn at a low rate, a
   small `Peaceful` weight, and a `<trader>true</trader>` kind so the hive's caravans are often hers.
+  **Corrected 2026-10-02:** the `Peaceful` weight is out for the mothman's reason - `ViolenceDisabled`
+  makes her un-generatable from any group at all (§3.3). Only the trader kind stands.
 - **Cost.** The usual wiring. No new gene at all - she is the cheapest of the four.
 
 ### 3.5 Soldier beetle - a second pass
@@ -252,7 +267,7 @@ can still change cheaply.
 | Phase | Work | Gate before moving on |
 |---|---|---|
 | 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. Left to check in game: give the genes to pawns in the dev gene editor, then look for "quarrelsome kin -50" between two carriers and "giddy in the light" in a lamp-lit room |
-| 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn |
+| 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn. **Rosters corrected 2026-10-02:** neither can be generated from a faction group, so both are out of every roster (§3.3, `HANDOFF.md` §5.21) |
 | 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
 | 4 | Mantis: wiring plus swarm rosters | **Built 2026-10-01** - boot clean; she appears in a swarm raid, keeps her voice (decision 3), and her KillThirst fires |
 | 5 | Soldier beetle second pass | **Built 2026-10-01** - boot clean; the roll lands one of the three weapons; her opinion of her sisters reads -50 |

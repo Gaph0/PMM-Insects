@@ -2,6 +2,9 @@
 
 ## Player-facing
 
+- 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
+- 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
+- 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
 - 2026-10-03: Changed the greenworm to eat more than any of her sisters, as her own descriptions always said she did.
 - 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
 - 2026-10-03: Changed the cocoon's countdown to count hours once there is less than a day left, instead of standing at "0 days".

@@ -14,13 +14,20 @@
 		xenotype pinned per kind, and each carries its own per-species backstory
 		category.
 
-		"Pinned per kind" is a strong pin rather than an exact one: each kind declares
-		its own caste at chance 100 in its `xenotypeSet`, the faction's roster set (the
-		same list the villages roll from, totalling 1.0) is added to it because
-		`PawnKindDef.useFactionXenotypes` defaults true, and a weighted roll decides.
-		A slot comes out as its own caste about 99 times in 100, with the faction's
-		list making up the rest; `useFactionXenotypes false` on a kind is what makes
-		its slot exact.
+		"Pinned per kind" is an exact pin, since 2026-10-02: each kind declares its own
+		caste at chance 100 in its `xenotypeSet`, and this base carries
+		`useFactionXenotypes false`, so a tribe's own roster set is NOT added to it -
+		`PawnGenerator.XenotypesAvailableFor` skips the faction list when that flag is
+		off. A slot is therefore always its own caste. Without the flag the faction's
+		list was added to every kind's pin, a 100 beside fractions summing to 1, so a
+		slot came out as its own caste only about 99 times in 100, and the leftover
+		percent was a chimera - the kind's race wearing a sister caste's xenotype, and
+		with it her genes. That mattered most for the three castes who cannot be
+		violent: the mothman, the papillon and the greenworm. A slot that rolled one of
+		their xenotypes onto a fighter's kind failed all 120 generation tries and took
+		the whole pawn group with it (`HANDOFF.md` §5.21). A tribe's own set is still
+		read for any pawn generated for that tribe from a kind pinning no caste of its
+		own - a vanilla or another mod's kind - and that is what it is for.
 
 		Where the six appear is decided in Defs/FactionDefs/Factions_InsectorTribes.xml,
 		not here.
@@ -35,6 +42,11 @@
 	<PawnKindDef Name="PMM_InsectKindBase" Abstract="True">
 		<maxGenerationAge>60</maxGenerationAge>
 		<fixedGender>Female</fixedGender>
+		<!-- Exact pins (2026-10-02): with this false, `XenotypesAvailableFor` returns
+		     only the kind's own caste, so a tribe's `xenotypeSet` can no longer put a
+		     passive caste's xenotype on a fighter's kind. See the note at the top of
+		     this file and `Factions_InsectorTribes.xml`. -->
+		<useFactionXenotypes>false</useFactionXenotypes>
 		<chemicalAddictionChance>0</chemicalAddictionChance>
 		<!-- The neutral tribe by default. A pawn kind can name only one faction, and
 		     the hostile tribe supplies its own faction through pawnGroupMakers, which
