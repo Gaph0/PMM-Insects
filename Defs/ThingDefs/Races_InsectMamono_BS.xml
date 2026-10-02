@@ -476,7 +476,12 @@
 			     she is meant to be fragile. -->
 			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
-			<baseHungerRate>0.10</baseHungerRate>
+			<!-- The highest in the family by a distance, and deliberately: four of her own texts call her a
+			     glutton - "eats far more than her sisters", "eats her hive out of house and home" - so the
+			     number follows the lore rather than the other way round (user's call, 2026-10-03). Her hive
+			     feeder covers most of it beside a nest, which is where she is meant to spend the wait until
+			     her sixty bars of mana are spent. Was 0.10, the family's lowest. -->
+			<baseHungerRate>0.50</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 		</race>
 		<comps>

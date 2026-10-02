@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-03: Changed the greenworm to eat more than any of her sisters, as her own descriptions always said she did.
 - 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
 - 2026-10-03: Changed the cocoon's countdown to count hours once there is less than a day left, instead of standing at "0 days".
 - 2026-10-02: Fixed the cocoon never opening. It never ticked, so she stayed a greenworm inside it for good.
