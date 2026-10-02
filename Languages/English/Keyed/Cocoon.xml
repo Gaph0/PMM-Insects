@@ -2,16 +2,20 @@
 <LanguageData>
 
     <!--
-        The papillon maturation (CASTES-PLAN.md §7). One line, read by
-        Source/Insects/PapillonMaturation.cs: the cocoon's own inspect string while she is inside
-        it. The grub herself shows nothing - the charge counter is invisible on purpose, so there
-        is no key for it.
-
-        This key is the prefix only. The unit inside it is one of vanilla's own period keys - "3 days",
-        "18 hours", "1 hour" - which the code picks once the days run out, and that is where the
-        singular comes from: a second key of ours would read "1 days".
+        The papillon maturation (CASTES-PLAN.md §7). Two lines, both read by
+        Source/Insects/PapillonMaturation.cs: how much mana the grub has spent towards pupating, and
+        the cocoon's own countdown while she is inside it.
     -->
 
+    <!-- The grub's own line. It was hidden at first (user's call, 2026-10-02) and restored the next
+         day, once it was clear what the absence costs: this is a sixty-day wait at the shipping
+         numbers, and a player watching a grub cannot tell a slow pupation from one that will never
+         happen. -->
+    <PMM_PapillonCharges>Mana spent: {0} of {1}</PMM_PapillonCharges>
+
+    <!-- The cocoon's countdown. This key is the prefix only: the unit is one of vanilla's own period
+         keys ("3 days", "18 hours", "1 hour"), which the code picks once the days run out, and that
+         is where the singular comes from - a second key of ours would read "1 days". -->
     <PMM_CocoonEmergesIn>Emerges in {0}</PMM_CocoonEmergesIn>
 
 </LanguageData>

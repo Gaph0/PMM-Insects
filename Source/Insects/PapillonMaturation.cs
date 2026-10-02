@@ -98,10 +98,11 @@ namespace PMM_Insects
     /// Ticks rarely (every 250 ticks), like the hive feeder beside it on the race, and it reads one
     /// need and writes two floats, so a colony of grubs costs nothing.
     ///
-    /// Nothing it counts is shown to the player. The counter is deliberately invisible (user's call,
-    /// 2026-10-02): the maturation should surprise a player, not fill a bar. Nothing reads the
-    /// charges but this file either, so hiding it cost one method and no mechanics - and the cocoon
-    /// still shows its own days left once it exists, because that is the building talking, not her.
+    /// She can see how far along she is. The counter was hidden at first (user's call, 2026-10-02:
+    /// "the maturation should surprise a player rather than fill a bar") and restored the next day,
+    /// once it was clear what the absence costs: at the shipping numbers this is a sixty-day wait, and
+    /// a player watching a grub cannot tell a slow pupation from one that will never happen. So the
+    /// line is permanent, and the cocoon's own countdown follows it once she is inside.
     /// </summary>
     public class CompPapillonMaturation : ThingComp
     {
@@ -127,6 +128,20 @@ namespace PMM_Insects
             base.PostExposeData();
             Scribe_Values.Look(ref charges, "charges", 0f);
             Scribe_Values.Look(ref lastMana, "lastMana", -1f);
+        }
+
+        /// <summary>
+        /// How much mana she has spent towards pupation, printed on her own description. It is the only
+        /// place the mod says how far along she is before the cocoon appears, and the difference it
+        /// makes is between a grub who is getting there and one who never will.
+        /// </summary>
+        public override string CompInspectStringExtra()
+        {
+            if (!(parent is Pawn pawn) || !pawn.IsColonist || Puppating)
+            {
+                return null;
+            }
+            return "PMM_PapillonCharges".Translate(charges.ToString("0"), Props.chargesNeeded.ToString("0"));
         }
 
         public override void CompTickRare()
