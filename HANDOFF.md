@@ -1862,7 +1862,9 @@ Three earlier builds are worth knowing about, because each one left a trap behin
 
 **One consequence worth knowing:** she leaves the colonist bar for the fifteen days, because the bar is
 built from the map's spawned free colonists - the same thing a cryptosleep casket does. The sac's own
-line still reads "Emerges in N days" to whoever selects it.
+line counts down to whoever selects it: whole days while it has them, then whole hours once there is less
+than a day left, on vanilla's own period keys (user's report, 2026-10-03 - a one-day cocoon sat at
+"Emerges in 0 days" for the whole of that day).
 
 **She was still visible inside it** (user's report, 2026-10-02: "I can still see the mamono when the
 cocoon forms"). The sac is a building on her cell and a spawned pawn is drawn on top of it, so that
@@ -1881,14 +1883,24 @@ is about to stop existing - and then kills her for every destruction mode except
 exactly the mode the hatch uses on itself, so hatching never kills the woman it just released, and a
 dev-tool deletion lets her out alive on purpose: that is bookkeeping, not a player destroying anything.
 
+**The hatch needed a ticker, and had none** (user's report, 2026-10-02: "it never turns the mamono into a
+papillon, even after 24h"). `PMM_Cocoon` carried no `<tickerType>`, and a building is not ticked unless it
+says so - so `CompTickRare` never ran once: the countdown never fired, the hatch never happened, and the
+empty-sac cleanup never ran with it, which is why the first build's abandoned sac sat on the map through
+several loads. The def sets `Rare` now, which is the ticker the comp's own override asks for; the
+cryptosleep casket in Core sets `Normal` for its own reasons, and the two defs disagree because their
+comps differ rather than because either is wrong. A rare pass is about four seconds, which is nothing
+against a fifteen-day wait.
+
 **Two of the mod's own texts were wrong and are fixed with it.** Both greenworm backstory notes said
 the in-game mamono keeps the worm body and never gets wings, and the cocoon's own description in
 `CASTES-PLAN.md` §7 called the whole section unbuilt.
 
-**Nothing shows her progress.** The counter is invisible on purpose (user's call, 2026-10-02): a
-pupation should surprise the player rather than fill a bar. Nothing read the charges but the comp
-itself, so hiding it cost one method and no mechanics - and the cocoon still shows its own days left
-once it exists, because that is the building talking, not her.
+**She can see how far along she is** (user's call, 2026-10-03, reversing the call of the day before).
+The counter was hidden at first - "a pupation should surprise the player rather than fill a bar" - and
+restored once it was clear what the absence costs: at the shipping numbers this is a sixty-day wait, and
+a player watching a grub cannot tell a slow pupation from one that will never happen. Her own line reads
+"Mana spent: {0} of {1}", and the cocoon's countdown follows once she is inside it.
 
 **What is deliberately not built:** no new ability, no new art beyond reusing the sac's, and nothing on
 the papillon's side - her genes, abilities and size came with phase 2, which is what this depended on.
