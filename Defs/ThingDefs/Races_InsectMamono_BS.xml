@@ -403,7 +403,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
-		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels with an acidic secretion - and spits the same sludge at anything that startles her.</description>
+		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels and eats far more than her sisters - and one day she spins a cocoon and comes out a papillon.</description>
 		<statBases>
 			<MoveSpeed>2.0</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
@@ -476,23 +476,34 @@
 			     she is meant to be fragile. -->
 			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>0.25</baseHealthScale>
-			<baseHungerRate>0.10</baseHungerRate>
+			<!-- The highest in the family by a distance, and deliberately: four of her own texts call her a
+			     glutton - "eats far more than her sisters", "eats her hive out of house and home" - so the
+			     number follows the lore rather than the other way round (user's call, 2026-10-03). Her hive
+			     feeder covers most of it beside a nest, which is where she is meant to spend the wait until
+			     her sixty bars of mana are spent. Was 0.10, the family's lowest. -->
+			<baseHungerRate>0.50</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 		</race>
 		<comps>
-			<!-- Gated on Odyssey, comp and ability together: `CompProperties_SpreadSludge`
-			     and `SludgeSpew` exist for Odyssey's sludge insects and vanilla uses them
-			     nowhere else (Data/Odyssey). Ungated, a game without Odyssey gets an
-			     unresolved ability reference and a comp built for that DLC's terrain.
-			     This mod requires Biotech only, so the gate belongs here. -->
-			<li Class="CompProperties_SpreadSludge" MayRequire="Ludeon.RimWorld.Odyssey">
-				<mtbTicks>15000</mtbTicks>
-				<abilityDef>SludgeSpew</abilityDef>
-				<tryAvoidSludge>true</tryAvoidSludge>
-			</li>
 			<li Class="PMM_Insects.CompProperties_HiveNourishment">
 				<radius>12</radius>
 				<intervalTicks>600</intervalTicks>
+			</li>
+			<!-- The maturation (2026-10-02, CASTES-PLAN.md §7). She counts the mana she spends -
+			     a fall of the bar, never a refill - and spins a cocoon once she has spent enough.
+			     `manaPerCharge 0.05` is one charge per twentieth of a bar, so `chargesNeeded 600`
+			     is thirty full bars (user's call, 2026-10-02: 600, where it was 60). At
+			     `Need_Mana`'s own drain of about half a bar a day away from a hive, that is around
+			     60 days; sooner if she is also giving essence away. It never happens beside a
+			     hive, because CompHiveNourishment above refills her there - which is the design,
+			     not a bug. All the numbers are XML, so tuning her is not a code change. -->
+			<li Class="PMM_Insects.CompProperties_PapillonMaturation">
+				<manaPerCharge>0.05</manaPerCharge>
+				<chargesNeeded>600</chargesNeeded>
+				<cocoonDays>15</cocoonDays>
+				<requireColonist>true</requireColonist>
+				<targetXenotype>PMM_InsectPapillon</targetXenotype>
+				<cocoonDef>PMM_Cocoon</cocoonDef>
 			</li>
 		</comps>
 		<modExtensions>
@@ -726,8 +737,8 @@
 			     `CompSpreadSludge.CompTick` casts straight through
 			     `ability.verb.TryStartCastOn` with no faction and no `aiCanUse` check, so
 			     leaving it on would have had every nest queen laying brood on her own forever.
-			     The greenworm's identically shaped comp above stays - it points at SludgeSpew,
-			     which lays no eggs. See §5.11. -->
+			     The greenworm's identically shaped comp went with her sludge on 2026-10-02
+			     (user's call), so nothing in the mod uses that comp class now. See §5.11. -->
 			<li Class="CompProperties_LetterOnRevealed">
 				<label>Hive queen</label>
 				<text>You've discovered the center of the nest. It's guarded by a massive insect queen!</text>

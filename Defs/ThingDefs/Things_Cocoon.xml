@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The papillon's cocoon (CASTES-PLAN.md §7). A greenworm who has spent enough mana spins it,
+		sits inside it for fifteen days, and comes out a papillon - see
+		Source/Insects/PapillonMaturation.cs for the whole chain and the four decisions behind it.
+
+		Why a building and not a hediff: a hediff cannot render anything on its own, and it cannot hold
+		a pawn either. The sac is the holder - its comp keeps her in a container of its own, the way a
+		cryptosleep casket or a biosculpter pod does - so she is off the map for the fifteen days and
+		the tile shows a sac and nothing else.
+
+		`PassThroughOnly` is what keeps a sac in a corridor from being a wall, and it is also what makes
+		the cell under it free the moment it opens. That and the art are the abaddon's egg sac's own,
+		which is deliberate: the sac is what a player already associates with a brood turning into
+		something else.
+
+		The sac's own rule is that only a `KillFinalize` counts (see Things_EggSpew.xml). This one is
+		the opposite, on purpose: the comp kills the woman inside it when the cocoon is broken at
+		all, except for the `Vanish` mode it uses to remove itself on hatching. That was the user's
+		ruling, 2026-10-02: she dies with her cocoon.
+	-->
+	<ThingDef ParentName="BuildingNaturalBase">
+		<defName>PMM_Cocoon</defName>
+		<label>papillon cocoon</label>
+		<description>A papery cocoon spun by a greenworm, with something moving faintly inside it. Break it before its time and whatever is in there dies with it.</description>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<!-- A building is not ticked unless it says so, and the comp inside this one is what opens it:
+		     with no ticker type nothing inside it ever ran, so the sac held her forever and an empty one
+		     never cleared itself either. A def's ticker type has to match the override its comp writes:
+		     `CompTickRare` is ours and wants `Rare`, one pass every 250 ticks - about four seconds - which
+		     is nothing against a fifteen-day wait. The cryptosleep casket in Core sets `Normal` for its own
+		     reasons; the two defs disagree because their comps differ, not because either is wrong. -->
+		<tickerType>Rare</tickerType>
+		<graphicData>
+			<texPath>Things/Building/PMM_EggSac</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.3</fillPercent>
+		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<!-- Paper and silk, and the same 0.4 the egg sac sets. With no value at all the def inherits
+		     none, so fire could not touch the sac - which would make the comp's own promise that a raid
+		     or a fire kills her a promise the def breaks. -->
+		<Flammability>0.4</Flammability>
+		<!-- What a collapsed sac leaves behind. The parent's rock rubble is what a stone wall leaves,
+		     not what paper does. -->
+		<filthLeaving>Filth_Dirt</filthLeaving>
+		<statBases>
+			<!-- Four times the egg sac's 20, and it is the wait rather than the material: a cocoon is
+			     paper and silk, and fifteen days is a long time to ask a raid to leave something alone. -->
+			<MaxHitPoints>80</MaxHitPoints>
+			<WorkToBuild>0</WorkToBuild>
+		</statBases>
+		<comps>
+			<li Class="PMM_Insects.CompProperties_PapillonCocoon" />
+		</comps>
+	</ThingDef>
+
+</Defs>

@@ -758,7 +758,8 @@ still 1; raise it if the immunity should ever cost her hunger.
 4. **`VRE_Hiveglands` goes on the Ant Arachne and the Devil Bug**, so two castes
    raise VFEI2 hives (§7.1). The Giant Ant and the Greenworm lost it with their
    packages of 2026-09-27; the rest never had it.
-5. **No `VRE_AcidGlands` on the greenworm.** She keeps `SludgeSpew` alone.
+5. **No `VRE_AcidGlands` on the greenworm**, and no acid ability either since 2026-10-02 -
+   the user scrapped `SludgeSpew`.
 6. **No `VRE_PollutionDependency` anywhere.** Struck from the queen's package.
 
 **Decided too, 2026-09-20.**
@@ -815,9 +816,9 @@ degrades, so the Health tab reads cleanly. VRE's `disableGeneExtraction` stays a
 shipped, so a caste gene cannot be pulled out of a mamono. The xenotypes stay
 `inheritable`, so daughters inherit the caste. Jelly on the fighters only, never
 `VRE_JellySacks` (§6.2). Pheromones come from `PMM_Gene_Insect` rather than from a
-VRE gene, and that copy is ours to maintain. The two spew abilities the mod already
-has stay as they are: `SludgeSpew` on the greenworm and the `EggSpew` clone on the
-abaddon (§5.4).
+VRE gene, and that copy is ours to maintain. The one spew ability the mod has left is the abaddon's
+`EggSpew` clone (§5.4); the greenworm's `SludgeSpew` was scrapped on 2026-10-02 at
+the user's call.
 
 ### 5.4 The brood (egg spew) - built 2026-09-20
 
@@ -1331,9 +1332,10 @@ menu, silk, web and coffee. Everything in it is built and tested; the file is ke
    carries `aiCanUse false`, so nothing casts it on its own. That comp was the *only* caster -
    `CompSpreadSludge.CompTick` goes straight to `ability.verb.TryStartCastOn` with no faction
    check and no `aiCanUse` check - so the deletion was the real fix and the `aiCanUse` flip is
-   the belt to its braces. The greenworm's identically shaped comp points at `SludgeSpew` and
-   stays: no brood in it. What the queen loses with it is the ambient acid she used to spread
-   while laying - deliberate, and the user's call was "fully manual".
+   the belt to its braces. The greenworm's identically shaped comp pointed at `SludgeSpew` and
+   stayed until 2026-10-02, when the user scrapped that ability too - so nothing in the mod uses
+   `CompProperties_SpreadSludge` now. What the queen loses with it is the ambient acid she used
+   to spread while laying - deliberate, and the user's call was "fully manual".
 3. **Done 2026-09-26** with phase 4, in `Source/Insects/EggSacBrood.cs`. The ruling that was
    open here is settled too: the ability is now granted by her race comp (see the revision note
    above), so a woman transformed into a queen can breed and the pawn kind's `<abilities>`
@@ -1819,6 +1821,89 @@ between them (`AptitudeTerrible` is +2 and each `AptitudePoor` is +1, out of van
 `GeneTemplateDefs.xml`), and the three genes that replaced them are worth **-1** net (`Robust` -2,
 `Unstoppable` -2, slow runner +3). Her metabolic total therefore drops by six - the "+6" her gene page
 showed becomes 0 - which is what buying a tank costs her in food.
+
+---
+
+### 5.20 The greenworm's maturation into a papillon (2026-10-02, CASTES-PLAN.md §7)
+
+The lore was in the mod before the machinery was: a grub who takes in enough mana pupates into a
+papillon. The four decisions locked on 2026-09-27, and how each one is built:
+
+| Decision | How it is built |
+|---|---|
+| One way | Only the greenworm's race carries `CompProperties_PapillonMaturation`. Nothing on the papillon points back. |
+| Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
+| A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want thirty bars spent (`chargesNeeded 600` against `manaPerCharge 0.05`), which is around sixty days away from one - the user raised it from three bars the same day. |
+| Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
+| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so it does not wall off a corridor, and `CompPapillonCocoon` holding her despawned in a container of its own and suspended, so the map shows a sac and nothing else. |
+
+**She is held, not downed** (user's call, 2026-10-02: "make sure the mamono is treated as if she were
+in a cryptosleep casket while the pupation is happening"). The sac's comp is her holder: she is
+despawned into a `ThingOwner<Pawn>` of its own, the way `CompBiosculpterPod` holds the pawn being
+biosculpted, and the comp declares its contents suspended. That one flag is the whole cryptosleep
+treatment, because `Thing.Tick` asks `ThingOwnerUtility.ContentsSuspended` before it ticks whatever a
+thing holds - and vanilla checks `Building_CryptosleepCasket` on exactly that same line. She is not
+ticked, so her needs, her hediffs and her mana all stop where they were, and nothing has to freeze them
+by name.
+
+Three earlier builds are worth knowing about, because each one left a trap behind:
+
+- An immobility hediff (`Moving` 0) made her a *downed* colonist lying on the map, and a downed colonist
+  is a rescue target: her own colony fetched her into a bed within minutes and the sac stood where she
+  had been (user's report: "she exists outside the cocoon building when she reaches her required mana").
+- Gating the rescue (`CocoonedNotRescuedPatch` on `HealthAIUtility.CanRescueNow`) closed the work givers
+  but not the alert, which asks `HealthAIUtility.WantsToBeRescued` instead - so the player still got
+  "Colonist needs rescue" and a marker over the sac. Hiding her (`CocoonedInvisiblePatch` on
+  `InvisibilityUtility.IsHiddenFromPlayer`) fixed what was drawn and nothing else: the alert, the
+  colonist bar and every other list a downed pawn appears in still knew about her.
+- Both gates were treating the symptom rather than the cause. A pawn who is not on the map cannot be
+  rescued, alerted, targeted or drawn, so the hediff, both patches and the belly-filling that went with
+  them are gone, and the sac holds her instead.
+
+**One consequence worth knowing:** she leaves the colonist bar for the fifteen days, because the bar is
+built from the map's spawned free colonists - the same thing a cryptosleep casket does. The sac's own
+line counts down to whoever selects it: whole days while it has them, then whole hours once there is less
+than a day left, on vanilla's own period keys (user's report, 2026-10-03 - a one-day cocoon sat at
+"Emerges in 0 days" for the whole of that day).
+
+**She was still visible inside it** (user's report, 2026-10-02: "I can still see the mamono when the
+cocoon forms"). The sac is a building on her cell and a spawned pawn is drawn on top of it, so that
+build showed a body, a name label and a selection bracket sitting in the middle of the art she is meant
+to be sealed inside. Despawning her is what closed it - not the invisibility gate that was written for
+it first, which only ever hid what was drawn.
+
+**The swap is core's, and it had never been called.** `MamonoTransformation.ConvertXenotype` is the
+mamono-to-mamono path: it strips the old xenotype's signature endogenes, adds the new set, swaps the
+B&S race, refreshes a pregnancy snapshot and dirties the graphics - and it notifies the player itself,
+which is why nothing here posts a message. All that was missing was a caller.
+
+**Destroyed early, she dies with it** (user's ruling, 2026-10-02). `CompPapillonCocoon.PostDestroy`
+lets her out of the container first - a corpse has to land where the sac stood, not inside a holder that
+is about to stop existing - and then kills her for every destruction mode except `Vanish`. `Vanish` is
+exactly the mode the hatch uses on itself, so hatching never kills the woman it just released, and a
+dev-tool deletion lets her out alive on purpose: that is bookkeeping, not a player destroying anything.
+
+**The hatch needed a ticker, and had none** (user's report, 2026-10-02: "it never turns the mamono into a
+papillon, even after 24h"). `PMM_Cocoon` carried no `<tickerType>`, and a building is not ticked unless it
+says so - so `CompTickRare` never ran once: the countdown never fired, the hatch never happened, and the
+empty-sac cleanup never ran with it, which is why the first build's abandoned sac sat on the map through
+several loads. The def sets `Rare` now, which is the ticker the comp's own override asks for; the
+cryptosleep casket in Core sets `Normal` for its own reasons, and the two defs disagree because their
+comps differ rather than because either is wrong. A rare pass is about four seconds, which is nothing
+against a fifteen-day wait.
+
+**Two of the mod's own texts were wrong and are fixed with it.** Both greenworm backstory notes said
+the in-game mamono keeps the worm body and never gets wings, and the cocoon's own description in
+`CASTES-PLAN.md` §7 called the whole section unbuilt.
+
+**She can see how far along she is** (user's call, 2026-10-03, reversing the call of the day before).
+The counter was hidden at first - "a pupation should surprise the player rather than fill a bar" - and
+restored once it was clear what the absence costs: at the shipping numbers this is a sixty-day wait, and
+a player watching a grub cannot tell a slow pupation from one that will never happen. Her own line reads
+"Mana spent: {0} of {1}", and the cocoon's countdown follows once she is inside it.
+
+**What is deliberately not built:** no new ability, no new art beyond reusing the sac's, and nothing on
+the papillon's side - her genes, abilities and size came with phase 2, which is what this depended on.
 
 ---
 
