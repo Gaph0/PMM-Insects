@@ -27,6 +27,12 @@
 		<description>A papery cocoon spun by a greenworm, with something moving faintly inside it. Break it before its time and whatever is in there dies with it.</description>
 		<thingClass>Building</thingClass>
 		<category>Building</category>
+		<!-- A building is not ticked unless it says so, and the comp inside this one is what opens it:
+		     with no ticker type nothing inside it ever ran, so the sac held her forever and an empty one
+		     never cleared itself either. `Rare` is the ticker its own override asks for (`CompTickRare`),
+		     and ten seconds of granularity is nothing against a fifteen-day wait. The cryptosleep casket
+		     in Core sets `Normal` because its class overrides `Tick`; ours overrides the rare one. -->
+		<tickerType>Rare</tickerType>
 		<graphicData>
 			<texPath>Things/Building/PMM_EggSac</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
