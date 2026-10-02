@@ -1822,6 +1822,50 @@ showed becomes 0 - which is what buying a tank costs her in food.
 
 ---
 
+### 5.21 A passive caste cannot be generated from a group at all (2026-10-02)
+
+Found in a `Player.log`: `Generated pawn incapable of violence ... Too many tries (120), returning
+null ... kindDef=PMM_InsectMothman, faction=Abaddon Nest`, then a NullReferenceException and
+`Exception while generating pawn group`.
+
+**The engine rule.** `PawnGroupKindWorker_Normal.GeneratePawns` builds its `PawnGenerationRequest` with
+a hardcoded `mustBeCapableOfViolence: true` (decompiled, Assembly-CSharp 1.6). That worker serves every
+group kind except Combat and Trader - `Peaceful`, `Settlement`, `Miners`, `Hunters`, `Loggers`,
+`Farmers`. "No Combat weight" was therefore never enough: a caste who cannot be violent cannot be
+generated from any group of ours at all.
+
+**What the failure costs.** The generator retries 120 times, logs `returning null`, and then vanilla's
+`PawnGenerator.GeneratePawn` dereferences that null - `pawn.guest`, with no null check after
+`GenerateOrRedressPawnInternal` - and throws. Our own two `GeneratePawn` postfixes (`BeetleArmament`,
+`InsectColours`) both null-check, so the throw is vanilla's. `PawnGroupKindWorker.GeneratePawns`
+catches it, `Destroy()`s the partial list and clears it, so **the whole group comes back empty**: a
+village loses every inhabitant of that group, not one woman.
+
+**Who it hit.** The mothman (`VRE_PassiveInsect`), the papillon (`ViolenceDisabled`) and the greenworm
+(`VRE_PassiveInsect`). The first two stood in the hive's `Peaceful` group and the greenworm had a
+`Peaceful` maker of her own in the swarm's, so that group could never generate for either tribe.
+
+**The fix, XML only (user's call).** All three are out of `pawnGroupMakers` in
+`Defs/FactionDefs/Factions_InsectorTribes.xml`, and the greenworm's single-option `Peaceful` maker is
+deleted whole. The file's header now carries the rule, so the next reader does not put them back.
+
+**The second leak, closed the same day.** The two tribes' `xenotypeSet` lists still held the three castes,
+and a kind's own pin is *added* to that pool rather than replacing it
+(`PawnGenerator.XenotypesAvailableFor`, gated on `kind.useFactionXenotypes`, default true), so a
+fighter's slot could still roll a passive xenotype - about 1 in 1,700 hive slots and 1 in 800 swarm
+slots - and fail exactly the same way. `PMM_InsectKindBase` now carries `useFactionXenotypes false`, so
+every insector kind is pinned exactly and no slot can roll a sister caste's xenotype at all. That also
+ends the chimeric pawns the old behaviour produced: a slot whose kind said one caste while the xenotype
+forced another's race and genes.
+
+**What still carries the three, and why it is safe.** Both other paths ask for no violence:
+`PawnGroupKindWorker_Trader.GenerateTrader` passes `mustBeCapableOfViolence: false`, so
+`PMM_InsectMothmanTrader` and `PMM_InsectPapillonTrader` spawn as intended, and the abaddon's brood
+order builds its own request with the same `false` (`Source/Insects/EggSacBrood.cs`). The greenworm is
+now brood-only in the swarm, which is what §5.2 already called her.
+
+---
+
 ## 6. VRE Insector wiring - what works, what does not
 
 ### 6.1 Genelines cannot be put on NPC pawns

@@ -2,6 +2,9 @@
 
 ## Player-facing
 
+- 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
+- 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
+- 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
 - 2026-10-01: Changed the soldier beetle to shrug off more damage, and to keep her footing when she is hit.
 - 2026-10-01: Changed the soldier beetle to walk more slowly, and removed the four things she used to be bad at.
 - 2026-10-01: Changed the soldier beetle's body: an abdomen and no wings, instead of the wings she could not use.
