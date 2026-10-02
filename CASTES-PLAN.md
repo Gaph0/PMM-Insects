@@ -321,9 +321,9 @@ formality.
    2026-09-27 - the `Combat` groups list the devil bug, the giant ant, the soldier beetle and the
    mosquito, never her).
 4. A cocoon, 15 days, reusing the abaddon egg sac's own art (`Things/Building/PMM_EggSac`). A hediff
-   cannot render on its own, so the cocoon is a building spawned on her tile - the sac def is
-   `PassThroughOnly`, so she can share the tile - with an immobility hediff holding her still for the
-   duration.
+   cannot render on its own, so the cocoon is a building spawned on her tile - `PassThroughOnly`, so a
+   sac in a corridor is not a wall - and its comp holds her inside it, despawned and suspended, the way
+   a cryptosleep casket does (user's call, 2026-10-02).
 5. The papillon's own genes, abilities and size are hers now (phase 2); what is left deferred is any
    ability the maturation itself needs. The comp reads its target xenotype as a defName from XML and
    looks it up with `GetNamedSilentFail`, so it ships dormant and harmless.
@@ -336,9 +336,9 @@ formality.
    `manaPerCharge`, `cocoonDays`, `requireColonist`, `targetXenotype`) on the greenworm race. The
    charge accumulator is scribed, so a reload cannot lose progress. One `PMMLog.Message` line in dev
    mode.
-2. The cocoon: a `PMM_Cocoon` ThingDef (sac texPath, its own comp), the immobility hediff, and the
-   hatch on expiry. The question it left open - what a killed cocoon means - was answered by the user
-   on 2026-10-02: a cocoon broken before its time takes her with it (`HANDOFF.md` §5.20).
+2. The cocoon: a `PMM_Cocoon` ThingDef (sac texPath, its own comp) that holds her while it lasts, and
+   the hatch on expiry. The question it left open - what a killed cocoon means - was answered by the
+   user on 2026-10-02: a cocoon broken before its time takes her with it (`HANDOFF.md` §5.20).
 3. The papillon herself: `CASTES-PLAN.md` phase 2 builds her.
 4. Paperwork: a `HANDOFF.md` section, changelog lines, and the backstory note that still says the
    in-game mamono keeps the worm body.

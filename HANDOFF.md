@@ -1835,34 +1835,40 @@ papillon. The four decisions locked on 2026-09-27, and how each one is built:
 | Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
 | A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want thirty bars spent (`chargesNeeded 600` against `manaPerCharge 0.05`), which is around sixty days away from one - the user raised it from three bars the same day. |
 | Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
-| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0, hunger and rest frozen, `CocoonedNotRescuedPatch` so nobody carries her off and `CocoonedInvisiblePatch` so nothing of her is drawn inside it. |
+| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so it does not wall off a corridor, and `CompPapillonCocoon` holding her despawned in a container of its own and suspended, so the map shows a sac and nothing else. |
 
-**Being downed is both the point and the trap** (user's report, 2026-10-02: "she exists outside the
-cocoon building when she reaches her required mana"). `Moving` set to 0 is exactly what
-`Pawn_HealthTracker.ShouldBeDowned` reads, so the hediff made her a *downed* colonist - and a downed
-colonist is a rescue target. Her own colony fetched her to a bed within minutes of the cocoon closing
-and the sac stood where she had been. The hediff stays, because being downed is also what keeps her
-out of jobs, work and mental breaks, and `MakeUndowned` stands her up again when it comes off; what
-changed is the rest of it:
+**She is held, not downed** (user's call, 2026-10-02: "make sure the mamono is treated as if she were
+in a cryptosleep casket while the pupation is happening"). The sac's comp is her holder: she is
+despawned into a `ThingOwner<Pawn>` of its own, the way `CompBiosculpterPod` holds the pawn being
+biosculpted, and the comp declares its contents suspended. That one flag is the whole cryptosleep
+treatment, because `Thing.Tick` asks `ThingOwnerUtility.ContentsSuspended` before it ticks whatever a
+thing holds - and vanilla checks `Building_CryptosleepCasket` on exactly that same line. She is not
+ticked, so her needs, her hediffs and her mana all stop where they were, and nothing has to freeze them
+by name.
 
-- `CocoonedNotRescuedPatch` refuses `HealthAIUtility.CanRescueNow`, the one gate the rescue work giver,
-  the AI rescue job and the rescue, capture and bring-the-baby-to-safety float menu options all ask.
-  No route can pick her up, and the player is not offered one in the first place.
-- The hediff's stage freezes hunger and rest (`hungerRateFactor` and `restFallFactor`, both 0), because
-  vanilla feeds only a patient who is `InBed`: a woman downed in a field would have starved to death
-  inside her own cocoon. `BeginCocoon` fills her belly as it closes, so a grub who was already
-  starving has nothing left to starve on, and no sleeping bubble floats over the sac.
-- `CocoonedInvisiblePatch` answers `InvisibilityUtility.IsHiddenFromPlayer` with a yes while she wears
-  the hediff, so nothing of her is drawn, named or clicked and a click lands on the sac instead of on
-  her. It has to be that gate: vanilla's own body returns false for any pawn of the player's faction,
-  and she is one.
+Three earlier builds are worth knowing about, because each one left a trap behind:
+
+- An immobility hediff (`Moving` 0) made her a *downed* colonist lying on the map, and a downed colonist
+  is a rescue target: her own colony fetched her into a bed within minutes and the sac stood where she
+  had been (user's report: "she exists outside the cocoon building when she reaches her required mana").
+- Gating the rescue (`CocoonedNotRescuedPatch` on `HealthAIUtility.CanRescueNow`) closed the work givers
+  but not the alert, which asks `HealthAIUtility.WantsToBeRescued` instead - so the player still got
+  "Colonist needs rescue" and a marker over the sac. Hiding her (`CocoonedInvisiblePatch` on
+  `InvisibilityUtility.IsHiddenFromPlayer`) fixed what was drawn and nothing else: the alert, the
+  colonist bar and every other list a downed pawn appears in still knew about her.
+- Both gates were treating the symptom rather than the cause. A pawn who is not on the map cannot be
+  rescued, alerted, targeted or drawn, so the hediff, both patches and the belly-filling that went with
+  them are gone, and the sac holds her instead.
+
+**One consequence worth knowing:** she leaves the colonist bar for the fifteen days, because the bar is
+built from the map's spawned free colonists - the same thing a cryptosleep casket does. The sac's own
+line still reads "Emerges in N days" to whoever selects it.
 
 **She was still visible inside it** (user's report, 2026-10-02: "I can still see the mamono when the
-cocoon forms"). The sac is a building on her cell and a pawn is drawn on top of it, so the first build
-showed a body, a name label and a selection bracket sitting in the middle of the art she is meant to be
-sealed inside. Holding her despawned in the building, the way a casket holds a sleeper, was the other
-route; it would have made the cocoon a container and taken her ticking, her hediff and the rescue gate
-with it, for a change that is only about what is drawn.
+cocoon forms"). The sac is a building on her cell and a spawned pawn is drawn on top of it, so that
+build showed a body, a name label and a selection bracket sitting in the middle of the art she is meant
+to be sealed inside. Despawning her is what closed it - not the invisibility gate that was written for
+it first, which only ever hid what was drawn.
 
 **The swap is core's, and it had never been called.** `MamonoTransformation.ConvertXenotype` is the
 mamono-to-mamono path: it strips the old xenotype's signature endogenes, adds the new set, swaps the
@@ -1870,9 +1876,10 @@ B&S race, refreshes a pregnancy snapshot and dirties the graphics - and it notif
 which is why nothing here posts a message. All that was missing was a caller.
 
 **Destroyed early, she dies with it** (user's ruling, 2026-10-02). `CompPapillonCocoon.PostDestroy`
-kills her for every destruction mode except `Vanish` - and `Vanish` is exactly the mode the hatch uses
-on itself, so hatching never kills the woman it just released. A dev-tool deletion therefore leaves her
-alive on purpose: that is bookkeeping, not a player destroying anything.
+lets her out of the container first - a corpse has to land where the sac stood, not inside a holder that
+is about to stop existing - and then kills her for every destruction mode except `Vanish`. `Vanish` is
+exactly the mode the hatch uses on itself, so hatching never kills the woman it just released, and a
+dev-tool deletion lets her out alive on purpose: that is bookkeeping, not a player destroying anything.
 
 **Two of the mod's own texts were wrong and are fixed with it.** Both greenworm backstory notes said
 the in-game mamono keeps the worm body and never gets wings, and the cocoon's own description in

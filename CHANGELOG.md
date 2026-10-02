@@ -2,9 +2,7 @@
 
 ## Player-facing
 
-- 2026-10-02: Fixed the greenworm still being drawn, named and clicked inside her cocoon. The sac on the tile is all the player sees of her.
-- 2026-10-02: Fixed a greenworm being carried out of her own cocoon. Her own colony took her to a bed and left it standing empty.
-- 2026-10-02: Changed the cocoon so she does not eat or sleep inside it, and cannot starve while it holds her.
+- 2026-10-02: Changed the cocoon to hold her inside it the way a cryptosleep casket does. She is off the map for the fifteen days, so nothing rescues her, alerts about her or draws her, and she does not eat, sleep or starve.
 - 2026-10-02: Removed the greenworm's acid spit. Nothing in the mod needs a DLC any more.
 - 2026-10-02: Added the greenworm's maturation: a grub who has spent enough mana spins a cocoon, and a papillon comes out of it fifteen days later.
 - 2026-10-02: Added the cocoon she spins. She cannot move until it opens, and breaking it before then kills her.
@@ -172,6 +170,7 @@
 
 ## Internal
 
+- 2026-10-02: Changed the cocoon to hold the grub in a container of its own, the way a biosculpter pod holds the pawn inside it, and removed the immobility hediff, the rescue gate and the invisibility gate that stood in for it.
 - 2026-10-01: Changed the pheromone patches to cover every target chooser in the game's attack search and to take its argument by position, since Harmony binds by name and the compiler names that argument differently per chooser.
 - 2026-10-01: Changed the mod to apply its patch classes one at a time, so a class that cannot bind no longer leaves every class after it unapplied, and the log names the class that failed.
 - 2026-10-01: Changed the pheromone gene, the honey work records and the hive feeder's hive list to re-read the def database, since defs compare by reference and a def database rebuild left all three matching nothing.
