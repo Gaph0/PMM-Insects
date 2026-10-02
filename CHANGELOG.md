@@ -2,6 +2,9 @@
 
 ## Player-facing
 
+- 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
+- 2026-10-03: Changed the cocoon's countdown to count hours once there is less than a day left, instead of standing at "0 days".
+- 2026-10-02: Fixed the cocoon never opening. It never ticked, so she stayed a greenworm inside it for good.
 - 2026-10-02: Changed the cocoon to hold her inside it the way a cryptosleep casket does. She is off the map for the fifteen days, so nothing rescues her, alerts about her or draws her, and she does not eat, sleep or starve.
 - 2026-10-02: Removed the greenworm's acid spit. Nothing in the mod needs a DLC any more.
 - 2026-10-02: Added the greenworm's maturation: a grub who has spent enough mana spins a cocoon, and a papillon comes out of it fifteen days later.

@@ -333,9 +333,9 @@ formality.
 0. Prove `ConvertXenotype` on a dev-spawned greenworm: race, genes, graphics and corpse category must
    all follow. If it misbehaves, the plan changes here.
 1. `Source/Insects/PapillonMaturation.cs`: `CompProperties_PapillonMaturation` (`chargesNeeded`,
-   `manaPerCharge`, `cocoonDays`, `requireColonist`, `targetXenotype`) on the greenworm race. The
-   charge accumulator is scribed, so a reload cannot lose progress. One `PMMLog.Message` line in dev
-   mode.
+   `manaPerCharge`, `cocoonDays`, `requireColonist`, `targetXenotype`, `cocoonDef`) on the greenworm
+   race. The charge accumulator is scribed, so a reload cannot lose progress. Two `PMMLog.Message`
+   lines, both dev mode only: one for the cocoon closing and one for the hatch.
 2. The cocoon: a `PMM_Cocoon` ThingDef (sac texPath, its own comp) that holds her while it lasts, and
    the hatch on expiry. The question it left open - what a killed cocoon means - was answered by the
    user on 2026-10-02: a cocoon broken before its time takes her with it (`HANDOFF.md` §5.20).

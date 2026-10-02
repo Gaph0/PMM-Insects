@@ -60,11 +60,12 @@ namespace PMM_Insects
         public float manaPerCharge = 0.05f;
 
         /// <summary>
-        /// Charges she needs before the cocoon starts. At the defaults that is thirty full bars of
-        /// spent mana - around sixty days away from a hive at her own drain rate of about half a
-        /// bar a day, sooner if she is also giving essence away (user's call, 2026-10-02: 600).
+        /// Charges she needs before the cocoon starts: thirty full bars of spent mana - around sixty
+        /// days away from a hive at her own drain rate of about half a bar a day, sooner if she is
+        /// also giving essence away (user's call, 2026-10-02: 600). The field default matches the XML
+        /// the greenworm ships with, so a def that forgets to set it still behaves as shipped.
         /// </summary>
-        public float chargesNeeded = 60f;
+        public float chargesNeeded = 600f;
 
         /// <summary>How long the cocoon takes, in days.</summary>
         public int cocoonDays = 15;
@@ -218,21 +219,42 @@ namespace PMM_Insects
                 return;
             }
 
-            // The sac first, then her: taking her in is what despawns her, and a despawned pawn has
-            // no map left to be taken off. Nothing needs freezing by hand once she is inside - a
-            // suspended pawn does not tick, so her hunger, her rest and her mana all stop where
-            // they were.
+            // Never spin the sac onto a building. `GenSpawn` wipes whatever an edifice lands on -
+            // `SpawningWipes` answers yes for two edifices - and it wipes it with `Vanish`: no
+            // resources back, no message. A grub whose threshold trips while she sleeps would eat the
+            // bed she is lying in, and one standing on a sister's cocoon would free that sister with
+            // her charges already spent and reset.
+            //
+            // So an occupied cell means she waits. The charges stay banked and the next rare tick
+            // tries again, which costs her the walk off the furniture and nothing else - and her own
+            // line reads "600 of 600" while she waits, so a player can see she is ready and only
+            // standing in the wrong place.
+            if (pawn.Position.GetEdifice(pawn.Map) != null)
+            {
+                return;
+            }
+
             Thing cocoon = ThingMaker.MakeThing(cocoonDef);
             cocoon.SetFaction(pawn.Faction);
             GenSpawn.Spawn(cocoon, pawn.Position, pawn.Map);
 
             // GetComp lives on ThingWithComps, and a building is one - the same cast the egg sac's
-            // projectile does when it hands the brood order over.
-            if (cocoon is ThingWithComps withComps)
+            // projectile does when it hands the brood order over. A def that lost its comp has nobody
+            // to hold her, so the empty sac goes back out and her charges are left alone: the next
+            // tick tries again instead of starting her over at zero.
+            CompPapillonCocoon sac = (cocoon as ThingWithComps)?.GetComp<CompPapillonCocoon>();
+            if (sac == null)
             {
-                withComps.GetComp<CompPapillonCocoon>()?.TakeIn(pawn, Find.TickManager.TicksGame
-                    + (int)(Props.cocoonDays * GenDate.TicksPerDay), target);
+                cocoon.Destroy(DestroyMode.Vanish);
+                return;
             }
+
+            // The sac first, then her: taking her in is what despawns her, and a despawned pawn has
+            // no map left to be taken off. Nothing needs freezing by hand once she is inside - a
+            // suspended pawn does not tick, so her hunger, her rest and her mana all stop where they
+            // were.
+            sac.TakeIn(pawn, Find.TickManager.TicksGame + (int)(Props.cocoonDays * GenDate.TicksPerDay),
+                target);
             charges = 0f;
             PMMLog.Message($"[PMM Insects] {pawn.LabelShort} has spent enough mana and is cocooning.");
         }
