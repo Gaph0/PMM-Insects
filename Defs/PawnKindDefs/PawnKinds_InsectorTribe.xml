@@ -149,14 +149,6 @@
 				</categories>
 			</li>
 		</backstoryFilters>
-		<abilities>
-			<!-- Odyssey's acid spit, the one vanilla's own insect race carries
-			     (Odyssey/Defs/ThingDefs_Races/Races_Animal_Insect.xml). Gated because
-			     this mod requires Biotech and not Odyssey: ungated, the reference is
-			     unresolved without Odyssey and the ability is quietly dropped from her
-			     list. -->
-			<li MayRequire="Ludeon.RimWorld.Odyssey">SludgeSpew</li>
-		</abilities>
 		<xenotypeSet><xenotypeChances><PMM_InsectGreenworm>100</PMM_InsectGreenworm></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 

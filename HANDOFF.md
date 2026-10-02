@@ -758,7 +758,8 @@ still 1; raise it if the immunity should ever cost her hunger.
 4. **`VRE_Hiveglands` goes on the Ant Arachne and the Devil Bug**, so two castes
    raise VFEI2 hives (§7.1). The Giant Ant and the Greenworm lost it with their
    packages of 2026-09-27; the rest never had it.
-5. **No `VRE_AcidGlands` on the greenworm.** She keeps `SludgeSpew` alone.
+5. **No `VRE_AcidGlands` on the greenworm**, and no acid ability either since 2026-10-02 -
+   the user scrapped `SludgeSpew`.
 6. **No `VRE_PollutionDependency` anywhere.** Struck from the queen's package.
 
 **Decided too, 2026-09-20.**
@@ -815,9 +816,9 @@ degrades, so the Health tab reads cleanly. VRE's `disableGeneExtraction` stays a
 shipped, so a caste gene cannot be pulled out of a mamono. The xenotypes stay
 `inheritable`, so daughters inherit the caste. Jelly on the fighters only, never
 `VRE_JellySacks` (§6.2). Pheromones come from `PMM_Gene_Insect` rather than from a
-VRE gene, and that copy is ours to maintain. The two spew abilities the mod already
-has stay as they are: `SludgeSpew` on the greenworm and the `EggSpew` clone on the
-abaddon (§5.4).
+VRE gene, and that copy is ours to maintain. The one spew ability the mod has left is the abaddon's
+`EggSpew` clone (§5.4); the greenworm's `SludgeSpew` was scrapped on 2026-10-02 at
+the user's call.
 
 ### 5.4 The brood (egg spew) - built 2026-09-20
 
@@ -1331,9 +1332,10 @@ menu, silk, web and coffee. Everything in it is built and tested; the file is ke
    carries `aiCanUse false`, so nothing casts it on its own. That comp was the *only* caster -
    `CompSpreadSludge.CompTick` goes straight to `ability.verb.TryStartCastOn` with no faction
    check and no `aiCanUse` check - so the deletion was the real fix and the `aiCanUse` flip is
-   the belt to its braces. The greenworm's identically shaped comp points at `SludgeSpew` and
-   stays: no brood in it. What the queen loses with it is the ambient acid she used to spread
-   while laying - deliberate, and the user's call was "fully manual".
+   the belt to its braces. The greenworm's identically shaped comp pointed at `SludgeSpew` and
+   stayed until 2026-10-02, when the user scrapped that ability too - so nothing in the mod uses
+   `CompProperties_SpreadSludge` now. What the queen loses with it is the ambient acid she used
+   to spread while laying - deliberate, and the user's call was "fully manual".
 3. **Done 2026-09-26** with phase 4, in `Source/Insects/EggSacBrood.cs`. The ruling that was
    open here is settled too: the ability is now granted by her race comp (see the revision note
    above), so a woman transformed into a queen can breed and the pawn kind's `<abilities>`
