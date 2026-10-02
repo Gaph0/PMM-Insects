@@ -1835,7 +1835,7 @@ papillon. The four decisions locked on 2026-09-27, and how each one is built:
 | Mana is the fuel, and spent mana becomes charges | `CompPapillonMaturation` reads `Need_Mana` every 250 ticks and charges her for every FALL of the bar; refills never subtract. One rule covers both spenders, her own drain and giving essence away. |
 | A nest keeps her a grub | Not code - arithmetic. `CompHiveNourishment` tops her up at 1.5 bars a day, so no charge accrues beside a hive. The defaults want thirty bars spent (`chargesNeeded 600` against `manaPerCharge 0.05`), which is around sixty days away from one - the user raised it from three bars the same day. |
 | Colony greenworms only | `requireColonist`, plus the facts that off-map pawns never tick and the greenworm sits in no raid group. |
-| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0, hunger and rest frozen, and `CocoonedNotRescuedPatch` so nobody carries her off. |
+| A cocoon, 15 days, the sac's own art | `PMM_Cocoon` (`Defs/ThingDefs/Things_Cocoon.xml`) on `Things/Building/PMM_EggSac`, `PassThroughOnly` so the two share a cell, and `PMM_Cocooned` holding her with `Moving` set to 0, hunger and rest frozen, `CocoonedNotRescuedPatch` so nobody carries her off and `CocoonedInvisiblePatch` so nothing of her is drawn inside it. |
 
 **Being downed is both the point and the trap** (user's report, 2026-10-02: "she exists outside the
 cocoon building when she reaches her required mana"). `Moving` set to 0 is exactly what
@@ -1852,6 +1852,17 @@ changed is the rest of it:
   vanilla feeds only a patient who is `InBed`: a woman downed in a field would have starved to death
   inside her own cocoon. `BeginCocoon` fills her belly as it closes, so a grub who was already
   starving has nothing left to starve on, and no sleeping bubble floats over the sac.
+- `CocoonedInvisiblePatch` answers `InvisibilityUtility.IsHiddenFromPlayer` with a yes while she wears
+  the hediff, so nothing of her is drawn, named or clicked and a click lands on the sac instead of on
+  her. It has to be that gate: vanilla's own body returns false for any pawn of the player's faction,
+  and she is one.
+
+**She was still visible inside it** (user's report, 2026-10-02: "I can still see the mamono when the
+cocoon forms"). The sac is a building on her cell and a pawn is drawn on top of it, so the first build
+showed a body, a name label and a selection bracket sitting in the middle of the art she is meant to be
+sealed inside. Holding her despawned in the building, the way a casket holds a sleeper, was the other
+route; it would have made the cocoon a container and taken her ticking, her hediff and the rescue gate
+with it, for a change that is only about what is drawn.
 
 **The swap is core's, and it had never been called.** `MamonoTransformation.ConvertXenotype` is the
 mamono-to-mamono path: it strips the old xenotype's signature endogenes, adds the new set, swaps the

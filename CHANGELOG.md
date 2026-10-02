@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-02: Fixed the greenworm still being drawn, named and clicked inside her cocoon. The sac on the tile is all the player sees of her.
 - 2026-10-02: Fixed a greenworm being carried out of her own cocoon. Her own colony took her to a bed and left it standing empty.
 - 2026-10-02: Changed the cocoon so she does not eat or sleep inside it, and cannot starve while it holds her.
 - 2026-10-02: Removed the greenworm's acid spit. Nothing in the mod needs a DLC any more.

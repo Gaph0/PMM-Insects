@@ -417,4 +417,35 @@ namespace PMM_Insects
             return false;
         }
     }
+
+    /// <summary>
+    /// A woman inside a cocoon is not drawn, not named and not clicked.
+    ///
+    /// The sac is a building on her cell and a pawn is drawn on top of it, so the first build showed
+    /// a body, a name label and a selection bracket sitting in the middle of the art she is meant to
+    /// be sealed inside (user's report, 2026-10-02: "I can still see the mamono when the cocoon
+    /// forms").
+    ///
+    /// One gate again, and it is the engine's own: `PawnRenderer` asks `IsHiddenFromPlayer` before it
+    /// draws a pawn at all, and the mouseover readout, the tooltip list, click-selection, the map
+    /// search and the cell inspector all ask it before they offer her. Saying yes leaves the sac as
+    /// the only thing on the tile, and everything gameplay-side still knows exactly where she is -
+    /// she stays spawned, keeps her hediff and keeps ticking.
+    ///
+    /// A prefix, because vanilla's own body answers no for any pawn of the player's faction - its
+    /// invisibility is written for other people's pawns - and the woman in this cocoon is ours.
+    /// </summary>
+    [HarmonyPatch(typeof(InvisibilityUtility), nameof(InvisibilityUtility.IsHiddenFromPlayer))]
+    public static class CocoonedInvisiblePatch
+    {
+        public static bool Prefix(Pawn pawn, ref bool __result)
+        {
+            if (!CompPapillonCocoon.IsCocooned(pawn))
+            {
+                return true;
+            }
+            __result = true;
+            return false;
+        }
+    }
 }

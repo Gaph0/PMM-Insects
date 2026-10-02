@@ -53,9 +53,10 @@
 		visible on purpose: a player who sees the hediff knows why she is not moving, and the cocoon
 		beside her confirms it.
 
-		It is also the flag the rescue gate reads (`CocoonedNotRescuedPatch`). A pawn with `Moving` at
-		0 is *downed*, and vanilla carries downed colonists to a bed - the first build had her fetched
-		out of her own cocoon within minutes of it closing (user's report, 2026-10-02).
+It is also the flag both gates read: `CocoonedNotRescuedPatch` (nobody carries her out) and
+                `CocoonedInvisiblePatch` (she is not drawn, named or clicked inside it). A pawn with `Moving`
+                at 0 is *downed*, and vanilla carries downed colonists to a bed - the first build had her
+                fetched out of her own cocoon within minutes of it closing (user's report, 2026-10-02).
 
 		Hunger and rest stop while it is on her, which is not a comfort setting. Vanilla only feeds a
 		patient who is in bed, so a woman downed in a field would have spent fifteen days starving to
