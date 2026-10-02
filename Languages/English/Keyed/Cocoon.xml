@@ -6,8 +6,12 @@
         Source/Insects/PapillonMaturation.cs: the cocoon's own inspect string while she is inside
         it. The grub herself shows nothing - the charge counter is invisible on purpose, so there
         is no key for it.
+
+        This key is the prefix only. The unit inside it is one of vanilla's own period keys - "3 days",
+        "18 hours", "1 hour" - which the code picks once the days run out, and that is where the
+        singular comes from: a second key of ours would read "1 days".
     -->
 
-    <PMM_CocoonDaysLeft>Emerges in {0} days</PMM_CocoonDaysLeft>
+    <PMM_CocoonEmergesIn>Emerges in {0}</PMM_CocoonEmergesIn>
 
 </LanguageData>

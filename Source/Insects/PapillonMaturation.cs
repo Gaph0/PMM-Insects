@@ -363,14 +363,33 @@ namespace PMM_Insects
             return pawn;
         }
 
+        /// <summary>
+        /// How long she has left in there: whole days until fewer than one remain, then whole hours.
+        ///
+        /// A countdown that reads "Emerges in 0 days" for a full day is not a countdown at all, it is a
+        /// shrug (user's report, 2026-10-03, when the test value was a single day), so the unit drops to
+        /// hours as soon as the days run out. Both units are vanilla's own period keys, which is where the
+        /// singular and the plural come from, and rounding hours up means it reads "1 hour" until the
+        /// hatch rather than "0 hours".
+        /// </summary>
         public override string CompInspectStringExtra()
         {
             if (hatchTick < 0)
             {
                 return null;
             }
-            int daysLeft = (hatchTick - Find.TickManager.TicksGame) / GenDate.TicksPerDay;
-            return "PMM_CocoonDaysLeft".Translate(daysLeft < 0 ? 0 : daysLeft);
+
+            int ticksLeft = hatchTick - Find.TickManager.TicksGame;
+            if (ticksLeft >= GenDate.TicksPerDay)
+            {
+                int days = ticksLeft / GenDate.TicksPerDay;
+                return "PMM_CocoonEmergesIn".Translate(
+                    days == 1 ? "Period1Day".Translate() : "PeriodDays".Translate(days));
+            }
+
+            int hours = (ticksLeft + GenDate.TicksPerHour - 1) / GenDate.TicksPerHour;
+            return "PMM_CocoonEmergesIn".Translate(
+                hours <= 1 ? "Period1Hour".Translate() : "PeriodHours".Translate(hours));
         }
 
         /// <summary>
