@@ -26,7 +26,7 @@ can be written onto a xenotype as it is.
 | Hornet | poor plants, poor animals, poor intellect, poor social | exist - aptitudes (§3.1) |
 | Hornet | sterile | exists - `Sterile` |
 | Hornet | great melee, great shooting | exist - aptitudes (§3.1) |
-| Hornet | weak flight | exists - `PMM_Gene_FlightWeak` (this workspace, core) |
+| Hornet | flight | exists - `PMM_Gene_Flight` (this workspace, core) |
 | Hornet | "don't like honey bees" (flavour) | **new** - the quarrelsome gene (§5), aimed at the bee's gene |
 | Mantis | ripper claws | exists - `VRE_RipperBlades` |
 | Mantis | compound eyes, infrared sensors | exist - `VRE_CompoundEyes`, `VRE_InfraredSensors` |
@@ -38,11 +38,11 @@ can be written onto a xenotype as it is.
 | Mothman | infrared sensors, serotonin, vocal glands, passive | exist - `VRE_*` |
 | Mothman | heatstress, hypothermic hibernation | exist - `VRE_Heatstress`, `VRE_HypothermicHibernation` |
 | Mothman | antennas, kind instinct, sleepy, extra pain | exist |
-| Mothman | great social, weak flight | exist |
+| Mothman | great social, flight | exist |
 | Mothman | **disorientating lights** | **new** (§4) |
 | Papillon | vocal glands, antimicrobial chitin, high grey matter | exist - `VRE_*` |
 | Papillon | sensitive brain | exists - `VRE_SensitiveBrainGoop` |
-| Papillon | antennas, kind instinct, sleepy, extra pain, violence disabled, weak flight | exist |
+| Papillon | antennas, kind instinct, sleepy, extra pain, violence disabled, flight | exist |
 | Papillon | great social | exists - aptitude |
 | Soldier beetle | hardened chitin, antimicrobial chitin, hard locked joints | exist - `VRE_*` |
 | Soldier beetle | ripper blades / charger claw / megaspider horn | exist - three defs, one choice (§6) |

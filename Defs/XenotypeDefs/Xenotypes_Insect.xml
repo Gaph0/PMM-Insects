@@ -210,7 +210,7 @@
 			<li>Unstoppable</li>
 			<li>MoveSpeed_Slow</li>
 			<!-- Large frame (user's call, 2026-10-03): she is the biggest fighter in the swarm,
-			     and the gene is free - no metabolic points, and nothing to clash with on a
+			     and the gene costs one point rather than nothing (user's call, 2026-10-03). Nothing clashes on a
 			     caste who carries no flight gene. -->
 			<li>PMM_Gene_LargeFrame</li>
 		</genes>
@@ -675,7 +675,7 @@
 			     every melee hit she lands injects it; she needs no stinger for that. -->
 			<li>ProjectMamono_MamonoVenom</li>
 			<!-- Large frame (user's call, 2026-10-03): the desert runner is built long, and the
-			     gene costs no metabolic points. -->
+			     gene costs one point, not none (user's call, 2026-10-03). -->
 			<li>PMM_Gene_LargeFrame</li>
 		</genes>
 		<modExtensions>

@@ -2,7 +2,8 @@
 
 ## Player-facing
 
-- 2026-10-03: Gave the soldier beetle her large frame back, and gave the girtablilu one too.
+- 2026-10-03: Added the large frame gene back to the soldier beetle, and added it to the girtablilu.
+- 2026-10-03: Fixed the abaddon's right wing drawing behind her abdomen.
 - 2026-10-03: Changed the papillon, the hornet and the mothman to keep the strong flight gene instead of the weak one.
 - 2026-10-03: Removed the swarmling from the abaddon's brood menu, so it lists only insector mamonos.
 - 2026-10-03: Changed the abaddon to be able to lay a honey bee, so every insector mamono can be laid on purpose.
