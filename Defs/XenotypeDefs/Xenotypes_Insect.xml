@@ -505,6 +505,13 @@
 			     so a soldier bug is born knowing her trade (user, 2026-09-25). Both
 			     aptitudes sit outside the evolution/degrade count. -->
 			<li>AptitudeRemarkable_Melee</li>
+			<!-- Her abdomen (user's call, 2026-10-03, HANDOFF.md §11.10): VRE ships the
+			     look alone, the same shape the queen's spawning sack takes - one
+			     attachment node on the lower abdomen, skin-coloured, and no stat work at
+			     all. Its one exclusion tag is Tail, and she carries no tail gene, so
+			     nothing clashes. The jelly is hers thematically too: her mockup has her
+			     living on it. -->
+			<li>VRE_JellySacks_Cosmetic</li>
 
 		</genes>
 		<modExtensions>
