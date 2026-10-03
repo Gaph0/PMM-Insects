@@ -251,7 +251,7 @@ can still change cheaply.
 
 | Phase | Work | Gate before moving on |
 |---|---|---|
-| 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. Left to check in game: give the genes to pawns in the dev gene editor, then look for "quarrelsome kin -50" between two carriers and "giddy in the light" in a lamp-lit room |
+| 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. The in-game check found a real defect first: both quarrel thoughts shared one worker, and that worker answered with whichever quarrel gene it found first, so one dial drove both thoughts - a hornet read -100 toward a honey bee with fifty of it labelled "quarrelsome kin", and soldier beetles read -100 toward each other instead of -50 (fixed 2026-10-03: each thought def now names its own gene). Re-checked the same day: "quarrelsome kin -50" between two carriers and "smell of honey -50" toward a honey bee both read right. "Giddy in the light" is still unchecked |
 | 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn |
 | 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
 | 4 | Mantis: wiring plus swarm rosters | **Built 2026-10-01** - boot clean; she appears in a swarm raid, keeps her voice (decision 3), and her KillThirst fires |

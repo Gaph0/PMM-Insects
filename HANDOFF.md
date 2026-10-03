@@ -702,9 +702,10 @@ geneline gizmo gene.
    `VRE_InsectSkin`, `VRE_InsectFlesh`, `VRE_BugBlood`, `VRE_MineralRichInsectskin`
    (armour would stack again - the bug that was already burned once at 1.44 sharp),
    `VRE_Microsized` and `VRE_Colossal` (a `VEF_BodySize_Offset` on top of B&S
-   sizing), and the melee-weapon genes `VRE_RipperBlades`, `VRE_ChargerClaws`,
-   `VRE_MegaspiderHorns`, `VRE_InsectMandibles` and `VRE_InsectRostrum` (an extra
-   attack verb, and the blades and claws also cost work speed, -0.3 and -0.4).
+   sizing), and the melee-weapon genes `VRE_RipperBlades`, `VRE_InsectMandibles`,
+   `VRE_MegaspiderHorns` and `VRE_InsectRostrum` (an extra attack verb; the blades
+   also cost work speed, -0.3). `VRE_ChargerClaws` is not one of them - it grants
+   the breacher charge and no attack at all (corrected 2026-10-03).
    `VRE_SpelopedeHorn` is the one exception, kept on the Giant Ant for its +0.2
    mining.
    **The wing genes are the sharp edge of this rule.** Our own `PMM_Gene_Flight`
