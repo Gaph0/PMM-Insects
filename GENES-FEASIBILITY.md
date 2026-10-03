@@ -302,7 +302,7 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 1. **Settled 2026-09-30, and reversed 2026-10-03: the gene owns the weapon, and her race keeps its fists as the floor.**
    The girtablilu is the precedent for the split, but not for the emptiness: her race def carries
    its own pincer tools *and* `VRE_ChargerClaws` for the charge, which is why the charge-only gene
-   was harmless on her and left the beetle unarmed. Expect a balance change: the beetle's damage then follows VRE's
+   was harmless on her and left the beetle unarmed. She keeps those claws (user's call, 2026-10-03: that was the intended design), and the beetle now has the same floor in her fists. Expect a balance change: the beetle's damage then follows VRE's
    tuning rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
    describing her.
 2. **The three genes exclude things.** `VRE_MegaspiderHorns` excludes the `Headbone` cosmetic tag,

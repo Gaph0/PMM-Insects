@@ -15,7 +15,7 @@
 		melee verbs at all: the log read "has no available melee attack, ... verbList= bodyVerbs=",
 		and another mod's postfix threw a NullReferenceException on every job scan. The girtablilu is
 		unaffected - she carries VRE_ChargerClaws *and* her own pincer tools, so the charge is a
-		bonus to her rather than her weapon. Her own fists are back since 2026-10-03 (user's call), so an option that grants no attack is now a lost preference rather than a girl left defenceless - and the armament gene is still what she reaches for.
+		bonus to her rather than her weapon - and she keeps them (user's call, 2026-10-03: that was the intended design), because those pincers are the floor underneath them. Her own fists are back since 2026-10-03 (user's call), so an option that grants no attack is now a lost preference rather than a girl left defenceless - and the armament gene is still what she reaches for.
 
 		Why a gene and not the race: CASTES-PLAN.md §0 decision 11 emptied her race's tool list so
 		the weapon gene owns the weapon, which is also the mantis's shape (HANDOFF.md §5.18). Nothing
