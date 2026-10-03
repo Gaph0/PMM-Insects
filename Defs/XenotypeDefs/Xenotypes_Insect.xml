@@ -171,9 +171,9 @@
 			     MeleeDamage_Strong stays: the mockup neither lists it nor asks for its removal,
 			     and she is the caste that leans on melee. -->
 			<li>MeleeDamage_Strong</li>
-			<!-- The weapon roll: one of ripper-blades, charger claws or a megaspider horn, picked
+			<!-- The weapon roll: one of ripper-blades, insect mandibles or a megaspider horn, picked
 			     by BeetleArmament.Roll when the gene lands. Her race carries no tools of its own
-			     any more - the gene owns the weapon (CASTES-PLAN.md §0 decision 11). -->
+			     any more - the gene owns the weapon (CASTES-PLAN.md §0 decision 11), so every option must be a real weapon gene: the charge-only charger claws (VRE_ChargerClaws) was retired on 2026-10-03 because she has no fists underneath it. -->
 			<li>PMM_Gene_BeetleArmament</li>
 			<!-- VRE Insector: HardenedChitin turns aside a quarter of all incoming damage and
 			     AntimicrobialPeptides doubles her healing and her immunity gain. That pair is the

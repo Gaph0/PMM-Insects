@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-03: Fixed the soldier beetle having no melee attack at all when her armament rolled charger claws, which is an ability rather than a weapon. It rolls insect mandibles now.
 - 2026-10-03: Added the large frame gene back to the soldier beetle, and added it to the girtablilu.
 - 2026-10-03: Fixed the abaddon's right wing drawing behind her abdomen.
 - 2026-10-03: Changed the papillon, the hornet and the mothman to keep the strong flight gene instead of the weak one.

@@ -61,7 +61,7 @@ What each one changes, in a line each:
 | Mantis | "Cold, emotionless, ruthless killers, fragile, glass cannons" | ripper claws, compound eyes, infrared sensors, vocal chitters, weakened chitin, ecdysone overdrive, antennas, awful social, great melee, strong melee damage, hyper aggressive | nothing - every gene exists |
 | Mothman | "Prefers dark places, loves light, gentle, simple minded" | infrared sensors, serotonin, vocal glands, passive, heatstress, hypothermic hibernation, antennas, kind instinct, sleepy, extra pain, great social, flight | the light gene (mood and consciousness) |
 | Papillon | "Beautiful, fragile, great mamono to have around" | vocal glands, antimicrobial chitin, high grey matter, sensitive brain, antennas, great social, kind instinct, sleepy, extra pain, violence disabled, flight | nothing - every gene exists |
-| Soldier beetle | "Tanky, slow, dangerous, not good talkers, violent towards other soldier beetles" | hardened chitin, one of ripper blades / charger claw / megaspider horn, antimicrobial chitin, hard locked joints, vocal chitters, ecdysonal overdrive, antennas, great melee, awful social, poor crafting, poor construction, poor intellect | the quarrelsome gene, and the one-of-three weapon roll |
+| Soldier beetle | "Tanky, slow, dangerous, not good talkers, violent towards other soldier beetles" | hardened chitin, one of ripper blades / insect mandibles / megaspider horn, antimicrobial chitin, hard locked joints, vocal chitters, ecdysonal overdrive, antennas, great melee, awful social, poor crafting, poor construction, poor intellect | the quarrelsome gene, and the one-of-three weapon roll |
 
 So the build order is driven by two things only: **two new genes**, and **four castes to wire up**.
 
@@ -200,7 +200,7 @@ done. Her live gene list is: `PMM_Gene_Insect`, `Robust`, `PMM_Gene_FlightWeak`,
 | Mockup asks for | Today | Proposal |
 |---|---|---|
 | hardened chitin | already hers | nothing to do |
-| one of ripper blades / charger claw / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. Both shapes already exist here: the girtablilu keeps pincers on her race *and* carries `VRE_ChargerClaws`, so she fights with two sets of tools, while the mantis keeps only her fists and lets `VRE_RipperBlades` be her weapon (2026-10-01). The mantis's shape is the one the beetle should copy - her tools move onto the gene and she keeps one (`GENES-FEASIBILITY.md` §6) |
+| one of ripper blades / insect mandibles / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. Both shapes already exist here: the girtablilu keeps pincers on her race *and* carries `VRE_ChargerClaws`, so she fights with two sets of tools, while the mantis keeps only her fists and lets `VRE_RipperBlades` be her weapon (2026-10-01). The mantis's shape is the one the beetle should copy - her tools move onto the gene and she keeps one (`GENES-FEASIBILITY.md` §6) |
 | antimicrobial chitin | not hers | add `VRE_AntimicrobialPeptides` |
 | hard locked joints | not hers | add `VRE_HardLockedJoints` (she is already "slow"; this makes it a real cost) |
 | vocal chitters | not hers | **out, decided 2026-09-30** - it silences her. Swapped for `VRE_LowOctopamine`, which keeps her voice and doubles her lovin' cooldown |

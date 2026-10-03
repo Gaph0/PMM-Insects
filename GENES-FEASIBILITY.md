@@ -45,7 +45,7 @@ can be written onto a xenotype as it is.
 | Papillon | antennas, kind instinct, sleepy, extra pain, violence disabled, flight | exist |
 | Papillon | great social | exists - aptitude |
 | Soldier beetle | hardened chitin, antimicrobial chitin, hard locked joints | exist - `VRE_*` |
-| Soldier beetle | ripper blades / charger claw / megaspider horn | exist - three defs, one choice (§6) |
+| Soldier beetle | ripper blades / insect mandibles / megaspider horn | exist - three defs, one choice (§6). The mockup's "charger claw" is an ability gene, not a weapon; mandibles holds its place (2026-10-03) |
 | Soldier beetle | vocal chitters, ecdysonal overdrive | exist - `VRE_*` |
 | Soldier beetle | great melee, awful social, poor crafting, poor construction, poor intellect | exist - aptitudes |
 | Soldier beetle | **-50 opinion and more fights with her own kind** | **new** (§5) |
@@ -111,7 +111,7 @@ breaking it was on purpose - so this column is a decision input, not a rule.
 | sensitive brain | `VRE_SensitiveBrainGoop` | evolution | `PsychicSensitivity` +0.3, `MeditationFocusGain` +0.2, psychic entropy recovery |
 | hardened chitin | `VRE_HardenedChitin` | evolution | `capMods` Moving -0.15, `IncomingDamageFactor` x0.75 |
 | hard locked joints | `VRE_HardLockedJoints` | mutation | `MoveSpeed` -0.4 |
-| charger claw | `VRE_ChargerClaws` | evolution | `WorkSpeedGlobal` -0.4, grants the charger tools |
+| charger claw | `VRE_ChargerClaws` | evolution | `WorkSpeedGlobal` -0.4 and a charge ability - **no attack hediff, so it is not a weapon** (corrected 2026-10-03) |
 | megaspider horn | `VRE_MegaspiderHorns` | evolution | `MiningSpeed` +0.1; excludes the `Headbone` tag |
 | microsized | `VRE_Microsized` | mutation | `VEF_BodySize_Offset` -0.45 |
 
@@ -285,7 +285,9 @@ number.** Three consequences worth keeping in view, none of them open questions:
 ## 6. The mockup's question: "how do you do a package of one of three genes?"
 
 The soldier beetle mockup asks how to give a caste one of ripper blades, charger claw or megaspider
-horn. All three exist (`VRE_RipperBlades`, `VRE_ChargerClaws`, `VRE_MegaspiderHorns`).
+horn. Two of those are weapon genes (`VRE_RipperBlades`, `VRE_MegaspiderHorns`). `VRE_ChargerClaws`
+is an ability gene - a charge and no attack - so `VRE_InsectMandibles` holds that place (corrected
+2026-10-03, after a beetle who rolled it was found to have no melee verbs at all).
 
 **The pattern is already in this mod, and it was built for exactly this shape of question.** The
 body colour roll (`Source/Insects/InsectColours.cs`, `HANDOFF.md` §5.13): the shared insect gene
@@ -298,8 +300,9 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 **Three things to decide, because the mockup's version is not free.**
 
 1. **Settled 2026-09-30, and confirmed: her race tool list is emptied and the gene owns the weapon.**
-   The girtablilu is the precedent - that race def carries **zero** melee tools and
-   `VRE_ChargerClaws` is its weapon. Expect a balance change: the beetle's damage then follows VRE's
+   The girtablilu is the precedent for the split, but not for the emptiness: her race def carries
+   its own pincer tools *and* `VRE_ChargerClaws` for the charge, which is why the charge-only gene
+   was harmless on her and left the beetle unarmed. Expect a balance change: the beetle's damage then follows VRE's
    tuning rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
    describing her.
 2. **The three genes exclude things.** `VRE_MegaspiderHorns` excludes the `Headbone` cosmetic tag,

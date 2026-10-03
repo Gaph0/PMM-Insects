@@ -8,8 +8,10 @@ namespace PMM_Insects
     /// <summary>
     /// The soldier beetle's armament, and the rule that she grows one of three.
     ///
-    /// The mockup asks for "one of ripper blades, charger claw or megaspider horn", so there is
-    /// nothing to invent: all three genes exist in VRE Insector. A gene cannot roll for itself, so
+    /// The mockup asks for "one of ripper blades, charger claw or megaspider horn". Two of those are
+    /// VRE Insector weapon genes; "charger claw" is not - `VRE_ChargerClaws` grants a charge and no
+    /// attack, and `VRE_InsectMandibles` holds its place (retired 2026-10-03, see `Roll` below). A
+    /// gene cannot roll for itself, so
     /// this is the shape the mod already uses for the castes' colours (`InsectColours.cs`,
     /// `HANDOFF.md` §5.13) - one def carries the list, one class picks from it when the gene lands,
     /// and one `PawnGenerator` postfix re-rolls at the end of generation so a daughter gets her own
@@ -24,7 +26,10 @@ namespace PMM_Insects
     ///     57: Cut, power 18, armour penetration 0.27). That is why her race's own tool list can
     ///     be emptied without disarming her, which is what `CASTES-PLAN.md` §0 decision 11 asks
     ///     for. It also means a beetle who loses the body part the hediff hangs on loses the
-    ///     weapon with it - no fists are left underneath by design.
+    ///     weapon with it - no fists are left underneath by design. It is also why a name in the
+    ///     list that grants no attack is a defect and not a preference: `VRE_ChargerClaws` was
+    ///     exactly that, and every beetle who rolled it went unarmed until 2026-10-03. `Roll` now
+    ///     says so in the log when a pick leaves her without a melee verb.
     ///   * The three genes exclude each other's ground (`VRE_MegaspiderHorns` excludes the
     ///     `Headbone` cosmetic tag, the other two carry their own lists), so this roll has to be
     ///     their only writer. It removes whichever one she already has before it adds the new one.
@@ -77,7 +82,14 @@ namespace PMM_Insects
                 return;
             }
 
-            foreach (GeneDef option in options)
+            List<GeneDef> toRemove = new List<GeneDef>(options);
+            List<GeneDef> retired = Retired(pawn);
+            if (retired != null)
+            {
+                toRemove.AddRange(retired);
+            }
+
+            foreach (GeneDef option in toRemove)
             {
                 if (option == null)
                 {
@@ -96,7 +108,94 @@ namespace PMM_Insects
             // are all endogenes and read under the gene page's "Germline genes". A gene added as a
             // xenogene lands in the Xenogenes list instead: it worked, its hediff and its graphics
             // were applied, and it was nowhere on the page the player was reading.
-            pawn.genes.AddGene(options.RandomElement(), xenogene: false);
+            GeneDef pick = options.RandomElement();
+            if (pick == null)
+            {
+                Log.Warning("[PMM Insects] An armament name on " + geneDef.defName
+                            + " resolves to no gene, so " + pawn + " would be unarmed. Check the armaments list.");
+                return;
+            }
+
+            pawn.genes.AddGene(pick, xenogene: false);
+            WarnIfUnarmed(pawn, pick);
+        }
+
+        /// <summary>The names she may already carry from an older version of the list.</summary>
+        private static List<GeneDef> Retired(Pawn pawn)
+        {
+            return ArmamentGene?.GetModExtension<BeetleArmamentRoll>()?.retiredArmaments;
+        }
+
+        /// <summary>
+        /// Gives an armament to a beetle who has none of the options.
+        ///
+        /// `Roll` runs when the gene is ADDED, and a pawn read out of a save never adds her genes
+        /// again - so a beetle who rolled the retired charger claws would have stayed unarmed for
+        /// the life of that save. This is the repair path, and it runs on spawn and on load.
+        /// </summary>
+        public static void EnsureArmament(Pawn pawn)
+        {
+            if (pawn?.genes == null)
+            {
+                return;
+            }
+
+            GeneDef geneDef = ArmamentGene;
+            if (geneDef == null || !pawn.genes.HasActiveGene(geneDef))
+            {
+                return;
+            }
+
+            List<GeneDef> options = Options(pawn);
+            if (options == null || options.Count == 0)
+            {
+                return;
+            }
+
+            foreach (GeneDef option in options)
+            {
+                if (option != null && pawn.genes.HasActiveGene(option))
+                {
+                    return;
+                }
+            }
+
+            Roll(pawn);
+        }
+
+        /// <summary>
+        /// Names the pick in the log when she still has no melee verb to attack with. That is the
+        /// shape the charger-claws defect would have shown on the day it was written. Dev mode
+        /// only: it is a note for whoever is testing a new armament, not a player-facing warning.
+        /// </summary>
+        private static void WarnIfUnarmed(Pawn pawn, GeneDef pick)
+        {
+            if (!Prefs.DevMode || HasMeleeVerb(pawn))
+            {
+                return;
+            }
+
+            Log.Warning("[PMM Insects] " + pawn + " picked the armament " + pick.defName
+                        + " and still has no melee verb, so that gene is not a weapon.");
+        }
+
+        /// <summary>Whether she has a melee attack at all, whether it comes from a tool or a hediff.</summary>
+        private static bool HasMeleeVerb(Pawn pawn)
+        {
+            if (pawn.VerbTracker?.AllVerbs == null)
+            {
+                return false;
+            }
+
+            foreach (Verb verb in pawn.VerbTracker.AllVerbs)
+            {
+                if (verb is Verb_MeleeAttack)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
@@ -128,6 +227,21 @@ namespace PMM_Insects
     }
 
     /// <summary>
+    /// A beetle read out of a save picks a real weapon here if she has none, which is the repair
+    /// path for anyone who rolled the retired charger claws before 2026-10-03, and for anyone whose
+    /// weapon gene was removed by something else. `Roll` only fires when a gene is added, so
+    /// without this a pawn who already carries the dead gene would stay unarmed for good.
+    /// </summary>
+    [HarmonyPatch(typeof(Pawn), nameof(Pawn.SpawnSetup))]
+    public static class BeetleArmamentLoadPatch
+    {
+        public static void Postfix(Pawn __instance)
+        {
+            BeetleArmament.EnsureArmament(__instance);
+        }
+    }
+
+    /// <summary>
     /// The three genes she rolls between, declared on the gene def that owns the roll.
     ///
     /// It lives there rather than in code for the same reason a caste's palette does: the set stays
@@ -137,5 +251,13 @@ namespace PMM_Insects
     public class BeetleArmamentRoll : DefModExtension
     {
         public List<GeneDef> armaments;
+
+        /// <summary>
+        /// Names she may already carry from an older version of the list. `BeetleArmament.Roll`
+        /// removes these too, so retiring an option actually retires it on a pawn who has it.
+        /// `VRE_ChargerClaws` is the first entry: it was one of the three until 2026-10-03, when it
+        /// turned out to grant no attack and left every beetle who rolled it unarmed.
+        /// </summary>
+        public List<GeneDef> retiredArmaments;
     }
 }
