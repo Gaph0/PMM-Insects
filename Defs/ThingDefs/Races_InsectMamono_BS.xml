@@ -327,18 +327,16 @@
 			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
-		<!-- No tool list of her own since 2026-10-01 (CASTES-PLAN.md §0 decision 11): the armament
-		     gene owns her weapon. `Inherit="False"` is what makes that true - without it she would
-		     keep the Human parent's fists, which is exactly the "two sets of tools" the plan set
-		     out to avoid.
-
-		     Nothing is lost by it. `Pawn_MeleeVerbs` builds its list from
-		     `pawn.verbTracker.AllVerbs`, not from this list, and VRE's three weapon genes each grant
-		     a hediff carrying a `HediffCompProperties_VerbGiver` - so her ripper-blades, charger
-		     claws or megaspider horn are real melee attacks with no race tool behind them. The one
-		     thing this trades away is a fallback: a beetle who loses the body part her weapon hangs
-		     on has nothing left to swing. Her own "ripper claws" tool went the same way. -->
-		<tools Inherit="False" />
+		<!-- Her fists are back (user's call, 2026-10-03): the armament gene is what she reaches for,
+		     and this is the floor underneath it. 2026-Oct-01 until today this block read
+		     `<tools Inherit="False" />` (CASTES-PLAN.md §0 decision 11), which dropped the Human
+		     parent's fists so the gene would own her weapon outright. That read well and had no
+		     floor: the roll could hand her charger claws, a gene that grants the breacher charge
+		     and no attack at all, and she came out with nothing to swing - the log read "no
+		     available melee attack, ... verbList= bodyVerbs=". Her ripper-blades, insect mandibles
+		     or megaspider horn are hediffs carrying a `HediffCompProperties_VerbGiver` and are
+		     still her weapon; the game picks her strongest verb, so a fist (the Human parent's
+		     Blunt 8.2) is only what she falls back on when the armament is gone. -->
 		<race>
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>

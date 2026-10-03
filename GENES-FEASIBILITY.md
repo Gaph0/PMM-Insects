@@ -299,7 +299,7 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 
 **Three things to decide, because the mockup's version is not free.**
 
-1. **Settled 2026-09-30, and confirmed: her race tool list is emptied and the gene owns the weapon.**
+1. **Settled 2026-09-30, and reversed 2026-10-03: the gene owns the weapon, and her race keeps its fists as the floor.**
    The girtablilu is the precedent for the split, but not for the emptiness: her race def carries
    its own pincer tools *and* `VRE_ChargerClaws` for the charge, which is why the charge-only gene
    was harmless on her and left the beetle unarmed. Expect a balance change: the beetle's damage then follows VRE's
@@ -345,7 +345,7 @@ body colours, so the postfix is a second entry in one existing patch).
 Every gene question from the first review is answered and written into the sections above: the light
 rule (exactly 50%, the growing lamp's bright core out, a glowing cave counting as light), the quarrel
 (one way for the hornet, mutual for the beetle, -50), the vocal-chitters swap, the kill thirst, the
-beetle's rebuild with her race tools emptied, and placeholder art first.
+beetle's rebuild, her race tools emptied and then restored the same day, and placeholder art first.
 
 **Nothing is left.** The queen lays all four (decided 2026-09-30, `CASTES-PLAN.md` §0), so the plan
 has no open questions and implementation can start at its phase 1.

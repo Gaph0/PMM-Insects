@@ -1768,11 +1768,11 @@ roll, her gene page shows what it gave her, and a save keeps it. Three checked f
 - VRE's three weapons are hediffs carrying a `HediffCompProperties_VerbGiver` (`VRE_RipperBlades`:
   Cut, power 18, armour penetration 0.27), so the weapon never went through `ThingDef.tools` at all.
 
-**The tool rule, finished.** Her race's block is now `<tools Inherit="False" />` - empty, and not
+**The tool rule, finished, then reversed (2026-10-03).** Her race's block was, until that day, `<tools Inherit="False" />` - empty, and not
 inheriting the Human parent's fists - so the gene owns the weapon, which is §0 decision 11. This is
 where `CASTES-PLAN.md` §3.5 was wrong until today: the girtablilu was never the empty-handed example,
-the beetle is. What it trades away is a fallback: there are no fists under the blades, so a beetle who
-loses the body part her weapon hangs on has nothing left to swing.
+the beetle is. What it traded away was a fallback: there were no fists under the blades, so a beetle who
+loses the body part her weapon hangs on has nothing left to swing. Her fists came back the same day (user's call), so the armament is what she reaches for rather than the only thing she has.
 
 **One nuance on the new gene's icon.** It has no `iconPath`, and that is quieter than the xenotypes'
 case: `GeneDef.ConfigErrors` does not check for a missing icon the way `XenotypeDef` does (both read

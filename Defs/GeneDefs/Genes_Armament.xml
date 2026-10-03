@@ -11,17 +11,17 @@
 		VRE's charger claws is NOT a weapon. It grants the ability VFEI2_BreacherCharge_Colonists and
 		a work-speed penalty, and no attack at all. Every real option grants a hediff carrying a
 		HediffCompProperties_VerbGiver, and those verbs are the only attack a beetle has, because her
-		race carries no tools of its own. A beetle who rolled charger claws therefore had no
+		race carried no tools of its own. A beetle who rolled charger claws therefore had no
 		melee verbs at all: the log read "has no available melee attack, ... verbList= bodyVerbs=",
 		and another mod's postfix threw a NullReferenceException on every job scan. The girtablilu is
 		unaffected - she carries VRE_ChargerClaws *and* her own pincer tools, so the charge is a
-		bonus to her rather than her weapon.
+		bonus to her rather than her weapon. Her own fists are back since 2026-10-03 (user's call), so an option that grants no attack is now a lost preference rather than a girl left defenceless - and the armament gene is still what she reaches for.
 
-		Why a gene and not the race: CASTES-PLAN.md §0 decision 11 empties her race's tool list so
+		Why a gene and not the race: CASTES-PLAN.md §0 decision 11 emptied her race's tool list so
 		the weapon gene owns the weapon, which is also the mantis's shape (HANDOFF.md §5.18). Nothing
 		is lost by that - all three options grant a hediff with a
 		`HediffCompProperties_VerbGiver`, not a race tool, so she attacks with the same ripper-blades,
-		mandibles or horn as any VRE insectoid. That is what makes the list load-bearing rather than cosmetic: with no race tools underneath her, an option that grants no attack leaves her with nothing to swing.
+		mandibles or horn as any VRE insectoid. That is what made the list load-bearing rather than cosmetic: with no race tools underneath her, an option that grants no attack left her with nothing to swing.
 
 		Why this gene is visible at all: a roll is invisible until it lands, so her xenotype lists the
 		roll and her gene page shows what it gave her. One of the three appears beside this one.

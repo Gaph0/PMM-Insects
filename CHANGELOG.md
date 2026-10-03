@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-03: Changed the soldier beetle to keep her fists, so her armament is what she reaches for instead of the only thing she has.
 - 2026-10-03: Fixed the quarrelsome and honey-hating genes firing together, which turned one -50 grudge into -100 and showed the kin quarrel against honey bees.
 - 2026-10-03: Fixed the soldier beetle having no melee attack at all when her armament rolled charger claws, which is an ability rather than a weapon. It rolls insect mandibles now.
 - 2026-10-03: Added the large frame gene back to the soldier beetle, and added it to the girtablilu.

@@ -25,7 +25,7 @@ together.
 | 8 | Glowing cave plants | **artificial** - a glowing cave is light |
 | 9 | The caravan slot | **their own trader kinds** - the mothman and the papillon *lead* caravans |
 | 10 | Health scale and `combatPower` | **confirmed as proposed** (0.8 / 0.7 / 0.8 / 0.5) |
-| 11 | The beetle's race tools | **emptied** - the gene owns her weapon |
+| 11 | The beetle's race tools | **emptied 2026-10-01, reversed 2026-10-03** - she keeps her fists, and the gene is what she reaches for |
 | 12 | Art | **hand art**, dropped in `Project Mamono Textures/` and copied into the mod |
 | 13 | The queen's brood list | **all four** - the abaddon can lay any of the new castes |
 
@@ -44,7 +44,7 @@ What each one changes, in a line each:
   a glowing cave is light to her.
 - **9** adds two `<trader>true</trader>` kinds beside `PMM_InsectTrader`; neither caste walks in an
   escort.
-- **10** keeps the health scales and `combatPower` figures as drafted, and **11** empties
+- **10** keeps the health scales and `combatPower` figures as drafted, and **11** emptied
   `PMM_Race_SoldierBeetle`'s tool list.
 - **12** means four hand-drawn icons at 64x64, the size the mod's real xenotype icons use, dropped
   in `Project Mamono Textures/` and copied to `Textures/UI/Icons/Xenotypes/<Name>.png`.
@@ -223,7 +223,7 @@ she loses five genes she carries today:
 | `PMM_Gene_FlightWeak` | her weak flight. The mockup does not list it, and it does not say to drop it either |
 | `PMM_Gene_LargeFrame` | the caravan frame, same note. **Back on her 2026-10-03** (user's call, with the girtablilu) |
 
-Her weapon also changes owner, decided 2026-09-30: her race's tool list is **emptied** and one of the
+Her weapon also changes owner, decided 2026-09-30: her race's tool list was **emptied** for a day and one of the
 three VRE weapon genes becomes her weapon. The mantis (phase 4, 2026-10-01) is that shape already built
 - her race carries her fists and her head, and `VRE_RipperBlades` is her weapon - so phase 5 has a
 working example to copy instead of a race to go and measure. Her damage then follows VRE's tuning
