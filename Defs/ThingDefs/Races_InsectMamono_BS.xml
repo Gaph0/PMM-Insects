@@ -752,8 +752,8 @@
 			     lay, and the egg sac she throws carries that choice with it. The list is data:
 			     a new species is one line here, never a code change. `random mamono` draws from
 			     the humanlike entries only, so it can never quietly hand back the swarmling.
-			     The default entry is listed on purpose too - after trying a caste, the player
-			     can hand her the old brood back.
+The swarmling is deliberately not in the list: it is what she lays unprompted, but
+				     it is not a caste the player can pick or return to (user's call, 2026-10-03).
 
 			     Only a queen of the player's faction is offered the menu; a nest queen is not,
 			     and nothing anywhere casts the ability on its own (see §5.11). -->
@@ -796,7 +796,6 @@
 						<randomMamono>true</randomMamono>
 						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
 					</li>
-					<li><pawnKind>VFEI2_Swarmling</pawnKind></li>
 				</broodOptions>
 			</li>
 		</comps>

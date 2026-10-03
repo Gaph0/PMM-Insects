@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-03: Removed the swarmling from the abaddon's brood menu, so it lists only insector mamonos.
 - 2026-10-03: Changed the abaddon to be able to lay a honey bee, so every insector mamono can be laid on purpose.
 - 2026-10-03: Changed the greenworm to eat more than any of her sisters, as her own descriptions always said she did.
 - 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
