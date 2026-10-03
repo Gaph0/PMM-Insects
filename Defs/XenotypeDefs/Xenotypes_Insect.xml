@@ -209,6 +209,10 @@
 			<li>Robust</li>
 			<li>Unstoppable</li>
 			<li>MoveSpeed_Slow</li>
+			<!-- Large frame (user's call, 2026-10-03): she is the biggest fighter in the swarm,
+			     and the gene is free - no metabolic points, and nothing to clash with on a
+			     caste who carries no flight gene. -->
+			<li>PMM_Gene_LargeFrame</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -670,6 +674,9 @@
 			     stages behind it. VenomDamagePatch watches for this gene on the attacker, so
 			     every melee hit she lands injects it; she needs no stinger for that. -->
 			<li>ProjectMamono_MamonoVenom</li>
+			<!-- Large frame (user's call, 2026-10-03): the desert runner is built long, and the
+			     gene costs no metabolic points. -->
+			<li>PMM_Gene_LargeFrame</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -823,7 +830,8 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- The user's list (CASTES-PLAN.md §3.3), each gene's real effect checked in
 			     GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
 			     tags, so she never fights; VRE_Heatstress is x4 flame damage and a fire-terror
@@ -880,7 +888,8 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- The user's list (CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
 			     no fighting at all, and it excludes melee damage genes by tag. Pain_Extra forces
 			     Wimp on top of that, and VRE_HighGreyMatter with VRE_SensitiveBrainGoop make her
@@ -928,7 +937,8 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- The user's list (CASTES-PLAN.md §3.1), each effect checked in
 			     GENES-FEASIBILITY.md §3: VRE_CompoundEyes is Sight +0.5,
 			     VRE_AntimicrobialPeptides is healing x2 and immunity x1.5, VRE_RapidLifeCycle

@@ -57,10 +57,10 @@ What each one changes, in a line each:
 
 | Mockup | Role, as you wrote it | Genes, as you wrote them | What is really new |
 |---|---|---|---|
-| Hornet | "fighters for a bee hive, very angry. Don't like honey bee's (flavour)" | compound eyes, antimicrobial chitin, rapid life cycle, volatile, antennas, poor plants, poor animals, poor intellect, poor social, sterile, great melee, great shooting, weak flight | the dislike of honey bees - the quarrelsome gene |
+| Hornet | "fighters for a bee hive, very angry. Don't like honey bee's (flavour)" | compound eyes, antimicrobial chitin, rapid life cycle, volatile, antennas, poor plants, poor animals, poor intellect, poor social, sterile, great melee, great shooting, flight | the dislike of honey bees - the quarrelsome gene |
 | Mantis | "Cold, emotionless, ruthless killers, fragile, glass cannons" | ripper claws, compound eyes, infrared sensors, vocal chitters, weakened chitin, ecdysone overdrive, antennas, awful social, great melee, strong melee damage, hyper aggressive | nothing - every gene exists |
-| Mothman | "Prefers dark places, loves light, gentle, simple minded" | infrared sensors, serotonin, vocal glands, passive, heatstress, hypothermic hibernation, antennas, kind instinct, sleepy, extra pain, great social, weak flight | the light gene (mood and consciousness) |
-| Papillon | "Beautiful, fragile, great mamono to have around" | vocal glands, antimicrobial chitin, high grey matter, sensitive brain, antennas, great social, kind instinct, sleepy, extra pain, violence disabled, weak flight | nothing - every gene exists |
+| Mothman | "Prefers dark places, loves light, gentle, simple minded" | infrared sensors, serotonin, vocal glands, passive, heatstress, hypothermic hibernation, antennas, kind instinct, sleepy, extra pain, great social, flight | the light gene (mood and consciousness) |
+| Papillon | "Beautiful, fragile, great mamono to have around" | vocal glands, antimicrobial chitin, high grey matter, sensitive brain, antennas, great social, kind instinct, sleepy, extra pain, violence disabled, flight | nothing - every gene exists |
 | Soldier beetle | "Tanky, slow, dangerous, not good talkers, violent towards other soldier beetles" | hardened chitin, one of ripper blades / charger claw / megaspider horn, antimicrobial chitin, hard locked joints, vocal chitters, ecdysonal overdrive, antennas, great melee, awful social, poor crafting, poor construction, poor intellect | the quarrelsome gene, and the one-of-three weapon roll |
 
 So the build order is driven by two things only: **two new genes**, and **four castes to wire up**.
@@ -221,7 +221,7 @@ she loses six genes she carries today:
 | `VRE_InefficientMidgut` | the raised food capacity that made her eat more |
 | `VRE_Stenothermic` | her narrow comfort band (`ComfyTemperatureMin` +4, `ComfyTemperatureMax` -4) |
 | `PMM_Gene_FlightWeak` | her weak flight. The mockup does not list it, and it does not say to drop it either |
-| `PMM_Gene_LargeFrame` | the caravan frame, same note |
+| `PMM_Gene_LargeFrame` | the caravan frame, same note. **Back on her 2026-10-03** (user's call, with the girtablilu) |
 
 Her weapon also changes owner, decided 2026-09-30: her race's tool list is **emptied** and one of the
 three VRE weapon genes becomes her weapon. The mantis (phase 4, 2026-10-01) is that shape already built
