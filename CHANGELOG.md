@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-03: Fixed the quarrelsome and honey-hating genes firing together, which turned one -50 grudge into -100 and showed the kin quarrel against honey bees.
 - 2026-10-03: Fixed the soldier beetle having no melee attack at all when her armament rolled charger claws, which is an ability rather than a weapon. It rolls insect mandibles now.
 - 2026-10-03: Added the large frame gene back to the soldier beetle, and added it to the girtablilu.
 - 2026-10-03: Fixed the abaddon's right wing drawing behind her abdomen.
@@ -12,6 +13,9 @@
 - 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
 - 2026-10-03: Changed the cocoon's countdown to count hours once there is less than a day left, instead of standing at "0 days".
 - 2026-10-02: Fixed the cocoon never opening. It never ticked, so she stayed a greenworm inside it for good.
+- 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
+- 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
+- 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
 - 2026-10-02: Changed the cocoon to hold her inside it the way a cryptosleep casket does. She is off the map for the fifteen days, so nothing rescues her, alerts about her or draws her, and she does not eat, sleep or starve.
 - 2026-10-02: Removed the greenworm's acid spit. Nothing in the mod needs a DLC any more.
 - 2026-10-02: Added the greenworm's maturation: a grub who has spent enough mana spins a cocoon, and a papillon comes out of it fifteen days later.
