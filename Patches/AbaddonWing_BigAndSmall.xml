@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!--
+		The abaddon's abdomen draws over her right wing in the north view (user's report,
+		2026-10-03: "the abdomen is displaying in front of the wing").
+
+		Two mods set the depth of the two things, and they only collide in that one view:
+
+		  * VRE's cosmetic spawning sack is a render node under the Body tag, layer -3 in every
+		    view but the north one, which carries 90.
+		  * Big & Small's wing tracker draws the wings at -2, -1 and 92. Its right back wing has
+		    no north override, so it keeps -2 and the sack's 90 lands on top of it. The matching
+		    left back wing is `visibleFacing East` and is not drawn in the north view at all,
+		    which is why the report names the right wing alone.
+
+		The first attempt lowered the sack's north layer to -3, the value its own other three
+		views use. It was deployed and loaded (the game started after it, and the log shows no
+		patch failure) and the user still saw the abdomen over the wing, so this goes at the
+		wing instead - the side the request actually asks to move.
+
+		90.5 is the value and every digit matters: above the sack's 90, and below the near
+		wings' 91 and 92, so the far wing draws over the abdomen while staying behind the wings
+		on the near side. `PawnRenderNodeWorker.LayerFor` feeds `AltitudeForLayer`, which is what
+		orders the pawn's draw requests, so a layer is the right lever. The change is per pawn
+		and per facing: the north view alone. Other winged pawns keep the relative order they
+		always had (-2, -1, 92 becomes 90.5, -1, 92).
+
+		Both back-wing nodes are given it. Only the right one is drawn in the north view today,
+		but the rule is written for the pair so a version that widens `visibleFacing` still
+		behaves.
+
+		Gated on Big and Small by display name: the xpath can only match that mod's tracker, and
+		a patch operation that matches nothing is an error in the log.
+	-->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Big and Small - Framework</li>
+		</mods>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/*[defName="BS_HumanoidWithWings_Race"]/renderNodeProperties/li[conditionalGraphics/conditionalPaths/altDefs/li="BS_FeatheredWingBack"]/drawData</xpath>
+			<value>
+				<dataNorth>
+					<layer>90.5</layer>
+				</dataNorth>
+			</value>
+		</match>
+	</Operation>
+</Patch>
