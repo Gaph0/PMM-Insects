@@ -2212,9 +2212,11 @@ Left:
    chance per village rather than a guarantee. Phase 3 kept her at 1, and the user's
    tuning pass says that is good as it stands. She cannot be seen without attacking a
    village (§10, Phase 2).
-2. **Custom art.** The hostile tribe has its own crest now, used for both its icon
-   and its villages (§4.4). The neutral tribe still uses VFEI2's hive art and the
-   vanilla insect icon.
+2. **Custom art. Corrected 2026-10-03:** both tribes have their own crest, each used
+   for its icon and its villages (`World/WorldObjects/Expanding/PMM_InsectorHive` and
+   `PMM_InsectorSwarm`), so nothing is borrowed from VFEI2 or from vanilla any more. The
+   art still outstanding is the castes' own xenotype icons, and the abaddon folk's icon
+   is filed with those rather than counted on its own.
 3. **Phase 3 tuning: settled 2026-10-03.** The raid weights, the queen's weight
    (§11 item 1) and the raised cost curve all read well in play, so nothing moves.
 4. **The Phase 4 gene write-up** (§5.3) is fully answered and built: immunity on
@@ -2233,10 +2235,10 @@ Worth asking later, not now:
 6. Do we want our own settlement layout on top of VFEI2's four?
 7. Do we want a custom Ideology culture, and VIE memes with it?
 8. A settlement namer of our own, instead of `NamerSettlementTribal`.
-9. **The abaddon folk's own art (2026-09-25).** Two pieces, both now the only
-   things left on her: the **xenotype icon** (currently the queen's crest) and the
+9. **The abaddon folk's own art (2026-09-25).** One piece left on her: the
    **lower-arm sprite** (currently a placeholder, six files in
-   `Textures/RaceDefaults/PMM_AbaddonFolk/`). Replacements go in at the
+   `Textures/RaceDefaults/PMM_AbaddonFolk/`). Her xenotype icon is filed with the
+   castes' icons (2026-10-03). Replacements go in at the
    same paths with the same names - no XML changes. §5.7 has the details, including
    the node settings likely to need tuning in dev mode.
 10. **The insect abdomen - asked about and shelved (2026-09-25).** B&S's spider is
@@ -2251,7 +2253,7 @@ Worth asking later, not now:
     every insector mamono we ship should be layable, so the bee joined the
     `broodOptions` list in `Defs/ThingDefs/Races_InsectMamono_BS.xml` and is the last
     caste that list was missing. The queen's own kind is still not on it - a queen
-    laying a queen is the one entry left to decide, and the folk entry is her own kind
+    laying a queen is the answer rather than an open question (2026-10-03: a queen does not lay a queen), and the folk entry is her own kind
     already.
 
 ---
