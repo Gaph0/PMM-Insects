@@ -2232,9 +2232,12 @@ Left:
 
 Worth asking later, not now:
 
-6. Do we want our own settlement layout on top of VFEI2's four?
-7. Do we want a custom Ideology culture, and VIE memes with it?
-8. A settlement namer of our own, instead of `NamerSettlementTribal`.
+6. **Our own settlement layout. Closed 2026-10-03:** players rarely if ever attack a
+   village, so VFEI2's four layouts are a non-issue.
+7. **A custom Ideology culture. Deferred 2026-10-03:** the mod needs no Ideology
+   features as it stands; a culture is for a later collaboration.
+8. **Our own settlement namer. Deferred 2026-10-03:** the names are not there yet -
+   creative bandwidth, not anything technical. Still the cheapest of the three.
 9. **The abaddon folk's own art (2026-09-25).** One piece left on her: the
    **lower-arm sprite** (currently a placeholder, six files in
    `Textures/RaceDefaults/PMM_AbaddonFolk/`). Her xenotype icon is filed with the
@@ -2247,8 +2250,11 @@ Worth asking later, not now:
    sits inside it. Nothing was built - "just do the arms for now" (§5.7).
    **Resolved for the queen, not for the folk (2026-09-26):** the abaddon's abdomen is
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
-   body part, no gut and no art of ours were needed. The folk still has none, and the
-   spider stays the reference if she ever gets one.
+   body part, no gut and no art of ours were needed. The folk has one too since 2026-10-03 (user's call): `VRE_JellySacks_Cosmetic`, the same
+   look-only shape - one attachment node on her lower abdomen, no body part and no art
+   of ours. A real, damageable abdomen stays an option if the jelly sacks are ever not
+   enough, and B&S's `BS_SpiderAbdomen` is the reference for it: 60 HP, skin-covered,
+   childed to the torso at `height Bottom`.
 11. **Should the abaddon be able to lay a honey bee? Answered 2026-10-03, and widened:**
     every insector mamono we ship should be layable, so the bee joined the
     `broodOptions` list in `Defs/ThingDefs/Races_InsectMamono_BS.xml` and is the last
