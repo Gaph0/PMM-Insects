@@ -3,8 +3,9 @@
 For the next agent picking this up, and for the user. This file is the plan for
 the Insects overhaul.
 
-**Status: design locked. Phases 1 to 4 are done and field-tested (2026-09-20);
-phase 5 is built and awaiting its field test.**
+**Status: design locked. Phases 1 to 5 are done and field-tested, 3, 4 and 5 on
+2026-10-03, and phase 6's build gate was confirmed the same day. Phases 7 and 8 are
+built; what is left is the art in §11 and the decisions beside it.**
 The spawn swap and the wild layer are gone, the two insector tribes exist with
 their names, their VFEI2 villages and their castes, and the six castes now carry
 their VRE gene packages (§5.3). Phase 3 added the melee groups, the four vanilla
@@ -14,10 +15,10 @@ Three extras came out of the same conversation and are built: chitin instead of
 human leather from a corpse, insect flesh so eating insect meat is cannibalism to a
 mamono, and one "mamono corpses" line in the item filters (§10, §12.9). That line moved
 into core on 2026-09-20, so the slime and elemental mamonos share it (§11 item 5).
-Phases 6 to 8: the hive build gate is still open, phase 7 was closed on 2026-09-24 by
-deleting the hive bond rule and its vanish rather than repointing them (§8), and
-phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
-art and tuning in §11.
+Phases 6 to 8: the hive build gate was confirmed in game on 2026-10-03, phase 7 was
+closed on 2026-09-24 by deleting the hive bond rule and its vanish rather than
+repointing them (§8), and phase 8's trade landed on 2026-09-22. Phases 3, 4 and 5 were
+field-tested the same day. What is left is the art in §11 and the decisions beside it.
 
 `archive/PLAN.md` holds the old design: a total spawn swap, plus tameable wild
 mamonos. It was archived on 2026-10-01, once the mod had shipped as two tribes and its
@@ -822,7 +823,7 @@ the user's call.
 
 ### 5.4 The brood (egg spew) - built 2026-09-20
 
-**Built, awaiting its field test. The brood is a VFEI2 swarmling, not a mamono** (the
+**Built 2026-09-20, field-tested 2026-10-03. The brood is a VFEI2 swarmling, not a mamono** (the
 user's call, 2026-09-20). The clone is `PMM_Ability_EggSpew`, `PMM_Proj_EggSac`
 and `PMM_EggSac` (`Defs/AbilityDefs/Abilities_EggSpew.xml` and
 `Defs/ThingDefs/Things_EggSpew.xml`), all ungated Core defs, and the abaddon
@@ -2121,7 +2122,7 @@ the log for `Skipping AddHostilePawnGroup` - that means a `Settlement` group is
 missing.
 
 **Phase 3 - raids, children and the caste table. (done 2026-09-20; the children
-were dropped, and the rest is not yet field-tested)**
+were dropped, and the rest was field-tested 2026-10-03)**
 Done: `pawnGroupMakers` filled with melee groups only - Combat, a second Combat
 for the vanilla roster, Combat-melee, Peaceful, Settlement - plus the four work
 groups vanilla tribes carry. The children were built and then removed by the user
@@ -2131,7 +2132,7 @@ Gate: a large raid fields swarms of devil bugs, a few giant ants and at least on
 soldier beetle, and no ranged group is ever used. A small raid never fields the
 queen. A village raid fields her.
 
-**Phase 4 - gene packages. (built 2026-09-20; not yet field-tested)**
+**Phase 4 - gene packages. (built 2026-09-20; field-tested 2026-10-03)**
 Done: the six caste packages are in the six xenotypes (§5.3),
 `VRE_InsectJellyDependency` on the five fighters only, no `VRE_JellySacks`
 anywhere, and no `VRE_GenelineEvolution`. The pheromone effect is ours now, carried
@@ -2170,13 +2171,13 @@ raises the cannibalism thoughts and doing the same to a baseliner does not; the 
 filters show one "mamono corpses" line holding all six races, and a default butcher
 bill still accepts a mamono corpse.
 
-**Phase 5 - brood and nourishment. (built 2026-09-20, awaiting its field test)**
+**Phase 5 - brood and nourishment. (built 2026-09-20; field-tested 2026-10-03)**
 The egg spew clone, and the widened hive lookup.
 Gate: the Abaddon's egg spew produces a swarmling, in the queen's faction, in a
 dev-spawned village. A mamono standing near a `VFEI2_KemianHive` gets nourishment.
 
-**Phase 6 - jelly and hives for the player.**
-Confirm the build gate from §7.1 in both directions.
+**Phase 6 - jelly and hives for the player. (gate confirmed 2026-10-03)**
+The build gate from §7.1 was tested in both directions, in game.
 Gate: a recruited mamono with `VRE_Hiveglands` can build `VFEI2_JellyFarm` and
 `VFEI2_HiveWall`. A mamono without the gene cannot.
 
@@ -2205,19 +2206,19 @@ names to the neutral tribe and two swarm names to the hostile one.
 
 Left:
 
-1. **Queen presence in villages.** She is affordable at village point levels and
-   listed in the `Settlement` group at weight 1 of 33, so she is a chance per
-   village rather than a guarantee. Phase 3 kept her at 1 - raise the weight if
-   the user wants a queen more often. She cannot be seen without attacking a
+1. **Queen presence in villages. Settled 2026-10-03.** She is affordable at village
+   point levels and listed in the `Settlement` group at weight 1 of 33, so she is a
+   chance per village rather than a guarantee. Phase 3 kept her at 1, and the user's
+   tuning pass says that is good as it stands. She cannot be seen without attacking a
    village (§10, Phase 2).
 2. **Custom art.** The hostile tribe has its own crest now, used for both its icon
    and its villages (§4.4). The neutral tribe still uses VFEI2's hive art and the
    vanilla insect icon.
-3. **Phase 3 tuning:** the raid weights, the queen's weight (§11 item 1), and
-   whether the raised cost curve changes how raids feel.
+3. **Phase 3 tuning: settled 2026-10-03.** The raid weights, the queen's weight
+   (§11 item 1) and the raised cost curve all read well in play, so nothing moves.
 4. **The Phase 4 gene write-up** (§5.3) is fully answered and built: immunity on
    the insectoid gene, the six caste packages, locked genes allowed (two in use),
-   and `VRE_GenelineEvolution` left off. What is left is the field test.
+   and `VRE_GenelineEvolution` left off. Field-tested 2026-10-03.
 5. **One mamono-corpse line across the whole family: done 2026-09-20.** The category
    def and the mover live in `Project Mamono` (`Source/ProjectMamono/MamonoCorpses.cs`) and
    `Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml`, and each species mod
@@ -2245,9 +2246,12 @@ Worth asking later, not now:
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
    body part, no gut and no art of ours were needed. The folk still has none, and the
    spider stays the reference if she ever gets one.
-11. **Should the abaddon be able to lay a honey bee?** Her brood list (§5.11) was not
-    touched by the honey pass (2026-09-27), so the bee is not among the castes the
-    queen can choose. One entry in that list if she should be - no code change.
+11. **Should the abaddon be able to lay a honey bee? Answered 2026-10-03, and widened:**
+    every insector mamono we ship should be layable, so the bee joined the
+    `broodOptions` list in `Defs/ThingDefs/Races_InsectMamono_BS.xml` and is the last
+    caste that list was missing. The queen's own kind is still not on it - a queen
+    laying a queen is the one entry left to decide, and the folk entry is her own kind
+    already.
 
 ---
 

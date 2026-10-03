@@ -777,6 +777,11 @@
 					<!-- The ant mimic (2026-09-27). A daughter the queen can lay on purpose,
 					     and one the random draw can hand back. -->
 					<li><pawnKind>PMM_InsectAntArachne</pawnKind></li>
+					<!-- The honey bee (2026-10-03, user's call: every insectoid mamono we have made should
+					     be layable). She was the one caste this list was missing - the honey pass left her
+					     out on purpose - and the ruling is that any species we ship is a daughter the queen
+					     can choose. It is one line, as the comment above says it should be. -->
+					<li><pawnKind>PMM_InsectHoneyBee</pawnKind></li>
 					<!-- The mothman, the papillon and the hornet (2026-10-01, CASTES-PLAN.md phases 2
 					     and 3). All three are hive castes, so the queen can lay any of them on purpose,
 					     and all three join the random draw. -->
