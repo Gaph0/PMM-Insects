@@ -34,11 +34,7 @@
 		     full. -->
 		<biostatCpx>2</biostatCpx>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
-		<!-- No metabolic cost, and that is the ruling rather than an oversight: the
-		     harvest is not free, it is paid for in work she has to do anyway, and the
-		     shared insect gene on the same pawn already costs her 1 (see
-		     Genes_Insect.xml). Move this number if she should eat more for it. -->
-		<biostatMet>0</biostatMet>
+		<biostatMet>-2</biostatMet>
 		<modExtensions>
 			<li Class="PMM_Insects.HoneyGeneExtension">
 				<honeyDef>PMM_Honey</honeyDef>
