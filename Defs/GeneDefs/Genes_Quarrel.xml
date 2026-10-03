@@ -9,7 +9,8 @@
 
 		The dial is `QuarrelGeneExtension.dislikedGene` - the gene whose carriers she
 		cannot stand. Source/Insects/Quarrel.cs answers vanilla's social-thought
-		question with it, and the -50 lives on the two thought defs
+		question with it, each thought naming the gene it speaks for, and the -50 lives on the two
+		thought defs
 		(Defs/ThoughtDefs/Thoughts_NewCastes.xml).
 
 		The fights need no code of their own, and that is the useful part:
