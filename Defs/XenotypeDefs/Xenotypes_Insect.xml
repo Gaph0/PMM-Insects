@@ -163,8 +163,8 @@
 		<genes>
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
-			<!-- Rebuilt to the mockup's list (2026-10-01, CASTES-PLAN.md phase 5), which drops six
-			     genes she used to carry: Robust, PMM_Gene_FlightWeak, PMM_Gene_LargeFrame,
+			<!-- Rebuilt to the mockup's list (2026-10-01, CASTES-PLAN.md phase 5), which dropped five
+			     genes she used to carry: Robust, PMM_Gene_FlightWeak,
 			     VRE_CuticleShell, VRE_InefficientMidgut and VRE_Stenothermic. Her wings still draw -
 			     they are race-level art, not a gene - but nothing lifts her any more.
 

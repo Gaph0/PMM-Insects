@@ -38,7 +38,7 @@ What each one changes, in a line each:
 - **4** means no Combat or Settlement weight for the mothman and the papillon, a small roll wherever
   the hive spawns people, and a trader pawn kind each (§3.3, §3.4).
 - **5** removes the per-caste size differences this plan had proposed.
-- **6** is the biggest change: she loses six genes she carries today, and the mockup's list has no
+- **6** is the biggest change: she loses five genes she carries today, and the mockup's list has no
   flight and no large frame (§3.5).
 - **7** keeps the light test a single grid lookup, and **8** leaves cave plants out of its filter, so
   a glowing cave is light to her.
@@ -212,7 +212,7 @@ done. Her live gene list is: `PMM_Gene_Insect`, `Robust`, `PMM_Gene_FlightWeak`,
 | -50 opinion and more fights with her own kind | does not exist | the quarrelsome gene aimed at her own gene, so it is mutual (`GENES-FEASIBILITY.md` §5) |
 
 **Decided 2026-09-30: rebuild her to this list.** That is a real change rather than an addition, and
-she loses six genes she carries today:
+she loses five genes she carries today:
 
 | Dropped | What it was doing |
 |---|---|
