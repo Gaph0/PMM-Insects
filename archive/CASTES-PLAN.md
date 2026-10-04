@@ -1,4 +1,10 @@
-# Five new castes - plan for review
+# Five new castes - plan for review - ARCHIVED 2026-10-04
+
+**All five phases are built and field-tested. This file is the record of the plan and its decisions.**
+The castes shipped on 2026-10-01, the soldier beetle's rebuild the same day, and each phase passed its
+playtest. The one item still open when this was archived is the castes' own hand-drawn xenotype icons -
+every xenotype def marks where its `iconPath` goes. Later changes live in `CHANGELOG.md` and `README.md`,
+not here.
 
 Drafted 2026-09-30 from the five draw.io mockups in `MGEWiki/`
 (`hornetxenotypemockup.xml`, `mantismockup.xml`, `mothmanmockup.xml`, `papillonmockup.xml`,
@@ -25,7 +31,7 @@ together.
 | 8 | Glowing cave plants | **artificial** - a glowing cave is light |
 | 9 | The caravan slot | **their own trader kinds** - the mothman and the papillon *lead* caravans |
 | 10 | Health scale and `combatPower` | **confirmed as proposed** (0.8 / 0.7 / 0.8 / 0.5) |
-| 11 | The beetle's race tools | **emptied** - the gene owns her weapon |
+| 11 | The beetle's race tools | **emptied 2026-10-01, reversed 2026-10-03** - she keeps her fists, and the gene is what she reaches for |
 | 12 | Art | **hand art**, dropped in `Project Mamono Textures/` and copied into the mod |
 | 13 | The queen's brood list | **all four** - the abaddon can lay any of the new castes |
 
@@ -42,13 +48,13 @@ What each one changes, in a line each:
   all, and the attempt used to take the whole group down with it. Only the caravan half of this
   decision stands (§3.3).
 - **5** removes the per-caste size differences this plan had proposed.
-- **6** is the biggest change: she loses six genes she carries today, and the mockup's list has no
+- **6** is the biggest change: she loses five genes she carries today, and the mockup's list has no
   flight and no large frame (§3.5).
 - **7** keeps the light test a single grid lookup, and **8** leaves cave plants out of its filter, so
   a glowing cave is light to her.
 - **9** adds two `<trader>true</trader>` kinds beside `PMM_InsectTrader`; neither caste walks in an
   escort.
-- **10** keeps the health scales and `combatPower` figures as drafted, and **11** empties
+- **10** keeps the health scales and `combatPower` figures as drafted, and **11** emptied
   `PMM_Race_SoldierBeetle`'s tool list.
 - **12** means four hand-drawn icons at 64x64, the size the mod's real xenotype icons use, dropped
   in `Project Mamono Textures/` and copied to `Textures/UI/Icons/Xenotypes/<Name>.png`.
@@ -61,11 +67,11 @@ What each one changes, in a line each:
 
 | Mockup | Role, as you wrote it | Genes, as you wrote them | What is really new |
 |---|---|---|---|
-| Hornet | "fighters for a bee hive, very angry. Don't like honey bee's (flavour)" | compound eyes, antimicrobial chitin, rapid life cycle, volatile, antennas, poor plants, poor animals, poor intellect, poor social, sterile, great melee, great shooting, weak flight | the dislike of honey bees - the quarrelsome gene |
+| Hornet | "fighters for a bee hive, very angry. Don't like honey bee's (flavour)" | compound eyes, antimicrobial chitin, rapid life cycle, volatile, antennas, poor plants, poor animals, poor intellect, poor social, sterile, great melee, great shooting, flight | the dislike of honey bees - the quarrelsome gene |
 | Mantis | "Cold, emotionless, ruthless killers, fragile, glass cannons" | ripper claws, compound eyes, infrared sensors, vocal chitters, weakened chitin, ecdysone overdrive, antennas, awful social, great melee, strong melee damage, hyper aggressive | nothing - every gene exists |
-| Mothman | "Prefers dark places, loves light, gentle, simple minded" | infrared sensors, serotonin, vocal glands, passive, heatstress, hypothermic hibernation, antennas, kind instinct, sleepy, extra pain, great social, weak flight | the light gene (mood and consciousness) |
-| Papillon | "Beautiful, fragile, great mamono to have around" | vocal glands, antimicrobial chitin, high grey matter, sensitive brain, antennas, great social, kind instinct, sleepy, extra pain, violence disabled, weak flight | nothing - every gene exists |
-| Soldier beetle | "Tanky, slow, dangerous, not good talkers, violent towards other soldier beetles" | hardened chitin, one of ripper blades / charger claw / megaspider horn, antimicrobial chitin, hard locked joints, vocal chitters, ecdysonal overdrive, antennas, great melee, awful social, poor crafting, poor construction, poor intellect | the quarrelsome gene, and the one-of-three weapon roll |
+| Mothman | "Prefers dark places, loves light, gentle, simple minded" | infrared sensors, serotonin, vocal glands, passive, heatstress, hypothermic hibernation, antennas, kind instinct, sleepy, extra pain, great social, flight | the light gene (mood and consciousness) |
+| Papillon | "Beautiful, fragile, great mamono to have around" | vocal glands, antimicrobial chitin, high grey matter, sensitive brain, antennas, great social, kind instinct, sleepy, extra pain, violence disabled, flight | nothing - every gene exists |
+| Soldier beetle | "Tanky, slow, dangerous, not good talkers, violent towards other soldier beetles" | hardened chitin, one of ripper blades / insect mandibles / megaspider horn, antimicrobial chitin, hard locked joints, vocal chitters, ecdysonal overdrive, antennas, great melee, awful social, poor crafting, poor construction, poor intellect | the quarrelsome gene, and the one-of-three weapon roll |
 
 So the build order is driven by two things only: **two new genes**, and **four castes to wire up**.
 
@@ -215,7 +221,7 @@ done. Her live gene list is: `PMM_Gene_Insect`, `Robust`, `PMM_Gene_FlightWeak`,
 | Mockup asks for | Today | Proposal |
 |---|---|---|
 | hardened chitin | already hers | nothing to do |
-| one of ripper blades / charger claw / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. Both shapes already exist here: the girtablilu keeps pincers on her race *and* carries `VRE_ChargerClaws`, so she fights with two sets of tools, while the mantis keeps only her fists and lets `VRE_RipperBlades` be her weapon (2026-10-01). The mantis's shape is the one the beetle should copy - her tools move onto the gene and she keeps one (`GENES-FEASIBILITY.md` §6) |
+| one of ripper blades / insect mandibles / megaspider horn | not hers; her race carries its own melee tools | the one-of-three roll. Both shapes already exist here: the girtablilu keeps pincers on her race *and* carries `VRE_ChargerClaws`, so she fights with two sets of tools, while the mantis keeps only her fists and lets `VRE_RipperBlades` be her weapon (2026-10-01). The mantis's shape is the one the beetle should copy - her tools move onto the gene and she keeps one (`GENES-FEASIBILITY.md` §6) |
 | antimicrobial chitin | not hers | add `VRE_AntimicrobialPeptides` |
 | hard locked joints | not hers | add `VRE_HardLockedJoints` (she is already "slow"; this makes it a real cost) |
 | vocal chitters | not hers | **out, decided 2026-09-30** - it silences her. Swapped for `VRE_LowOctopamine`, which keeps her voice and doubles her lovin' cooldown |
@@ -227,7 +233,7 @@ done. Her live gene list is: `PMM_Gene_Insect`, `Robust`, `PMM_Gene_FlightWeak`,
 | -50 opinion and more fights with her own kind | does not exist | the quarrelsome gene aimed at her own gene, so it is mutual (`GENES-FEASIBILITY.md` §5) |
 
 **Decided 2026-09-30: rebuild her to this list.** That is a real change rather than an addition, and
-she loses six genes she carries today:
+she loses five genes she carries today:
 
 | Dropped | What it was doing |
 |---|---|
@@ -236,9 +242,9 @@ she loses six genes she carries today:
 | `VRE_InefficientMidgut` | the raised food capacity that made her eat more |
 | `VRE_Stenothermic` | her narrow comfort band (`ComfyTemperatureMin` +4, `ComfyTemperatureMax` -4) |
 | `PMM_Gene_FlightWeak` | her weak flight. The mockup does not list it, and it does not say to drop it either |
-| `PMM_Gene_LargeFrame` | the caravan frame, same note |
+| `PMM_Gene_LargeFrame` | the caravan frame, same note. **Back on her 2026-10-03** (user's call, with the girtablilu) |
 
-Her weapon also changes owner, decided 2026-09-30: her race's tool list is **emptied** and one of the
+Her weapon also changes owner, decided 2026-09-30: her race's tool list was **emptied** for a day and one of the
 three VRE weapon genes becomes her weapon. The mantis (phase 4, 2026-10-01) is that shape already built
 - her race carries her fists and her head, and `VRE_RipperBlades` is her weapon - so phase 5 has a
 working example to copy instead of a race to go and measure. Her damage then follows VRE's tuning
@@ -266,7 +272,7 @@ can still change cheaply.
 
 | Phase | Work | Gate before moving on |
 |---|---|---|
-| 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. Left to check in game: give the genes to pawns in the dev gene editor, then look for "quarrelsome kin -50" between two carriers and "giddy in the light" in a lamp-lit room. **"Giddy in the light" was checked on 2026-10-04 and was broken:** its worker answered on the light alone, so every pawn in a lamp's light read the +10 while only a carrier took the -5%. Fixed the same day - the worker now refuses a pawn without the gene (`HANDOFF.md` §5.15), and the user confirmed in game the same day that the light works properly |
+| 1 | The two new genes: defs, classes, placeholder icons | **Built 2026-09-30** - `build.sh` clean, XML parses, deployed; no language keys were needed. The in-game check found a real defect first: both quarrel thoughts shared one worker, and that worker answered with whichever quarrel gene it found first, so one dial drove both thoughts - a hornet read -100 toward a honey bee with fifty of it labelled "quarrelsome kin", and soldier beetles read -100 toward each other instead of -50 (fixed 2026-10-03: each thought def now names its own gene). Re-checked the same day: "quarrelsome kin -50" between two carriers and "smell of honey -50" toward a honey bee both read right. "Giddy in the light" was checked on 2026-10-04 and found broken in the same way: its worker answered on the light alone, so every pawn in a lamp's light read the +10 while only a carrier took the -5%. Fixed the same day - the worker now refuses a pawn without the gene (`HANDOFF.md` §5.15), and the user confirmed in game the same day that the light works properly |
 | 2 | Mothman and papillon: race, tracker, xenotype, pawn kind, rosters, corpse list, icons | **Built 2026-10-01** (PR #11) - both spawned in dev mode with no issues; their icons are still to be drawn. **Rosters corrected 2026-10-02:** neither can be generated from a faction group, so both are out of every roster (§3.3, `HANDOFF.md` §5.21) |
 | 3 | Hornet: same wiring plus the hive's new Combat group and the dislike gene aimed at honey | **Built 2026-10-01** - boot clean; a hive village fields her; she fights the player's bees-not-her-own (the bee is unbothered) |
 | 4 | Mantis: wiring plus swarm rosters | **Built 2026-10-01** - boot clean; she appears in a swarm raid, keeps her voice (decision 3), and her KillThirst fires |

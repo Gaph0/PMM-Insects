@@ -2,17 +2,26 @@
 <Defs>
 
 	<!--
-		The soldier beetle's armament (2026-10-01, CASTES-PLAN.md phase 5). The mockup asks for "one
+		The soldier beetle's armament (2026-10-01, archive/CASTES-PLAN.md phase 5). The mockup asks for "one
 		of ripper blades, charger claw or megaspider horn", and all three are VRE Insector genes that
 		already exist, so this def is the list and Source/Insects/BeetleArmament.cs is the pick - the
-		same shape the castes' body colours use (HANDOFF.md §5.13): the register is XML, the code
-		never names a weapon.
+		same shape the castes' body colours use (archive/HANDOFF.md §5.13): the register is XML, the code
+		never names a weapon (corrected 2026-10-03: see below).
 
-		Why a gene and not the race: CASTES-PLAN.md §0 decision 11 empties her race's tool list so
-		the weapon gene owns the weapon, which is also the mantis's shape (HANDOFF.md §5.18). Nothing
-		is lost by that - VRE's three weapon genes grant a hediff with a
+		VRE's charger claws is NOT a weapon. It grants the ability VFEI2_BreacherCharge_Colonists and
+		a work-speed penalty, and no attack at all. Every real option grants a hediff carrying a
+		HediffCompProperties_VerbGiver, and those verbs are the only attack a beetle has, because her
+		race carried no tools of its own. A beetle who rolled charger claws therefore had no
+		melee verbs at all: the log read "has no available melee attack, ... verbList= bodyVerbs=",
+		and another mod's postfix threw a NullReferenceException on every job scan. The girtablilu is
+		unaffected - she carries VRE_ChargerClaws *and* her own pincer tools, so the charge is a
+		bonus to her rather than her weapon - and she keeps them (user's call, 2026-10-03: that was the intended design), because those pincers are the floor underneath them. Her own fists are back since 2026-10-03 (user's call), so an option that grants no attack is now a lost preference rather than a girl left defenceless - and the armament gene is still what she reaches for.
+
+		Why a gene and not the race: archive/CASTES-PLAN.md §0 decision 11 emptied her race's tool list so
+		the weapon gene owns the weapon, which is also the mantis's shape (archive/HANDOFF.md §5.18). Nothing
+		is lost by that - all three options grant a hediff with a
 		`HediffCompProperties_VerbGiver`, not a race tool, so she attacks with the same ripper-blades,
-		claws or horn as any VRE insectoid.
+		mandibles or horn as any VRE insectoid. That is what made the list load-bearing rather than cosmetic: with no race tools underneath her, an option that grants no attack left her with nothing to swing.
 
 		Why this gene is visible at all: a roll is invisible until it lands, so her xenotype lists the
 		roll and her gene page shows what it gave her. One of the three appears beside this one.
@@ -37,21 +46,27 @@
 		<iconPath>UI/Icons/Genes/PMM_Gene_MamonoClaws</iconPath>
 		<displayCategory>Miscellaneous</displayCategory>
 		<displayOrderInCategory>1005</displayOrderInCategory>
-		<biostatMet>0</biostatMet>
+		<biostatMet>-2</biostatMet>
 		<biostatCpx>1</biostatCpx>
 		<canGenerateInGeneSet>false</canGenerateInGeneSet>
 		<modExtensions>
 			<li Class="PMM_Insects.BeetleArmamentRoll">
 				<armaments>
-					<!-- The three the mockup names, in its order. They exclude each other's ground -
+					<!-- The three she rolls between, and mandibles stands where the mockup's "charger claw" stood. They exclude each other's ground -
 					     VRE_MegaspiderHorns excludes the Headbone cosmetic tag, the other two carry
 					     their own lists - so the roll must be their only writer, and
 					     BeetleArmament.Roll removes whichever one she already has before it adds
 					     the new one. -->
 					<li>VRE_RipperBlades</li>
-					<li>VRE_ChargerClaws</li>
+					<li>VRE_InsectMandibles</li>
 					<li>VRE_MegaspiderHorns</li>
 				</armaments>
+				<!-- Names she may already carry from a version of this list that predates the correction
+				     above. BeetleArmament.Roll removes these too, so a beetle who rolled charger claws
+				     before 2026-10-03 loses it and picks a real weapon. -->
+				<retiredArmaments>
+					<li>VRE_ChargerClaws</li>
+				</retiredArmaments>
 			</li>
 		</modExtensions>
 	</GeneDef>

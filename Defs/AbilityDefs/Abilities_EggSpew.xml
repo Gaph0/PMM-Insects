@@ -18,7 +18,7 @@
 
 		The ability itself is a player's button: nothing casts it on its own. `aiCanUse` is
 		false, and the auto-cast comp that used to sit on her race was deleted on 2026-09-26
-		(HANDOFF §5.11).
+		(archive/HANDOFF.md §5.11).
 
 		`gizmoClass` is ours. Command_Ability_EggSpew turns this button into the brood picker as
 		well: press it, choose which daughter she lays, then choose the ground. It replaced the
@@ -40,7 +40,7 @@
 	<AbilityDef>
 		<defName>PMM_Ability_EggSpew</defName>
 		<label>egg spew</label>
-		<description>Lay an egg sac on the ground. Break the sac to release the brood inside.</description>
+			<description>Lay an egg sac on the ground. It opens by itself a day later, and breaking it before then kills the brood inside.</description>
 		<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
 		<!-- 15 days (user's call 2026-09-26). One sac per 15 days is the whole throttle on abaddon
 		     numbers: 15 x 60000 ticks. It used to be 5000, about two hours. -->

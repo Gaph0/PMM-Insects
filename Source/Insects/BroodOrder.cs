@@ -37,8 +37,9 @@ namespace PMM_Insects
         public List<BroodOption> broodOptions = new List<BroodOption>();
 
         /// <summary>
-        /// What she lays until somebody picks something. It is also listed in broodOptions on
-        /// purpose: after trying a caste, the player can hand her the old brood back.
+        /// What she lays until somebody picks something. It is deliberately *not* one of the
+        /// options: the menu holds the mamono castes, and the swarmling is only the answer while
+        /// nobody has given an order (user's call, 2026-10-03).
         /// </summary>
         public PawnKindDef defaultBrood;
 

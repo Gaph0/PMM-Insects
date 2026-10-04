@@ -22,7 +22,7 @@
 		- the same dependency the old arrangement had, since the texture came from their
 		mod either way. The two stat-carrying wing genes (`VRE_InsectWings`,
 		`VRE_LocustWings`) stay out of every caste package as before: they grant movement
-		and an ability, and the castes' own flight genes own that ground (HANDOFF.md
+		and an ability, and the castes' own flight genes own that ground (archive/HANDOFF.md
 		§5.22).
 
 		No exclusion tags at all, deliberately: a tag is the bug this def exists to avoid.

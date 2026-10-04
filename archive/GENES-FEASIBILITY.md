@@ -1,4 +1,8 @@
-# New-gene feasibility study
+# New-gene feasibility study - ARCHIVED 2026-10-04
+
+**Every gene in this study is built and field-tested.** The two new genes landed 2026-09-30 and the five
+castes followed on 2026-10-01, so nothing here is pending. The study is kept as the record of which
+mockup gene resolves to which real def, and why the new ones are safe on this engine.
 
 Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **Every phase of the plan is built** - the two
 new genes on 2026-09-30, then the mothman, the papillon, the hornet, the mantis and the soldier beetle's
@@ -26,7 +30,7 @@ can be written onto a xenotype as it is.
 | Hornet | poor plants, poor animals, poor intellect, poor social | exist - aptitudes (§3.1) |
 | Hornet | sterile | exists - `Sterile` |
 | Hornet | great melee, great shooting | exist - aptitudes (§3.1) |
-| Hornet | weak flight | exists - `PMM_Gene_FlightWeak` (this workspace, core) |
+| Hornet | flight | exists - `PMM_Gene_Flight` (this workspace, core) |
 | Hornet | "don't like honey bees" (flavour) | **new** - the quarrelsome gene (§5), aimed at the bee's gene |
 | Mantis | ripper claws | exists - `VRE_RipperBlades` |
 | Mantis | compound eyes, infrared sensors | exist - `VRE_CompoundEyes`, `VRE_InfraredSensors` |
@@ -38,14 +42,14 @@ can be written onto a xenotype as it is.
 | Mothman | infrared sensors, serotonin, vocal glands, passive | exist - `VRE_*` |
 | Mothman | heatstress, hypothermic hibernation | exist - `VRE_Heatstress`, `VRE_HypothermicHibernation` |
 | Mothman | antennas, kind instinct, sleepy, extra pain | exist |
-| Mothman | great social, weak flight | exist |
+| Mothman | great social, flight | exist |
 | Mothman | **disorientating lights** | **new** (§4) |
 | Papillon | vocal glands, antimicrobial chitin, high grey matter | exist - `VRE_*` |
 | Papillon | sensitive brain | exists - `VRE_SensitiveBrainGoop` |
-| Papillon | antennas, kind instinct, sleepy, extra pain, violence disabled, weak flight | exist |
+| Papillon | antennas, kind instinct, sleepy, extra pain, violence disabled, flight | exist |
 | Papillon | great social | exists - aptitude |
 | Soldier beetle | hardened chitin, antimicrobial chitin, hard locked joints | exist - `VRE_*` |
-| Soldier beetle | ripper blades / charger claw / megaspider horn | exist - three defs, one choice (§6) |
+| Soldier beetle | ripper blades / insect mandibles / megaspider horn | exist - three defs, one choice (§6). The mockup's "charger claw" is an ability gene, not a weapon; mandibles holds its place (2026-10-03) |
 | Soldier beetle | vocal chitters, ecdysonal overdrive | exist - `VRE_*` |
 | Soldier beetle | great melee, awful social, poor crafting, poor construction, poor intellect | exist - aptitudes |
 | Soldier beetle | **-50 opinion and more fights with her own kind** | **new** (§5) |
@@ -111,7 +115,7 @@ breaking it was on purpose - so this column is a decision input, not a rule.
 | sensitive brain | `VRE_SensitiveBrainGoop` | evolution | `PsychicSensitivity` +0.3, `MeditationFocusGain` +0.2, psychic entropy recovery |
 | hardened chitin | `VRE_HardenedChitin` | evolution | `capMods` Moving -0.15, `IncomingDamageFactor` x0.75 |
 | hard locked joints | `VRE_HardLockedJoints` | mutation | `MoveSpeed` -0.4 |
-| charger claw | `VRE_ChargerClaws` | evolution | `WorkSpeedGlobal` -0.4, grants the charger tools |
+| charger claw | `VRE_ChargerClaws` | evolution | `WorkSpeedGlobal` -0.4 and a charge ability - **no attack hediff, so it is not a weapon** (corrected 2026-10-03) |
 | megaspider horn | `VRE_MegaspiderHorns` | evolution | `MiningSpeed` +0.1; excludes the `Headbone` tag |
 | microsized | `VRE_Microsized` | mutation | `VEF_BodySize_Offset` -0.45 |
 
@@ -285,7 +289,9 @@ number.** Three consequences worth keeping in view, none of them open questions:
 ## 6. The mockup's question: "how do you do a package of one of three genes?"
 
 The soldier beetle mockup asks how to give a caste one of ripper blades, charger claw or megaspider
-horn. All three exist (`VRE_RipperBlades`, `VRE_ChargerClaws`, `VRE_MegaspiderHorns`).
+horn. Two of those are weapon genes (`VRE_RipperBlades`, `VRE_MegaspiderHorns`). `VRE_ChargerClaws`
+is an ability gene - a charge and no attack - so `VRE_InsectMandibles` holds that place (corrected
+2026-10-03, after a beetle who rolled it was found to have no melee verbs at all).
 
 **The pattern is already in this mod, and it was built for exactly this shape of question.** The
 body colour roll (`Source/Insects/InsectColours.cs`, `HANDOFF.md` §5.13): the shared insect gene
@@ -297,9 +303,10 @@ it, as a `DefModExtension`, so the set stays data and the code never names a col
 
 **Three things to decide, because the mockup's version is not free.**
 
-1. **Settled 2026-09-30, and confirmed: her race tool list is emptied and the gene owns the weapon.**
-   The girtablilu is the precedent - that race def carries **zero** melee tools and
-   `VRE_ChargerClaws` is its weapon. Expect a balance change: the beetle's damage then follows VRE's
+1. **Settled 2026-09-30, and reversed 2026-10-03: the gene owns the weapon, and her race keeps its fists as the floor.**
+   The girtablilu is the precedent for the split, but not for the emptiness: her race def carries
+   its own pincer tools *and* `VRE_ChargerClaws` for the charge, which is why the charge-only gene
+   was harmless on her and left the beetle unarmed. She keeps those claws (user's call, 2026-10-03: that was the intended design), and the beetle now has the same floor in her fists. Expect a balance change: the beetle's damage then follows VRE's
    tuning rather than the megaspider's exact numbers, so `archive/PLAN.md` §3's "exact DPS parity" stops
    describing her.
 2. **The three genes exclude things.** `VRE_MegaspiderHorns` excludes the `Headbone` cosmetic tag,
@@ -342,7 +349,7 @@ body colours, so the postfix is a second entry in one existing patch).
 Every gene question from the first review is answered and written into the sections above: the light
 rule (exactly 50%, the growing lamp's bright core out, a glowing cave counting as light), the quarrel
 (one way for the hornet, mutual for the beetle, -50), the vocal-chitters swap, the kill thirst, the
-beetle's rebuild with her race tools emptied, and placeholder art first.
+beetle's rebuild, her race tools emptied and then restored the same day, and placeholder art first.
 
 **Nothing is left.** The queen lays all four (decided 2026-09-30, `CASTES-PLAN.md` §0), so the plan
 has no open questions and implementation can start at its phase 1.

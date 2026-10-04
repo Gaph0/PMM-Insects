@@ -6,4 +6,5 @@
     <PMM_BroodCurrent>(current)</PMM_BroodCurrent>
     <PMM_BroodNotMine>She is not your queen. Only a queen of your own faction can be told what to lay.</PMM_BroodNotMine>
     <PMM_BroodSacHolds>Holds: {0}</PMM_BroodSacHolds>
+    <PMM_BroodSacHatchesIn>Hatches in {0}</PMM_BroodSacHatchesIn>
 </LanguageData>

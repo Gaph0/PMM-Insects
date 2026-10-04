@@ -45,7 +45,7 @@
 			     evolutions (hive glands, swarm synapse, infrared sensors) and three
 			     degrades (low grey matter, rapid life cycle, microsized) - three and
 			     three, the balance VRE's own picker demands (VRE_NeedEqualAmount).
-			     Hive glands is what lets a mamono raise VFEI2 hives at all (HANDOFF
+			     Hive glands is what lets a mamono raise VFEI2 hives at all (archive/HANDOFF.md
 			     §7.1), and that is the point of her now: the swarm's builder. Swarm
 			     synapse, infrared sensors and microsized are pherocore-locked, so
 			     recruiting her is what unlocks them for the player (§5.3 rule 4).
@@ -163,17 +163,17 @@
 		<genes>
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
-			<!-- Rebuilt to the mockup's list (2026-10-01, CASTES-PLAN.md phase 5), which drops six
-			     genes she used to carry: Robust, PMM_Gene_FlightWeak, PMM_Gene_LargeFrame,
+			<!-- Rebuilt to the mockup's list (2026-10-01, archive/CASTES-PLAN.md phase 5), which dropped five
+			     genes she used to carry: Robust, PMM_Gene_FlightWeak,
 			     VRE_CuticleShell, VRE_InefficientMidgut and VRE_Stenothermic. Her wings still draw -
 			     they are race-level art, not a gene - but nothing lifts her any more.
 
 			     MeleeDamage_Strong stays: the mockup neither lists it nor asks for its removal,
 			     and she is the caste that leans on melee. -->
 			<li>MeleeDamage_Strong</li>
-			<!-- The weapon roll: one of ripper-blades, charger claws or a megaspider horn, picked
+			<!-- The weapon roll: one of ripper-blades, insect mandibles or a megaspider horn, picked
 			     by BeetleArmament.Roll when the gene lands. Her race carries no tools of its own
-			     any more - the gene owns the weapon (CASTES-PLAN.md §0 decision 11). -->
+			     any more - the gene owns the weapon (archive/CASTES-PLAN.md §0 decision 11), so every option must be a real weapon gene: the charge-only charger claws (VRE_ChargerClaws) was retired on 2026-10-03 because she has no fists underneath it. -->
 			<li>PMM_Gene_BeetleArmament</li>
 			<!-- VRE Insector: HardenedChitin turns aside a quarter of all incoming damage and
 			     AntimicrobialPeptides doubles her healing and her immunity gain. That pair is the
@@ -195,7 +195,7 @@
 			<li>PMM_Gene_Quarrelsome</li>
 			<!-- Great melee is the one aptitude left of the mockup's five (2026-10-01, user's call):
 			     the four drawbacks came off with the three genes below. "Great" is
-			     AptitudeRemarkable in this family's vocabulary (GENES-FEASIBILITY.md §3.1). -->
+			     AptitudeRemarkable in this family's vocabulary (archive/GENES-FEASIBILITY.md §3.1). -->
 			<li>AptitudeRemarkable_Melee</li>
 			<!-- The tank package (user's call, 2026-10-01), which is the mockup's "tanky, slow,
 			     dangerous" read literally. Robust takes a quarter off every hit, and it stacks with
@@ -209,6 +209,10 @@
 			<li>Robust</li>
 			<li>Unstoppable</li>
 			<li>MoveSpeed_Slow</li>
+			<!-- Large frame (user's call, 2026-10-03): she is the biggest fighter in the swarm,
+			     and the gene costs one point rather than nothing (user's call, 2026-10-03). Nothing clashes on a
+			     caste who carries no flight gene. -->
+			<li>PMM_Gene_LargeFrame</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -298,7 +302,7 @@
 			     the `InsectorMovement` exclusion tag, her queen's hard-locked joints carry it
 			     too, and the engine silences one of any such pair (2026-10-04). No core flight
 			     gene and no race def draws a wing any more, so this gene is her whole wing
-			     renderer. Two things about the art, both in HANDOFF.md §5.23: B&S's feathered
+			     renderer. Two things about the art, both in archive/HANDOFF.md §5.23: B&S's feathered
 			     wings it replaced sat at layer 92, in FRONT of her, while these sit behind her
 			     at -2; and the colouring is `colorType Hair`, because the palette is rolled on
 			     her hair. -->
@@ -521,6 +525,13 @@
 			     so a soldier bug is born knowing her trade (user, 2026-09-25). Both
 			     aptitudes sit outside the evolution/degrade count. -->
 			<li>AptitudeRemarkable_Melee</li>
+			<!-- Her abdomen (user's call, 2026-10-03, archive/HANDOFF.md §11.10): VRE ships the
+			     look alone, the same shape the queen's spawning sack takes - one
+			     attachment node on the lower abdomen, skin-coloured, and no stat work at
+			     all. Its one exclusion tag is Tail, and she carries no tail gene, so
+			     nothing clashes. The jelly is hers thematically too: her mockup has her
+			     living on it. -->
+			<li>VRE_JellySacks_Cosmetic</li>
 
 		</genes>
 		<modExtensions>
@@ -694,6 +705,9 @@
 			     stages behind it. VenomDamagePatch watches for this gene on the attacker, so
 			     every melee hit she lands injects it; she needs no stinger for that. -->
 			<li>ProjectMamono_MamonoVenom</li>
+			<!-- Large frame (user's call, 2026-10-03): the desert runner is built long, and the
+			     gene costs one point, not none (user's call, 2026-10-03). -->
+			<li>PMM_Gene_LargeFrame</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -835,7 +849,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Mothman (built 2026-10-01, CASTES-PLAN.md phase 2): the hive's gentle one, and the only
+	<!-- Mothman (built 2026-10-01, archive/CASTES-PLAN.md phase 2): the hive's gentle one, and the only
 	     caste of this batch whose list carries a new gene - the light gene. -->
 	<XenotypeDef>
 		<defName>PMM_InsectMothman</defName>
@@ -843,7 +857,7 @@
 		<description>A mothman mamono, soft and dusty-winged and never quite awake. She keeps to the dark until a lamp is lit, and then she cannot leave it - the light leaves her a little dazed and very happy. She will not fight anyone, and she is the best company in the village.</description>
 		<descriptionShort>A drowsy, gentle moth woman who loves lamp light and cannot fight.</descriptionShort>
 		<!-- No iconPath yet on purpose: the art is hand-drawn and dropped in
-		     Textures/UI/Icons/Xenotypes/PMM_Mothman (CASTES-PLAN.md §0 decision 12). Add
+		     Textures/UI/Icons/Xenotypes/PMM_Mothman (archive/CASTES-PLAN.md §0 decision 12). Add
 		     <iconPath>UI/Icons/Xenotypes/PMM_Mothman</iconPath> with the PNG - a path with no
 		     file behind it is a red error, which is why it is absent rather than guessed. -->
 		<inheritable>true</inheritable>
@@ -852,12 +866,13 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
 			     mosquito's note). -->
 			<li>PMM_Gene_CosmeticWings</li>
-			<!-- The user's list (CASTES-PLAN.md §3.3), each gene's real effect checked in
-			     GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
+			<!-- The user's list (archive/CASTES-PLAN.md §3.3), each gene's real effect checked in
+			     archive/GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
 			     tags, so she never fights; VRE_Heatstress is x4 flame damage and a fire-terror
 			     break; VRE_HypothermicHibernation is immunity to hypothermia and +5 on her
 			     comfort floor; KindInstinct forces the Kind trait, Pain_Extra forces Wimp. -->
@@ -870,7 +885,7 @@
 			<li>KindInstinct</li>
 			<li>Sleepy</li>
 			<li>Pain_Extra</li>
-			<!-- "great social" in the mockup's own vocabulary (GENES-FEASIBILITY.md §3.1). -->
+			<!-- "great social" in the mockup's own vocabulary (archive/GENES-FEASIBILITY.md §3.1). -->
 			<li>AptitudeRemarkable_Social</li>
 			<!-- Her own gene, built in phase 1: -5% consciousness and +10 mood in light at 50%,
 			     which is what a lamp gives - not in a growing lamp's bright core, which the engine
@@ -898,7 +913,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Papillon (built 2026-10-01, CASTES-PLAN.md phase 2): no new gene at all - every gene in
+	<!-- Papillon (built 2026-10-01, archive/CASTES-PLAN.md phase 2): no new gene at all - every gene in
 	     her list already existed, which makes her the cheapest caste of the batch. -->
 	<XenotypeDef>
 		<defName>PMM_InsectPapillon</defName>
@@ -912,11 +927,12 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
 			     mosquito's note). -->
 			<li>PMM_Gene_CosmeticWings</li>
-			<!-- The user's list (CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
+			<!-- The user's list (archive/CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
 			     no fighting at all, and it excludes melee damage genes by tag. Pain_Extra forces
 			     Wimp on top of that, and VRE_HighGreyMatter with VRE_SensitiveBrainGoop make her
 			     the sharp and psychic one. -->
@@ -947,7 +963,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Hornet (built 2026-10-01, CASTES-PLAN.md phase 3): the hive's first fighter and its only
+	<!-- Hornet (built 2026-10-01, archive/CASTES-PLAN.md phase 3): the hive's first fighter and its only
 	     flier. Her palette is the honey bee's (user's call: "copy her colours from the honey bee"),
 	     which fits - the bee is the woman her own genes cannot stand. -->
 	<XenotypeDef>
@@ -963,12 +979,13 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<li>PMM_Gene_FlightWeak</li>
+			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
+			<li>PMM_Gene_Flight</li>
 			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
 			     mosquito's note). -->
 			<li>PMM_Gene_CosmeticWings</li>
-			<!-- The user's list (CASTES-PLAN.md §3.1), each effect checked in
-			     GENES-FEASIBILITY.md §3: VRE_CompoundEyes is Sight +0.5,
+			<!-- The user's list (archive/CASTES-PLAN.md §3.1), each effect checked in
+			     archive/GENES-FEASIBILITY.md §3: VRE_CompoundEyes is Sight +0.5,
 			     VRE_AntimicrobialPeptides is healing x2 and immunity x1.5, VRE_RapidLifeCycle
 			     is lifespan x0.325 (a real cost), and VRE_InsectVolatile doubles her
 			     social-fight chance - which is why no fight-chance gene goes on top of it. -->
@@ -980,7 +997,7 @@
 			     honey bee also carry. -->
 			<li>Sterile</li>
 			<!-- The mockup's four poor aptitudes and two great ones, in its own vocabulary
-			     (GENES-FEASIBILITY.md §3.1): "great" is AptitudeRemarkable. -->
+			     (archive/GENES-FEASIBILITY.md §3.1): "great" is AptitudeRemarkable. -->
 			<li>AptitudePoor_Plants</li>
 			<li>AptitudePoor_Animals</li>
 			<li>AptitudePoor_Intellectual</li>
@@ -988,7 +1005,7 @@
 			<li>AptitudeRemarkable_Melee</li>
 			<li>AptitudeRemarkable_Shooting</li>
 			<!-- Her grudge, built in phase 1 and aimed at the honey gene only: the bee feels
-			     nothing back (CASTES-PLAN.md §0 decision 2). -->
+			     nothing back (archive/CASTES-PLAN.md §0 decision 2). -->
 			<li>PMM_Gene_HoneyHatred</li>
 			<!-- Not a def of ours: core's own venom gene, which is the girtablilu's setup. Core's
 			     VenomDamagePatch keys on the gene rather than on a verb, so every melee hit she
@@ -1010,7 +1027,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4): the swarm's glass cannon. Her gene
+	<!-- The mantis (2026-10-01, archive/CASTES-PLAN.md phase 4): the swarm's glass cannon. Her gene
 	     list is the user's mockup list with the one swap decided 2026-09-30 - VRE_VocalChitters
 	     is OUT (it sets her Talking capacity to 0, so she could not speak) and VRE_LowOctopamine
 	     is IN, which keeps her voice and pays with a doubled lovin' cooldown instead. The
@@ -1037,8 +1054,8 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>VRE_InsectAntennae</li>
-			<!-- The mockup's list (CASTES-PLAN.md §3.2), each effect read out of the def itself in
-			     GENES-FEASIBILITY.md §3: VRE_RipperBlades is WorkSpeedGlobal -0.3 and grants the
+			<!-- The mockup's list (archive/CASTES-PLAN.md §3.2), each effect read out of the def itself in
+			     archive/GENES-FEASIBILITY.md §3: VRE_RipperBlades is WorkSpeedGlobal -0.3 and grants the
 			     ripper tools, VRE_CompoundEyes is Sight +0.5, VRE_InfraredSensors is shooting
 			     accuracy x1.1 plus heat vision, VRE_WeakenedChitin is Moving +0.15 and x1.5
 			     incoming damage, and Aggression_HyperAggressive triples her fight chance. -->
@@ -1049,7 +1066,7 @@
 			<li>VRE_WeakenedChitin</li>
 			<!-- The kill thirst, the girtablilu's gene: it causes the KillThirst need. -->
 			<li>VRE_EcdysoneOverdrive</li>
-			<!-- The mockup's aptitudes in its own vocabulary (GENES-FEASIBILITY.md §3.1):
+			<!-- The mockup's aptitudes in its own vocabulary (archive/GENES-FEASIBILITY.md §3.1):
 			     "awful" is AptitudeTerrible, "great" is AptitudeRemarkable. -->
 			<li>AptitudeTerrible_Social</li>
 			<li>AptitudeRemarkable_Melee</li>

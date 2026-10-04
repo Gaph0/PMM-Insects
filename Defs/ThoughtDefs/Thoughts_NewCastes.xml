@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		The three thoughts behind the two new genes (built 2026-09-30, CASTES-PLAN.md
+		The three thoughts behind the two new genes (built 2026-09-30, archive/CASTES-PLAN.md
 		phase 1). Mood cannot live on a gene and an opinion cannot live on a stat, so
 		both halves sit here and Source/Insects/ supplies the workers:
 		`ThoughtWorker_DisorientatingLights` and `ThoughtWorker_Quarrel`.
@@ -26,7 +26,10 @@
 
 		-50 is the decided number (2026-09-30), for both. The beetle's is mutual
 		because its gene names itself; the hornet's is one way because its gene names
-		the honey gene, and a honey bee carries no thought about hornets.
+		the honey gene, and a honey bee carries no thought about hornets. Each thought
+		names its own gene (`QuarrelThoughtExtension`); before 2026-10-03 the worker
+		answered for whichever quarrel gene came first, so one grudge fired both
+		thoughts, labelled and counted twice.
 	-->
 	<ThoughtDef>
 		<defName>PMM_Thought_DisorientatingLights</defName>
@@ -42,6 +45,15 @@
 
 	<ThoughtDef>
 		<defName>PMM_Thought_Quarrelsome</defName>
+		<!-- The gene this thought speaks for. Both quarrel thoughts share one worker,
+		     and that worker used to answer with whichever quarrel gene the pawn
+		     carried first, so both fired together and one -50 grudge read -100
+		     (fixed 2026-10-03). -->
+		<modExtensions>
+			<li Class="PMM_Insects.QuarrelThoughtExtension">
+				<gene>PMM_Gene_Quarrelsome</gene>
+			</li>
+		</modExtensions>
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<workerClass>PMM_Insects.ThoughtWorker_Quarrel</workerClass>
 		<validWhileDespawned>true</validWhileDespawned>
@@ -56,6 +68,13 @@
 
 	<ThoughtDef>
 		<defName>PMM_Thought_HoneyHatred</defName>
+		<!-- Same binding as the kin quarrel above: this thought fires only for the
+		     honey grudge, and only against a woman carrying the honey gene. -->
+		<modExtensions>
+			<li Class="PMM_Insects.QuarrelThoughtExtension">
+				<gene>PMM_Gene_HoneyHatred</gene>
+			</li>
+		</modExtensions>
 		<thoughtClass>Thought_SituationalSocial</thoughtClass>
 		<workerClass>PMM_Insects.ThoughtWorker_Quarrel</workerClass>
 		<validWhileDespawned>true</validWhileDespawned>

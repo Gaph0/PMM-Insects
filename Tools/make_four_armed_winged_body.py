@@ -119,7 +119,7 @@ HEADER = (
     "\twhich is the opposite of what a second pair of arms is for.\n"
     "\n"
     "\tThe extra arms are drawn by nothing: humanlike arms live in the body texture, so\n"
-    "\tB&S's own four-armed race shows two arms as well. HANDOFF.md 5.7 holds the art\n"
+    "\tB&S's own four-armed race shows two arms as well. archive/HANDOFF.md 5.7 holds the art\n"
     "\tspec for the sprite that fixes that."
 )
 

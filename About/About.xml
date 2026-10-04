@@ -7,15 +7,13 @@
 	</supportedVersions>
 	<packageId>PMM.Insects</packageId>
 	<description>
-Turns the six insectoids of the Rim into insect mamonos, who live in insector tribes of their own.
+Adds sixteen insect mamonos to RimWorld 1.6, and two tribes of their own to live in.
 
-Megascarabs, spelopedes and megaspiders - and so do larvae, locusts and hive queens - have monster girl counterparts: devil bugs, giant ants, soldier beetles, greenworms, vamp mosquitoes and abaddons. Vanilla insects still spawn and fight as they always did.
+Sixteen insect mamono castes live in the world: builders, diggers, farmers, weavers, soldiers and queens. Two insector tribes hold villages grown from hive walls and creep, one neutral and trading and one always at war. The Abaddon Queen can lay an egg of any of the mamono added in this pack.
 
-The mamonos live in villages raised from hive walls and creep. One tribe is neutral and can be befriended, and one is always at war.
+In game you meet them as raiders, as trade caravans, as villages to exterminate, or as mamono you take in. Each mamono is good at something.
 
-The bug girls keep mostly the exact stats of the insects they replace - the same chitin armor, health, speed, cold-blooded comfort ranges and toxin immunity, and the same mandibles and claws.
-
-Requires the Biotech expansion, Harmony, Big and Small - Framework, Project Mamono, Vanilla Expanded Framework, Vanilla Races Expanded - Insector, and Vanilla Factions Expanded - Insectoids 2. Every caste is defined by this mod alone, so it needs nothing beyond Biotech.
+Requires Harmony, Biotech, Project Mamono, Big and Small - Framework, Vanilla Expanded Framework, Vanilla Races Expanded - Insector, and Vanilla Factions Expanded - Insectoids 2.
 	</description>
 	<modDependencies>
 		<li>

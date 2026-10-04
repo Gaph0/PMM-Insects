@@ -97,13 +97,13 @@
 
 		<!-- Fallback roster, not a village roster: it is read for any pawn generated
 		     for a tribe from a kind that pins no caste of its own, which means a
-		     vanilla or another mod's kind and not one of ours. Every insector pawn kind
-		     pins its caste and carries `useFactionXenotypes false` (2026-10-02,
-		     `HANDOFF.md` §5.21), so no insector slot and no leader reads this list.
-		     Fractions, the outlander pattern. Nothing here is conditional: every caste
-		     is always defined, and the one piece of this mod that does need a DLC is
-		     the greenworm's sludge ability, gated on Odyssey in
-		     Defs/PawnKindDefs/PawnKinds_InsectorTribe.xml. -->
+		     vanilla or another mod's kind and not one of ours. Every kind in
+		     PawnKinds_InsectorTribe.xml pins its caste and carries
+		     `useFactionXenotypes false` (2026-10-02, `archive/HANDOFF.md` §5.21), so no insector
+		     slot and no leader reads this list. Fractions, the outlander pattern.
+		     Nothing here is conditional, and nothing in this mod needs a DLC: the
+		     greenworm's sludge ability, the last of it, went on 2026-10-02 at the user's
+		     call. -->
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
 				<PMM_InsectDevilBug>0.27</PMM_InsectDevilBug>
@@ -112,7 +112,7 @@
 				<PMM_InsectGreenworm>0.12</PMM_InsectGreenworm>
 				<PMM_InsectVampMosquito>0.06</PMM_InsectVampMosquito>
 				<PMM_InsectAbaddon>0.02</PMM_InsectAbaddon>
-				<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4) took her 0.06 off the devil bug
+				<!-- The mantis (2026-10-01, archive/CASTES-PLAN.md phase 4) took her 0.06 off the devil bug
 				     and the giant ant, which were 0.30 each when the swarm's own list was written.
 				     She is a swarm caste only - the hive's own set is a separate list further
 				     down, and she is not in it. -->
@@ -317,7 +317,7 @@
 		<xenotypeSet Inherit="False">
 			<xenotypeChances>
 				<!-- The mothman, the papillon and the hornet (2026-10-01) took their 0.03 each off
-				     the devil bug and the giant ant, at CASTES-PLAN.md §0 decision 4 - a low natural
+				     the devil bug and the giant ant, at archive/CASTES-PLAN.md §0 decision 4 - a low natural
 				     rate for the two passive castes, and one for the fighter. The list still totals
 				     1. As with the base's list, this one is a fallback since 2026-10-02: the
 				     hive's kinds pin their own caste and no longer read it. -->
@@ -438,7 +438,7 @@
 				<kindDef>Trader</kindDef>
 				<traders>
 					<PMM_InsectTrader>1</PMM_InsectTrader>
-					<!-- The two social castes lead most hive caravans (CASTES-PLAN.md §0 decisions 4
+					<!-- The two social castes lead most hive caravans (archive/CASTES-PLAN.md §0 decisions 4
 					     and 9, 2026-10-01), which is what their kind weights here say. -->
 					<PMM_InsectMothmanTrader>3</PMM_InsectMothmanTrader>
 					<PMM_InsectPapillonTrader>3</PMM_InsectPapillonTrader>

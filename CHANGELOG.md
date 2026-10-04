@@ -2,18 +2,28 @@
 
 ## Player-facing
 
+- 2026-10-04: Changed the abaddon's egg sacs to open by themselves a day after they are laid. Breaking one before that kills the brood inside.
 - 2026-10-04: Fixed the "giddy in the light" mood showing on every pawn in a lamp's light instead of only the mothman.
 - 2026-10-04: Removed the abaddon folk's drawn second pair of arms, so she shows one pair again. She still has four in a fight.
-- 2026-10-04: Changed every winged caste's wings to VRE Insector's insect wings, instead of Big and Small's feathered ones. They wear her caste's colour, the same as her hair and her legs.
+- 2026-10-04: Fixed the abaddon queen having no wings at all.
 - 2026-10-04: Added wings to the honey bee.
-
-- 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
-- 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
-- 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
+- 2026-10-04: Changed every winged caste's wings to VRE Insector's insect wings, instead of Big and Small's feathered ones. They wear her caste's colour, the same as her hair and her legs.
+- 2026-10-03: Added jelly sacks to the abaddon folk, so the swarm's infantry has an abdomen of her own.
+- 2026-10-03: Changed the soldier beetle to keep her fists, so her armament is what she reaches for instead of the only thing she has.
+- 2026-10-03: Fixed the quarrelsome and honey-hating genes firing together, which turned one -50 grudge into -100 and showed the kin quarrel against honey bees.
+- 2026-10-03: Fixed the soldier beetle having no melee attack at all when her armament rolled charger claws, which is an ability rather than a weapon. It rolls insect mandibles now.
+- 2026-10-03: Added the large frame gene back to the soldier beetle, and added it to the girtablilu.
+- 2026-10-03: Fixed the abaddon's right wing drawing behind her abdomen.
+- 2026-10-03: Changed the papillon, the hornet and the mothman to keep the strong flight gene instead of the weak one.
+- 2026-10-03: Removed the swarmling from the abaddon's brood menu, so it lists only insector mamonos.
+- 2026-10-03: Changed the abaddon to be able to lay a honey bee, so every insector mamono can be laid on purpose.
 - 2026-10-03: Changed the greenworm to eat more than any of her sisters, as her own descriptions always said she did.
 - 2026-10-03: Added how much mana a greenworm has spent towards pupation to her own description, so a player can see she is getting there.
 - 2026-10-03: Changed the cocoon's countdown to count hours once there is less than a day left, instead of standing at "0 days".
 - 2026-10-02: Fixed the cocoon never opening. It never ticked, so she stayed a greenworm inside it for good.
+- 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
+- 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
+- 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
 - 2026-10-02: Changed the cocoon to hold her inside it the way a cryptosleep casket does. She is off the map for the fifteen days, so nothing rescues her, alerts about her or draws her, and she does not eat, sleep or starve.
 - 2026-10-02: Removed the greenworm's acid spit. Nothing in the mod needs a DLC any more.
 - 2026-10-02: Added the greenworm's maturation: a grub who has spent enough mana spins a cocoon, and a papillon comes out of it fifteen days later.
@@ -182,11 +192,14 @@
 
 ## Internal
 
+- 2026-10-04: Changed the caste wings to live on the mod's own gene, PMM_Gene_CosmeticWings, so the castes no longer carry Big and Small's winged tracker.
+- 2026-10-04: Removed CASTES-PLAN.md, GENES-FEASIBILITY.md and HANDOFF.md from the working docs into archive/, with an ARCHIVED banner each, and repointed every file that cited them so no reference dangles.
+- 2026-10-04: Added the egg sac's 24-hour hatch timer and the death on an early break, with a Rare ticker on the sac so the timer runs at all.
 - 2026-10-04: Changed the light gene's thought worker to check for the gene first, because a non-social situational thought is evaluated for every pawn on the map.
-- 2026-10-04: Moved the caste wings to the mod's own gene, PMM_Gene_CosmeticWings, so the castes no longer carry Big and Small's winged tracker.
 - 2026-10-04: Removed the abaddon folk's lower-arm render node, with the six placeholder PNGs it drew and the RaceDefaults folder that held them.
 - 2026-10-04: Changed the cosmetic wings to `colorType Hair`, dropping the skin shader and the CutoutComplex shader with it, so they take the caste colour instead of skin.
 - 2026-10-04: Fixed the race comments that no longer matched the defs or the genes.
+- 2026-10-04: Removed the wing layer patch for the abaddon, along with the tracker whose wings it tuned.
 - 2026-10-02: Changed the cocoon to hold the grub in a container of its own, the way a biosculpter pod holds the pawn inside it, and removed the immobility hediff, the rescue gate and the invisibility gate that stood in for it.
 - 2026-10-01: Changed the pheromone patches to cover every target chooser in the game's attack search and to take its argument by position, since Harmony binds by name and the compiler names that argument differently per chooser.
 - 2026-10-01: Changed the mod to apply its patch classes one at a time, so a class that cannot bind no longer leaves every class after it unapplied, and the log names the class that failed.

@@ -332,18 +332,16 @@
 			<VacuumResistance>1</VacuumResistance>
 			<FilthRate>1</FilthRate>
 		</statBases>
-		<!-- No tool list of her own since 2026-10-01 (CASTES-PLAN.md §0 decision 11): the armament
-		     gene owns her weapon. `Inherit="False"` is what makes that true - without it she would
-		     keep the Human parent's fists, which is exactly the "two sets of tools" the plan set
-		     out to avoid.
-
-		     Nothing is lost by it. `Pawn_MeleeVerbs` builds its list from
-		     `pawn.verbTracker.AllVerbs`, not from this list, and VRE's three weapon genes each grant
-		     a hediff carrying a `HediffCompProperties_VerbGiver` - so her ripper-blades, charger
-		     claws or megaspider horn are real melee attacks with no race tool behind them. The one
-		     thing this trades away is a fallback: a beetle who loses the body part her weapon hangs
-		     on has nothing left to swing. Her own "ripper claws" tool went the same way. -->
-		<tools Inherit="False" />
+		<!-- Her fists are back (user's call, 2026-10-03): the armament gene is what she reaches for,
+		     and this is the floor underneath it. 2026-Oct-01 until today this block read
+		     `<tools Inherit="False" />` (archive/CASTES-PLAN.md §0 decision 11), which dropped the Human
+		     parent's fists so the gene would own her weapon outright. That read well and had no
+		     floor: the roll could hand her charger claws, a gene that grants the breacher charge
+		     and no attack at all, and she came out with nothing to swing - the log read "no
+		     available melee attack, ... verbList= bodyVerbs=". Her ripper-blades, insect mandibles
+		     or megaspider horn are hediffs carrying a `HediffCompProperties_VerbGiver` and are
+		     still her weapon; the game picks her strongest verb, so a fist (the Human parent's
+		     Blunt 8.2) is only what she falls back on when the armament is gone. -->
 		<race>
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>
@@ -362,7 +360,7 @@
 			<!-- A beetle's low body (user's call, 2026-10-01): BS_SpiderHybrid, the body the arachne,
 			     the ant arachne and the girtablilu wear, so her abdomen draws and - because our copy of
 			     the tracker is the one that paints it - takes her caste colour with her legs
-			     (HANDOFF.md §5.17). The wings came off with the flight gene: she is born of the
+			     (archive/HANDOFF.md §5.17). The wings came off with the flight gene: she is born of the
 			     megaspider, and the wings she had were the only part of her that did nothing. -->
 			<body>BS_SpiderHybrid</body>
 		</race>
@@ -377,7 +375,7 @@
 				<raceHediff>PMM_RaceTracker_SoldierBeetle</raceHediff>
 				<!-- The spider-body tracker, as on the three eight-legged castes: it is what draws the
 				     legs and the abdomen, and our own copy of it is what paints them in her hair colour
-				     (HANDOFF.md §5.17). B&S's winged tracker is gone from this def with the wings. -->
+				     (archive/HANDOFF.md §5.17). B&S's winged tracker is gone from this def with the wings. -->
 				<raceHediffList>
 					<li>PMM_RaceTracker_SpiderBody</li>
 				</raceHediffList>
@@ -494,7 +492,7 @@
 				<radius>12</radius>
 				<intervalTicks>600</intervalTicks>
 			</li>
-			<!-- The maturation (2026-10-02, CASTES-PLAN.md §7). She counts the mana she spends -
+			<!-- The maturation (2026-10-02, archive/CASTES-PLAN.md §7). She counts the mana she spends -
 			     a fall of the bar, never a refill - and spins a cocoon once she has spent enough.
 			     `manaPerCharge 0.05` is one charge per twentieth of a bar, so `chargesNeeded 600`
 			     is thirty full bars (user's call, 2026-10-02: 600, where it was 60). At
@@ -751,8 +749,8 @@
 			     lay, and the egg sac she throws carries that choice with it. The list is data:
 			     a new species is one line here, never a code change. `random mamono` draws from
 			     the humanlike entries only, so it can never quietly hand back the swarmling.
-			     The default entry is listed on purpose too - after trying a caste, the player
-			     can hand her the old brood back.
+The swarmling is deliberately not in the list: it is what she lays unprompted, but
+				     it is not a caste the player can pick or return to (user's call, 2026-10-03).
 
 			     Only a queen of the player's faction is offered the menu; a nest queen is not,
 			     and nothing anywhere casts the ability on its own (see §5.11). -->
@@ -776,13 +774,18 @@
 					<!-- The ant mimic (2026-09-27). A daughter the queen can lay on purpose,
 					     and one the random draw can hand back. -->
 					<li><pawnKind>PMM_InsectAntArachne</pawnKind></li>
-					<!-- The mothman, the papillon and the hornet (2026-10-01, CASTES-PLAN.md phases 2
+					<!-- The honey bee (2026-10-03, user's call: every insectoid mamono we have made should
+					     be layable). She was the one caste this list was missing - the honey pass left her
+					     out on purpose - and the ruling is that any species we ship is a daughter the queen
+					     can choose. It is one line, as the comment above says it should be. -->
+					<li><pawnKind>PMM_InsectHoneyBee</pawnKind></li>
+					<!-- The mothman, the papillon and the hornet (2026-10-01, archive/CASTES-PLAN.md phases 2
 					     and 3). All three are hive castes, so the queen can lay any of them on purpose,
 					     and all three join the random draw. -->
 					<li><pawnKind>PMM_InsectMothman</pawnKind></li>
 					<li><pawnKind>PMM_InsectPapillon</pawnKind></li>
 					<li><pawnKind>PMM_InsectHornet</pawnKind></li>
-					<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A swarm caste, but still a
+					<!-- The mantis (2026-10-01, archive/CASTES-PLAN.md phase 4). A swarm caste, but still a
 					     daughter the queen can lay on purpose and one the random draw can hand back -
 					     which is the decision that put all four new castes in this list. -->
 					<li><pawnKind>PMM_InsectMantis</pawnKind></li>
@@ -790,7 +793,6 @@
 						<randomMamono>true</randomMamono>
 						<iconPath>UI/Icons/Abilities/PMM_EggSpew</iconPath>
 					</li>
-					<li><pawnKind>VFEI2_Swarmling</pawnKind></li>
 				</broodOptions>
 			</li>
 		</comps>
@@ -873,7 +875,7 @@
 	     Her extra arms are not drawn: humanlike arms live in the body texture, so Big &
 	     Small's own four-armed race shows one pair as well, and that one pair is all she
 	     shows too. The placeholder attachment that drew the second pair from 2026-09-25
-	     to 2026-10-04 is gone, mechanics untouched (HANDOFF.md §5.25). -->
+	     to 2026-10-04 is gone, mechanics untouched (archive/HANDOFF.md §5.25). -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_AbaddonFolk</defName>
 		<label>abaddon folk</label>
@@ -1005,7 +1007,7 @@
 		     `RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms`, and its six placeholder PNGs with
 		     it: crude limbs laid over her body read worse than no second pair at all (the
 		     user's screenshot). Her queen, who wears the same body, never drew a second pair
-		     either. HANDOFF.md §5.25. -->
+		     either. archive/HANDOFF.md §5.25. -->
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -1028,7 +1030,7 @@
 	     `BS_SpiderAbdomen` as a real, damageable part inside it - and B&S's
 	     `PMM_RaceTracker_SpiderBody` (ThingDefs/SpiderBody_BS.xml) is what draws it, added
 	     through `raceHediffList` the way B&S's own spider tracker used to be - and ours paints
-	     the body in her caste's hair colour (HANDOFF.md §5.17). It brings the spider numbers with it:
+	     the body in her caste's hair colour (archive/HANDOFF.md §5.17). It brings the spider numbers with it:
 	     MaxNutrition x2, CarryingCapacity x1.5 and a
 	     touch of Manipulation.
 
@@ -1662,15 +1664,14 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Mothman (new caste, 2026-10-01, CASTES-PLAN.md phase 2) ===================== -->
+	<!-- ===================== Mothman (new caste, 2026-10-01, archive/CASTES-PLAN.md phase 2) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Mothman</defName>
 		<label>mothman</label>
 		<description>An insect mamono of the hive's quiet corners: a soft, dusty-winged woman who keeps to the dark until a lamp is lit, and then cannot leave it alone. She is gentle to the point of uselessness in a fight, and happier than anyone else in the village.</description>
 		<statBases>
-			<!-- Slower than her sisters on foot, and no flight: her wings are drawn, they
-			     do not carry her. PMM_Gene_FlightWeak is a leap, not flight, and the pair
-			     she wears is PMM_Gene_CosmeticWings (2026-10-04). -->
+			<!-- Slower than her sisters on foot, and no fighter: she carries the strong
+			     flight gene (2026-10-03), so on the world map she is a caravan mount. -->
 			<MoveSpeed>3.6</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
 			     SM_BodySizeMultiplier (B&S's own maths). 1.0 x 1.0 = 1.0, and she carries no
@@ -1746,7 +1747,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Papillon (new caste, 2026-10-01, CASTES-PLAN.md phase 2) ===================== -->
+	<!-- ===================== Papillon (new caste, 2026-10-01, archive/CASTES-PLAN.md phase 2) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Papillon</defName>
 		<label>papillon</label>
@@ -1776,7 +1777,7 @@
 			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>1.0</baseBodySize>
 			<!-- 0.4 x HealthScalePatch's 1.25 = 0.5 effective: the frailest caste in the mod
-			     (CASTES-PLAN.md §0 decision 10). Her limbs are meant to be a liability. -->
+			     (archive/CASTES-PLAN.md §0 decision 10). Her limbs are meant to be a liability. -->
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
@@ -1810,7 +1811,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Hornet (new caste, 2026-10-01, CASTES-PLAN.md phase 3) ===================== -->
+	<!-- ===================== Hornet (new caste, 2026-10-01, archive/CASTES-PLAN.md phase 3) ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Hornet</defName>
 		<label>hornet</label>
@@ -1886,9 +1887,9 @@
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 			<!-- The winged body, as on every winged caste here: it is what carries the real
-			     BS_Wing parts. Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04),
-			     and PMM_Gene_FlightWeak is a leap and not flight, so she walks the rest of
-			     the time. -->
+			     BS_Wing parts. Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04).
+			     She carries the strong flight gene (2026-10-03), so on the world map she is a
+			     caravan mount of her own. -->
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
@@ -1927,12 +1928,12 @@
 		</comps>
 	</HediffDef>
 
-	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A plain Human body on purpose: she has
+	<!-- The mantis (2026-10-01, archive/CASTES-PLAN.md phase 4). A plain Human body on purpose: she has
 	     no flight gene and no cosmetic wing gene, so she carries no winged body and no <body>
 	     line - the Human parent's own body is the one she draws, and she grows no wings.
 
 	     Her race carries no weapon either. VRE_RipperBlades is what she kills with, and a blade of
-	     her own on the race would leave her with two sets of tools (CASTES-PLAN.md §3.2: "one set
+	     her own on the race would leave her with two sets of tools (archive/CASTES-PLAN.md §3.2: "one set
 	     of tools, not two"). So she keeps the family's block less its species weapon: her two
 	     fists and her head. -->
 	<ThingDef ParentName="Human">
@@ -1988,7 +1989,7 @@
 			<meatMarketValue>0.5</meatMarketValue>
 			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>1.0</baseBodySize>
-			<!-- 0.4 x HealthScalePatch's 1.75 = 0.7 effective (CASTES-PLAN.md §0 decision 10).
+			<!-- 0.4 x HealthScalePatch's 1.75 = 0.7 effective (archive/CASTES-PLAN.md §0 decision 10).
 			     What the plan calls glass: VRE_WeakenedChitin then takes x1.5 of whatever gets
 			     through, so the number here is the last thing standing between her and a
 			     missing limb. -->

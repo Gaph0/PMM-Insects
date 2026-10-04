@@ -67,12 +67,12 @@ namespace PMM_Insects
                 // than a human and tougher than the papillon, and never in a fight anyway.
                 "PMM_Race_Mothman" => 2.0f,
                 // Papillon: 0.4 base x 1.25 = 0.5 effective, the frailest caste in the mod
-                // (CASTES-PLAN.md 0 decision 10). Her limbs are meant to be a liability.
+                // (archive/CASTES-PLAN.md §0 decision 10). Her limbs are meant to be a liability.
                 "PMM_Race_Papillon" => 1.25f,
                 // Hornet: 0.4 base x 2.0 = 0.8 effective, the mothman's frame. She is a
                 // fighter, but her venom is what makes her dangerous, not her shell.
                 "PMM_Race_Hornet" => 2.0f,
-                // Mantis: 0.4 base x 1.75 = 0.7 effective (CASTES-PLAN.md §0 decision 10).
+                // Mantis: 0.4 base x 1.75 = 0.7 effective (archive/CASTES-PLAN.md §0 decision 10).
                 // The thinnest shell of any fighter here, and VRE_WeakenedChitin takes x1.5
                 // of whatever lands on it - she is meant to be the glass half of the pair.
                 "PMM_Race_Mantis" => 1.75f,

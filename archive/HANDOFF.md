@@ -1,10 +1,17 @@
-# PMM Insects - Insector Tribes hand-off
+# PMM Insects - Insector Tribes hand-off - ARCHIVED 2026-10-04
+
+**Phases 1 to 8 are built and field-tested, so the overhaul this file planned is done.** It is kept for
+its evidence appendix (§12) and its file-by-file record (§3 to §5), not as a live plan.
+One item was still open when it was archived: the castes' own xenotype icons are not drawn yet, and every
+xenotype def marks where its `iconPath` goes. §11 items 6 to 8 record three ideas deferred as "worth
+asking later". Later changes live in `CHANGELOG.md` and `README.md`, not here.
 
 For the next agent picking this up, and for the user. This file is the plan for
 the Insects overhaul.
 
-**Status: design locked. Phases 1 to 4 are done and field-tested (2026-09-20);
-phase 5 is built and awaiting its field test.**
+**Status: design locked. Phases 1 to 5 are done and field-tested, 3, 4 and 5 on
+2026-10-03, and phase 6's build gate was confirmed the same day. Phases 7 and 8 are
+built; what is left is the art in §11 and the decisions beside it.**
 The spawn swap and the wild layer are gone, the two insector tribes exist with
 their names, their VFEI2 villages and their castes, and the six castes now carry
 their VRE gene packages (§5.3). Phase 3 added the melee groups, the four vanilla
@@ -14,10 +21,10 @@ Three extras came out of the same conversation and are built: chitin instead of
 human leather from a corpse, insect flesh so eating insect meat is cannibalism to a
 mamono, and one "mamono corpses" line in the item filters (§10, §12.9). That line moved
 into core on 2026-09-20, so the slime and elemental mamonos share it (§11 item 5).
-Phases 6 to 8: the hive build gate is still open, phase 7 was closed on 2026-09-24 by
-deleting the hive bond rule and its vanish rather than repointing them (§8), and
-phase 8's trade landed on 2026-09-22. What is left is the field tests in §10 and the
-art and tuning in §11.
+Phases 6 to 8: the hive build gate was confirmed in game on 2026-10-03, phase 7 was
+closed on 2026-09-24 by deleting the hive bond rule and its vanish rather than
+repointing them (§8), and phase 8's trade landed on 2026-09-22. Phases 3, 4 and 5 were
+field-tested the same day. What is left is the art in §11 and the decisions beside it.
 
 `archive/PLAN.md` holds the old design: a total spawn swap, plus tameable wild
 mamonos. It was archived on 2026-10-01, once the mod had shipped as two tribes and its
@@ -702,9 +709,10 @@ geneline gizmo gene.
    `VRE_InsectSkin`, `VRE_InsectFlesh`, `VRE_BugBlood`, `VRE_MineralRichInsectskin`
    (armour would stack again - the bug that was already burned once at 1.44 sharp),
    `VRE_Microsized` and `VRE_Colossal` (a `VEF_BodySize_Offset` on top of B&S
-   sizing), and the melee-weapon genes `VRE_RipperBlades`, `VRE_ChargerClaws`,
-   `VRE_MegaspiderHorns`, `VRE_InsectMandibles` and `VRE_InsectRostrum` (an extra
-   attack verb, and the blades and claws also cost work speed, -0.3 and -0.4).
+   sizing), and the melee-weapon genes `VRE_RipperBlades`, `VRE_InsectMandibles`,
+   `VRE_MegaspiderHorns` and `VRE_InsectRostrum` (an extra attack verb; the blades
+   also cost work speed, -0.3). `VRE_ChargerClaws` is not one of them - it grants
+   the breacher charge and no attack at all (corrected 2026-10-03).
    `VRE_SpelopedeHorn` is the one exception, kept on the Giant Ant for its +0.2
    mining.
    **The wing genes are no longer the sharp edge of this rule.** Our own
@@ -827,12 +835,24 @@ the user's call.
 
 ### 5.4 The brood (egg spew) - built 2026-09-20
 
-**Built, awaiting its field test. The brood is a VFEI2 swarmling, not a mamono** (the
+**Built 2026-09-20, field-tested 2026-10-03. The brood is a VFEI2 swarmling, not a mamono** (the
 user's call, 2026-09-20). The clone is `PMM_Ability_EggSpew`, `PMM_Proj_EggSac`
 and `PMM_EggSac` (`Defs/AbilityDefs/Abilities_EggSpew.xml` and
 `Defs/ThingDefs/Things_EggSpew.xml`), all ungated Core defs, and the abaddon
-race comp and the queen pawn kind now point at it. All XML. What shipped against
-this plan:
+race comp and the queen pawn kind now point at it. All XML.
+
+**The sac is a wait since 2026-10-04** (user's ruling: "the abaddon eggs take 24hrs to hatch,
+breaking the egg before that just kills the mamono"). It opens by itself a day after the throw, and
+an early break kills the brood inside - a corpse where the sac stood, and no name and no relation on
+her, because she never hatched. `CompEggSacBrood` counts the wait on `CompTickRare`, which is why
+`PMM_EggSac` carries `<tickerType>Rare</tickerType>` (§5.20's lesson: a building is not ticked unless
+it says so), and the number is `<hatchHours>24</hatchHours>` on the comp. Two small consequences:
+the sac's inspect string carries the countdown (`Hatches in 6 hours`, in the cocoon's day-then-hour
+style), and the wait is tick count rather than the clock, so a sac on an unloaded map is still
+waiting when the player comes back to it. Breaking one whose day IS up still frees her, which covers
+the gap between the timer running out and the next rare tick.
+
+What shipped against this plan:
 
 - The hatch is Core's own `CompSpawnPawnOnDestroyed` with `CompSpawnLarva` - which
   only sets `JoinLord => parent.Faction != Faction.OfPlayer` - exactly as vanilla's
@@ -1349,10 +1369,11 @@ menu, silk, web and coffee. Everything in it is built and tested; the file is ke
    nest lord for a humanlike. Vanilla's `CompSpawnPawnOnDestroyed.PostDestroy` hardcodes
    `fixedBiologicalAge = 0f` and `allowDowned: false`, which is why this had to be our own comp
    and not a def tweak - that pair is the 2026-09-20 "Generated downed pawn" failure.
-5. **Open, and the user's call.** Optional cocoon stage: the sac spawns our own cocoon building
-   carrying the order, and a killed cocoon loses the brood (their ruling). Recommendation on the
-   record: skip it. It buys the metamorphosis beat and costs a building def, a comp, art, a
-   fourth hop for the order and a second killability rule - and the chain is at two hops today.
+5. **Closed 2026-10-04, without the extra building.** The user's ruling replaced the cocoon idea with a
+   timer on the sac itself: **an egg opens by itself 24 hours after it is thrown, and breaking it
+   before that kills the brood inside.** That is the metamorphosis beat without a second building, a
+   fourth order hop or second art, so the recommendation to skip the cocoon stands - what shipped is
+   `CompEggSacBrood`'s own countdown, with the shape and the reasoning in §5.4.
 
 **The finding that shaped the plan.** Today nothing about the brood is choosable, and no mamono
 comes out of the egg either: the sac hatches a `VFEI2_Swarmling`, and VFEI2's
@@ -1804,11 +1825,11 @@ roll, her gene page shows what it gave her, and a save keeps it. Three checked f
 - VRE's three weapons are hediffs carrying a `HediffCompProperties_VerbGiver` (`VRE_RipperBlades`:
   Cut, power 18, armour penetration 0.27), so the weapon never went through `ThingDef.tools` at all.
 
-**The tool rule, finished.** Her race's block is now `<tools Inherit="False" />` - empty, and not
+**The tool rule, finished, then reversed (2026-10-03).** Her race's block was, until that day, `<tools Inherit="False" />` - empty, and not
 inheriting the Human parent's fists - so the gene owns the weapon, which is §0 decision 11. This is
 where `CASTES-PLAN.md` §3.5 was wrong until today: the girtablilu was never the empty-handed example,
-the beetle is. What it trades away is a fallback: there are no fists under the blades, so a beetle who
-loses the body part her weapon hangs on has nothing left to swing.
+the beetle is. What it traded away was a fallback: there were no fists under the blades, so a beetle who
+loses the body part her weapon hangs on has nothing left to swing. Her fists came back the same day (user's call), so the armament is what she reaches for rather than the only thing she has.
 
 **One nuance on the new gene's icon.** It has no `iconPath`, and that is quieter than the xenotypes'
 case: `GeneDef.ConfigErrors` does not check for a missing icon the way `XenotypeDef` does (both read
@@ -1930,6 +1951,186 @@ What to look at in game, most likely first:
    colour now (§5.24).**
 2. **The abaddon's sack.** It draws at `baseLayer` 0 and the wings at -2, so in the south view the
    sack is now in front of the wings - the opposite order to the 2026-10-03 report.
+3. **Weak and strong wings look the same now.** One pair of VRE wings serves both, where B&S gave
+   the weak gene a pair at 0.8. Abilities and caravan behaviour are unchanged.
+4. **The winged body stays.** Nothing draws `BS_Wing` any more, so a lost wing part is invisible
+   where the B&S tracker used to blank that wing's art. Dropping the parts is a separate decision -
+   the four-armed winged body is generated by `Tools/make_four_armed_winged_body.py`.
+5. **The honey bee.** Superseded the same day (§5.23): she was left wingless below, and the user
+   called it a miss. She carries the weak-flight gene and never had the winged body, so the old
+   art was blanked for her; the cosmetic gene needs no body parts, so she wears a pair now like
+   her sisters.
+6. **B&S's "winged humanoid" Health row went** with the tracker, and so did the VEF floating comp
+   that came with it; `FlyingPawnTerrainCostPatch` already prices terrain from the flight genes.
+
+**Checked in game 2026-10-04: the wings are right.** The eight castes draw the pair, they wear the
+caste colour, and the honey bee has hers - the user's word, so nothing in the list above stands as a
+defect. What remains unverified here is only how the tint looks against the pre-shaded art on a pale
+caste; `colorRGBPostFactor` (§5.24) is the lever if it ever reads too dark.
+
+### 5.23 The wings become our own gene, and the bee gets a pair (2026-10-04)
+
+Two corrections to §5.22, both the user's, both the same day.
+
+**The bee was missed.** §5.22 left her wingless on purpose, because the old B&S art blanked itself
+for a pawn with no winged body - and she is the one caste that never had one. VRE's node needs no
+body parts at all, so she takes the wing gene like her sisters and wears a pair now. Nothing else
+about her moves: no winged body, no new stats.
+
+**VRE's gene had to go, and the art came with us.** `VRE_InsectWings_Cosmetic` carries the
+exclusion tag `InsectorMovement`, and so do `VRE_HardLockedJoints` (the abaddon queen's degrade),
+`VRE_InflexibleJoints` and `VRE_LocustWings`. Two genes sharing a tag are conflicting genes to the
+engine: `Pawn_GeneTracker.CheckForOverrides` runs from every `AddGene`, and for a pair where
+neither side declares its own override it silences the EARLIER one - and `GenesListForReading` is
+the xenogenes in the order the xenotype lists them. On the queen's list the wing gene sits fourth
+and hard-locked joints fourteenth, so the wings lost: she had no wings at all (user's report,
+2026-10-04). A checklist for the next gene we add: `GeneDef.exclusionTags` is not a comment, it is
+`CheckForOverrides` and the xenotype editor, and a cosmetic gene has no business holding a tag
+that a stat gene also holds.
+
+Every caste moved to `Defs/GeneDefs/Genes_Wings.xml`, our own `PMM_Gene_CosmeticWings`: the same
+node field for field - one vanilla `PawnRenderNodeWorker_AttachmentBody` on the `Body` tag, VRE's
+`Things/Pawn/Humanlike/BodyAttachments/Insectwings` texture, layers -2 and 90 north, ±0.2 east and
+west, `scaleOffsetByBodySize` - with **no exclusion tags at all**. A tag is the
+bug; there is nothing of ours this gene should refuse to sit beside. The two stat-carrying wing
+genes stay out of the packages as before (CASTES-PLAN rule, §5.22).
+
+Patching VRE's def was rejected the way B&S's spider body was (`SpiderBody_BS.xml`, user's call
+2026-10-01): the tag is theirs, and removing it would let every insector in a save take wings and
+hard-locked joints together. So the copy is ours and the art is still theirs, by path - the same
+dependency the old arrangement had.
+
+All eight winged castes carry it now: the seven of §5.22 plus the bee. Nothing else about them
+changed: the tint was still `Skin` rather than the caste colour on her hair at this point, fixed
+later the same day (§5.24), and the wings still sit behind her at -2 with the spawning sack in
+front of them in the south view (§5.22, item 2).
+
+### 5.24 The wings wear the caste colour (2026-10-04)
+
+A few hours after §5.23 the user asked for the wings to be drawn from the same palette as the rest
+of her - the abaddon rolls `(96,80,87)`, `(114,104,105)` and `(50,44,46)`. Two fields in
+`Defs/GeneDefs/Genes_Wings.xml` did it:
+
+* `colorType` `Skin` → `Hair`. That is the field the palette already rides: the insect colours
+  patch rolls a caste's list into `pawn.story.HairColor` (`Source/Insects/InsectColours.cs`), which
+  is why her hair, and through B&S her spider legs and abdomen, wear it (`SpiderBody_BS.xml`).
+* `useSkinShader` deleted, and `shaderTypeDef CutoutComplex` with it. This is the trap worth
+  remembering: the skin shader draws the node from the pawn's SKIN whatever `colorType` says
+  (`ShaderUtility.GetSkinShader`, reached through `PawnRenderNodeProperties.useSkinShader`), so
+  keeping it would have left the wings skin-coloured no matter what the tint was set to. What
+  remains is field for field vanilla's own hair-tinted body attachment, Biotech's `FurryTail`: no
+  shader line at all, `colorType Hair`, the same worker, the same `Body` tag, the same -2 layer.
+
+What to watch in game: VRE's wing art is painted bright and pre-shaded (mean RGB 129,122,103), so
+multiplying it by the dark caste palettes gives muted wings rather than a flat recolour, and the
+north view draws them at 90 in front of her, where the tint reads against the body. If they come
+out too dark, `colorRGBPostFactor` on the node is the brightness lever (default 1, and nothing in
+vanilla, VRE, VEF or B&S uses it). Two of VRE's own nodes still take skin and will not match the
+wings: the spawning sack on the queen, and the chitin-skin art on the spider-body castes.
+
+### 5.25 The abaddon folk stops drawing her second pair of arms (2026-10-04)
+
+The user asked to take the folk's drawn arms off her and keep the mechanics, and the screenshot she
+sent says why: the node laid one pair of placeholder limbs over a body texture that already draws a
+pair, and it read as a smear across her chest rather than as four arms. The four-armed look needed art
+nobody has - no installed mod ships a four-arm sprite (§5.7) - so it is gone rather than pending.
+
+What changed, both in `Defs/ThingDefs/Races_InsectMamono_BS.xml`:
+
+* The `renderNodeProperties` block on `PMM_RaceTracker_AbaddonFolk` is deleted. The tracker keeps
+everything that is not art: the romance tags, `internalDamageDivisor 2`, and
+`BigAndSmall.CompProperties_Race` with `canSwapAwayFromThis`.
+* `Textures/RaceDefaults/PMM_AbaddonFolk/` is deleted with it - six PNGs - and the `RaceDefaults`
+folder above it, which held nothing else of ours.
+
+What did NOT change: the body def `PMM_Body_FourArmedWinged`, its four `Arm` parts, the
+`PMM_LowerLeftHand` / `PMM_LowerRightHand` groups, and the four fist tools. She still has four arms in
+a fight and still loses them separately; only the second pair stopped being drawn.
+`Tools/make_four_armed_winged_body.py` is untouched, because it makes the body, not the art.
+
+One consequence worth knowing: her queen wears the same four-armed body and never drew a second pair,
+so the two look alike now instead of the folk being the odd one. If the arms ever come back it is a
+copy of the deleted node plus new art, and the layer question is easier than it was: her wings are our
+own gene at -2 (§5.23), so 93 - the value B&S's front wing at 92 forced - is no longer needed.
+
+**Checked in game 2026-10-04: she draws one pair of arms.** The user's word, and the mechanics were
+never part of the change - the body def, the four `Arm` parts, the two lower-hand groups and the four
+fist tools are exactly as they were before the node came off.
+
+---
+
+### 5.21 A passive caste cannot be generated from a group at all (2026-10-02)
+
+Found in a `Player.log`: `Generated pawn incapable of violence ... Too many tries (120), returning
+null ... kindDef=PMM_InsectMothman, faction=Abaddon Nest`, then a NullReferenceException and
+`Exception while generating pawn group`.
+
+**The engine rule.** `PawnGroupKindWorker_Normal.GeneratePawns` builds its `PawnGenerationRequest` with
+a hardcoded `mustBeCapableOfViolence: true` (decompiled, Assembly-CSharp 1.6). That worker serves every
+group kind except Combat and Trader - `Peaceful`, `Settlement`, `Miners`, `Hunters`, `Loggers`,
+`Farmers`. "No Combat weight" was therefore never enough: a caste who cannot be violent cannot be
+generated from any group of ours at all.
+
+**What the failure costs.** The generator retries 120 times, logs `returning null`, and then vanilla's
+`PawnGenerator.GeneratePawn` dereferences that null - `pawn.guest`, with no null check after
+`GenerateOrRedressPawnInternal` - and throws. Our own two `GeneratePawn` postfixes (`BeetleArmament`,
+`InsectColours`) both null-check, so the throw is vanilla's. `PawnGroupKindWorker.GeneratePawns`
+catches it, `Destroy()`s the partial list and clears it, so **the whole group comes back empty**: a
+village loses every inhabitant of that group, not one woman.
+
+**Who it hit.** The mothman (`VRE_PassiveInsect`), the papillon (`ViolenceDisabled`) and the greenworm
+(`VRE_PassiveInsect`). The first two stood in the hive's `Peaceful` group and the greenworm had a
+`Peaceful` maker of her own in the swarm's, so that group could never generate for either tribe.
+
+**The fix, XML only (user's call).** All three are out of `pawnGroupMakers` in
+`Defs/FactionDefs/Factions_InsectorTribes.xml`, and the greenworm's single-option `Peaceful` maker is
+deleted whole. The file's header now carries the rule, so the next reader does not put them back.
+
+**The second leak, closed the same day.** The two tribes' `xenotypeSet` lists still held the three castes,
+and a kind's own pin is *added* to that pool rather than replacing it
+(`PawnGenerator.XenotypesAvailableFor`, gated on `kind.useFactionXenotypes`, default true), so a
+fighter's slot could still roll a passive xenotype - ~1 in 1,700 hive slots and ~1 in 800 swarm slots -
+and fail exactly the same way. `PMM_InsectKindBase` now carries `useFactionXenotypes false`, so every
+insector kind is pinned exactly and no slot can roll a sister caste's xenotype at all. That also ends
+the chimeric pawns the old behaviour produced: a slot whose kind said one caste while the xenotype
+forced another's race and genes.
+
+**What still carries the three, and why it is safe.** Both other paths ask for no violence:
+`PawnGroupKindWorker_Trader.GenerateTrader` passes `mustBeCapableOfViolence: false`, so
+`PMM_InsectMothmanTrader` and `PMM_InsectPapillonTrader` spawn as intended, and the abaddon's brood
+order builds its own request with the same `false` (`Source/Insects/EggSacBrood.cs`). The greenworm is
+now brood-only in the swarm, which is what §5.2 already called her.
+
+### 5.22 The wings move to VRE's art (2026-10-04, route 1)
+
+The user asked whether VRE Insector's insect wing graphics could replace Big & Small's feathered
+ones, and chose **route 1**: take VRE's own cosmetic wing gene rather than write a wing node of our
+own. What changed, all in one pass:
+
+* The seven winged castes (vamp mosquito, abaddon, abaddon folk, beelzebub, mothman, papillon,
+  hornet) dropped `BS_HumanoidWithWings_Race` from their `raceHediffList`
+  (`Defs/ThingDefs/Races_InsectMamono_BS.xml`). Every feather B&S drew for them came from that
+  tracker's six nodes, at 92 in front of her body or -1/-2 behind it.
+* Their xenotypes gained `VRE_InsectWings_Cosmetic` (`Defs/XenotypeDefs/Xenotypes_Insect.xml`). It is
+  one vanilla attachment node at `Things/Pawn/Humanlike/BodyAttachments/Insectwings` - a 128x128
+  sprite holding both wings, `drawSize 1`, `colorType Skin`, layers -2 (behind her) and 90 north,
+  east/west offset ±0.2, `scaleOffsetByBodySize`. The two stat-carrying wing genes stay out as
+  before.
+* Core's `PMM_Gene_FlightWeak` lost its own six B&S nodes (its "smaller wings" at `drawSize 0.8`).
+  It keeps its body swap and `renderCacheOff`; the swap is now only what gives a Human-race pawn the
+  real `BS_Wing` parts. `PMM_Gene_Flight` is untouched, so the dragons keep B&S wings.
+* `Patches/AbaddonWing_BigAndSmall.xml` was deleted. Its whole subject was the abaddon's abdomen
+  drawing over her right B&S wing, and no pawn of ours uses the nodes it tuned any more. Restore it
+  with `git checkout -- Patches/AbaddonWing_BigAndSmall.xml` if this swap is ever reverted.
+
+What to look at in game, most likely first:
+
+1. **Wing colour.** VRE tints by skin, so the castes' rolled colour no longer reaches the wings
+   (§5.13). The levers are named there. **Resolved the same day: the wings do wear the caste
+   colour now (§5.24).**
+2. **The abaddon's sack.** It draws at `baseLayer` 0 and the wings at -2, so in the south view the
+   sack is now in front of the wings - the opposite order to the 2026-10-03 report, and not fixable
+   with the deleted patch.
 3. **Weak and strong wings look the same now.** One pair of VRE wings serves both, where B&S gave
    the weak gene a pair at 0.8. Abilities and caravan behaviour are unchanged.
 4. **The winged body stays.** Nothing draws `BS_Wing` any more, so a lost wing part is invisible
@@ -2252,7 +2453,7 @@ the log for `Skipping AddHostilePawnGroup` - that means a `Settlement` group is
 missing.
 
 **Phase 3 - raids, children and the caste table. (done 2026-09-20; the children
-were dropped, and the rest is not yet field-tested)**
+were dropped, and the rest was field-tested 2026-10-03)**
 Done: `pawnGroupMakers` filled with melee groups only - Combat, a second Combat
 for the vanilla roster, Combat-melee, Peaceful, Settlement - plus the four work
 groups vanilla tribes carry. The children were built and then removed by the user
@@ -2262,7 +2463,7 @@ Gate: a large raid fields swarms of devil bugs, a few giant ants and at least on
 soldier beetle, and no ranged group is ever used. A small raid never fields the
 queen. A village raid fields her.
 
-**Phase 4 - gene packages. (built 2026-09-20; not yet field-tested)**
+**Phase 4 - gene packages. (built 2026-09-20; field-tested 2026-10-03)**
 Done: the six caste packages are in the six xenotypes (§5.3),
 `VRE_InsectJellyDependency` on the five fighters only, no `VRE_JellySacks`
 anywhere, and no `VRE_GenelineEvolution`. The pheromone effect is ours now, carried
@@ -2301,13 +2502,13 @@ raises the cannibalism thoughts and doing the same to a baseliner does not; the 
 filters show one "mamono corpses" line holding all six races, and a default butcher
 bill still accepts a mamono corpse.
 
-**Phase 5 - brood and nourishment. (built 2026-09-20, awaiting its field test)**
+**Phase 5 - brood and nourishment. (built 2026-09-20; field-tested 2026-10-03)**
 The egg spew clone, and the widened hive lookup.
 Gate: the Abaddon's egg spew produces a swarmling, in the queen's faction, in a
 dev-spawned village. A mamono standing near a `VFEI2_KemianHive` gets nourishment.
 
-**Phase 6 - jelly and hives for the player.**
-Confirm the build gate from §7.1 in both directions.
+**Phase 6 - jelly and hives for the player. (gate confirmed 2026-10-03)**
+The build gate from §7.1 was tested in both directions, in game.
 Gate: a recruited mamono with `VRE_Hiveglands` can build `VFEI2_JellyFarm` and
 `VFEI2_HiveWall`. A mamono without the gene cannot.
 
@@ -2336,19 +2537,21 @@ names to the neutral tribe and two swarm names to the hostile one.
 
 Left:
 
-1. **Queen presence in villages.** She is affordable at village point levels and
-   listed in the `Settlement` group at weight 1 of 33, so she is a chance per
-   village rather than a guarantee. Phase 3 kept her at 1 - raise the weight if
-   the user wants a queen more often. She cannot be seen without attacking a
+1. **Queen presence in villages. Settled 2026-10-03.** She is affordable at village
+   point levels and listed in the `Settlement` group at weight 1 of 33, so she is a
+   chance per village rather than a guarantee. Phase 3 kept her at 1, and the user's
+   tuning pass says that is good as it stands. She cannot be seen without attacking a
    village (§10, Phase 2).
-2. **Custom art.** The hostile tribe has its own crest now, used for both its icon
-   and its villages (§4.4). The neutral tribe still uses VFEI2's hive art and the
-   vanilla insect icon.
-3. **Phase 3 tuning:** the raid weights, the queen's weight (§11 item 1), and
-   whether the raised cost curve changes how raids feel.
+2. **Custom art. Corrected 2026-10-03:** both tribes have their own crest, each used
+   for its icon and its villages (`World/WorldObjects/Expanding/PMM_InsectorHive` and
+   `PMM_InsectorSwarm`), so nothing is borrowed from VFEI2 or from vanilla any more. The
+   art still outstanding is the castes' own xenotype icons, and the abaddon folk's icon
+   is filed with those rather than counted on its own.
+3. **Phase 3 tuning: settled 2026-10-03.** The raid weights, the queen's weight
+   (§11 item 1) and the raised cost curve all read well in play, so nothing moves.
 4. **The Phase 4 gene write-up** (§5.3) is fully answered and built: immunity on
    the insectoid gene, the six caste packages, locked genes allowed (two in use),
-   and `VRE_GenelineEvolution` left off. What is left is the field test.
+   and `VRE_GenelineEvolution` left off. Field-tested 2026-10-03.
 5. **One mamono-corpse line across the whole family: done 2026-09-20.** The category
    def and the mover live in `Project Mamono` (`Source/ProjectMamono/MamonoCorpses.cs`) and
    `Defs/ThingCategoryDefs/ThingCategories_MamonoCorpses.xml`, and each species mod
@@ -2359,26 +2562,34 @@ Left:
 
 Worth asking later, not now:
 
-6. Do we want our own settlement layout on top of VFEI2's four?
-7. Do we want a custom Ideology culture, and VIE memes with it?
-8. A settlement namer of our own, instead of `NamerSettlementTribal`.
-9. **The abaddon folk's own art (2026-09-25).** Two pieces, both now the only
-   things left on her: the **xenotype icon** (currently the queen's crest) and the
-   **lower-arm sprite** (currently a placeholder, six files in
-   `Textures/RaceDefaults/PMM_AbaddonFolk/`). Replacements go in at the
-   same paths with the same names - no XML changes. §5.7 has the details, including
-   the node settings likely to need tuning in dev mode.
+6. **Our own settlement layout. Closed 2026-10-03:** players rarely if ever attack a
+   village, so VFEI2's four layouts are a non-issue.
+7. **A custom Ideology culture. Deferred 2026-10-03:** the mod needs no Ideology
+   features as it stands; a culture is for a later collaboration.
+8. **Our own settlement namer. Deferred 2026-10-03:** the names are not there yet -
+   creative bandwidth, not anything technical. Still the cheapest of the three.
+9. **The abaddon folk's own art (2026-09-25). Closed for the arms 2026-10-04:** the lower-arm
+   sprite was placeholder art, and rather than have it drawn the arms came off her - one pair shows,
+   which is the body texture's own, and every mechanic of the four arms stays (§5.25). The six PNGs
+   and the folder that held them are deleted, so there is nothing left to replace. Her xenotype icon
+   is still filed with the castes' icons (2026-10-03), and that is the only piece left on her.
 10. **The insect abdomen - asked about and shelved (2026-09-25).** B&S's spider is
    the reference if it comes up again: `BS_SpiderAbdomen` is a 60 HP skin-covered
    body part childed to the torso at `height Bottom`, and in their body the stomach
    sits inside it. Nothing was built - "just do the arms for now" (§5.7).
    **Resolved for the queen, not for the folk (2026-09-26):** the abaddon's abdomen is
    `VRE_SpawningSack_Cosmetic`, VRE's look-only half of the spawning sack (§5.10), so no
-   body part, no gut and no art of ours were needed. The folk still has none, and the
-   spider stays the reference if she ever gets one.
-11. **Should the abaddon be able to lay a honey bee?** Her brood list (§5.11) was not
-    touched by the honey pass (2026-09-27), so the bee is not among the castes the
-    queen can choose. One entry in that list if she should be - no code change.
+   body part, no gut and no art of ours were needed. The folk has one too since 2026-10-03 (user's call): `VRE_JellySacks_Cosmetic`, the same
+   look-only shape - one attachment node on her lower abdomen, no body part and no art
+   of ours. A real, damageable abdomen stays an option if the jelly sacks are ever not
+   enough, and B&S's `BS_SpiderAbdomen` is the reference for it: 60 HP, skin-covered,
+   childed to the torso at `height Bottom`.
+11. **Should the abaddon be able to lay a honey bee? Answered 2026-10-03, and widened:**
+    every insector mamono we ship should be layable, so the bee joined the
+    `broodOptions` list in `Defs/ThingDefs/Races_InsectMamono_BS.xml` and is the last
+    caste that list was missing. The queen's own kind is still not on it - a queen
+    laying a queen is the answer rather than an open question (2026-10-03: a queen does not lay a queen), and the folk entry is her own kind
+    already.
 
 ---
 
