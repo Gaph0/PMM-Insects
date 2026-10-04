@@ -233,7 +233,7 @@ Fields to set, with why:
 | `autoFlee` | `false` | Bugs do not run. |
 | `colorSpectrum` | chitin tones | World map and letters. |
 | `maxPawnCostPerTotalPointsCurve` | own curve, see §4.7 | The vanilla tribal curve cannot allow a 500-point pawn into a village at all. |
-| `caravanTraderKinds` | `PMM_InsectorTribeTrader` | §4.6. |
+| `caravanTraderKinds` | inherited from `TribeBase` (`Base_Neolithic_Standard` and its two siblings) | §4.6: no trader def of ours, and the `Trader` group staffs the vanilla kinds. |
 | `modExtensions` | `KCSG.CustomGenOption` | The village base. See §4.3. |
 
 **Neutral, but still able to raid.** The user asked for neutral. `TribeBase`
