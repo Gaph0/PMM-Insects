@@ -1940,6 +1940,11 @@ What to look at in game, most likely first:
 6. **B&S's "winged humanoid" Health row went** with the tracker, and so did the VEF floating comp
    that came with it; `FlyingPawnTerrainCostPatch` already prices terrain from the flight genes.
 
+**Checked in game 2026-10-04: the wings are right.** The eight castes draw the pair, they wear the
+caste colour, and the honey bee has hers - the user's word, so nothing in the list above stands as a
+defect. What remains unverified here is only how the tint looks against the pre-shaded art on a pale
+caste; `colorRGBPostFactor` (§5.24) is the lever if it ever reads too dark.
+
 ### 5.23 The wings become our own gene, and the bee gets a pair (2026-10-04)
 
 Two corrections to §5.22, both the user's, both the same day.
@@ -2024,6 +2029,10 @@ One consequence worth knowing: her queen wears the same four-armed body and neve
 so the two look alike now instead of the folk being the odd one. If the arms ever come back it is a
 copy of the deleted node plus new art, and the layer question is easier than it was: her wings are our
 own gene at -2 (§5.23), so 93 - the value B&S's front wing at 92 forced - is no longer needed.
+
+**Checked in game 2026-10-04: she draws one pair of arms.** The user's word, and the mechanics were
+never part of the change - the body def, the four `Arm` parts, the two lower-hand groups and the four
+fist tools are exactly as they were before the node came off.
 
 ---
 
