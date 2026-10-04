@@ -92,7 +92,9 @@ so vanilla insects, VFEI2 genelines and other insect mods all work normally.
     See §4.5 for the split between the two tribes.
 18. **Two tribes: one neutral, one hostile.** Neutral parents off `TribeBase`,
     hostile off `TribeSavageBase`. See §4.7.
-19. **Pherocores are rare trader stock**, not a regular line.
+19. **Pherocores are rare trader stock**, not a regular line. *Unbuilt:* the own trader kind that
+    would have stocked them was dropped for vanilla's neolithic kinds (§4.6), so nothing stocks a
+    pherocore today.
 20. **The queen keeps the jelly dependency.**
 21. **Both tribes fight the same way.** Only relations, trade and looks differ.
 22. **The feral insect faction keeps no bases.** It still raids, infests, spawns
@@ -164,12 +166,13 @@ Landed already:
   - the brood, landed 2026-09-20 (§5.4). Ungated, and it hatches a
   `VFEI2_Swarmling`.
 
-Still to come:
+Everything in that list landed, and one line of it turned out not to be wanted:
 
-- `Defs/TraderKindDefs/Trader_InsectorTribe.xml` - the caravan trader (§4.6).
-- `Textures/` - art for the neutral tribe (§4.4).
-- `About/About.xml` - already carries the dependency block (§9).
-- `CHANGELOG.md` - entries as the work lands (§13).
+- the neutral tribe's art - one crest for both fields, `PMM_InsectorHive`, the user's (§4.4);
+- the trade, which needed **no trader def of ours at all**: the tribes inherit vanilla's neolithic
+trader kinds and our own `Trader` pawn group supplies the pawns for them (§4.6);
+- `About/About.xml`, which carries the dependency block (§9), and `CHANGELOG.md`, kept up as the work
+lands (§13).
 
 Dropped, do not re-add without asking: `Defs/PawnKindDefs/PawnKinds_InsectChild.xml`
 and `Source/Insects/ChildStagePatch.cs`. Both were written, shipped for a few hours
@@ -405,21 +408,19 @@ It is cheap. One `TraderKindDef`, plus one line on the faction:
 </caravanTraderKinds>
 ```
 
-The trader kind needs `stockGenerators`. A fitting list, from what the tribe
-lives on and from Reel's trader:
+**Built 2026-09-22 without that def.** The plan above was our own `PMM_InsectorTribeTrader`, with the
+`stockGenerators` table it was specced with (jelly, chitin, royal jelly, the ordinary tribal goods,
+and pherocores rarely) - and none of it was built, because `TribeBase` already does the job:
+`baseTraderKinds` (`Base_Neolithic_Standard`), `caravanTraderKinds` and `visitorTraderKinds` come
+with it, those lists are read live off the faction def so they hold in existing saves too, and the
+neolithic kinds fit the tribe's tech level. The `Trader` pawn group (§4.2) supplies the pawns for
+all three, so a caravan is staffed by insectors - `PMM_InsectTrader`, and the mothman's and the
+papillon's own trader kinds - and bought from with vanilla's stock. The faction def carries that
+reasoning in its own comment.
 
-| Stock | Notes |
-|---|---|
-| `InsectJelly`, 50-500 | The tribe's food. |
-| `VFEI2_RoyalInsectJelly`, 10-200 | Late game. |
-| `VFEI2_Chitin`, 100-900 | The tribe's material. |
-| `Silver`, `Jade`, `MedicineHerbal` | Normal tribal trade goods. |
-| `VFEI2_Pherocore*` | **Rare.** A low count range and an expensive price, so they turn up only now and then. |
-
-Buying: reuse the vanilla gens, for example `StockGenerator_BuyExpensiveSimple`,
-`StockGenerator_BuySlaves` and `StockGenerator_BuyTradeTag`. Reel's trader def is
-a ready template, at `Mods/Reel's Insector Faction/1.6/Defs/FactionDefs/
-BugTribeFaction.xml`.
+One ruling is left unbuilt with the dropped def: **19 - pherocores as rare trader stock.** Nothing in
+this mod stocks them, because the stock is vanilla's. It comes back the day an own trader kind does;
+the table it was specced with is in this file's history.
 
 Only the neutral tribe trades. A permanently hostile faction does not send
 caravans.
@@ -1608,8 +1609,9 @@ penalty *is* the aggression. And a social thought is only collected once per oth
 names `thoughtClass Thought_SituationalSocial` - the default for a def with a worker and no duration
 is `Thought_Situational`, which has no other pawn at all, so the penalty would silently never apply.
 
-**Still to come:** the four castes themselves, phases 2 to 5 of the plan. The genes are in the def
-database and show on a gene page in dev mode; nothing spawns with them yet.
+**Built since:** every phase of the plan - the mothman, the papillon, the hornet, the mantis and the
+soldier beetle's rebuild - so both genes now sit on a caste that carries them and this section
+describes the shipped state, not a pending one. `CASTES-PLAN.md` §4 has each phase's gate.
 
 **And the light thought reached the whole map (found and fixed 2026-10-04, the user's report).**
 The report was that hornets and papillon, who carry neither gene, were getting the +10 mood and
@@ -1669,8 +1671,8 @@ colour is always one of her own three, and the row above is the palette herself,
 These were skin colours until 2026-10-01, when the user moved them onto hair and wings and asked for
 the skin to be vanilla; §5.13 has the mechanism and §5.17 the legs of the three spider castes.
 
-**What is still missing.** Only the soldier beetle's rebuild, the last mockup caste of
-`CASTES-PLAN.md`. Where the newer palettes came from, since the table above stops at 2026-09-30: the
+**What is still missing.** Nothing in her mockup list: the soldier beetle's rebuild, the last of them,
+landed on 2026-10-01 (§5.19), so every caste `CASTES-PLAN.md` sets out is built. Where the newer palettes came from, since the table above stops at 2026-09-30: the
 mothman's and the papillon's were supplied on 2026-10-01 (`a27499 684063 835079` and
 `cf5e92 7e4c6f cc4d62`), the hornet's are the honey bee's (`F7DA41 FFD72D D9AF0F`, user's call: "copy
 her colours from the honey bee"), and the mantis's are the user's too (`8dae77 365d4b 47755b`,
