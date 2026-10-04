@@ -124,18 +124,16 @@ they can be tracked and fixed.
 
 ## License and attributions
 
-**Licence:** not published yet - this mod ships no licence file.
+Licensed under the Unlicense. See the
+[licence](https://github.com/Gaph0/PMM-Insects/blob/main/LICENSE.txt).
 
 Thanks to:
 
-- Gapho - the mod.
-- Project Mamono (PMM.Core) - the mamonos, the fertility rules and the shared art.
+- Tynan Sylvester and the Ludeon Studios team - RimWorld, and the Biotech, Ideology and Odyssey expansions.
 - Vanilla Races Expanded - Insector - the genelines every caste is built from, the genes they carry, and the insect wings they wear.
 - Vanilla Factions Expanded - Insectoids 2 - the hives, the jelly and the chitin the villages live on.
 - Big and Small - Framework - the race pattern and the colour channels.
 - Vanilla Expanded Framework - the framework under the mods above it.
 - Harmony - the patches under everything.
-- Biotech - genes and xenotypes at all.
-- Ideology - the work groups and memes the villages use.
 - Alpha Animals - the web an arachne throws.
 - Medieval Overhaul - its own silk and honey, for a colony running it.
