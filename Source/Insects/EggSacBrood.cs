@@ -75,6 +75,12 @@ namespace PMM_Insects
     /// <summary>
     /// The sac's half of the brood: what the queen was told to lay, and the hatch itself.
     ///
+    /// **The sac is a wait now, not a thing to break** (user's ruling, 2026-10-04): it opens by
+    /// itself a day after it is thrown, and anyone who breaks it before that kills the brood
+    /// inside. The timer is a comp tick, which is why the def carries a `<tickerType>` - a building
+    /// is not ticked unless it says so, and the cocoon in `Things_Cocoon.xml` learned that the hard
+    /// way (`HANDOFF.md` §5.20).
+    ///
     /// Derives from vanilla's `CompSpawnPawnOnDestroyed` so the def keeps its own `pawnKind` and
     /// `lordJob` fields and so the swarmling default can go straight through vanilla's hatch -
     /// age 0, the stun-flyer hop and the nest lord are all right for a larva and none of them are
@@ -92,6 +98,13 @@ namespace PMM_Insects
         /// has no such field at all, which is half the reason this comp exists.
         /// </summary>
         public float biologicalAge = 0f;
+
+        /// <summary>
+        /// Hours from the throw until the sac opens by itself (user's ruling, 2026-10-04: one day).
+        /// A def field for the same reason as the age above - it is a number worth trying, and it
+        /// is what decides how much of a race a sac on the ground is.
+        /// </summary>
+        public float hatchHours = 24f;
 
         public CompProperties_EggSacBrood()
         {
@@ -115,6 +128,15 @@ namespace PMM_Insects
         /// </summary>
         private Pawn mother;
 
+        /// <summary>
+        /// Ticks left before she opens by herself, counted down on the rare tick. Scribed, so a sac
+        /// waits out a save the way it waits out anything else, and **-1 means the timer has never
+        /// started**: a sac spawned from XML gets its full day in `PostSpawnSetup`, and so does one
+        /// out of a save written before this timer existed - rather than hatching, or dying, on its
+        /// first tick after the load.
+        /// </summary>
+        private int ticksUntilHatch = -1;
+
         private CompProperties_EggSacBrood Props => (CompProperties_EggSacBrood)props;
 
         public void SetBrood(PawnKindDef kind, Pawn motherPawn)
@@ -123,43 +145,171 @@ namespace PMM_Insects
             mother = motherPawn;
         }
 
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            base.PostSpawnSetup(respawningAfterLoad);
+            if (ticksUntilHatch < 0)
+            {
+                ticksUntilHatch = (int)(Props.hatchHours * (float)GenDate.TicksPerHour);
+            }
+        }
+
         public override void PostExposeData()
         {
             base.PostExposeData();
             Scribe_Defs.Look(ref brood, "brood");
             Scribe_References.Look(ref mother, "mother");
+            Scribe_Values.Look(ref ticksUntilHatch, "ticksUntilHatch", -1);
         }
 
+        /// <summary>
+        /// What she is, and how long she has left. The countdown keeps the cocoon's shape
+        /// (`PapillonMaturation.cs`): whole days until fewer than one remain, then whole hours, and
+        /// both units are vanilla's own period keys, which is where the singular and the plural come
+        /// from. Rounding hours up means it reads "1 hour" until the hatch rather than "0 hours", and
+        /// the unit drops to hours as soon as the days run out - "hatches in 0 days" for a whole day
+        /// is a shrug, not a countdown (the user's words about the cocoon, 2026-10-03, §5.20).
+        /// </summary>
         public override string CompInspectStringExtra()
         {
-            return brood == null ? null : "PMM_BroodSacHolds".Translate(brood.LabelCap);
+            string holds = brood == null ? null : "PMM_BroodSacHolds".Translate(brood.LabelCap);
+            string left = HatchCountdown();
+            if (holds == null)
+            {
+                return left;
+            }
+            return left == null ? holds : holds + "\n" + left;
+        }
+
+        private string HatchCountdown()
+        {
+            if (ticksUntilHatch < 0)
+            {
+                return null;
+            }
+            if (ticksUntilHatch >= GenDate.TicksPerDay)
+            {
+                int days = ticksUntilHatch / GenDate.TicksPerDay;
+                return "PMM_BroodSacHatchesIn".Translate(days == 1 ? "Period1Day".Translate() : "PeriodDays".Translate(days));
+            }
+            int hours = (ticksUntilHatch + GenDate.TicksPerHour - 1) / GenDate.TicksPerHour;
+            return "PMM_BroodSacHatchesIn".Translate(hours <= 1 ? "Period1Hour".Translate() : "PeriodHours".Translate(hours));
+        }
+
+        /// <summary>
+        /// Her day is up, so she crawls out on her own. This is the ordinary hatch now: the sac is
+        /// a wait rather than a thing the player breaks to get a daughter out.
+        ///
+        /// The destroy is `Vanish`, not `KillFinalize`, and that mode is load bearing - it is what
+        /// tells `PostDestroy` below that this is the sac opening rather than somebody breaking it,
+        /// so the brood is spawned once and nobody is killed on the way out.
+        /// </summary>
+        public override void CompTickRare()
+        {
+            base.CompTickRare();
+            if (parent.Destroyed)
+            {
+                return;
+            }
+            ticksUntilHatch -= GenTicks.TickRareInterval;
+            if (ticksUntilHatch > 0)
+            {
+                return;
+            }
+            SpawnBrood(parent.Map, live: true);
+            parent.Destroy(DestroyMode.Vanish);
         }
 
         public override void PostDestroy(DestroyMode mode, Map previousMap)
         {
+            // The hatch above, or a removal that is nobody's doing: a dev-tool delete, the map
+            // unloading, an internal cleanup. These take nobody with them - the same call the
+            // papillon's cocoon makes for `Vanish` (`HANDOFF.md` §5.20).
+            if (mode == DestroyMode.Vanish)
+            {
+                return;
+            }
+            // Anyone else breaking it, however they do it: **her day up means she crawls out, and
+            // her day not up means she dies in there** (user's ruling, 2026-10-04). Her day is the
+            // tick count, not the clock, so a sac on an unloaded map is still waiting when the
+            // player comes back to it.
+            SpawnBrood(previousMap, live: ticksUntilHatch <= 0);
+        }
+
+        /// <summary>
+        /// Her out of the sac, alive or dead. The one place that knows what a brood is: the queen's
+        /// order when the sac carries one, the def's own `pawnKind` otherwise, and two different
+        /// hatches because a mamono and a VFEI2 larva want opposite things (see the class comment).
+        /// </summary>
+        private void SpawnBrood(Map map, bool live)
+        {
+            if (map == null)
+            {
+                return;
+            }
             PawnKindDef kind = brood ?? Props.pawnKind;
-            // Not a mamono - a swarmling, or a sac saved before the picker existed. Vanilla's hatch,
-            // untouched: VFEI2's own larva chain wants every part of it.
-            if (kind == null || kind.race?.race?.Humanlike != true)
-            {
-                base.PostDestroy(mode, previousMap);
-                return;
-            }
-            if (mode != DestroyMode.KillFinalize)
+            if (kind == null)
             {
                 return;
             }
-            Faction faction = parent.Faction;
-            float? fixedBiologicalAge = Props.biologicalAge;
-            Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, null, forceGenerateNewPawn: true, allowDead: false, allowDowned: true, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true, inhabitant: false, certainlyBeenInCryptosleep: false, forceRedressWorldPawnIfFormerColonist: false, worldPawnFactionDoesntMatter: false, 0f, 0f, null, 1f, null, null, null, null, null, fixedBiologicalAge));
-            GenSpawn.Spawn(pawn, parent.Position, previousMap, WipeMode.VanishOrMoveAside);
-            AddMotherRelation(pawn);
-            AddFatherRelation(pawn);
-            OfferName(pawn, mother);
+            // Not a mamono - a swarmling, or a sac saved before the picker existed. Vanilla's
+            // hatch, untouched while she lives: VFEI2's own larva chain wants every part of it.
+            // Vanilla gates that hatch on `KillFinalize`, which the tick's `Vanish` is not, so the
+            // mode is named here rather than passed through.
+            if (kind.race?.race?.Humanlike != true)
+            {
+                if (live)
+                {
+                    base.PostDestroy(DestroyMode.KillFinalize, map);
+                }
+                else
+                {
+                    SpawnDead(kind, map);
+                }
+                return;
+            }
+            Pawn daughter = GenerateMamono(kind, map);
+            if (!live)
+            {
+                // She never hatched, so she is not named and carries no relation: the corpse is the
+                // whole record of her. Nothing reads her name and no family has lost a daughter
+                // they ever met, so the queen's social tab stays out of it.
+                daughter.Kill(null);
+                return;
+            }
+            AddMotherRelation(daughter);
+            AddFatherRelation(daughter);
+            OfferName(daughter, mother);
             // Then nothing. No PawnFlyer_Stun hop and no lord: LordJob_WanderNest is written for
             // insects wandering a hive, and a newborn mamono thrown five cells would only look
             // like a bug. She simply stands up where the sac was. The wake-up call to
             // CompCanBeDormant is skipped with them - that is an insect comp she does not have.
+        }
+
+        /// <summary>
+        /// The mamono herself. Generated rather than taken from the def for the two reasons the
+        /// class comment gives: `allowDowned` has to be true for a newborn humanlike, and her age
+        /// is a props field where vanilla has none.
+        /// </summary>
+        private Pawn GenerateMamono(PawnKindDef kind, Map map)
+        {
+            float? fixedBiologicalAge = Props.biologicalAge;
+            Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, parent.Faction, PawnGenerationContext.NonPlayer, null, forceGenerateNewPawn: true, allowDead: false, allowDowned: true, canGeneratePawnRelations: true, mustBeCapableOfViolence: false, 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true, inhabitant: false, certainlyBeenInCryptosleep: false, forceRedressWorldPawnIfFormerColonist: false, worldPawnFactionDoesntMatter: false, 0f, 0f, null, 1f, null, null, null, null, null, fixedBiologicalAge));
+            GenSpawn.Spawn(pawn, parent.Position, map, WipeMode.VanishOrMoveAside);
+            return pawn;
+        }
+
+        /// <summary>
+        /// The brood dying with the sac. She is generated and killed rather than quietly left out of
+        /// the world, so breaking an egg leaves a corpse where the sac stood - the shape the
+        /// papillon's cocoon uses when it is broken early (`HANDOFF.md` §5.20), and the only trace a
+        /// player gets that they have killed one of their own queen's daughters.
+        /// </summary>
+        private void SpawnDead(PawnKindDef kind, Map map)
+        {
+            Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, parent.Faction, PawnGenerationContext.NonPlayer, null, forceGenerateNewPawn: true, allowDead: false, allowDowned: false, canGeneratePawnRelations: false, mustBeCapableOfViolence: false, 1f, forceAddFreeWarmLayerIfNeeded: false, allowGay: true, allowPregnant: false, allowFood: true, allowAddictions: true, inhabitant: false, certainlyBeenInCryptosleep: false, forceRedressWorldPawnIfFormerColonist: false, worldPawnFactionDoesntMatter: false, 0f, 0f, null, 1f, null, null, null, null, null, Props.biologicalAge));
+            GenSpawn.Spawn(pawn, parent.Position, map, WipeMode.VanishOrMoveAside);
+            pawn.Kill(null);
         }
         /// <summary>
         /// She is the queen's daughter, and the game needs exactly one call for that: `Child`

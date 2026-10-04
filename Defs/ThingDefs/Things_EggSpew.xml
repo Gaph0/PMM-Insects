@@ -56,9 +56,15 @@
 	<ThingDef ParentName="BuildingNaturalBase">
 		<defName>PMM_EggSac</defName>
 		<label>egg sac</label>
-		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow. Kill it and the brood inside crawls out - which daughter she is, the queen decides.</description>
+		<description>A slimy sac holding a growing insect. The gestation process generates a faint bioluminescent glow - a day of it, and then the brood inside crawls out. Break it before that and the brood dies in there. Which daughter she is, the queen decides.</description>
 		<thingClass>Building</thingClass>
 		<category>Building</category>
+		<!-- A building is not ticked unless it says so, and the comp inside this one is what opens it: the
+		     wait is a countdown, `CompEggSacBrood.CompTickRare` is the override that counts it down, and a
+		     def's ticker type has to match that override. With no ticker type nothing inside a sac ran, so
+		     it would sit there for good - the lesson the cocoon in Things_Cocoon.xml learned the hard way
+		     (HANDOFF.md §5.20), and one pass every 250 ticks is nothing against a day. -->
+		<tickerType>Rare</tickerType>
 		<graphicData>
 			<texPath>Things/Building/PMM_EggSac</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -99,6 +105,10 @@
 				     2026-10-01), and it is the C# default as well now, so a sac that lost this
 				     line would still hatch a newborn. -->
 				<biologicalAge>0</biologicalAge>
+				<!-- How long the sac waits before it opens by itself, in hours (user's ruling,
+				     2026-10-04: one day). Break it before then and the brood dies with it. The comp
+				     counts the wait, which is why this def carries the <tickerType> above. -->
+				<hatchHours>24</hatchHours>
 			</li>
 			<li Class="CompProperties_SpawnEffecterOnDestroy">
 				<effect>CocoonDestroyed</effect>

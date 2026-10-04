@@ -61,6 +61,17 @@ namespace PMM_Insects
     {
         private const int PollIntervalTicks = 2500;
 
+        /// <summary>
+        /// This gene on the pawn, or null. Only an ACTIVE gene answers
+        /// (`Pawn_GeneTracker.GetFirstGeneOfType` skips a silenced one), which is the answer both
+        /// halves of the gene want: the hediff below adds itself through it, and the thought worker
+        /// refuses every pawn without it.
+        /// </summary>
+        public static Gene_DisorientatingLights Get(Pawn pawn)
+        {
+            return pawn?.genes?.GetFirstGeneOfType<Gene_DisorientatingLights>();
+        }
+
         public override void PostAdd()
         {
             base.PostAdd();
@@ -120,11 +131,24 @@ namespace PMM_Insects
     /// default (`RimWorld/ThoughtDef.cs`, `ThoughtClass`), which is exactly what a plain mood
     /// thought is. The same test as the hediff, so the two agree except for one tick at the light's
     /// edge.
+    ///
+    /// The gene check is load bearing, and until 2026-10-04 this worker did not have it. A
+    /// non-social situational thought is not "asked about" by anything: the pawn's
+    /// `SituationalThoughtHandler` walks the WHOLE database
+    /// (`ThoughtUtility.situationalNonSocialThoughtDefs`) and instantiates every one of those defs
+    /// for every pawn, then keeps the ones whose worker answers Active. So a worker that answers a
+    /// condition alone answers it for the whole map - every pawn standing in a lamp's light, mamono
+    /// or not, read +10 "giddy in the light" while only a carrier took the -5%. A worker here names
+    /// its own source first.
     /// </summary>
     public class ThoughtWorker_DisorientatingLights : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
+            if (Gene_DisorientatingLights.Get(p) == null)
+            {
+                return ThoughtState.Inactive;
+            }
             return DisorientatingLights.InLight(p) ? ThoughtState.ActiveAtStage(0) : ThoughtState.Inactive;
         }
     }

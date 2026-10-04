@@ -4,8 +4,16 @@
 	<!--
 		The light gene (built 2026-09-30, CASTES-PLAN.md phase 1). Carrying it makes
 		a mamono giddy in man-made light and a little muddled by it. The mothman is
-		the caste it was written for; nothing carries it yet, and the wiring is
-		phase 2.
+		the caste it was written for and the only one carrying it.
+
+		IMPORTANT, and it bit for a few days (fixed 2026-10-04): the mood half is a
+		thought whose worker is asked about EVERY PAWN on the map, carrier or not,
+		because a non-social situational thought is collected from the whole
+		thought database per pawn (`SituationalThoughtHandler.UpdateAllMoodThoughts`
+		over `ThoughtUtility.situationalNonSocialThoughtDefs`). So a new thought
+		worker here must answer `Inactive` for a pawn who does not carry its gene
+		first, and only then read the condition. See
+		`ThoughtWorker_DisorientatingLights` in Source/Insects/DisorientatingLights.cs.
 
 		The rule, decided 2026-09-30: -5% consciousness and +10 mood while she
 		stands in artificial light at exactly 50% - the value a man-made light

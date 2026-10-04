@@ -5,9 +5,10 @@
 		The spider lower body, ours, so that it can be drawn in the pawn's own colour.
 
 		Big & Small draws that body with two graphic sets, and both take their main tint from
-                HAIR colour (`hairColor`, brightness 0.95) - which is also the source the wings use,
-                and where a caste's palette lives since 2026-10-01, so the legs, the abdomen, the
-                hair and the wings all come out in her caste's colour together. B&S's own lamia takes
+                HAIR colour (`hairColor`, brightness 0.95) - where a caste's palette lives since
+                2026-10-01, so the legs, the abdomen and the hair all come out in her caste's
+                colour together, and her wings with them: `PMM_Gene_CosmeticWings` takes
+                this same colour (`colorType Hair`) - HANDOFF.md §5.23. B&S's own lamia takes
                 `skinColor` for its tail instead; these sets followed it for a while, back when a
                 caste's colour was a skin-colour gene, and that swap is reverted.
 		Why a copy and not a patch on B&S: patching their defs would recolour the spider body of

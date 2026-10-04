@@ -296,6 +296,17 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>PMM_Gene_FlightWeak</li>
+			<!-- Her wings: PMM_Gene_CosmeticWings, our own copy of VRE's art-only wing gene,
+			     drawing their art behind her in her caste's colour - the same palette her hair,
+			     her spider legs and her abdomen wear. The copy is the point: VRE's gene carries
+			     the `InsectorMovement` exclusion tag, her queen's hard-locked joints carry it
+			     too, and the engine silences one of any such pair (2026-10-04). No core flight
+			     gene and no race def draws a wing any more, so this gene is her whole wing
+			     renderer. Two things about the art, both in HANDOFF.md §5.23: B&S's feathered
+			     wings it replaced sat at layer 92, in FRONT of her, while these sit behind her
+			     at -2; and the colouring is `colorType Hair`, because the palette is rolled on
+			     her hair. -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- Rebuilt on the user's list, 2026-09-27; the old set is scrapped. "Generic insect
 			     package" is three things here: the pheromones are PMM_Gene_Insect's job (our
 			     InsectPheromones.cs copies VRE's two patches and keys them to our gene), so VRE's
@@ -358,6 +369,11 @@
 			<li>ProjectMamono_Mamono</li>
 			<li>PMM_Gene_Insect</li>
 			<li>PMM_Gene_Flight</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). Her spawning sack is one to watch in game: the sack draws at
+			     layer 0 in the south view and these wings at -2, so the sack should sit in
+			     front of them, where B&S's wings used to sit in front of the sack. -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<li>AptitudeStrong_Intellectual</li>
 			<!-- The royal package, reworked to the user's list of 2026-09-26, then two more
 			     passes the same day. The gifts: swarm synapse (the hive mind), slowed life
@@ -497,6 +513,10 @@
 			     carry: she flies in short bursts, so she is no caravan mount and carries
 			     no passenger. -->
 			<li>PMM_Gene_FlightWeak</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). They hang behind her four-armed body rather than over it, so
+			     the lower-arm node at layer 93 no longer has a wing to clear. -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- Poor at talking - she answers to the swarm, not to people. An aptitude
 			     changes how fast she learns to deal with others, not how good she is at
 			     it today. -->
@@ -623,6 +643,10 @@
 			     the soldier beetle and the vamp mosquito, wings and ability both. It also swaps
 			     in the winged body and puts our small wings on her. -->
 			<li>PMM_Gene_FlightWeak</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). They are also the only wings she shows in a fight, so nothing
+			     draws over the weak-flight gene now. -->
+			<li>PMM_Gene_CosmeticWings</li>
 		</genes>
 		<modExtensions>
 			<li Class="BigAndSmall.XenotypeExtension">
@@ -774,6 +798,11 @@
 			     anything with them, so she is no caravan flier - the racing wings are
 			     the mosquito's, not hers. -->
 			<li>PMM_Gene_FlightWeak</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). She is the one caste with no winged body, which is why she had
+			     no wings at all while the old art needed BS_Wing parts to draw its feathers;
+			     VRE's node needs no parts, so she wears a pair like her sisters. -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- The user's package, and its balance is the point: two evolutions
 			     (serotonin, compound eyes) against two degrades (rapid life cycle,
 			     microsized) - two and two, the balance VRE's own picker demands
@@ -839,6 +868,9 @@
 			<li>VRE_InsectAntennae</li>
 			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
 			<li>PMM_Gene_Flight</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- The user's list (CASTES-PLAN.md §3.3), each gene's real effect checked in
 			     GENES-FEASIBILITY.md §3: VRE_PassiveInsect disables the Violent and Hunting work
 			     tags, so she never fights; VRE_Heatstress is x4 flame damage and a fire-terror
@@ -897,6 +929,9 @@
 			<li>VRE_InsectAntennae</li>
 			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
 			<li>PMM_Gene_Flight</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- The user's list (CASTES-PLAN.md §3.4). ViolenceDisabled is the strongest of them:
 			     no fighting at all, and it excludes melee damage genes by tag. Pain_Extra forces
 			     Wimp on top of that, and VRE_HighGreyMatter with VRE_SensitiveBrainGoop make her
@@ -946,6 +981,9 @@
 			<li>VRE_InsectAntennae</li>
 			<!-- Strong flight rather than weak (user's call, 2026-10-03). -->
 			<li>PMM_Gene_Flight</li>
+			<!-- Her wings - PMM_Gene_CosmeticWings, the family's cosmetic pair (see the vamp
+			     mosquito's note). -->
+			<li>PMM_Gene_CosmeticWings</li>
 			<!-- The user's list (CASTES-PLAN.md §3.1), each effect checked in
 			     GENES-FEASIBILITY.md §3: VRE_CompoundEyes is Sight +0.5,
 			     VRE_AntimicrobialPeptides is healing x2 and immunity x1.5, VRE_RapidLifeCycle

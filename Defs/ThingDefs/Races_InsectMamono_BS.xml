@@ -14,24 +14,29 @@
 		   the pawn-level statBases as a stat stage, plus the RaceExtension for
 		   B&S race handling (romance tags, size scaling).
 
-		The three winged castes carry a second tracker, Big & Small's own
-		BS_HumanoidWithWings_Race, through raceHediffList - that one draws the wings.
-		Merging the two into one def was tried on 2026-09-20 and RimWorld refused to
-		load it: a node is registered for XML inheritance only when it carries a
-		<Name> attribute (XmlInheritance.TryRegister never reads "defName"), and B&S
-		declares its trackers with <defName> alone. The log then fills with "Could not
-		find parent node named BS_HumanoidWithWings_Race" and the tracker loads with
-		no art and no comps. One row would mean our tracker declaring its own copy of
-		the wing render nodes (referencing B&S's GraphicSetDefs by name); that waits on
-		a decision. Never ADD <comps> to a tracker whose parent already declares its own
-		- B&S's spider and winged trackers do: child list nodes merge into the parent's,
-		so the pawn ends up with two race comps. The bare `BS_DefaultRaceTracker` carries
-		them commented out, so a tracker built on it - all twelve of ours - must declare
-		one, and does.
+		Wings are no longer here. Until 2026-10-04 the winged castes carried Big &
+		Small's BS_HumanoidWithWings_Race as a second tracker through the
+		raceHediffList, and that one drew her feathered wings. They dropped it for VRE's
+		insect wing art, drawn by our own gene (PMM_Gene_CosmeticWings on the caste
+		xenotype, one attachment node behind the body) - and it is our own gene because
+		VRE's carries the `InsectorMovement` exclusion tag, which the abaddon's
+		hard-locked joints also carry, and the engine silences one of any such pair.
+		The winged BODY stays on the race defs below, because the body is what gives
+		her the real BS_Wing parts, which no gene can add to a race that is not
+		literally Human (see the vamp mosquito's note). What went with the tracker:
+		B&S's "winged humanoid" Health row, and the VEF floating comp that let her
+		cross rough terrain at her own pace - core's FlyingPawnTerrainCostPatch
+		already does that for both flight genes, so nothing was lost with it.
+
+		Never ADD <comps> to a tracker whose parent already declares its own -
+		B&S's spider tracker does: child list nodes merge into the parent's, so the
+		pawn ends up with two race comps. The bare `BS_DefaultRaceTracker` carries
+		them commented out, so a tracker built on it - all sixteen of ours - must
+		declare one, and does.
 
 		What Route A buys over the old BasePawn clones:
 		- B&S's scaler reads baseBodySize and renders bug girls at their real size
-		  (0.2 devil bug scuttling at your feet, 2.0 Abaddon overhead) with working
+		  (0.55 devil bug scuttling at your feet, 2.0 Abaddon overhead) with working
 		  camera/melee handling - vanilla humanlikes always drew at 1x.
 		- Race features become composable PawnExtensions/tracker stages instead of
 		  a monolithic race clone, so genes and xenotypes layer cleanly on top.
@@ -142,7 +147,7 @@
 			<baseHungerRate>0.10</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 			<!-- Chitin over a tiny frame: PMM_Insects.HealthScalePatch (Harmony)
-			     multiplies HealthScale for PMM_Race_* defs x2.5. Vanilla HealthScale
+			     gives this race 2.5, in a per-species switch. Vanilla HealthScale
 			     drives every body part's max HP, limbs AND organs:
 			     0.4 base x 2.5 = 1.0 effective, so her 8-HP arm becomes ~20 HP.
 			     Punches bruise instead of amputating. Race-level, no gene stacking.
@@ -196,7 +201,7 @@
 				     (damage / idd in B&S's pipeline, so 3 = internal organs take a
 				     third). Blades glance off chitin or punch through without quickly
 				     pulping anything vital. She still bleeds, still goes down - she
-				     just stops dying outright. B&S's naga uses 0.4 for a FRAILE race;
+				     just stops dying outright. B&S's naga uses 0.4 for a FRAIL race;
 				     we want the opposite. -->
 				<internalDamageDivisor>3</internalDamageDivisor>
 			</li>
@@ -478,7 +483,7 @@
 			     glutton - "eats far more than her sisters", "eats her hive out of house and home" - so the
 			     number follows the lore rather than the other way round (user's call, 2026-10-03). Her hive
 			     feeder covers most of it beside a nest, which is where she is meant to spend the wait until
-			     her sixty bars of mana are spent. Was 0.10, the family's lowest. -->
+			     her thirty bars of mana are spent. Was 0.10, the family's lowest. -->
 			<baseHungerRate>0.50</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 		</race>
@@ -602,12 +607,13 @@
 			<baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
-			<!-- Wings live on the race, not on the flight gene. B&S's gene path
+			<!-- The winged body lives on the race, not on the flight gene. B&S's gene path
 			     (Genes/GenePatches.cs) swaps with force:false and targetPriority:0,
 			     and a race def that isn't literally Human keeps priority 200 - so
 			     her own def always wins the fusion fallback and the gene's body
 			     swap is silently refused. This body is what gives her real BS_Wing
-			     parts; the winged tracker below draws them. -->
+			     parts; her wings themselves come from the family's cosmetic wing gene on her
+			     caste (PMM_Gene_CosmeticWings, 2026-10-04). -->
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
@@ -619,14 +625,6 @@
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_VampMosquito</raceHediff>
-				<!-- B&S's winged tracker: draws her full wings for anything without
-				     the flight gene. A weak-flight carrier has no Flagger, so this
-				     tracker blanks itself and the gene's smaller wings show instead.
-				     The strong flight gene raises the flags, so an abaddon keeps
-				     these full-size wings. -->
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -721,11 +719,12 @@
 			<needsRest>false</needsRest>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 			<!-- Four arms and wings, on the same body as her soldier daughters
-			     (PMM_Body_FourArmedWinged). Those wings are also why a race def has to
-			     declare a body at all: a def that is not literally Human outranks the flight
-			     gene's own body swap (the vamp mosquito lesson above), so the wings live
-			     here and the winged tracker below is what draws them. No lower-arm melee
-			     tools: the user's call was four arms with the second pair structural only. -->
+			     (PMM_Body_FourArmedWinged). The body is why a race def has to declare one at
+			     all: a def that is not literally Human outranks the flight gene's own body swap
+			     (the vamp mosquito lesson above), and only the body carries the real BS_Wing
+			     parts. Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04). No lower-arm
+			     melee tools: the user's call was four arms with the second pair structural
+			     only. -->
 			<body>PMM_Body_FourArmedWinged</body>
 		</race>
 		<comps>
@@ -803,10 +802,6 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Abaddon</raceHediff>
-				<!-- Wing renderer, same as the vamp mosquito's. -->
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -877,9 +872,10 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 	     (Defs/BodyPartGroupDefs/) so the two pairs fail separately, and both pairs
 	     fight - see the tools below.
 
-	     Her extra arms are not drawn yet. Humanlike arms live in the body texture, so
-	     Big & Small's own four-armed race shows two arms as well; the sprite that
-	     fixes it is specced in HANDOFF.md §5.6 and §11 item 9. -->
+	     Her extra arms are not drawn: humanlike arms live in the body texture, so Big &
+	     Small's own four-armed race shows one pair as well, and that one pair is all she
+	     shows too. The placeholder attachment that drew the second pair from 2026-09-25
+	     to 2026-10-04 is gone, mechanics untouched (HANDOFF.md §5.25). -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_AbaddonFolk</defName>
 		<label>abaddon folk</label>
@@ -965,18 +961,18 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.9</baseBodySize>
 			<!-- 1.0 base: human limbs on a small frame. She is the swarm's rank and
-			     file, not a fortress - the two devil-bug health fixes in
-			     Source/Insects/HealthScalePatch.cs are for races that clone a bug's
-			     tiny scale, and she clones nothing. -->
+			     file, not a fortress - the switch in
+			     Source/Insects/HealthScalePatch.cs scales races that clone a bug's
+			     tiny scale, and she clones nothing (1.0 needs no factor). -->
 			<baseHealthScale>1.0</baseHealthScale>
 			<baseHungerRate>0.20</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 			<!-- Her own body: four arms and wings (Defs/BodyDefs/Body_FourArmedWinged.xml).
-			     The wings must live on the race, not on the flight gene: a race def that
-			     is not literally Human outranks the gene's body swap, so a race without
-			     them would never grow wings (the vamp mosquito lesson above). She is a
-			     weak flyer, so the winged tracker below blanks itself and the gene's
-			     smaller wings are what draws. -->
+			     The winged body must live on the race, not on a body-swap gene: a race def
+			     that is not literally Human outranks the gene's swap, so a race without it
+			     would never grow the real BS_Wing parts (the vamp mosquito lesson above).
+			     Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04); her xenotype's
+			     weak flight is a leap, which lifts her and nobody else. -->
 			<body>PMM_Body_FourArmedWinged</body>
 		</race>
 		<!-- A daughter of the swarm is fed by the hive: standing near a nest (a Hive)
@@ -990,10 +986,6 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_AbaddonFolk</raceHediff>
-				<!-- Wing renderer, same as the vamp mosquito's and the soldier beetle's. -->
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -1008,55 +1000,14 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		     lands. Armour from a gene and armour from a tracker STACK, which is the
 		     trap the species' own gene comments warn about, so the tracker stays out
 		     of it and holds the romance tags and the damage divisor only. -->
-		<!-- The lower pair of arms, drawn as an attachment the way B&S draws its own
-		     tail (1.6/SimplyRaces/Defs/Races/TailedHuman/RaceTracker_TailedHuman.xml is
-		     the template this was copied from). colorType Skin, so the sprite takes her
-		     chitin colour, and shader Cutout to match.
-
-		     The art is a PLACEHOLDER: Textures/RaceDefaults/PMM_AbaddonFolk/, six crude
-		     grey limbs. Replace those six PNGs with real art (same names, same
-		     512x512 canvas) and nothing here needs to change.
-
-		     Two knobs to tune in dev mode, because art cannot be judged in XML:
-		     * layers - 93 draws the arms over her body AND over the wings, -1 for the
-		       north view, where her own back should hide the middle of the pair. B&S's
-		       wings put their front faces at layer 92 and their inner ones at -1 and -2
-		       (RaceTracker_WingedHuman.xml), so the 2 copied from the tail left the LEFT
-		       lower arm behind the front wing while the right one showed past its edge
-		       (user's report, 2026-10-01). Anything above the wings is above clothing too;
-		       those two cannot be separated, because the wings are B&S's own def.
-		     * drawsize/offsets - copied from B&S's tail; the sprite's own placement
-		       inside its canvas is what actually lines the arms up.
-
-		     No hide-when-lost alt, deliberately. B&S matches a part trigger by
-		     BodyPartDef alone (ConditionalGraphic.PartRecord: bodyPartDef, mirrored,
-		     partMissing, nothing finer), and this body has FOUR parts of the def Arm -
-		     so "an Arm is missing" would blank the lower arms when an upper one is lost.
-		     Always drawn beats wrong for now; HANDOFF.md §5.6 records it. -->
-		<renderNodeProperties>
-			<li Class="BigAndSmall.PawnRenderingProps_Ultimate">
-				<nodeClass>BigAndSmall.PawnRenderNode_Ultimate</nodeClass>
-				<parentTagDef>Body</parentTagDef>
-				<rotDrawMode>Fresh, Rotting</rotDrawMode>
-				<colorType>Skin</colorType>
-				<shader>Cutout</shader>
-				<conditionalGraphics>
-					<texturePaths>
-						<li>RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms</li>
-					</texturePaths>
-				</conditionalGraphics>
-				<drawSize>(0.8,0.8)</drawSize>
-				<drawData>
-					<scaleOffsetByBodySize>true</scaleOffsetByBodySize>
-					<defaultData>
-						<layer>93</layer>
-					</defaultData>
-					<dataNorth>
-						<layer>-1</layer>
-					</dataNorth>
-				</drawData>
-			</li>
-		</renderNodeProperties>
+		<!-- She draws no second pair of arms (user's call, 2026-10-04): what she shows is
+		     the one pair in her body texture. The four arms are mechanics, and none of them
+		     moved - the body def, the two extra fist tools and their own part groups are all
+		     as they were. What went was the one render node that drew the lower pair,
+		     `RaceDefaults/PMM_AbaddonFolk/PMM_LowerArms`, and its six placeholder PNGs with
+		     it: crude limbs laid over her body read worse than no second pair at all (the
+		     user's screenshot). Her queen, who wears the same body, never drew a second pair
+		     either. HANDOFF.md §5.25. -->
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -1079,7 +1030,7 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 	     `BS_SpiderAbdomen` as a real, damageable part inside it - and B&S's
 	     `PMM_RaceTracker_SpiderBody` (ThingDefs/SpiderBody_BS.xml) is what draws it, added
 	     through `raceHediffList` the way B&S's own spider tracker used to be - and ours paints
-	     the body in her skin colour, not her hair. It brings the spider numbers with it:
+	     the body in her caste's hair colour (HANDOFF.md §5.17). It brings the spider numbers with it:
 	     MaxNutrition x2, CarryingCapacity x1.5 and a
 	     touch of Manipulation.
 
@@ -1302,17 +1253,19 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<meatMarketValue>0.5</meatMarketValue>
 			<leatherDef>VFEI2_Chitin</leatherDef>
 			<baseBodySize>0.9</baseBodySize>
-			<!-- Soft: 0.7 where her sisters carry 1.0. Weakened chitin is the point of her, so she
-			     folds faster than anything else in the swarm. -->
+			<!-- Soft: 0.7, and deliberately left unscaled by HealthScalePatch where the devil
+			     bug, the arachne and the honey bee sit on 1.0 effective. Weakened chitin is the
+			     point of her, so she is meant to fold fast. -->
 			<baseHealthScale>0.7</baseHealthScale>
-			<!-- The lord of gluttony eats more than her sisters do; the rest of the swarm sits
-			     between 0.10 and 0.25. A tuning dial. -->
+			<!-- The lord of gluttony, though the greenworm out-eats her (0.50 to her 0.30 -
+			     the greenworm took the top spot on 2026-10-03); the rest of the swarm sits
+			     between 0.10 and 0.35. A tuning dial. -->
 			<baseHungerRate>0.30</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
-			<!-- Wings on the race, not on a gene: a race def that is not literally Human outranks
-			     any body-swap gene, so a race without them would never grow them (the vamp
-			     mosquito lesson). She carries no flight gene - the wings are drawn, they do not
-			     lift her. Add one if she should actually fly. -->
+			<!-- The winged body, for the BS_Wing parts only a body can carry: a gene body-swap
+			     is refused on a race that is not literally Human (the vamp mosquito lesson).
+			     Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04), and the weak flight
+			     her xenotype carries is a leap - it lifts her and nobody else. -->
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<!-- Fed by the hive like her sisters: standing near a nest tops up her hunger and mana.
@@ -1326,9 +1279,6 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Beelzebub</raceHediff>
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -1365,7 +1315,7 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<MoveSpeed>3.7</MoveSpeed>
 			<SM_BodySizeMultiplier>1.25</SM_BodySizeMultiplier>
 			<!-- Hot country: a little colder than the arachne's 0 is already asking for
-			     trouble, and VRE_HypothermicSlowdown is what the cold does to her
+			     trouble, and VRE_HypothermicHibernation is what the cold does to her
 			     instead of killing her. -->
 			<ComfyTemperatureMin>5</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
@@ -1691,7 +1641,8 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 
 	<!-- Honey Bee race tracker. Auto-applies on spawn via RaceExtension, and the armor
 	     lives here as a stat stage rather than on race statBases, which would STACK.
-	     A light shell: a tenth of the devil bug's chitin and half the ant's, because a
+	     A light shell: 0.10 sharp and 0.05 blunt - a seventh of the devil bug's chitin and
+	     a little over half the giant ant's, because a
 	     bee's plates cover less of her than either. Her soft abdomen is the trade -
 	     she is the caste that should not be in a fight. -->
 	<HediffDef ParentName="BS_DefaultRaceTracker">
@@ -1719,8 +1670,8 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<label>mothman</label>
 		<description>An insect mamono of the hive's quiet corners: a soft, dusty-winged woman who keeps to the dark until a lamp is lit, and then cannot leave it alone. She is gentle to the point of uselessness in a fight, and happier than anyone else in the village.</description>
 		<statBases>
-			<!-- Slower than her sisters on foot, and no flight: her wings are drawn, they
-			     do not carry her. PMM_Gene_FlightWeak is a leap, not flight. -->
+			<!-- Slower than her sisters on foot, and no fighter: she carries the strong
+			     flight gene (2026-10-03), so on the world map she is a caravan mount. -->
 			<MoveSpeed>3.6</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
 			     SM_BodySizeMultiplier (B&S's own maths). 1.0 x 1.0 = 1.0, and she carries no
@@ -1738,9 +1689,9 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<FilthRate>1</FilthRate>
 		</statBases>
 		<!-- No <tools> block, and that is the decision rather than an omission: her gene list
-		     carries VRE_PassiveInsect, which disables the Violent work tag outright, so a tool
-		     list here would be decoration. She inherits the Human parent's fists and teeth,
-		     which is all she can ever use. -->
+		     carries VRE_PassiveInsect, which disables the Violent work tag outright, so she can
+		     never be drafted or ordered to fight and a tool list here would be decoration. The
+		     Human parent's fists are what is left on her, and she never swings them. -->
 		<race>
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>
@@ -1755,9 +1706,10 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
-			<!-- Wings on the race, not on a gene: a race def that is not literally Human
-			     outranks any body-swap gene, so a race without them would never grow them
-			     (the vamp mosquito lesson). -->
+			<!-- The winged body, for the real BS_Wing parts a race def can only carry
+			     itself: a body-swap gene is refused on a race that is not literally Human
+			     (the vamp mosquito lesson). Her wings themselves are PMM_Gene_CosmeticWings
+			     (2026-10-04). -->
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
@@ -1769,16 +1721,13 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Mothman</raceHediff>
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
 
 	<!-- Mothman race tracker. Auto-applies on spawn via RaceExtension, and the little armour she
 	     has lives here as a stat stage rather than on race statBases, which would STACK.
-	     Dust and fur, not plates: half the honey bee's chitin and a third of the devil bug's. -->
+	     Dust and fur, not plates: 0.05 sharp and 0.05 blunt, half the honey bee's chitin. -->
 	<HediffDef ParentName="BS_DefaultRaceTracker">
 		<defName>PMM_RaceTracker_Mothman</defName>
 		<label>mothman</label>
@@ -1843,9 +1792,6 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Papillon</raceHediff>
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -1871,8 +1817,8 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<label>hornet</label>
 		<description>An insect mamono of the hive's ranks: a long-legged wasp woman, banded in yellow and black, quick to anger and quicker to sting. She is the hive's first fighter and its only flier, and the smell of honey is enough to set her off.</description>
 		<statBases>
-			<!-- Fast: she is the hive's flier. Between the soldier beetle's 3.60 and the vamp
-			     mosquito's 4.2. -->
+			<!-- Fast: she is the hive's flier. Between the soldier beetle's 3.60 and the
+			     beelzebub's 4.2. -->
 			<MoveSpeed>4.0</MoveSpeed>
 			<!-- 1.0 x 1.0, and no size gene: a human's size, like the other two new castes. -->
 			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
@@ -1940,8 +1886,10 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 			<baseHealthScale>0.4</baseHealthScale>
 			<baseHungerRate>0.15</baseHungerRate>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
-			<!-- Wings on the race, as on every winged caste here. PMM_Gene_FlightWeak is a
-			     leap and not flight, so she walks the rest of the time. -->
+			<!-- The winged body, as on every winged caste here: it is what carries the real
+			     BS_Wing parts. Her wings themselves are PMM_Gene_CosmeticWings (2026-10-04).
+			     She carries the strong flight gene (2026-10-03), so on the world map she is a
+			     caravan mount of her own. -->
 			<body>BS_HumanoidWithWings_Body</body>
 		</race>
 		<comps>
@@ -1953,9 +1901,6 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<modExtensions>
 			<li Class="BigAndSmall.RaceExtension">
 				<raceHediff>PMM_RaceTracker_Hornet</raceHediff>
-				<raceHediffList>
-					<li>BS_HumanoidWithWings_Race</li>
-				</raceHediffList>
 			</li>
 		</modExtensions>
 	</ThingDef>
@@ -1983,9 +1928,9 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		</comps>
 	</HediffDef>
 
-	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A plain Human body on purpose: unlike
-	     her winged sisters she has no flight gene, so she carries no winged tracker and no <body>
-	     line - the Human parent's own body is the one she draws.
+	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4). A plain Human body on purpose: she has
+	     no flight gene and no cosmetic wing gene, so she carries no winged body and no <body>
+	     line - the Human parent's own body is the one she draws, and she grows no wings.
 
 	     Her race carries no weapon either. VRE_RipperBlades is what she kills with, and a blade of
 	     her own on the race would leave her with two sets of tools (CASTES-PLAN.md §3.2: "one set
@@ -1997,7 +1942,7 @@ The swarmling is deliberately not in the list: it is what she lays unprompted, b
 		<description>A mantis mamono of the insector swarm: a woman's frame with a mantis's folded blades, built to kill in one pass and never to trade blows.</description>
 		<statBases>
 			<!-- Fast, and the fastest of the swarm's walkers: 3.9 against the soldier beetle's
-			     3.60, and under the hornet's 4.0, which is flight. -->
+			     3.60, and under the hornet's 4.0 and the beelzebub's 4.2, both of which fly. -->
 			<MoveSpeed>3.9</MoveSpeed>
 			<SM_BodySizeMultiplier>1.0</SM_BodySizeMultiplier>
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>

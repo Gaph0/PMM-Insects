@@ -15,6 +15,15 @@
 		Core/Defs/ThoughtDefs/Thoughts_Situation_Social.xml and Anomaly's
 		Thoughts_Situational_Social.xml, and the shape below is theirs.
 
+		AND A NON-SOCIAL ONE IS ASKED ABOUT EVERY PAWN, which is the trap that cost
+		a few days (fixed 2026-10-04). `SituationalThoughtHandler.UpdateAllMoodThoughts`
+		walks `ThoughtUtility.situationalNonSocialThoughtDefs` - every situational
+		thought in the database - and builds one of each for every pawn there is, so
+		the worker is the only thing that can say "not her". The light thought below
+		had no such test and its worker answered on the light alone, so every pawn
+		standing in a lamp's light read +10 "giddy in the light". Whatever a worker
+		here reads, it asks about its own source first.
+
 		-50 is the decided number (2026-09-30), for both. The beetle's is mutual
 		because its gene names itself; the hornet's is one way because its gene names
 		the honey gene, and a honey bee carries no thought about hornets. Each thought
