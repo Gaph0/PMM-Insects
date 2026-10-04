@@ -137,3 +137,4 @@ Thanks to:
 - Harmony - the patches under everything.
 - Alpha Animals - the web an arachne throws.
 - Medieval Overhaul - its own silk and honey, for a colony running it.
+- Kenkou Cross - the Monster Girl Encyclopedia, where these creatures come from.
