@@ -13,7 +13,7 @@ namespace PMM_Insects
     /// attack, and `VRE_InsectMandibles` holds its place (retired 2026-10-03, see `Roll` below). A
     /// gene cannot roll for itself, so
     /// this is the shape the mod already uses for the castes' colours (`InsectColours.cs`,
-    /// `HANDOFF.md` §5.13) - one def carries the list, one class picks from it when the gene lands,
+    /// `archive/HANDOFF.md` §5.13) - one def carries the list, one class picks from it when the gene lands,
     /// and one `PawnGenerator` postfix re-rolls at the end of generation so a daughter gets her own
     /// pick rather than her mother's.
     ///
@@ -24,7 +24,7 @@ namespace PMM_Insects
     ///     each grants a hediff carrying a `HediffCompProperties_VerbGiver`, and the verbs from
     ///     that hediff are what she attacks with (`Hediffs_Attacks.xml`, `VRE_RipperBlades` line
     ///     57: Cut, power 18, armour penetration 0.27). That is why her race's own tool list can
-    ///     be emptied without disarming her, which is what `CASTES-PLAN.md` §0 decision 11 asks
+    ///     be emptied without disarming her, which is what `archive/CASTES-PLAN.md` §0 decision 11 asks
     ///     for. It also means a beetle who loses the body part the hediff hangs on loses the
     ///     weapon with it. Since 2026-10-03 she also keeps her fists (the Human parent's, which
     ///     the empty `<tools>` block used to drop), so a name in the list that grants no attack is

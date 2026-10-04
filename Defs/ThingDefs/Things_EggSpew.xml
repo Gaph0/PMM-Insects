@@ -63,7 +63,7 @@
 		     wait is a countdown, `CompEggSacBrood.CompTickRare` is the override that counts it down, and a
 		     def's ticker type has to match that override. With no ticker type nothing inside a sac ran, so
 		     it would sit there for good - the lesson the cocoon in Things_Cocoon.xml learned the hard way
-		     (HANDOFF.md §5.20), and one pass every 250 ticks is nothing against a day. -->
+		     (archive/HANDOFF.md §5.20), and one pass every 250 ticks is nothing against a day. -->
 		<tickerType>Rare</tickerType>
 		<graphicData>
 			<texPath>Things/Building/PMM_EggSac</texPath>

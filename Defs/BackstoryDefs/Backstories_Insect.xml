@@ -15,7 +15,7 @@
 		random one. Kind filters only apply to adult-stage pawns (vanilla hardcodes the
 		Child and Newborn categories for younger ones). Every tribe kind is an adult kind, so every
 		adult insect mamono rolls one of these stories. Tribe children will need their own kinds
-		and their own categories (HANDOFF.md §5.5).
+		and their own categories (archive/HANDOFF.md §5.5).
 
 		Larva is the one pairing that stays inside a single body: a greenworm childhood
 		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn - and that body can

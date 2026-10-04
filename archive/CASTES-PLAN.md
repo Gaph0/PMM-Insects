@@ -1,4 +1,10 @@
-# Five new castes - plan for review
+# Five new castes - plan for review - ARCHIVED 2026-10-04
+
+**All five phases are built and field-tested. This file is the record of the plan and its decisions.**
+The castes shipped on 2026-10-01, the soldier beetle's rebuild the same day, and each phase passed its
+playtest. The one item still open when this was archived is the castes' own hand-drawn xenotype icons -
+every xenotype def marks where its `iconPath` goes. Later changes live in `CHANGELOG.md` and `README.md`,
+not here.
 
 Drafted 2026-09-30 from the five draw.io mockups in `MGEWiki/`
 (`hornetxenotypemockup.xml`, `mantismockup.xml`, `mothmanmockup.xml`, `papillonmockup.xml`,

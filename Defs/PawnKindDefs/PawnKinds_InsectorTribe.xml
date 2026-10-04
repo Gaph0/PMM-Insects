@@ -25,7 +25,7 @@
 		with it her genes. That mattered most for the three castes who cannot be
 		violent: the mothman, the papillon and the greenworm. A slot that rolled one of
 		their xenotypes onto a fighter's kind failed all 120 generation tries and took
-		the whole pawn group with it (`HANDOFF.md` §5.21). A tribe's own set is still
+		the whole pawn group with it (`archive/HANDOFF.md` §5.21). A tribe's own set is still
 		read for any pawn generated for that tribe from a kind pinning no caste of its
 		own - a vanilla or another mod's kind - and that is what it is for.
 
@@ -299,7 +299,7 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectHoneyBee>100</PMM_InsectHoneyBee></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- The mothman (2026-10-01, CASTES-PLAN.md phase 2). A hive caste: her own backstory
+	<!-- The mothman (2026-10-01, archive/CASTES-PLAN.md phase 2). A hive caste: her own backstory
 	     category, a pinned xenotype, and no Combat weight anywhere (see the faction file). No
 	     forced traits, because the user's list was genes and genes are where her Kind and Wimp
 	     traits come from. combatPower 45 - the gentle one's number. -->
@@ -318,7 +318,7 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectMothman>100</PMM_InsectMothman></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- Her caravan kind (CASTES-PLAN.md §0 decisions 4 and 9): the mothman and the papillon lead
+	<!-- Her caravan kind (archive/CASTES-PLAN.md §0 decisions 4 and 9): the mothman and the papillon lead
 	     most hive caravans, so each has a <trader>true</trader> kind of her own, modelled on
 	     PMM_InsectTrader. Neither caste is a fighter and neither walks as an escort - the Trader
 	     group's guards stay soldier beetles. -->
@@ -339,7 +339,7 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectMothman>100</PMM_InsectMothman></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- The papillon (2026-10-01, CASTES-PLAN.md phase 2): the frailest caste in the mod, and
+	<!-- The papillon (2026-10-01, archive/CASTES-PLAN.md phase 2): the frailest caste in the mod, and
 	     the cheapest to build - no new gene at all. combatPower 30. -->
 	<PawnKindDef ParentName="PMM_InsectKindBase">
 		<defName>PMM_InsectPapillon</defName>
@@ -373,7 +373,7 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectPapillon>100</PMM_InsectPapillon></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- The hornet (2026-10-01, CASTES-PLAN.md phase 3): the hive's fighter, and its only flier.
+	<!-- The hornet (2026-10-01, archive/CASTES-PLAN.md phase 3): the hive's fighter, and its only flier.
 	     Combat power 110, between the giant ant's 75 and the soldier beetle's 150. No forced
 	     traits: her temper is a gene (VRE_InsectVolatile) and her grudge is a gene. No caravan
 	     kind either - she is not the sort of woman a hive sends to talk. -->
@@ -392,7 +392,7 @@
 		<xenotypeSet><xenotypeChances><PMM_InsectHornet>100</PMM_InsectHornet></xenotypeChances></xenotypeSet>
 	</PawnKindDef>
 
-	<!-- The mantis (2026-10-01, CASTES-PLAN.md phase 4): the swarm's glass cannon, and a swarm
+	<!-- The mantis (2026-10-01, archive/CASTES-PLAN.md phase 4): the swarm's glass cannon, and a swarm
 	     caste only - she is in the swarm's raid groups, never in a hive village. Combat power
 	     120, above the girtablilu's 115 and the hornet's 110: she kills faster than either, and
 	     the price is that she dies faster too. No forced traits - her temper and her kill hunger

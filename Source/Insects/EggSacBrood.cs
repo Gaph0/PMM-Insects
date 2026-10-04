@@ -79,7 +79,7 @@ namespace PMM_Insects
     /// itself a day after it is thrown, and anyone who breaks it before that kills the brood
     /// inside. The timer is a comp tick, which is why the def carries a `<tickerType>` - a building
     /// is not ticked unless it says so, and the cocoon in `Things_Cocoon.xml` learned that the hard
-    /// way (`HANDOFF.md` §5.20).
+    /// way (`archive/HANDOFF.md` §5.20).
     ///
     /// Derives from vanilla's `CompSpawnPawnOnDestroyed` so the def keeps its own `pawnKind` and
     /// `lordJob` fields and so the swarmling default can go straight through vanilla's hatch -
@@ -224,7 +224,7 @@ namespace PMM_Insects
         {
             // The hatch above, or a removal that is nobody's doing: a dev-tool delete, the map
             // unloading, an internal cleanup. These take nobody with them - the same call the
-            // papillon's cocoon makes for `Vanish` (`HANDOFF.md` §5.20).
+            // papillon's cocoon makes for `Vanish` (`archive/HANDOFF.md` §5.20).
             if (mode == DestroyMode.Vanish)
             {
                 return;
@@ -302,7 +302,7 @@ namespace PMM_Insects
         /// <summary>
         /// The brood dying with the sac. She is generated and killed rather than quietly left out of
         /// the world, so breaking an egg leaves a corpse where the sac stood - the shape the
-        /// papillon's cocoon uses when it is broken early (`HANDOFF.md` §5.20), and the only trace a
+        /// papillon's cocoon uses when it is broken early (`archive/HANDOFF.md` §5.20), and the only trace a
         /// player gets that they have killed one of their own queen's daughters.
         /// </summary>
         private void SpawnDead(PawnKindDef kind, Map map)

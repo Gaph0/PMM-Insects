@@ -1,4 +1,10 @@
-# PMM Insects - Insector Tribes hand-off
+# PMM Insects - Insector Tribes hand-off - ARCHIVED 2026-10-04
+
+**Phases 1 to 8 are built and field-tested, so the overhaul this file planned is done.** It is kept for
+its evidence appendix (§12) and its file-by-file record (§3 to §5), not as a live plan.
+One item was still open when it was archived: the castes' own xenotype icons are not drawn yet, and every
+xenotype def marks where its `iconPath` goes. §11 items 6 to 8 record three ideas deferred as "worth
+asking later". Later changes live in `CHANGELOG.md` and `README.md`, not here.
 
 For the next agent picking this up, and for the user. This file is the plan for
 the Insects overhaul.

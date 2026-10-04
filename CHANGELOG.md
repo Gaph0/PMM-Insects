@@ -192,6 +192,7 @@
 
 ## Internal
 
+- 2026-10-04: Removed CASTES-PLAN.md, GENES-FEASIBILITY.md and HANDOFF.md from the working docs into archive/, with an ARCHIVED banner each, and repointed every file that cited them so no reference dangles.
 - 2026-10-04: Added the egg sac's 24-hour hatch timer and the death on an early break, with a Rare ticker on the sac so the timer runs at all.
 - 2026-10-04: Changed the light gene's thought worker to check for the gene first, because a non-social situational thought is evaluated for every pawn on the map.
 - 2026-10-04: Removed the abaddon folk's lower-arm render node, with the six placeholder PNGs it drew and the RaceDefaults folder that held them.

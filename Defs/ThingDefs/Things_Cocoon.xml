@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		The papillon's cocoon (CASTES-PLAN.md §7). A greenworm who has spent enough mana spins it,
+		The papillon's cocoon (archive/CASTES-PLAN.md §7). A greenworm who has spent enough mana spins it,
 		sits inside it for fifteen days, and comes out a papillon - see
 		Source/Insects/PapillonMaturation.cs for the whole chain and the four decisions behind it.
 

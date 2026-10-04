@@ -2,10 +2,10 @@
 <Defs>
 
 	<!--
-		The soldier beetle's armament (2026-10-01, CASTES-PLAN.md phase 5). The mockup asks for "one
+		The soldier beetle's armament (2026-10-01, archive/CASTES-PLAN.md phase 5). The mockup asks for "one
 		of ripper blades, charger claw or megaspider horn", and all three are VRE Insector genes that
 		already exist, so this def is the list and Source/Insects/BeetleArmament.cs is the pick - the
-		same shape the castes' body colours use (HANDOFF.md §5.13): the register is XML, the code
+		same shape the castes' body colours use (archive/HANDOFF.md §5.13): the register is XML, the code
 		never names a weapon (corrected 2026-10-03: see below).
 
 		VRE's charger claws is NOT a weapon. It grants the ability VFEI2_BreacherCharge_Colonists and
@@ -17,8 +17,8 @@
 		unaffected - she carries VRE_ChargerClaws *and* her own pincer tools, so the charge is a
 		bonus to her rather than her weapon - and she keeps them (user's call, 2026-10-03: that was the intended design), because those pincers are the floor underneath them. Her own fists are back since 2026-10-03 (user's call), so an option that grants no attack is now a lost preference rather than a girl left defenceless - and the armament gene is still what she reaches for.
 
-		Why a gene and not the race: CASTES-PLAN.md §0 decision 11 emptied her race's tool list so
-		the weapon gene owns the weapon, which is also the mantis's shape (HANDOFF.md §5.18). Nothing
+		Why a gene and not the race: archive/CASTES-PLAN.md §0 decision 11 emptied her race's tool list so
+		the weapon gene owns the weapon, which is also the mantis's shape (archive/HANDOFF.md §5.18). Nothing
 		is lost by that - all three options grant a hediff with a
 		`HediffCompProperties_VerbGiver`, not a race tool, so she attacks with the same ripper-blades,
 		mandibles or horn as any VRE insectoid. That is what made the list load-bearing rather than cosmetic: with no race tools underneath her, an option that grants no attack left her with nothing to swing.

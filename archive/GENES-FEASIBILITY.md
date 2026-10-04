@@ -1,4 +1,8 @@
-# New-gene feasibility study
+# New-gene feasibility study - ARCHIVED 2026-10-04
+
+**Every gene in this study is built and field-tested.** The two new genes landed 2026-09-30 and the five
+castes followed on 2026-10-01, so nothing here is pending. The study is kept as the record of which
+mockup gene resolves to which real def, and why the new ones are safe on this engine.
 
 Drafted 2026-09-30 from the five mockups in `MGEWiki/`. **Every phase of the plan is built** - the two
 new genes on 2026-09-30, then the mothman, the papillon, the hornet, the mantis and the soldier beetle's

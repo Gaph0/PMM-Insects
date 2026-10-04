@@ -2,7 +2,7 @@
 <Defs>
 
 	<!--
-		The three thoughts behind the two new genes (built 2026-09-30, CASTES-PLAN.md
+		The three thoughts behind the two new genes (built 2026-09-30, archive/CASTES-PLAN.md
 		phase 1). Mood cannot live on a gene and an opinion cannot live on a stat, so
 		both halves sit here and Source/Insects/ supplies the workers:
 		`ThoughtWorker_DisorientatingLights` and `ThoughtWorker_Quarrel`.

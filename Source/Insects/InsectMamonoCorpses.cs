@@ -36,13 +36,13 @@ namespace PMM_Insects
                 "PMM_Race_Girtablilu",
                 "PMM_Race_AntArachne",
                 "PMM_Race_HoneyBee",
-                // The two built 2026-10-01 (CASTES-PLAN.md phase 2), for the same reason as the
+                // The two built 2026-10-01 (archive/CASTES-PLAN.md phase 2), for the same reason as the
                 // five above: a caste added without a line here files her corpse with the humans.
                 "PMM_Race_Mothman",
                 "PMM_Race_Papillon",
-                // The hornet, built with them 2026-10-01 (CASTES-PLAN.md phase 3).
+                // The hornet, built with them 2026-10-01 (archive/CASTES-PLAN.md phase 3).
                 "PMM_Race_Hornet",
-                // The mantis, 2026-10-01 (CASTES-PLAN.md phase 4): a swarm caste, filed with her
+                // The mantis, 2026-10-01 (archive/CASTES-PLAN.md phase 4): a swarm caste, filed with her
                 // sisters all the same - the list is every race this mod ships, not every friendly
                 // one.
                 "PMM_Race_Mantis");

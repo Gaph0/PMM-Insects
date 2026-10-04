@@ -18,7 +18,7 @@
 
 		The ability itself is a player's button: nothing casts it on its own. `aiCanUse` is
 		false, and the auto-cast comp that used to sit on her race was deleted on 2026-09-26
-		(HANDOFF §5.11).
+		(archive/HANDOFF.md §5.11).
 
 		`gizmoClass` is ours. Command_Ability_EggSpew turns this button into the brood picker as
 		well: press it, choose which daughter she lays, then choose the ground. It replaced the

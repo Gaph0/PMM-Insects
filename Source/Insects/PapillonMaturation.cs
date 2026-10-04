@@ -6,7 +6,7 @@ using Verse;
 namespace PMM_Insects
 {
     /// <summary>
-    /// The greenworm's maturation into a papillon (CASTES-PLAN.md §7).
+    /// The greenworm's maturation into a papillon (archive/CASTES-PLAN.md §7).
     ///
     /// The lore was already in the mod before this file was: a greenworm who takes in enough mana
     /// pupates into a papillon. What was missing was the machinery, and the shape of it is the four

@@ -2,7 +2,7 @@
 <LanguageData>
 
     <!--
-        The papillon maturation (CASTES-PLAN.md §7). Two lines, both read by
+        The papillon maturation (archive/CASTES-PLAN.md §7). Two lines, both read by
         Source/Insects/PapillonMaturation.cs: how much mana the grub has spent towards pupating, and
         the cocoon's own countdown while she is inside it.
     -->
