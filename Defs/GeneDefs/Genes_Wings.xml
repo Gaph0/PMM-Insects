@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The wings every winged caste wears: one attachment node, drawing VRE Insector's
+		insect wing art behind her in her caste's colour - the same palette her hair, her
+		spider legs and her abdomen wear (rolled by Source/Insects/InsectColours.cs).
+
+		This is a copy of VRE's own `VRE_InsectWings_Cosmetic`, and the copy is the whole
+		point. Their gene carries the exclusion tag `InsectorMovement`, and so do
+		`VRE_HardLockedJoints` (the abaddon queen's degrade), `VRE_InflexibleJoints` and
+		`VRE_LocustWings`. Two genes that share a tag are conflicting genes to the engine,
+		and `Pawn_GeneTracker.CheckForOverrides` - which runs from every `AddGene` -
+		silences one of the pair (user's report, 2026-10-04: the queen's wings or her
+		joints were being overridden by a tag about movement that has nothing to do with
+		a cosmetic pair of wings). The tag lives on their def, so the fix is a def of
+		ours with no tags.
+
+		Patching their def instead was rejected the way B&S's spider body was: the tag is
+		theirs, and every insector in a save would have felt the change (SpiderBody_BS.xml
+		records the same trade, user's call 2026-10-01). The art is still theirs, by path
+		- the same dependency the old arrangement had, since the texture came from their
+		mod either way. The two stat-carrying wing genes (`VRE_InsectWings`,
+		`VRE_LocustWings`) stay out of every caste package as before: they grant movement
+		and an ability, and the castes' own flight genes own that ground (HANDOFF.md
+		§5.22).
+
+		No exclusion tags at all, deliberately: a tag is the bug this def exists to avoid.
+		Nothing else of ours carries wings, and the real VRE wing genes are kept out by
+		the caste lists rather than by a tag.
+	-->
+	<GeneDef>
+		<defName>PMM_Gene_CosmeticWings</defName>
+		<label>insect wings, cosmetic</label>
+		<description>She grows a pair of insect wings at her back. They are looks alone - whatever carries her through the air is her own flight gene's work.</description>
+		<iconPath>UI/Icons/Genes/Gene_InsectWings</iconPath>
+		<displayCategory>Movement</displayCategory>
+		<displayOrderInCategory>1000</displayOrderInCategory>
+		<!-- Cosmetic: costs nothing in the xenotype editor. -->
+		<biostatCpx>0</biostatCpx>
+		<biostatMet>0</biostatMet>
+		<!-- Out of the random genepacks, like every other gene of ours: a pack should not
+		     hand a stranger the family's wings piecemeal. -->
+		<canGenerateInGeneSet>false</canGenerateInGeneSet>
+		<!-- Copied from VRE's gene, so the art lands exactly where it always did: a vanilla
+		     attachment node on the Body tag, behind her (-2) except in the north view (90),
+		     scaled with body size, with the east and west offsets that set the pair
+		     off-centre as their own pawns wear it. The colour line is NOT theirs: VRE tints
+		     by skin (`colorType Skin` + `useSkinShader`), and the wings wear the caste's own
+		     colour instead - `colorType Hair`, because the palette is rolled into her hair
+		     (Source/Insects/InsectColours.cs). The skin shader had to go with it: it draws
+		     the sprite from the pawn's skin whatever `colorType` says. What is left is
+		     field for field what vanilla's own hair-tinted tail is (Biotech's FurryTail:
+		     same worker, same tag, same layer, `colorType Hair`, no shader at all). -->
+		<renderNodeProperties>
+			<li>
+				<workerClass>PawnRenderNodeWorker_AttachmentBody</workerClass>
+				<texPath>Things/Pawn/Humanlike/BodyAttachments/Insectwings</texPath>
+				<drawSize>1</drawSize>
+				<parentTagDef>Body</parentTagDef>
+				<colorType>Hair</colorType>
+				<useRottenColor>true</useRottenColor>
+				<rotDrawMode>Fresh, Rotting</rotDrawMode>
+				<drawData>
+					<defaultData><layer>-2</layer></defaultData>
+					<scaleOffsetByBodySize>true</scaleOffsetByBodySize>
+					<dataNorth><layer>90</layer></dataNorth>
+					<dataEast><offset>(-0.2, 0, 0)</offset></dataEast>
+					<dataWest><offset>(0.2, 0, 0)</offset></dataWest>
+				</drawData>
+			</li>
+		</renderNodeProperties>
+	</GeneDef>
+</Defs>

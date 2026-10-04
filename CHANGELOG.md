@@ -2,6 +2,11 @@
 
 ## Player-facing
 
+- 2026-10-04: Fixed the "giddy in the light" mood showing on every pawn in a lamp's light instead of only the mothman.
+- 2026-10-04: Removed the abaddon folk's drawn second pair of arms, so she shows one pair again. She still has four in a fight.
+- 2026-10-04: Changed every winged caste's wings to VRE Insector's insect wings, instead of Big and Small's feathered ones. They wear her caste's colour, the same as her hair and her legs.
+- 2026-10-04: Added wings to the honey bee.
+
 - 2026-10-02: Fixed insector villages sometimes coming out with no villagers in them, when the village roll picked the mothman, the papillon or the greenworm.
 - 2026-10-02: Changed the mothman, the papillon and the greenworm to stand in no village group. They still lead the hive's caravans, and a queen can still lay them.
 - 2026-10-02: Fixed village slots sometimes coming out as a mix of two castes, wearing one caste's body with another's genes.
@@ -177,6 +182,11 @@
 
 ## Internal
 
+- 2026-10-04: Changed the light gene's thought worker to check for the gene first, because a non-social situational thought is evaluated for every pawn on the map.
+- 2026-10-04: Moved the caste wings to the mod's own gene, PMM_Gene_CosmeticWings, so the castes no longer carry Big and Small's winged tracker.
+- 2026-10-04: Removed the abaddon folk's lower-arm render node, with the six placeholder PNGs it drew and the RaceDefaults folder that held them.
+- 2026-10-04: Changed the cosmetic wings to `colorType Hair`, dropping the skin shader and the CutoutComplex shader with it, so they take the caste colour instead of skin.
+- 2026-10-04: Fixed the race comments that no longer matched the defs or the genes.
 - 2026-10-02: Changed the cocoon to hold the grub in a container of its own, the way a biosculpter pod holds the pawn inside it, and removed the immobility hediff, the rescue gate and the invisibility gate that stood in for it.
 - 2026-10-01: Changed the pheromone patches to cover every target chooser in the game's attack search and to take its argument by position, since Harmony binds by name and the compiler names that argument differently per chooser.
 - 2026-10-01: Changed the mod to apply its patch classes one at a time, so a class that cannot bind no longer leaves every class after it unapplied, and the log names the class that failed.
