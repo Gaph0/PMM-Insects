@@ -1633,6 +1633,10 @@ ACTIVE gene, since `Pawn_GeneTracker.GetFirstGeneOfType` skips a silenced one.
 `Defs/ThoughtDefs/Thoughts_NewCastes.xml` and on the gene def. The quarrel worker already gated on
 its own gene, which is why only this one leaked.
 
+**Confirmed in game the same day**: the light works properly now - the mood lands on the mothman and
+on nobody else, and the -5% rides with her Consciousness. That is the whole gate: one gene check
+before the light test, no second source of the effect anywhere.
+
 ---
 
 ### 5.16 The castes' body colours (2026-09-30)
