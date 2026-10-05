@@ -2,6 +2,7 @@
 
 ## Player-facing
 
+- 2026-10-05: Fixed several insect mamono describing themselves as born of a base-game insect.
 - 2026-10-04: Changed the abaddon's egg sacs to open by themselves a day after they are laid. Breaking one before that kills the brood inside.
 - 2026-10-04: Fixed the "giddy in the light" mood showing on every pawn in a lamp's light instead of only the mothman.
 - 2026-10-04: Removed the abaddon folk's drawn second pair of arms, so she shows one pair again. She still has four in a fight.

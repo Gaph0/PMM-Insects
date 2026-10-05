@@ -59,7 +59,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_DevilBug</defName>
 		<label>devil bug</label>
-		<description>An insect mamono born of the megascarab, and built like a cockroach - flat, hard-shelled and quick to scuttle into any gap. She stands at the bottom of the hive's order: she raises and patches the walls her sisters live in, hauls what they leave behind, and is treated as a pest by the very women she shelters.</description>
+		<description>An insect mamono built like a cockroach - flat, hard-shelled and quick to scuttle into any gap. She stands at the bottom of the hive's order: she raises and patches the walls her sisters live in, hauls what they leave behind, and is treated as a pest by the very women she shelters.</description>
 		<statBases>
 			<MoveSpeed>3.75</MoveSpeed>
 			<!-- Armor moved OUT of statBases: it lives on the race tracker as a
@@ -213,7 +213,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_GiantAnt</defName>
 		<label>giant ant</label>
-		<description>An insect mamono born of the spelopede. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
+		<description>An insect mamono of the deep nests. Diligent and honest to the core, she digs and hauls and fights from dawn until her pheromone-heavy sweat drives the colony's men to distraction.</description>
 		<statBases>
 			<MoveSpeed>3.65</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
@@ -319,7 +319,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_SoldierBeetle</defName>
 		<label>soldier beetle</label>
-		<description>An insect mamono born of the megaspider. Her exoskeleton is armour from birth, and the weapon she grows out of it is her own; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
+		<description>A heavy insect mamono. Her exoskeleton is armour from birth, and the weapon she grows out of it is her own; quiet, obedient and expressionless, she escorts the man she claims as her own like heavy cavalry.</description>
 		<statBases>
 			<MoveSpeed>3.60</MoveSpeed>
 			<SM_BodySizeMultiplier>1.2</SM_BodySizeMultiplier>
@@ -406,7 +406,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
-		<description>An insect mamono born of the larva. Soft, gentle and slow, she tends the hive's tunnels and eats far more than her sisters - and one day she spins a cocoon and comes out a papillon.</description>
+		<description>An insect mamono in the grub's shape. Soft, gentle and slow, she tends the hive's tunnels and eats far more than her sisters - and one day she spins a cocoon and comes out a papillon.</description>
 		<statBases>
 			<MoveSpeed>2.0</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
@@ -532,7 +532,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_VampMosquito</defName>
 		<label>vamp mosquito</label>
-		<description>An insect mamono born of the locust. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
+		<description>An insect mamono of the air. She circles her prey on buzzing wings, patient and cunning, until the moment is right - then her bite leaves a hot, itching mark that only she can soothe.</description>
 		<statBases>
 			<MoveSpeed>3.0</MoveSpeed>
 			<!-- Size, and the PAIR is the number: Pawn.BodySize = baseBodySize x
@@ -645,7 +645,7 @@
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Abaddon</defName>
 		<label>abaddon</label>
-		<description>An insect mamono born of the hive queen. Daughter of the bug mamono lord who once nearly devoured the world, she never sleeps, never hungers for rest, and endlessly brings forth daughters - her pheromones command the swarm and stir every man who smells them.</description>
+		<description>An insect mamono, daughter of the bug mamono lord who once nearly devoured the world: she never sleeps, never hungers for rest, and endlessly brings forth daughters - her pheromones command the swarm and stir every man who smells them.</description>
 		<statBases>
 			<MoveSpeed>3.4</MoveSpeed>
 			<!-- Queen size (user's call 2026-09-26): body size 2.00, down from 4.65.
