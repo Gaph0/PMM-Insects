@@ -8,7 +8,7 @@ namespace PMM_Insects
     /// <summary>
     /// The soldier beetle's armament, and the rule that she grows one of three.
     ///
-    /// The mockup asks for "one of ripper blades, charger claw or megaspider horn". Two of those are
+    /// The mockup asks for one of ripper blades, a charger claw or a horn. Two of those are
     /// VRE Insector weapon genes; "charger claw" is not - `VRE_ChargerClaws` grants a charge and no
     /// attack, and `VRE_InsectMandibles` holds its place (retired 2026-10-03, see `Roll` below). A
     /// gene cannot roll for itself, so

@@ -6,7 +6,7 @@
 		raids, plus the trader kind the caravan slot asks for.
 
 		Wildness 0: these are faction NPCs, not wild animals - a 0.99-wildness
-		humanlike hive queen would just go feral. defaultFactionDef points at the
+		humanlike queen would just go feral. defaultFactionDef points at the
 		neutral tribe; the hostile tribe supplies itself through pawnGroupMakers,
 		which is how faction generation works anyway. canArriveManhunter false
 		(humanlikes cannot manhunt anyway). moveSpeedFactorByTerrainTag gives the

@@ -42,8 +42,8 @@ namespace PMM_Insects
                 // and one punch could take one of her eight legs off - the failure
                 // this patch exists to prevent.
                 "PMM_Race_Arachne" => 2.5f,
-                // Greenworm: 0.25 base x 2.5 = 0.625 effective. The larva is the
-                // frailest bug; same treatment keeps her limbs on her body.
+                // Greenworm: 0.25 base x 2.5 = 0.625 effective. She is the
+                // frailest of them; the same treatment keeps her limbs on her body.
                 "PMM_Race_Greenworm" => 2.5f,
                 // Giant Ant (1.7), Soldier Beetle (2.5), Abaddon (9.8) and Abaddon
                 // Folk (1.0) need no help: B&S scales big races' health itself, and

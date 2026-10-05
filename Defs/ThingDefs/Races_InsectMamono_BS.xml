@@ -55,7 +55,7 @@
 		numbers - not even the queen's 75. Re-adding it breaks age generation.
 	-->
 
-	<!-- ===================== Devil Bug (from the Megascarab, Core) ===================== -->
+	<!-- ===================== Devil Bug ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_DevilBug</defName>
 		<label>devil bug</label>
@@ -124,14 +124,14 @@
 			</li>
 		</tools>
 		<race>
-			<!-- Race-level insect identity: insect flesh and ichor, bug meat when
-			     butchered, and the bug's size package. B&S reads baseBodySize for
+			<!-- Race-level insect identity: insect flesh and ichor, insect meat when
+			     butchered, and her size package. B&S reads baseBodySize for
 			     render scaling; large races get renderCacheOff automatically in the
 			     scaler.
-			     baseBodySize raised 0.2 -> 0.6 on 2026-09-19 (0.2 was the megascarab's
+			     baseBodySize raised 0.2 -> 0.6 on 2026-09-19 (0.2 was her old
 			     literal size and rendered her doll-small) and 0.6 -> 1.0 on 2026-09-27,
 			     so she is a full-grown woman before VRE_Microsized takes its flat 0.45.
-			     Health scale and hunger stay at the bug's values. -->
+			     Health scale and hunger are unchanged. -->
 			<fleshType>Insectoid</fleshType>
 			<bloodDef>Filth_BloodInsect</bloodDef>
 			<useMeatFrom>Megaspider</useMeatFrom>
@@ -209,7 +209,7 @@
 	</HediffDef>
 
 
-	<!-- ===================== Giant Ant (from the Spelopede, Core) ===================== -->
+	<!-- ===================== Giant Ant ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_GiantAnt</defName>
 		<label>giant ant</label>
@@ -315,7 +315,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Soldier Beetle (from the Megaspider, Core) ===================== -->
+	<!-- ===================== Soldier Beetle ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_SoldierBeetle</defName>
 		<label>soldier beetle</label>
@@ -339,7 +339,7 @@
 		     floor: the roll could hand her charger claws, a gene that grants the breacher charge
 		     and no attack at all, and she came out with nothing to swing - the log read "no
 		     available melee attack, ... verbList= bodyVerbs=". Her ripper-blades, insect mandibles
-		     or megaspider horn are hediffs carrying a `HediffCompProperties_VerbGiver` and are
+		     or a heavy horn are hediffs carrying a `HediffCompProperties_VerbGiver` and are
 		     still her weapon; the game picks her strongest verb, so a fist (the Human parent's
 		     Blunt 8.2) is only what she falls back on when the armament is gone. -->
 		<race>
@@ -360,8 +360,8 @@
 			<!-- A beetle's low body (user's call, 2026-10-01): BS_SpiderHybrid, the body the arachne,
 			     the ant arachne and the girtablilu wear, so her abdomen draws and - because our copy of
 			     the tracker is the one that paints it - takes her caste colour with her legs
-			     (archive/HANDOFF.md §5.17). The wings came off with the flight gene: she is born of the
-			     megaspider, and the wings she had were the only part of her that did nothing. -->
+			     (archive/HANDOFF.md §5.17). The wings came off with the flight gene, and they
+			     were the only part of her that did nothing. -->
 			<body>BS_SpiderHybrid</body>
 		</race>
 		<comps>
@@ -402,7 +402,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Greenworm (from the Larva, Odyssey) ===================== -->
+	<!-- ===================== Greenworm ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Greenworm</defName>
 		<label>greenworm</label>
@@ -520,7 +520,7 @@
 		<defName>PMM_RaceTracker_Greenworm</defName>
 		<label>greenworm</label>
 		<description>A greenworm mamono of the swarm.</description>
-		<!-- No armor stage: the larva has none. Soft-bodied, exactly as the bug. -->
+		<!-- No armor stage: she is soft-bodied. -->
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -528,7 +528,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Vamp Mosquito (from the Locust, Odyssey) ===================== -->
+	<!-- ===================== Vamp Mosquito ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_VampMosquito</defName>
 		<label>vamp mosquito</label>
@@ -633,7 +633,7 @@
 		<defName>PMM_RaceTracker_VampMosquito</defName>
 		<label>vamp mosquito</label>
 		<description>A vamp mosquito mamono of the swarm.</description>
-		<!-- No armor stage: the locust has none. Fragile flyer, exactly as the bug. -->
+		<!-- No armor stage: a fragile flyer. -->
 		<comps>
 			<li Class="BigAndSmall.CompProperties_Race">
 				<canSwapAwayFrom>true</canSwapAwayFrom>
@@ -641,7 +641,7 @@
 		</comps>
 	</HediffDef>
 
-	<!-- ===================== Abaddon (from the HiveQueen, Odyssey) ===================== -->
+	<!-- ===================== Abaddon ===================== -->
 	<ThingDef ParentName="Human">
 		<defName>PMM_Race_Abaddon</defName>
 		<label>abaddon</label>

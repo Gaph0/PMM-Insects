@@ -15,7 +15,7 @@
 		    2026-09-20 "Generated downed pawn" cascade, and why the hatch cannot be a def tweak;
 		  - a sac whose brood is NOT humanlike - a swarmling, or one saved before the picker
 		    existed - goes straight through vanilla's own hatch, `CompSpawnLarva` included: age
-		    0, the stun-flyer hop and `lordJob LordJob_WanderNest` are all wanted for a larva.
+		    0, the stun-flyer hop and `lordJob LordJob_WanderNest` are all wanted for the swarmling.
 		    None of them are right for a three year old mamono, who stands up where the sac was.
 
 		Why the brood lands in the right faction (verified in Assembly-CSharp 1.6):
@@ -28,8 +28,8 @@
 
 		When it hatches: only DestroyMode.KillFinalize counts, so the sac must be KILLED - a
 		dev-tool destroy or a deconstruct spawns nothing, exactly as with vanilla's sac. A
-		swarmling is generated at age 0, the larva stage of her kind, and she hops up to 5 cells
-		away on a PawnFlyer_Stun - exactly what vanilla's larva does. From there VFEI2's own
+		swarmling is generated at age 0, the first stage of her kind, and she hops up to 5 cells
+		away on a PawnFlyer_Stun - exactly what vanilla's own hatch does. From there VFEI2's own
 		CompProperties_SwarmlingToCocoon takes over: she cocoons, and a random adult insectoid
 		of the hive crawls out. A mamono sac is the other case: the caste the queen chose is
 		generated at age 3, a child, and she simply stands up where the sac was.

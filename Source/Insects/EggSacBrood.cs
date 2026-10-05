@@ -83,7 +83,7 @@ namespace PMM_Insects
     ///
     /// Derives from vanilla's `CompSpawnPawnOnDestroyed` so the def keeps its own `pawnKind` and
     /// `lordJob` fields and so the swarmling default can go straight through vanilla's hatch -
-    /// age 0, the stun-flyer hop and the nest lord are all right for a larva and none of them are
+    /// age 0, the stun-flyer hop and the nest lord are all right for the swarmling and none of them are
     /// right for a mamono child. It also inherits the reason this has to be a comp at all: vanilla
     /// hardcodes `allowDowned: false` (which a newborn humanlike always fails - the 2026-09-20
     /// "Generated downed pawn" cascade) and an age no def field can express.
@@ -239,7 +239,7 @@ namespace PMM_Insects
         /// <summary>
         /// Her out of the sac, alive or dead. The one place that knows what a brood is: the queen's
         /// order when the sac carries one, the def's own `pawnKind` otherwise, and two different
-        /// hatches because a mamono and a VFEI2 larva want opposite things (see the class comment).
+        /// hatches because a mamono and a VFEI2 swarmling want opposite things (see the class comment).
         /// </summary>
         private void SpawnBrood(Map map, bool live)
         {
@@ -253,7 +253,7 @@ namespace PMM_Insects
                 return;
             }
             // Not a mamono - a swarmling, or a sac saved before the picker existed. Vanilla's
-            // hatch, untouched while she lives: VFEI2's own larva chain wants every part of it.
+            // hatch, untouched while she lives: VFEI2's own swarmling chain wants every part of it.
             // Vanilla gates that hatch on `KillFinalize`, which the tick's `Vanish` is not, so the
             // mode is named here rather than passed through.
             if (kind.race?.race?.Humanlike != true)

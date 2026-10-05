@@ -23,7 +23,7 @@
 		and the pawn ends up as a plain winged human with no species at all.
 	-->
 
-	<!-- Devil Bug (megascarab): a dim, short-lived hive builder of the swarm -->
+	<!-- Devil Bug: a dim, short-lived hive builder of the swarm -->
 	<XenotypeDef>
 		<defName>PMM_InsectDevilBug</defName>
 		<label>devil bug</label>
@@ -93,7 +93,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Giant Ant (spelopede): diligent worker, digging claws, great strength -->
+	<!-- Giant Ant: diligent worker, digging claws, great strength -->
 	<XenotypeDef>
 		<defName>PMM_InsectGiantAnt</defName>
 		<label>giant ant</label>
@@ -150,12 +150,12 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Soldier Beetle (megaspider): the tank - heavy armour, one of three grown weapons, an
+	<!-- Soldier Beetle: the tank - heavy armour, one of three grown weapons, an
 	     abdomen and no wings -->
 	<XenotypeDef>
 		<defName>PMM_InsectSoldierBeetle</defName>
 		<label>soldier beetle</label>
-		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, and her carapace grows one of three killing tools - ripper-blades, charger claws or a megaspider horn. Calm, obedient and nearly expressionless - until she chooses a man to escort.</description>
+		<description>Heavy cavalry from birth. Her exoskeleton turns aside swords and arrows, and her carapace grows one of three killing tools - ripper-blades, charger claws or a heavy horn. Calm, obedient and nearly expressionless - until she chooses a man to escort.</description>
 		<descriptionShort>An armoured, obedient insect mamono, slow and hard to hurt, who grows one of three weapons.</descriptionShort>
 		<iconPath>UI/Icons/Xenotypes/PMM_SoldierBeetle</iconPath>
 		<inheritable>true</inheritable>
@@ -171,7 +171,7 @@
 			     MeleeDamage_Strong stays: the mockup neither lists it nor asks for its removal,
 			     and she is the caste that leans on melee. -->
 			<li>MeleeDamage_Strong</li>
-			<!-- The weapon roll: one of ripper-blades, insect mandibles or a megaspider horn, picked
+			<!-- The weapon roll: one of ripper-blades, insect mandibles or a heavy horn, picked
 			     by BeetleArmament.Roll when the gene lands. Her race carries no tools of its own
 			     any more - the gene owns the weapon (archive/CASTES-PLAN.md §0 decision 11), so every option must be a real weapon gene: the charge-only charger claws (VRE_ChargerClaws) was retired on 2026-10-03 because she has no fists underneath it. -->
 			<li>PMM_Gene_BeetleArmament</li>
@@ -229,7 +229,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Greenworm (larva): soft, gentle, slow, and always hungry -->
+	<!-- Greenworm: soft, gentle, slow, and always hungry -->
 	<XenotypeDef>
 		<defName>PMM_InsectGreenworm</defName>
 		<label>greenworm</label>
@@ -282,7 +282,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Vamp Mosquito (locust): thin buzzing wings and weak flight (no
+	<!-- Vamp Mosquito: thin buzzing wings and weak flight (no
 	     caravan speed, no passenger), venomous bite, blood-drinking -->
 	<XenotypeDef>
 		<defName>PMM_InsectVampMosquito</defName>
@@ -356,7 +356,7 @@
 		</modExtensions>
 	</XenotypeDef>
 
-	<!-- Abaddon (hive queen): the devouring queen, never sleeps, egg-spew -->
+	<!-- Abaddon: the devouring queen, never sleeps, egg-spew -->
 	<XenotypeDef>
 		<defName>PMM_InsectAbaddon</defName>
 		<label>abaddon</label>

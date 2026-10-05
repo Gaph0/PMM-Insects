@@ -17,14 +17,14 @@
 		adult insect mamono rolls one of these stories. Tribe children will need their own kinds
 		and their own categories (archive/HANDOFF.md §5.5).
 
-		Larva is the one pairing that stays inside a single body: a greenworm childhood
+		The greenworm is the one pairing that stays inside a single body: a greenworm childhood
 		and a grown-greenworm adulthood, both from PMM_GreenwormSpawn - and that body can
 		still be left behind, because a grub who has spent enough mana cocoons into a
 		papillon (2026-10-02, Source/Insects/PapillonMaturation.cs). No backstory changes
 		with her when it happens: both of her stories are still the worm's.
 	-->
 	<!--
-		Devil bug (megascarab): hatches under floors, lives by instinct in the dark,
+		Devil bug: hatches under floors, lives by instinct in the dark,
 		hunts by smell and never quite settles. Melee, then Melee + Mining.
 	-->
 	<BackstoryDef>
@@ -59,7 +59,7 @@
 	</BackstoryDef>
 
 	<!--
-		Giant ant (spelopede): a worker of a queen-led nest, cutting tunnels
+		Giant ant: a worker of a queen-led nest, cutting tunnels
 		through rock and carrying loads far heavier than herself.
 	-->
 	<BackstoryDef>
@@ -95,7 +95,7 @@
 	</BackstoryDef>
 
 	<!--
-		Soldier beetle (megaspider): armoured heavy infantry, silent in the ranks
+		Soldier beetle: armoured heavy infantry, silent in the ranks
 		and quick to duel for her place in the queue.
 	-->
 	<BackstoryDef>
@@ -130,8 +130,8 @@
 	</BackstoryDef>
 
 	<!--
-		Greenworm (larva): a grub childhood and a grown-worm adulthood, both in
-		PMM_GreenwormSpawn, which is the whole pool for the Larva kinds. No butterfly
+		Greenworm: a grub childhood and a grown-worm adulthood, both in
+		PMM_GreenwormSpawn, which is the whole pool for her kinds. No butterfly
 		stage in the backstories on purpose - a grub who matures becomes a papillon as a
 		living pawn (Source/Insects/PapillonMaturation.cs), and a backstory is not re-rolled
 		when that happens.
@@ -169,7 +169,7 @@
 	</BackstoryDef>
 
 	<!--
-		Vamp mosquito (locust): a patient ambusher that lives on nectar and leaves
+		Vamp mosquito: a patient ambusher that lives on nectar and leaves
 		a bite on the man she chose.
 	-->
 	<BackstoryDef>
@@ -204,7 +204,7 @@
 	</BackstoryDef>
 
 	<!--
-		Abaddon (hive queen): a daughter of the swarm queen, sealed underground for
+		Abaddon: a daughter of the swarm queen, sealed underground for
 		ages, who commands by scent and never sleeps.
 	-->
 	<BackstoryDef>

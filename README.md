@@ -54,7 +54,7 @@ Vanilla Races Expanded - Insector.
 - `honey` - she fills with honey as she works the plants and tends the animals, and it
   can be milked out of her once there is enough. Metabolic efficiency -2, complexity 2.
 - `beetle armament` - her carapace grows one of three killing tools when she is born:
-  ripper-blades, mandibles or a megaspider horn. Complexity 1.
+  ripper-blades, mandibles or a heavy horn. Complexity 1.
 - `quarrelsome` - -50 opinion of every other woman carrying this same temper, and it
   runs both ways. Metabolic efficiency +1, complexity 1.
 - `honey-hating` - -50 opinion of anyone carrying the honey gene, one way only: the

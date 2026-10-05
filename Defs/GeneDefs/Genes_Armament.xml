@@ -3,7 +3,7 @@
 
 	<!--
 		The soldier beetle's armament (2026-10-01, archive/CASTES-PLAN.md phase 5). The mockup asks for "one
-		of ripper blades, charger claw or megaspider horn", and all three are VRE Insector genes that
+		of ripper blades, a charger claw or a horn", and all three are VRE Insector genes that
 		already exist, so this def is the list and Source/Insects/BeetleArmament.cs is the pick - the
 		same shape the castes' body colours use (archive/HANDOFF.md §5.13): the register is XML, the code
 		never names a weapon (corrected 2026-10-03: see below).
@@ -37,7 +37,7 @@
 	<GeneDef>
 		<defName>PMM_Gene_BeetleArmament</defName>
 		<label>beetle armament</label>
-		<description>Her carapace grows one of three killing tools - a pair of ripper-blades, charger claws, or a megaspider horn - and which one is hers is settled when she is born.</description>
+		<description>Her carapace grows one of three killing tools - a pair of ripper-blades, charger claws, or a heavy horn - and which one is hers is settled when she is born.</description>
 		<geneClass>PMM_Insects.Gene_BeetleArmament</geneClass>
 		<!-- Core's claw art, borrowed while hers is undrawn: it is the closest thing in the family
 		     to "a weapon grown out of her body", it is already loaded (PMM.Core is a dependency),

@@ -4,7 +4,7 @@
 	<!--
 		The brood's egg spew (Phase 5, 2026-09-20). A clone of vanilla's egg-spew ability,
 		and kept a clone on purpose: that way the sac it throws holds a VFEI2 swarmling
-		instead of a vanilla larva. Patching the vanilla ability or sac instead would
+		instead of a vanilla hatchling. Patching the vanilla ability or sac instead would
 		change every vanilla egg sac in the game.
 
 		The chain, and the one link of it that is ours:
